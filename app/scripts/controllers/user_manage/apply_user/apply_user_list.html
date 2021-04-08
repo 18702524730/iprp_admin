@@ -1,0 +1,96 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>集团会员申请</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPBlocMemberListModel"><a href="JavaScript:void(0);" class="current"><span>申请列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>企业名称：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.company_name"></td>
+                    <th><label>状态：</label></th>
+                    <td>
+                        <select ng-model="obj.status">
+                            <option value="">请选择状态</option>
+                            <option value="-1">待审核</option>
+                            <option value="1">审核成功</option>
+                            <option value="0">审核失败</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="12">
+                    <div class="title">
+                        <h5>操作提示</h5>
+                        <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                        <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                    </div>
+                </th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li>通过会员管理，你可以进行审核、查看会员资料操作</li>
+                        <li>你可以根据条件搜索会员，然后选择相应的操作</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">序号</th>
+                    <th class="align-center">法人姓名</th>
+                    <th class="align-center">企业名称</th>
+                    <th class="align-center">所属行业</th>
+                    <th class="align-center">状态</th>
+                    <th style="width: 120px" class="align-center">申请时间</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="member_list.length > 0" class="hover" ng-repeat="list in member_list">
+                    <td class="align-center">
+                        <span ng-bind="list.number"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.owner_name"></td>
+                    <td class="align-center" ng-bind="list.company_name"></td>
+                    <td class="align-center" ng-bind="list.company_industry"></td>
+                    <td class="align-center" ng-bind="list.status | ApplyUserStatusFilter"></td>
+                    <td class="align-center" ng-bind="list.create_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center w120">
+                        <a href="javascript:void(0);" mt-show-model model-name="IPRPCheckBlocMemberModel"
+                           style="cursor: pointer" ng-show="list.status === -1" ng-click = "check(list.member_id)">审核</a>
+                        <a href="javascript:void(0);" mt-show-model model-name="IPRPBlocMemberDetailModel"
+                           style="cursor: pointer" ng-hide="list.status === -1" ng-click = "detail(list.member_id)">查看</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="7"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

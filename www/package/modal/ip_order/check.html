@@ -1,0 +1,53 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">受理操作：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <div style="color: red;padding-left: 20px;padding-top: 15px;" ng-if="error_tip">{{error_tip}}</div>
+    <form role="form" style="padding:5px 15px 20px;">
+        <table class="table tb-type2 nobdb">
+            <tbody class="tr-color">
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label>是否受理：</label>
+                        <label><input type="radio" name="confirm_type" value="1" ng-model="obj.isAccept" ng-checked="obj.isAccept == '1'" ng-click="selectFn(1)">受理</label>
+                        <label><input type="radio" name="confirm_type" value="0" ng-model="obj.isAccept" ng-checked="obj.isAccept == '0'" ng-click="selectFn(0)">拒绝</label>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-if="obj.isAccept == '1'">
+                    <td colspan="4">
+                        <label><span style="color: red"></span>报告天数：</label>
+                        <label><input type="text" name="confirm_type" ng-model="obj.reportDay"> 个工作日出具</label>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-if="obj.isAccept == '1'">
+                    <td colspan="4">
+                        <label><span style="color: red"></span>报告金额：</label>
+                        <label><input type="text" name="confirm_type" ng-model="obj.reportAmount"></label>
+                    </td>
+                </tr>
+                 <tr class="noborder" ng-if="obj.isAccept == '0'">
+                    <td colspan="4">
+                        <label><span style="color: red"></span>原因备注：</label>
+                        <textarea ng-model="obj.closeReason" style="width: 410px;height: 90px;display: block;" maxlength="500"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="4" class="setup_tit">
+                        <a class="fr" ng-click="confirm()" >提交</a>
+                        <a class="fr setup_move" ng-click="cancel()">取消</a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+.modal-dialog{width: 470px;}
+.instructions{color: #999;}
+.nobdb,.nobdb td{border:0!important;}
+</style>

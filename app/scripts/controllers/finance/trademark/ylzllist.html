@@ -1,0 +1,147 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>遗留案件(专利)</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPRemainCaseModel"><a href="JavaScript:void(0);" class="current"><span>工单列表</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>申请号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.ext35"></td>
+					<td colspan="2">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()" style="margin-left: 4px">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+						<!-- <a mt-show-model model-name="IPRPOrderReportModel" href="javascript:void(0);" class="btn-reset" ng-click="search_export()" title="导出">导出</a> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<form style="min-width:1200px;max-width:1650px;overflow-x: auto;">
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center">序号</th>
+					
+                    <th class="align-center">申请号</th>
+                    <th class="align-center" style="min-width: 120px;">申请人</th>
+                    <th class="align-center" style="min-width: 120px;">专利名称</th>
+                    <th class="align-center">业务来源</th>
+					<th class="align-center">普票/专票</th>
+                    <th class="align-center">发票抬头</th>
+                    <th class="align-center">公司税号</th>
+                    <th class="align-center">公司注册地址</th>
+                    <th class="align-center">财务电话</th>
+                    <th class="align-center">开户银行</th>
+                    <th class="align-center">开户银行账号</th>
+                    <th class="align-center" style="min-width: 120px;">备注</th>
+                    <th class="align-center">申请费官费号</th>
+                    <th class="align-center">申请费服务费票号</th>
+                    <th class="align-center" style="min-width: 120px;">开票时间</th>
+                    <th class="align-center">办登费官费号</th>
+                    <th class="align-center">办登费服务费票号</th>
+                    <th class="align-center" style="min-width: 120px;">开票时间</th>
+                    <th class="align-center">第2年费官票号</th>
+                    <th class="align-center">第2年费服务费票号</th>
+                    <th class="align-center" style="min-width: 120px;">开票时间</th>
+                    <th class="align-center">第3年费官票号</th>
+                    <th class="align-center">第3年费服务费票号</th>
+                    <th class="align-center" style="min-width: 120px;">开票时间</th>
+                    <th class="align-center">第4年费官票号</th>
+                    <th class="align-center">第4年费服务费票号</th>
+                    <th class="align-center" style="min-width: 120px;">开票时间</th>
+                    <th class="align-center">第5年费官票号</th>
+                    <th class="align-center">第5年费服务费票号</th>
+                    <th class="align-center" style="min-width: 120px;">开票时间</th>
+                    <th class="align-center">第6年费官票号</th>
+                    <th class="align-center">第6年费服务费票号</th>
+                    <th class="align-center" style="min-width: 120px;">开票时间</th>
+                    <th class="align-center">官票号</th>
+                    <th class="align-center">服务费票号</th>
+                    <th class="align-center" style="min-width: 120px;">开票时间</th>
+                    <th class="align-center">官票号</th>
+                    <th class="align-center">服务费票号</th>
+                    <th class="align-center">官票号</th>
+                    <th class="align-center">服务费票号</th>
+                    <th class="align-center">官票号</th>
+					<th class="align-center">服务费票号</th>
+					<th class="align-center">操作</th>
+
+					
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<td class="align-center"><span ng-bind="list.seqNo"></span></td>
+					
+					<td class="align-center" ng-bind="list.ext35"></td>
+                    <td class="align-center" ng-bind="list.ext18"></td>
+					<td class="align-center" ng-bind="list.ext15"></td>
+					<td class="align-center" ng-bind="list.ext10"></td>
+					<td class="align-center" ng-bind="list.ext25"></td>
+					<td class="align-center" ng-bind="list.ext26"></td>
+					<td class="align-center" ng-bind="list.ext27"></td>
+					<td class="align-center" ng-bind="list.ext28"></td>
+					<td class="align-center" ng-bind="list.ext29"></td>
+					<td class="align-center" ng-bind="list.ext30"></td>
+					<td class="align-center" ng-bind="list.ext31"></td>
+					<td class="align-center" ng-bind="list.ext6"></td>
+                    <td class="align-center" ng-bind="list.ext39"></td>
+                    <td class="align-center" ng-bind="list.ext40"></td>
+                    <td class="align-center" ng-bind="list.ext41|date:'yyyy-MM-dd'"></td>
+                    <td class="align-center" ng-bind="list.ext63"></td>
+					<td class="align-center" ng-bind="list.ext64"></td>
+					<td class="align-center" ng-bind="list.ext65|date:'yyyy-MM-dd'"></td>
+					<td class="align-center" ng-bind="list.ext84"></td>
+					<td class="align-center" ng-bind="list.ext85"></td>
+					<td class="align-center" ng-bind="list.ext86|date:'yyyy-MM-dd'"></td>
+					<td class="align-center" ng-bind="list.ext98"></td>
+					<td class="align-center" ng-bind="list.ext99"></td>
+					<td class="align-center" ng-bind="list.ext100|date:'yyyy-MM-dd'"></td>
+					<td class="align-center" ng-bind="list.ext107"></td>
+					<td class="align-center" ng-bind="list.ext108"></td>
+                    <td class="align-center" ng-bind="list.ext109|date:'yyyy-MM-dd'"></td>
+                    <td class="align-center" ng-bind="list.ext116"></td>
+                    <td class="align-center" ng-bind="list.ext117"></td>
+                    <td class="align-center" ng-bind="list.ext118|date:'yyyy-MM-dd'"></td>
+					<td class="align-center" ng-bind="list.ext125"></td>
+					<td class="align-center" ng-bind="list.ext126"></td>
+					<td class="align-center" ng-bind="list.ext127|date:'yyyy-MM-dd'"></td>
+					<td class="align-center" ng-bind="list.ext133"></td>
+					<td class="align-center" ng-bind="list.ext134"></td>
+					<td class="align-center" ng-bind="list.ext135|date:'yyyy-MM-dd'"></td>
+					<td class="align-center" ng-bind="list.ext142"></td>
+					<td class="align-center" ng-bind="list.ext143"></td>
+					<td class="align-center" ng-bind="list.ext146"></td>
+					<td class="align-center" ng-bind="list.ext147"></td>
+                    <td class="align-center" ng-bind="list.ext150"></td>
+					<td class="align-center" ng-bind="list.ext151"></td>
+					<td class="align-center w120">
+						<a href="JavaScript:void(0);" model-name="IPRPBsOrderDetailModel" style="cursor: pointer;color:#379dea;" ng-click="setInvoiceMsg(list)">编辑</a>
+					</td>
+                    
+                    
+					
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="47" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<!-- <tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="47"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+				</tr>
+			</tfoot> -->
+		</table>
+    </form>
+    <div ng-hide="to_loading">
+        <mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination>
+    </div>
+</div>

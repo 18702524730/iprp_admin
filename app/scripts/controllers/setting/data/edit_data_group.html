@@ -1,0 +1,168 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>权限设置</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPAdminListModel"><a href="#/main/setting_home/admin_list"><span>管理员列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddAdminModel"><a href="#/main/setting_home/add_admin"><span>添加管理员</span></a></li>
+                <li mt-show-model model-name="IPRPGadminListModel"><a href="#/main/setting_home/gadmin_list"><span>功能组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddGadminModel"><a href="#/main/setting_home/add_gadmin"><span>添加功能组</span></a></li>
+                <li mt-show-model model-name="IPRPDataListModel"><a href="#/main/setting_home/data_group_list"><span>业务组列表</span></a></li>
+                <li mt-show-model model-name="IPRPUpdateDateModel"><a class="current"><span>编辑业务组</span></a></li>
+                <li mt-show-model model-name="IPRPAddDataModel"><a href="#/main/setting_home/add_data_group"><span>添加业务组</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content" id="mainContent">
+        <form name="EditDataGroupForm" role="form" class="form-horizontal" novalidate>
+            <div class="sort_list">
+                <div class="category_list ps-container" style="width: 530px;height: 530px;">
+                    <table class="table tb-type2 nobdb">
+                        <tbody>
+                        <tr class="noborder">
+                            <td colspan="2" class="required">
+                                <label class="validation">业务组:</label>
+                                <label class="error" ng-show="EditDataGroupForm.name.$invalid && EditDataGroupForm.submitted">
+                                    <small ng-show="EditDataGroupForm.name.$error.required" class="error">
+                                        <span class="red">业务组名不可以为空</span>
+                                    </small>
+                                    <small class="error" ng-show="EditDataGroupForm.name.$error.pattern">
+                                        <span class="red">业务组名只能使用中文、数字、字母</span>
+                                    </small>
+                                    <small class="error" ng-show="EditDataGroupForm.name.$error.maxlength">
+                                        <span class="red">业务组名最大长度为10位</span>
+                                    </small>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr class="noborder">
+                            <td class="vatop rowform">
+                                <input type="text" maxlength="40" name="name" class="txt" ng-model="detail.name" required>
+                            </td>
+                            <td class="vatop tips"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table class="table tb-type2 nomargin">
+                                    <thead>
+                                    <tr class="space">
+                                        <th>
+                                            &nbsp;&nbsp;设置权限
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table tb-type2" style="margin-top: 0"  ng-repeat="business_class in dataGroupDetail" class="tr-color">
+                        <tbody class="tr-color">
+                        <tr class="hover edit">
+                            <td width="84px;"></td>
+                            <td class="w48" style="width: 12px;">
+                                <a ng-click="Unfold(dataGroupDetail,$index,$event,business_class.isOpenFirst,business_class.isOpenSecond)">
+                                    <img  src="images/tv-expandable.gif" style="display:block;">
+                                </a>
+                                <a ng-click="Unfold(dataGroupDetail,$index,$event,business_class.isOpenFirst,business_class.isOpenSecond)">
+                                    <img  src="images/tv-collapsable.gif" style="display:none;">
+                                </a>
+                            </td>
+                            <td>
+                                <span><a href="" ng-click="sChooseFirst(business_class)">{{business_class.name}}</a></span>
+                            </td>
+                        </tr>
+                        <tbody ng-show="business_class.isOpenFirst" ng-repeat="child in business_class.childes" class="tr-color">
+                        <tr class="hover edit">
+                            <td class="w12">
+                            </td>
+                            <td class="w12">
+                                <a ng-click="ChildUnfold(child, $index,$event,child.isOpenFirst,child.isOpenSecond)" ng-show="child.have_child">
+                                    <img  src="images/tv-expandable.gif" style="display:block;">
+                                </a>
+                                <a ng-click="ChildUnfold(child, $index,$event,child.isOpenFirst,child.isOpenSecond)" ng-show="child.have_child">
+                                    <img  src="images/tv-collapsable.gif" style="display:none;">
+                                </a>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;<img nc_type="flex" src="images/tv-item1.gif">
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="" ng-click="sChooseSecond(child)">{{child.name}}</a>
+                            </td>
+                        </tr>
+                        <tr class="hover edit" ng-show="child.isOpenSecond" ng-repeat="Third in child.childes" >
+                            <td class="w12">
+                            </td>
+                            <td class="w12">
+                                <a ng-show="goodsThird.have_child">
+                                    <img  src="images/tv-expandable.gif" style="display:block;">
+                                </a>
+                                <a ng-show="goodsThird.have_child">
+                                    <img  src="images/tv-collapsable.gif" style="display:none;">
+                                </a>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;<img class="preimg" src="images/vertline.gif">
+                                &nbsp;&nbsp;<img  nc_type="flex" src="images/tv-expandable1.gif">
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="" ng-click="sChooseThree(Third)">{{Third.name}}</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="sort_list">
+                <div style="width: 530px;height: 530px;" class="category_list ps-container">
+                    <table class="table tb-type2 nobdb">
+                        <tbody>
+                        <tr class="noborder">
+                            <td colspan="2" class="required">
+                                <label class="validation">服务:</label>
+                                <label class="error" ng-show="is_service_show">
+                                    <small>
+                                        <span>请选择服务</span>
+                                    </small>
+                                </label>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table tb-type2">
+                        <thead>
+                        <tr class="thead">
+                            <th>
+                                <input type="checkbox" class="checkall" id="" ng-click="allChoose()" name="chkVal" ng-checked="checkall">
+                            </th>
+                            <th class="w40" style="text-align: center">服务分类</th>
+                            <th class="w40" style="text-align: center">服务</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tr-color">
+                            <tr ng-show="business_service.length > 0" class="hover" ng-repeat="data in business_service">
+                                <td class="w24">
+                                    <input type="checkbox" name="" value="" class="checkitem" ng-click="sChoose(business_service,$index)" ng-checked="allId.indexOf(data.bs_id) !== -1">
+                                </td>
+                                <td style="text-align: center" ng-bind="data.bs_class_name"></td>
+                                <td style="text-align: center" ng-bind="data.name"></td>
+                            </tr>
+                            <tr class="hover" ng-show="to_loading">
+                                <td colspan="20" class="norecord">
+                                    <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="tfoot">
+                                <td colspan="20"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </form>
+        <div class="ncsc-form-default" style="width: 88%">
+            <a class="btn" id="submitBtn" style="float: right"><span ng-click="submit()">提交</span></a>
+        </div>
+    </div>
+</div>

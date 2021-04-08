@@ -1,0 +1,184 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>编辑运营位</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>编辑运营位</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="add_business_service_class" role="form" class="form-horizontal" novalidate>
+        <input type="hidden" name="form_submit" value="ok">
+        <table class="table tb-type2">
+            <tbody class="tr-color">
+            	<tr>
+                    <td colspan="2">
+                        <label class="validation">运营位位置:</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <span>{{edit_platform.positionType | productType}}</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <!-- 品质 -->
+                <tr class="noborder" ng-show="edit_platform.positionType===3">
+                    <td colspan="2" class="required">
+                        <label class="validation">商家编号:</label>
+                        <label class="error">
+                            <small ng-show="spSnBol" class="error">
+                                <span class="red">商家编号不可以为空</span>
+                            </small>
+                            <small ng-show="spSnTypeBol" class="error">
+                                <span class="red">商家编号格式十位数字</span>
+                            </small>
+                        </label>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-show="edit_platform.positionType===3" ng-repeat="item in edit_platform.spSnList">
+                    <td class="vatop rowform">
+                        <input type="text" placeholder="请填写商家编号" value="" name="name" class="txt" maxlength="10" ng-model="item.spSnList"   onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" required>
+                        <span class="location_change" ng-click="locationChangeOn(item,$index)" ng-show="$index>0">▲</span>
+                        <span class="location_change" ng-click="locationChangeDown(item,$index)" ng-show="$index<3">▼</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <!-- 交易 -->
+                <tr class="noborder" ng-show="edit_platform.positionType===4">
+                    <td colspan="2" class="required">
+                        <label class="validation">运营位标签名:</label>
+                        <label class="error">
+                            <small ng-show="showNameBol" class="error">
+                                <span class="red">运营位标签名不可以为空</span>
+                            </small>
+                        </label>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-show="edit_platform.positionType===4">
+                    <td class="vatop rowform">
+                        <input type="text" placeholder="请输入运营位名称" value="" name="name" class="txt" maxlength="10" ng-model="edit_platform.showName" required>
+                        <span>限10个字符以内</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr class="noborder" ng-show="edit_platform.positionType===4">
+                    <td colspan="2" class="required">
+                        <label class="validation">权重:</label>
+                        <label class="error">
+                            <small ng-show="showWeightSnBol" class="error">
+                                <span class="red">权重不可以为空</span>
+                            </small>
+                        </label>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-show="edit_platform.positionType===4">
+                    <td class="vatop">
+                        <input type="text" placeholder="请输入权重" value="" name="name" class="txt" maxlength="2" ng-model="edit_platform.showWeight"    required>
+                        <span>请输入1-10之间的数字。数字越大，排序越靠前</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr class="noborder" ng-show="edit_platform.positionType===4">
+                    <td colspan="2">
+                        <label>超链接:</label>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-show="edit_platform.positionType===4">
+                    <td class="vatop rowform" style="width: 470px;">
+                        <input type="text" placeholder="请输入超链接" value="" name="name" class="txt" ng-model="edit_platform.showUrl" required>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr class="noborder" ng-show="edit_platform.positionType===4">
+                    <td colspan="2" class="required">
+                        <label class="validation">商标编号:</label>
+                        <label class="error">
+                            <small ng-show="goodsSnBol" class="error">
+                                <span class="red">商标编号不可以为空</span>
+                            </small>
+                        </label>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-show="edit_platform.positionType===4" ng-repeat="item in edit_platform.goodsSnList">
+                    <td class="vatop rowform">
+                        <input type="text" placeholder="请填写商标编号" value="" name="name" class="txt" maxlength="15" ng-model="item.goodsSnList" required>
+                        <span class="location_change" ng-click="locationChangeOn(item,$index)" ng-show="$index>0">▲</span>
+                        <span class="location_change" ng-click="locationChangeDown(item,$index)" ng-show="$index<7">▼</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <!-- 优选 -->
+                <tr class="noborder" ng-show="edit_platform.positionType===5">
+                    <td colspan="2" class="required">
+                        <label class="validation">商家编号与商品编号:</label>
+                        <label class="error">
+                            <small ng-show="goodsSnBol" class="error">
+                                <span class="red">商家编号与商品编号不可以为空</span>
+                            </small>
+                        </label>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-show="edit_platform.positionType===5" ng-repeat="item in edit_platform.spGoodsSnList">
+                    <td class="vatop" style="width: 400px;">
+                        <input type="text" placeholder="请输入商家编号" value="" name="name" class="txt" maxlength="10" ng-model="item.spSn" required>
+                        <input type="text" placeholder="请输入商品编号" value="" name="name" class="txt" maxlength="12" ng-model="item.goodsSnList[0]" required>
+                        <input type="text" placeholder="请输入商品编号" value="" name="name" class="txt" maxlength="12" ng-model="item.goodsSnList[1]" required>
+                        <span class="location_change" ng-click="locationChangeOn(item,$index)" ng-show="$index>0">▲</span>
+                        <span class="location_change" ng-click="locationChangeDown(item,$index)" ng-show="$index<5">▼</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <!-- 支付成功 -->
+                <tr class="noborder" ng-show="edit_platform.positionType===6">
+                    <td colspan="2" class="required">
+                        <label class="validation">商品编号:</label>
+                        <label class="error">
+                            <small ng-show="goodsSnBol" class="error">
+                                <span class="red">商品编号不可以为空</span>
+                            </small>
+                        </label>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-show="edit_platform.positionType===6" ng-repeat="item in edit_platform.goodsSnList">
+                    <td class="vatop rowform">
+                        <input type="text" placeholder="请填写商标编号" value="" name="name" class="txt" maxlength="12" ng-model="item.goodsSnList" required>
+                        <span class="location_change" ng-click="locationChangeOn(item,$index)" ng-show="$index>0">▲</span>
+                        <span class="location_change" ng-click="locationChangeDown(item,$index)" ng-show="$index<4">▼</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr class="space">
+                    <td colspan="2">
+                        <label>备注:</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <textarea name="return_message"
+                            ng-maxlength="100" style="width: 360px;height: 130px;" placeholder="请填写备注信息" ng-model="edit_platform.remark" required>
+                        </textarea>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="15">
+                        <a href="" ng-show="edit_platform.positionType===3" class="btn" id="submitBtn" ng-click="qualitySubmit()"><span>提交</span></a>
+                        <a href="" ng-show="edit_platform.positionType===4" class="btn" id="submitBtn" ng-click="qualityTransaction()"><span>提交</span></a>
+                        <a href="" ng-show="edit_platform.positionType===5" class="btn" id="submitBtn" ng-click="optimizationTransaction()"><span>提交</span></a>
+                        <a href="" ng-show="edit_platform.positionType===6" class="btn" id="submitBtn" ng-click="spendTransaction()"><span>提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+
+</div>
+<style>
+.location_change{
+    cursor: pointer;
+}
+</style> 
+ 

@@ -1,0 +1,81 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>支付方式</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPPaymentListModel"><a href="#/main/setting_home/payment_list"><span>支付方式列表</span></a></li>
+                <li mt-show-model model-name="IPRPUpdatePaymentModel"><a class="current"><span>编辑支付方式</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="edit_payment_form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 nobdb">
+            <tbody class="tr-color">
+                <tr>
+                    <td colspan="2" class="required">支付方式: </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">{{payDetail.name}}</td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">编码: </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">{{payDetail.code}}</td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        支付图片:
+                        <span class="error" ng-show="edit_payment_form.file_name.$invalid && edit_payment_form.submitted">
+                            <small ng-show="edit_payment_form.file_name.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>支付图片不可以为空</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform" >
+                        <span class="type-file-box">
+                            <input  value="" class="type-file-text" name="file_name" ng-model="payDetail.fileName" style="width: 120px;" required>
+                            <span type="button" upload thumb-src="payDetail.image" file-name="payDetail.fileName"></span>
+                            <img ng-if="payDetail.image != ''" style="width: 65px; height: 25px;" ng-src="{{payDetail.image}}">
+                        </span>
+                    </td>
+                    <td class="vatop tips">图片尺寸：149*54</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">启用: </td>
+                </tr>
+                <tr>
+                    <td class="vatop rowform onoff">
+                        <label for="attr_show1"   class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-right:none;border-top-left-radius:4px;
+                                border-top-right-radius:0;
+                                border-bottom-right-radius:0;
+                                border-bottom-left-radius:4px;">
+                            <span ng-click="turnOn()" ng-class="{'selected':payDetail.state === 1}">是</span>
+                        </label>
+                        <label for="attr_show0" class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-left:none;border-top-left-radius:0;
+                                border-top-right-radius:4px;
+                                border-bottom-right-radius:4px;
+                                border-bottom-left-radius:0;">
+                            <span ng-click="turnOff()" ng-class="{'selected':payDetail.state === 0}">否</span>
+                        </label>
+                        <input style="display:none;" id="attr_show1" name="attr_show" checked="checked" value="1" type="radio">
+                        <input style="display:none;" id="attr_show0" name="attr_show" value="0" type="radio">
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr class="tfoot">
+                <td colspan="15">
+                    <a class="btn" id="submitBtn"><span ng-click="edit()">提交</span></a><!--
+                    <a class="btn"><span ng-click="return()">返回</span></a>-->
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

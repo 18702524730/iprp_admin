@@ -1,0 +1,218 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>系统信息</h3>
+        </div>
+    </div>
+    <div class="info-panel" >
+        <dl class="member" ng-if='showobj.order_list_show'>
+            <dt>
+            <div class="ico"><i></i><sub title="会员总数"><span><em id="statistics_member">{{MemberCount[2]}}</em></span></sub></div>
+            <h3>会员</h3>
+            <h5>新增会员
+            </h5>
+            </dt>
+            <dd>
+                <ul>
+                    <span>
+                        <li class="w100pre high" id="userToday">
+                            <a href="JavaScript:void(0);" ng-click="member($event)">本日新增
+                                <sub>
+                                    <em id="statistics_day_add_member">{{MemberCount[0]}}</em>
+                                </sub>
+                            </a>
+                        </li>
+                    </span>
+                    <span>
+                        <li class="w100pre high" id="applicationMonth">
+                            <a href="JavaScript:void(0);" id="bt1" ng-click="memberApplication($event)">集团会员申请
+                                <sub>
+                                    <em id="statistics_day_add_memberApplication">{{ApplicationMemberCount[2]}}</em>
+                                </sub>
+                            </a>
+                        </li>
+                    </span>
+                </ul>
+            </dd>
+        </dl>
+        <dl class="shop" ng-if='showobj.order_list_show'>
+            <dt>
+            <div class="ico"><i></i><sub title="服务总数"><span><em id="statistics_business">{{business_count[2]}}</em></span></sub></div>
+            <h3>服务</h3>
+            <h5>新增服务
+            </h5>
+            </dt>
+            <dd>
+                <ul>
+                    <span>
+                        <li class="w100pre high" id="businessToday">
+                            <a href="JavaScript:void(0);" ng-click="business($event)">本日新增
+                                <sub>
+                                    <em id="statistics_day_add_business">{{business_count[0]}}</em>
+                                </sub>
+                            </a>
+                        </li>
+                    </span>
+                    <span>
+                        <li class="w100pre high" id="businessMonth">
+                            <a href="JavaScript:void(0);" ng-click="business($event)">本月新增
+                                <sub>
+                                    <em>{{business_count[1]}}</em>
+                                </sub>
+                            </a>
+                        </li>
+                    </span>
+                </ul>
+            </dd>
+        </dl>
+        <dl class="goods" ng-if='showobj.order_list_show'>
+            <dt>
+            <div class="ico"><i></i><sub title="商家总数"><span><em id="statistics_sp">{{servicesCount[2]}}</em></span></sub></div>
+            <h3>商家</h3>
+            <h5>新增商家
+            </h5>
+            </dt>
+            <dd>
+                <ul>
+                    <li class="w100pre high" id="todayService">
+                        <a href="JavaScript:void(0);" ng-click="Service($event)">本日新增
+                            <sub>
+                                <em id="statistics_day_add_sp">{{servicesCount[0]}}</em>
+                            </sub>
+                        </a>
+                    </li>
+                    <li class="w100pre high" id="monthService">
+                        <a href="JavaScript:void(0);" ng-click="Service($event)">本月新增
+                            <sub>
+                                <em id="statistics_month_add_sp">{{servicesCount[1]}}</em>
+                            </sub>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+        <dl class="trade" ng-if='showobj.order_list_show'>
+            <dt>
+            <div class="ico"><i></i><sub title="渠道商总数"><span><em id="statistics_channel">{{channelCount[2]}}</em></span></sub></div>
+            <h3>渠道商</h3>
+            <h5>新增渠道商
+            </h5>
+            </dt>
+            <dd>
+                <ul>
+                    <li class="w100pre high" id="todayChannel">
+                        <a href="JavaScript:void(0);" ng-click="channel($event)">本日新增
+                            <sub>
+                                <em id="statistics_day_add_channel">{{channelCount[0]}}</em>
+                            </sub>
+                        </a>
+                    </li>
+                    <li class="w100pre high" id="monthChannel">
+                        <a href="JavaScript:void(0);" ng-click="channel($event)">本月新增
+                            <sub>
+                                <em id="statistics_month_add_channel">{{channelCount[1]}}</em>
+                            </sub>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+        <dl class="operation" ng-if='showobj.order_list_show'>
+            <dt>
+            <div class="ico"><i></i><sub title="订单总数"><span><em id="statistics_orders">{{orderCount[2]}}</em></span></sub></div>
+            <h3>订单</h3>
+            <h5>新增订单</h5>
+            </dt>
+            <dd>
+                <ul>
+                    <li class="w100pre high" id="todayOrder">
+                        <a href="JavaScript:void(0);" ng-click="order($event)">本日新增
+                            <sub title="">
+                               <em id="statistics_day_add_order">{{orderCount[0]}}</em>
+                            </sub>
+                        </a>
+                    </li>
+                    <li class="w100pre high" id="monthOrder">
+                        <a href="JavaScript:void(0);" ng-click="order($event)">本月新增
+                            <sub title="">
+                                <em id="statistics_month_add_order">{{orderCount[1]}}</em>
+                            </sub>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+        <dl class="cms" ng-if='showobj.order_list_show'>
+            <dt>
+            <div class="ico"><i></i><sub title="发票总数"><span><em id="statistics_invoice">{{invoiceCount[4]}}</em></span></sub></div>
+            <h3>发票</h3>
+            <h5>新增发票/红冲发票申请</h5>
+            </dt>
+            <dd>
+                <ul>
+                    <li style="width: 25%;" id="new_add_invoice" class="w25pre high">
+                        <a href="JavaScript:void(0);" ng-click="today_invoice($event)">本日新增
+                            <sub title="">
+                                <em id="statistics_day_add_invoices">{{invoiceCount[0]}}</em>
+                            </sub>
+                        </a>
+                    </li>
+                    <li style="width: 25%;" id="unOpen" class="w25pre high">
+                        <a href="JavaScript:void(0);" id="unopen_btn" ng-click="unopen_btn($event)">发票待开
+                            <sub><em>{{invoiceCount[3]}}</em></sub>
+                        </a>
+                    </li>
+                    <li style="width: 25%;" id="redUnOpen" class="w25pre high">
+                        <a href="JavaScript:void(0);" id="red_unopen_btn" ng-click="red_unopen_btn($event)">红冲发票待开
+                            <sub><em>{{invoiceCount[2]}}</em></sub>
+                        </a>
+                    </li>
+                    <li style="width: 25%;" id="redApply" class="w25pre high">
+                        <a href="JavaScript:void(0);" ng-click="red_check_btn($event)">红冲发票申请<sub>
+                            <em>{{invoiceCount[1]}}</em></sub>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+        <dl class="circle" ng-if='showobj.order_list_show'>
+            <dt>
+            <div class="ico"><i></i><sub title="退款总数"><span><em id="statistics_refund">{{refundCount[2]}}</em></span></sub></div>
+            <h3>退款</h3>
+            <h5>新增退款</h5>
+            </dt>
+            <dd>
+                <ul>
+                    <li class="w100pre high" id="todayRefund">
+                        <a href="JavaScript:void(0);" ng-click="refund($event)">本日新增
+                            <sub title="">
+                                <em id="statistics_day_add_refund">{{refundCount[0]}}</em>
+                            </sub>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+        <dl class="microshop">
+            <dt>
+            <div class="ico"><i></i>
+                <a id="UPDATE" style="visibility:hidden;" title="" target="_blank"
+                   href="javascript:void(0);"><sub><span>new</em></span></sub></a>
+            </div>
+            <h3></h3>
+
+            <div id="system-info">
+                <ul>
+                    <li><span>V 1.0.0</span></li>
+                    <li><span>2016-04-12</span></li>
+                </ul>
+            </div>
+            </dt>
+            <dd>
+                <ul>
+                    <li class="w50pre none" style="width:100%;text-align:center"><a href="http://www.ipsebe.com/" target="_blank">官方网站<sub></sub></a></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</div>

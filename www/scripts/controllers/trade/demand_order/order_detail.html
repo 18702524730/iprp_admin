@@ -1,0 +1,82 @@
+<div class="page">
+		<div class="fixed-bar">
+				<div class="item-title">
+						<h3>需求单详情</h3>
+						<ul class="tab-base">
+								<li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:history.go(-1)"><span>需求单列表</span></a></li>
+								<li mt-show-model model-name="IPRPOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>需求单详情</span></a></li>
+						</ul>
+				</div>
+		</div>
+		<table class="table tb-type2 order">
+				<tbody class="tr-color">
+						<tr class="space">
+								<th colspan="2">合伙人信息</th>
+						</tr>
+						<tr>
+							<td>
+								<ul>
+									<li><strong>合伙人手机：</strong>{{order_detail.partnerInfo.phone || '--'}}</li>
+									<li><strong>合伙人昵称：</strong>{{order_detail.partnerInfo.nickname || '--'}}</li>
+									<li><strong>合伙人店铺名称：</strong>{{order_detail.partnerInfo.storeName || '--'}}</li>
+									<li><strong>上级合伙人手机：</strong>{{order_detail.partnerInfo.parentPhone || '--'}}</li>
+									<li><strong>上级合伙人昵称：</strong>{{order_detail.partnerInfo.parentNickname || '--'}}</li>
+								</ul>
+							</td>
+						</tr>
+						<tr class="space">
+								<th colspan="2">需求信息</th>
+						</tr>
+						<tr>
+								<td>
+										<ul>
+												<li><strong>需求单号：</strong>{{order_detail.requirementInfo.requirementSn}}</li>
+												<li><strong>需求单状态：</strong>{{order_detail.requirementInfo.status|demandStatusFilter}}</li>
+												<li><strong>客户手机：</strong>{{order_detail.requirementInfo.phone}}</li>
+												<li style="width: 100%;"><strong>客户姓名：</strong>{{order_detail.requirementInfo.name}}</li>
+												<li style="width: 100%;"><strong>需求描述：</strong>{{order_detail.requirementInfo.requirementDesc}}</li>
+												<li style="width: 100%;"><strong>备注：</strong>{{order_detail.requirementInfo.remark}}</li>
+										</ul>
+								</td>
+						</tr>
+						<tr class="space">
+							<th colspan="2">接待客服</th>
+						</tr>
+						<tr>
+								<td>
+										<ul>
+												<li><strong>合伙人手机：</strong>{{order_detail.receptionCustomerService.phone}}</li>
+												<li><strong>合伙人昵称：</strong>{{order_detail.receptionCustomerService.nickname}}</li>
+												<li><strong>合伙人店铺：</strong>{{order_detail.receptionCustomerService.storeName}}</li>
+										</ul>
+								</td>
+						</tr>
+						<tr class="space">
+							<th colspan="2">客服留言</th>
+						</tr>
+						<tr>
+								<td>
+									<ul ng-repeat="item in order_detail.leaveWordList">
+										<li>{{item.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</li>
+										<li>{{item.content}}</li>
+									</ul>
+							</td>
+						</tr>
+						<tr class="space">
+							<th colspan="2">关联订单</th>
+						</tr>
+						<tr>
+								<td>
+										<ul>
+												<li><strong>订单号：</strong>{{order_detail.relateOrder.orderSn}}</li>
+												<li><strong>下单时间：</strong>{{order_detail.relateOrder.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</li>
+												<li><strong>订单状态</strong>{{order_detail.relateOrder.orderState | deOrderStatusFilter}}</li>
+												<li><strong>订单金额：</strong>{{order_detail.relateOrder.orderAmount}}</li>
+												<li><strong>实付：</strong>{{order_detail.relateOrder.payAmount}}</li>
+												<li><strong>收益：</strong>{{order_detail.relateOrder.income}}</li>
+										</ul>
+								</td>
+						</tr>
+				</tbody>
+		</table>
+</div>

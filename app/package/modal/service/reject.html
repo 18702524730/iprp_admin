@@ -1,0 +1,66 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">审核：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form name="reject_form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 nobdb" >
+            <tbody class="tr-color">
+                <tr class="noborder">
+                    <td colspan="2" >
+                        <label>支付单:</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <span>{{order_pay_detail.pay_sn}}</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label>日期:</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <span>{{order_pay_detail.pay_time | date:'yyyy-MM-dd HH:ss:mm'}}</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label class="validation">结算金额:</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <p>{{order_pay_detail.pay_amount}}</p>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        <label class="validation">备注:</label>
+                        <span class="error">{{error}}</span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <textarea name="desc" style="width: 250px;height: 110px"
+                                  ng-model="order_pay_detail.description" required></textarea>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2">
+                        <a class="btn" id="submitBtn"><span ng-click="save()">提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

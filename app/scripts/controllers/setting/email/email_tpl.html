@@ -1,0 +1,66 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>邮件通知</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPEmailTplListModel"><a class="current"><span>邮件模板列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddEmailTplModel"><a href="#/main/setting_home/add_email_tpl"><span>添加邮件模板</span></a></li>
+                <li mt-show-model model-name="IPRPEmailSetModel"><a href="#/main/setting_home/email"><span>邮件设置</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd">
+                <th colspan="12"><div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form name="form1">
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th>序号</th>
+                    <th>模板描述</th>
+                    <th></th>
+                    <th width="120px" class="align-center">创建时间</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="hover" ng-show="MailTemplateList.length>0" ng-repeat="template in MailTemplateList">
+                    <td class="w24" ng-bind="template.number"></td>
+                    <td class="w50pre" ng-bind="template.name"></td>
+                    <td></td>
+                    <td class="align-center power-onoff" ng-bind="template.create_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="w60 align-center">
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPUpdateEmailTplModel" ng-click="edit_email_tpl(template.code)">编辑</a>
+                    </td>
+                </tr>
+                <tr class="hover" ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr>
+                    <td colspan="5">
+                        <mt-pagination pagination-obj="pagination"></mt-pagination>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

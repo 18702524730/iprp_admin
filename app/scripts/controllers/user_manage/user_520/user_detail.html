@@ -1,0 +1,178 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>会员管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPMemberListModel"><a href="#/main/user_home/user_list_520"><span>会员列表</span></a></li>
+                <li mt-show-model model-name="IPRPMemberDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+  <table class="table tb-type2 order">
+    <tbody class="tr-color">
+        <tr class="space">
+          <th colspan="2">基本信息  用户ID:{{member_detail.member_sn}}</th>
+        </tr>
+        <tr>
+              <td>
+                <ul>
+                  <li ><img style="width:80px; height:80px;" ng-src="{{member_detail.avatar}}"/></li>
+                  <li><strong>昵称：</strong>{{member_detail.nickname}}</li>
+                  <li><strong>姓名：</strong>{{member_detail.truename}}</li>
+                  <li><strong>性别：</strong>{{member_detail.sex | memberSexFilter}}</li>
+                  <!--<li><strong>所属行业：</strong>{{member_detail.member_industry}}</li>-->
+                  <li ng-if="!isNaN(member_detail.member_industry)"><strong>所属行业：</strong>{{member_detail.member_industry}}</li>
+                  <li ng-if="isNaN(member_detail.member_industry)"><strong>所属行业：</strong>{{member_detail.member_industry | industryType}}</li>
+                  <li><strong>手机号码：</strong>{{member_detail.phone}}</li>
+                  <li><strong>注册渠道：</strong>{{member_detail.registFrom == 1 ? 'PC': 'H5'}}</li>
+                  <li><strong>QQ：</strong>{{member_detail.member_qq}}</li>
+                  <li><strong>邮箱：</strong>{{member_detail.email}}</li>
+                  <li ng-if="member_detail.isBindWxAccount == 1"><strong>微信号：</strong>{{member_detail.member_wechat}}</li>
+                  <li ng-if="member_detail.isBindWxAccount == 1"><strong>微信昵称：</strong>{{member_detail.wxNickName}}</li>
+                  <li><strong>微信绑定：</strong>{{member_detail.isBindWxAccount == 1 ? '已绑定': '未绑定'}}</li>
+                  <!-- <li ng-if="member_detail.isBindTbAccount == 1"><strong>淘宝号：</strong>{{member_detail.member_taobao}}</li> -->
+                  <li ng-if="member_detail.isBindTbAccount == 1"><strong>淘宝昵称：</strong>{{member_detail.tbNickName}}</li>
+                  <li><strong>淘宝绑定：</strong>{{member_detail.isBindTbAccount == 1 ? '已绑定': '未绑定'}}</li>
+                  <li><strong>是否是创新保会员：</strong>{{member_detail.isCxbMember === 1 ? '是': member_detail.isCxbMember === 0 ? '否' : ''}}</li>
+                  <li><strong>客服联系人：</strong>{{member_detail.memberLinkMan}}</li>
+                  <li><strong>备注信息：</strong>{{member_detail.memberLinkManMemo}}</li>
+                </ul>
+              </td>
+        </tr>
+
+        <tr class="space">
+          <th colspan="2">用户资产</th>
+        </tr>
+        <tr>
+            <td>
+              <ul>
+                <li><strong>会员等级：</strong>{{member_detail.statistics.vip.vipName}}</li>
+                <li><strong>会员生效时间：</strong>{{member_detail.statistics.vip.createdTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                <li ng-if="member_detail.statistics.vip.vipName == '免费会员' "><strong>会员到期时间：</strong>永久</li>
+                <li ng-if="member_detail.statistics.vip.vipName != '免费会员' "><strong>会员到期时间：</strong>{{member_detail.statistics.vip.validTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                <li><strong>知识产权托管总数：</strong>{{member_detail.statistics.trademark.depositeTotal}}</li>
+                <li><strong>剩余托管次数：</strong>{{member_detail.statistics.trademark.surplusTrademarkNum}}</li>
+                <li><strong>已托管商标：</strong>{{member_detail.statistics.trademark.trademarkNum}}</li>
+                <li><strong>已托管专利：</strong>{{member_detail.statistics.trademark.patentNum}}</li>
+                <li><strong>存证包购买总数：</strong>{{member_detail.statistics.cz.czTotal}}</li>
+                <li><strong>存证包剩余使用次数：</strong>{{member_detail.statistics.cz.surplusCzNum}}</li>
+                <li><strong>存证成功数：</strong>{{member_detail.statistics.cz.czNum}}</li>
+                <li><strong>出证数：</strong>{{member_detail.statistics.cz.issueNum}}</li>
+                <li><strong>已购企业知识产权分析报告：</strong>{{member_detail.statistics.report.qy}}</li>
+                <li><strong>已用企业知识产权分析报告：</strong>{{member_detail.statistics.report.qyy}}</li>
+                <li><strong>已购电商检测及销售报告：</strong>{{member_detail.statistics.report.ds}}</li>
+                <li><strong>已用电商检测及销售报告：</strong>{{member_detail.statistics.report.dsy}}</li>
+                <li><strong>已购近似商标检测报告：</strong>{{member_detail.statistics.report.js}}</li>
+                <li><strong>已用近似商标检测报告：</strong>{{member_detail.statistics.report.jsy}}</li>
+              </ul>
+            </td>
+        </tr>
+
+        <tr class="space">
+          <th colspan="2">主体信息</th>
+        </tr>
+
+        <tr ng-show="member_detail.applySubjectDTOList.length > 0" ng-repeat="detail in member_detail.applySubjectDTOList">
+          <td>
+            <ul ng-show="detail.apply_type == 1">
+              <li><strong>{{detail.apply_name}}</strong><span ng-if="detail.is_checked==1" class="real_name">已实名认证</span></li>
+              <li><strong>主体类型：</strong>{{detail.apply_type |memberApplySubjectFilter}}</li>
+              <li><strong>申请人姓名：</strong>{{detail.apply_name}}</li>
+              <li><strong>申请人身份证号：</strong>{{detail.apply_number}}</li>
+              <li><strong>申请人手机号：</strong>{{detail.apply_phone}}</li>
+              <li><strong>申请人邮箱：</strong>{{detail.apply_email}}</li>
+              <li><strong>申请人邮编：</strong>{{detail.zip_code}}</li>
+              <li><strong>申请人地址：</strong>{{detail.area_info+detail.address}}</li>
+              <li ng-if="detail.is_checked==1"><strong>银行卡号：</strong>{{detail.bankCard}}</li>
+              <li ng-if="detail.is_checked==1"><strong>银行预留手机号：</strong>{{detail.bankPhone}}</li>
+            </ul>
+            <ul ng-show="detail.apply_type == 2">
+              <li><strong>{{detail.apply_name}}</strong><span ng-if="detail.is_checked==1" class="real_name">已实名认证</span></li>
+              <li><strong>主体类型：</strong>{{detail.apply_type |memberApplySubjectFilter}}</li>
+              <li><strong>申请人企业名称：</strong>{{detail.apply_name}}</li>
+              <li><strong>企业营业执照编码：</strong>{{detail.apply_number}}</li>
+              <li><strong>企业联系电话：</strong>{{detail.apply_phone}}</li>
+              <li><strong>企业邮箱：</strong>{{detail.apply_email}}</li>
+              <li><strong>邮政编码：</strong>{{detail.zip_code}}</li>
+              <li><strong>企业注册地址：</strong>{{detail.area_info+detail.address}}</li>
+              <li ng-if="detail.is_checked==1"><strong>企业对公账号：</strong>{{detail.inAcctNo}}</li>
+              <li ng-if="detail.is_checked==1"><strong>对公账户开户行：</strong>{{detail.bankName}}</li>
+              <li ng-if="detail.is_checked==1"><strong>统一社会信用代码：</strong>{{detail.apply_number}}</li>
+            </ul>
+            <ul ng-show="detail.apply_type == 3">
+              <li><strong>{{detail.apply_name}}</strong><span ng-if="detail.is_checked==1" class="real_name">已实名认证</span></li>
+              <li><strong>主体类型：</strong>{{detail.apply_type |memberApplySubjectFilter}}</li>
+              <li><strong>申请人姓名(英文)：</strong>{{detail.name_en}}</li>
+              <li><strong>申请人姓名(中文)：</strong>{{detail.apply_name}}</li>
+              <li><strong>申请人护照号：</strong>{{detail.apply_number}}</li>
+              <li><strong>申请人联系电话：</strong>{{detail.apply_phone}}</li>
+              <li><strong>申请人邮箱：</strong>{{detail.apply_email}}</li>
+              <li><strong>申请人传真：</strong>{{detail.apply_fax}}</li>
+              <li><strong>申请人邮编：</strong>{{detail.zip_code}}</li>
+              <li><strong>申请人地址：</strong>{{detail.area_info+detail.address}}</li>
+              <li ng-if="detail.is_checked==1"><strong>银行卡号：</strong>{{detail.bankCard}}</li>
+              <li ng-if="detail.is_checked==1"><strong>银行预留手机号：</strong>{{detail.bankPhone}}</li>
+            </ul>
+            <ul ng-show="detail.apply_type == 4">
+              <li><strong>{{detail.apply_name}}</strong><span ng-if="detail.is_checked==1" class="real_name">已实名认证</span></li>
+              <li><strong>主体类型：</strong>{{detail.apply_type |memberApplySubjectFilter}}</li>
+              <li><strong>企业名称（英文）：</strong>{{detail.name_en}}</li>
+              <li><strong>企业名称（中文）：</strong>{{detail.apply_name}}</li>
+              <li><strong>企业联系电话：</strong>{{detail.apply_phone}}</li>
+              <li><strong>企业邮箱：</strong>{{detail.apply_email}}</li>
+              <li><strong>企业传真：</strong>{{detail.apply_fax}}</li>
+              <li><strong>企业注册地址：</strong>{{detail.area_info+detail.address}}</li>
+              <li ng-if="detail.is_checked==1"><strong>银行卡号：</strong>{{detail.bankCard}}</li>
+              <li ng-if="detail.is_checked==1"><strong>银行预留手机号：</strong>{{detail.bankPhone}}</li>
+            </ul>
+            <ul ng-show="detail.apply_type == 5">
+              <li><strong>{{detail.apply_name}}</strong><span ng-if="detail.is_checked==1" class="real_name">已实名认证</span></li>
+              <li><strong>主体类型：</strong>{{detail.apply_type |memberApplySubjectFilter}}</li>
+              <li><strong>申请人姓名：</strong>{{detail.apply_name}}</li>
+              <li><strong>申请人身份证号：</strong>{{detail.apply_number}}</li>
+              <li><strong>申请人手机号：</strong>{{detail.apply_phone}}</li>
+              <li><strong>申请人邮箱：</strong>{{detail.apply_email}}</li>
+              <li><strong>申请人邮编：</strong>{{detail.zip_code}}</li>
+              <li><strong>申请人地址：</strong>{{detail.area_info+detail.address}}</li>
+              <li ng-if="detail.is_checked==1"><strong>银行卡号：</strong>{{detail.bankCard}}</li>
+              <li ng-if="detail.is_checked==1"><strong>银行预留手机号：</strong>{{detail.bankPhone}}</li>
+            </ul>
+          </td>
+        </tr>
+        <tr class="space">
+          <th colspan="2">开票信息</th>
+        </tr>
+        <tr ng-show="member_detail.memberInvoiceDTOList.length > 0" ng-repeat="item in member_detail.memberInvoiceDTOList">
+          <td>
+            <ul>
+              <li><strong>发票类型：</strong>{{item.invoice_type | invoiceSubjectFilter}}</li>
+              <li><strong>发票抬头：</strong>{{item.invoice_title}}</li>
+              <li><strong>纳税人识别号：</strong>{{item.invoice_code}}</li>
+              <li><strong>注册电话：</strong>{{item.regist_phone}}</li>
+              <li><strong>注册地址：</strong>{{item.area_info + item.address || '--'}}</li>
+              <li><strong>开户行名称：</strong>{{item.account_bank}}</li>
+              <li><strong>银行账号：</strong>{{item.account_number}}</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr class="space">
+          <th colspan="2">收件地址</th>
+        </tr>
+        <tr ng-show="member_detail.memberAddressDTOList.length > 0" ng-repeat="addressDetail in member_detail.memberAddressDTOList">
+          <td>
+            <ul>
+              <li><strong>收件人：</strong>{{addressDetail.true_name}}</li>
+              <li><strong>联系号码：</strong>{{addressDetail.tel_phone}}</li>
+              <li><strong>邮箱：</strong>{{addressDetail.email}}</li>
+              <li><strong>收件地址：</strong>{{addressDetail.area_info+addressDetail.address}}</li>
+              <li><strong>邮政编码：</strong>{{addressDetail.zip_code}}</li>
+            </ul>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+<style>
+  .real_name{display: inline-block;padding:0px 5px;border: 1px solid #999;border-radius: 3px;font-size: 14px;color:#999;margin-left: 5px;}
+</style>

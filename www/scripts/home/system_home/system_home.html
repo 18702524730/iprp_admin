@@ -1,0 +1,20 @@
+<table class="menutd" valign="top" style="padding: 0px;width: 100%; height: 100%;margin-top:10px" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" style="width: 161px;height: 690px;">
+            <ul style="display: block; width: 162px" class="main-menu">
+                <li><a class="selected" ng-click="select($event)" href="#/main/system_home/user_area_statistics">用户区域分布</a></li>
+                <li><a ng-click="select($event)" href="#/main/system_home/user_up_statistics">用户增长趋势</a></li>
+                <li><a ng-click="select($event)" href="#/main/system_home/order_up_statistics">订单增长趋势</a></li>
+                <li><a ng-click="select($event)" href="#/main/system_home/pay_statistics">支付单数统计</a></li>
+                <li><a ng-click="select($event)" href="#/main/system_home/singular_statistics">单数统计</a></li>
+                <li><a ng-click="select($event)" href="#/main/system_home/back_statistics">反馈通过统计</a></li>
+                <li><a ng-click="select($event)" href="#/main/system_home/service_order_statistics">服务商接单能力</a></li>
+                <li><a ng-click="select($event)" href="#/main/system_home/service_statistics">服务商统计</a></li>
+                <li><a ng-click="select($event)" href="#/main/system_home/operator_statistics">平台数据统计</a></li>
+            </ul>
+        </td>
+        <td ui-view class="ng-scope" valign="top" style="min-width: 1180px; min-height: 1000px;">
+
+        </td>
+    </tr>
+</table>

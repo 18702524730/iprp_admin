@@ -1,0 +1,81 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>服务管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPBusinessListModel"><a href="#/main/business_home/business_list"><span>服务管理</span></a></li>
+                <li mt-show-model model-name="IPRPUpdateBusinessModel"><a class="current"><span>编辑</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 order">
+            <tbody class="tr-color">
+                <tr class="space">
+                    <th colspan="15">服务信息</th>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table tb-type2 noborder search">
+            <tbody class="tr-color">
+                <tr><td>所属分类：{{businessService_detail.bs_class_name}}&nbsp;&nbsp;
+                    <a href="JavaScript:void(0);" mt-show-model model-name="IPRPUpdateBusinessModel" ng-click="edit_business(businessService_detail.bs_id)" style="color: #0000ff">[编辑]</a></td></tr>
+                <tr><td>服务：{{businessService_detail.name}}</td></tr>
+                <tr><td>服务编码：{{businessService_detail.code}}</td></tr>
+                <!--<tr><td>状态：{{businessService_detail.state | serviceStatusFilter}}</td></tr>-->
+            </tbody>
+        </table>
+    </form>
+    <table class="table tb-type2">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="15">服务阶段配置</th>
+            </tr>
+        </tbody>
+    </table>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" style="width: 40px;">序号</th>
+                    <th class="align-center">阶段</th>
+                    <th class="align-center">阶段编码</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr ng-show="business_feed.elements.length > 0" class="hover" ng-repeat="list in business_feed.elements">
+                    <td class="align-center" ng-bind="list.number"></td>
+                    <td class="align-center">
+                        <input style="width: 180px;" ng-blur="blur(list.name,business_feed.elements,$index,'name')"
+                               ng-focus="focus(list.name)" type="text" class="txt" ng-model="list.name"/>
+                    </td>
+                    <td class="align-center">
+                        <input style="width: 180px;" ng-blur="blur(list.code,business_feed.elements,$index,'code')"
+                               ng-focus="focus(list.code)" type="text" class="txt" ng-model="list.code"/>
+                    </td>
+                    <td class="align-center">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click = "deleteBusinessFeedBack(list.bs_feedback_id)">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="align-center" ng-bind="list.number"></td>
+                    <td class="align-center">
+                        <input style="width: 180px;" type="text"  name="name" class="txt" ng-model="initBusinessFeedBack.name">
+                    </td>
+                    <td class="align-center">
+                        <input style="width: 180px;" type="text" value="" name="name" class="txt" ng-model="initBusinessFeedBack.code">
+                    </td>
+                    <td class="align-center">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click = "addBusinessFeedBack()">[添加]</a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

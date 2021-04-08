@@ -1,0 +1,81 @@
+<div class="add_customer">
+	<h3 class="dialog_head" style="cursor: move;">
+		<span class="dialog_title">
+			<span class="dialog_title_icon">编辑：</span>
+		</span>
+		<span class="dialog_close_button" ng-click="cancel()">X</span>
+	</h3>
+	<form role="form" style="padding:5px 15px 20px;">
+		<table class="table tb-type2 nobdb" >
+			<tbody class="tr-color">
+				<tr class="noborder">
+					<td colspan="4" >
+						<label>寄件单号：</label>
+						<input type="text" ng-model="data.mailNumber" placeholder="请输入寄件单号" style="width:200px" maxlength="20">
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td colspan="4" >
+						<label>寄件日期：</label>
+						<input type="text" ng-model="data.mailTime" placeholder="请选择寄件日期" class="txt date hasDatepicker" datepicker-popup name="start_create_time" id="mailTime" readonly style="width: 180px;" />
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td colspan="4" >
+						<label>收件人姓名：</label>
+						<input type="text" ng-model="data.addresseeName" placeholder="请输入收件人姓名" style="width:200px" maxlength="20">
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td colspan="4" >
+						<label>收件人电话：</label>
+						<input type="text" ng-model="data.addresseePhone" placeholder="请输入收件人电话" style="width:200px" maxlength="11">
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td colspan="4" >
+						<label>收件人地址：</label>
+						<input type="text" ng-model="data.addresseeAddressinfo" placeholder="请输入收件人地址" style="width:400px" maxlength="100">
+					</td>
+				</tr>
+				<!-- <tr class="noborder">
+					<td colspan="4">
+						<label>联系状态：</label>
+								<select ng-model="data.contactState" style="width: 141px;">
+								  <option value="">请选择</option>
+								  <option value="0">未联系</option>
+								  <option value="1">已联系</option>
+								</select>
+					</td>
+				</tr> -->
+				<tr class="noborder">
+					<td colspan="4">
+						<label>备注：</label>
+						<textarea ng-model="data.remarks" placeholder="请输入备注内容，不超过200字" style="width: 400px;height: 90px;display: inline-block;vertical-align: top;margin-bottom: 10px;" maxlength="200"></textarea>
+					</td>
+				</tr>
+				<tr class="noborder" ng-if="error">
+					<td colspan="4">
+						<label></label>
+						<span style="color:red;">{{error}}</span>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr class="tfoot">
+					<td colspan="4">
+						<a class="btn" id="submitBtn"><span ng-click="save()">完成</span></a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>
+<style type="text/css">
+.add_customer tbody{padding-bottom: 20px;}
+.add_customer .tfoot td{border-top: 0}
+.add_customer .tb-type2 .txt{margin: 0; width: 110px;}
+.add_customer td>label{width: 75px;}
+.add_customer td .btn{margin-left: 75px;height: 30px;line-height: 30px;}
+.add_customer td input{height: 20px;}
+</style>

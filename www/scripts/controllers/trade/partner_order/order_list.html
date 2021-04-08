@@ -1,0 +1,116 @@
+<div class="page" style="min-width: 1340px">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>支付单管理</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>订单列表</span></a></li>
+				<!-- <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);"><span>导出</span></a></li> -->
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>订单号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.orderFictitiousSn"></td>
+					<th><label>商户订单号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.paymentSn"></td>
+					<th><label>下单时间：</label></th>
+					<td>
+						<div class="time_wrap">
+							<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="startCreateTime" id="startCreateTime" ng-model="startCreateTime"
+									max-date="endCreateTime" style="cursor:pointer" readonly/>
+							<label for="endCreateTime">~</label>
+							<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="endCreateTime" id="endCreateTime"  ng-model="endCreateTime" min-date="startCreateTime" style="cursor:pointer" readonly/>
+						</div>
+					</td>
+					<th><label>订单状态：</label></th>
+					<td>
+						<select ng-model="obj.orderState">
+							<option value="">请选择状态</option>
+							<option value="0">待付款</option>
+							<option value="1">已付款</option>
+							<option value="-1">已关闭</option>
+						</select>
+					</td>
+					<th><label>客户姓名：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.memberTruename"></td>
+				</tr>
+				<tr>
+					<th><label>支付状态：</label></th>
+					<td>
+						<select ng-model="obj.paymentState">
+							<option value="">请选择状态</option>
+							<option value="0">未支付</option>
+							<option value="1">已支付</option>
+						</select>
+					</td>
+					<th><label>合伙人手机号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.asistantPhone"></td>
+					<th><label>合伙人店铺名：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.orderStoreName" style="width: 216px"></td>
+					<td colspan="2">
+						<input type="checkbox" ng-model="obj.idHaveTest"><label>过滤测试单</label>
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()" style="margin-left: 4px">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+						<a mt-show-model model-name="IPRPOrderReportModel" href="javascript:void(0);" class="btn-reset" ng-click="search_export()" title="导出">导出</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center">序号</th>
+					<th class="align-center">订单号</th>
+					<th class="align-center">商户订单号</th>
+					<th style="width: 120px;" class="align-center">下单时间</th>
+					<th class="align-right">金额</th>
+					<th class="align-center">订单状态</th>
+					<th class="align-center">服务单数</th>
+					<!-- <th class="align-center">邀请人</th> -->
+					<th class="align-center">客户姓名</th>
+					<th class="align-center">客户手机号</th>
+					<th class="align-center">支付状态</th>
+					<th class="align-center">合伙人手机号</th>
+					<th class="align-center">合伙人店铺名</th>
+					<th class="align-center">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<td class="align-center">
+						<span ng-bind="list.number"></span>
+					</td>
+					<td class="align-center" ng-bind="list.orderFictitiousSn"></td>
+					<td class="align-center" ng-bind="list.paymentSn"></td>
+					<td class="align-center" ng-bind="list.createTime | date:'yyyy-MM-dd HH:mm:ss'"></td>
+					<td class="align-right" ng-bind="list.orderAmount | number:2"></td>
+					<td class="align-center" ng-bind="list.orderState | ntOrderStatusFilter"></td>
+					<td class="align-center" ng-bind="list.serviceNumber"></td>
+					<td class="align-center" ng-bind="list.memberTruename"></td>
+					<td class="align-center" ng-bind="list.memberPhone"></td>
+					<td class="align-center" ng-bind="list.paymentState | paymentStatusFilter"></td>
+					<td class="align-center" ng-bind="list.asistantPhone"></td>
+					<td class="align-center" ng-bind="list.orderStoreName"></td>
+					<td class="align-center w120">
+						<a href="JavaScript:void(0);" model-name="IPRPOrderDetailModel" style="cursor: pointer" ng-click="detail_orders(list.orderFictitiousSn)">查看</a>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="14" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="14"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

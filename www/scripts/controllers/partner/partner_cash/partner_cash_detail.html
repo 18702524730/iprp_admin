@@ -1,0 +1,130 @@
+<style>
+	.radio_align {
+		vertical-align: middle;
+		margin-top: -2px;
+		margin-bottom: 1px;
+	}
+	.order .typeOrder>li {width: 100%;}
+	.order .half {width: 50%; float: left;}
+	.order .half_rig {margin-top: 50px; padding-left: 50px; box-sizing: border-box;}
+	.order .half>li {width: 100%;}
+	.order .typeOrder {position: relative;}
+	.order .typeOrder>li.check_btn {position: absolute; right: 0; top: 80px; width:50px;}
+	.pagination ul li {width: auto;}
+	.pagination ul {width: auto;}
+</style>
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>提现详情</h3>
+			<ul class="tab-base">
+				<!-- <li mt-show-model model-name="IPRPServicerListModel">
+					<a href="#/main/partner_home/partner_application">
+						<span>合伙人列表</span>
+					</a>
+				</li>
+				<li mt-show-model model-name="IPRPServicerDetailModel">
+					<a href="JavaScript:void(0);" class="current">
+						<span>{{type == 'bl' ? '经办' : '详情'}}</span>
+					</a>
+				</li> -->
+			</ul>
+		</div>
+	</div>
+	<table class="table tb-type2 order">
+		<tbody class="tr-color">
+			<tr>
+				<td colspan="2" ng-if="audit_data.withdrawState==0">
+					<ul class="typeOrder" >
+						<li>
+							<strong>结算周期:</strong>{{audit_data.settlePeriod}}
+						</li>
+						<li ">
+							<strong>合伙人昵称:</strong>{{audit_data.nickname}}</li>
+						<li>
+							<strong>合伙人店铺名:</strong>{{audit_data.storeName || "--"}}</li>
+						<li>
+							<strong>合伙人手机:</strong>{{audit_data.phone }}</li>
+						<li>
+							<strong>提现总额:</strong>{{ audit_data.withdrawAmount }}</li>
+						<li>
+							<strong>代扣个税:</strong>{{audit_data.personalTax }}</li>
+						<li>
+							<strong>实际到账:</strong>{{audit_data.realAmount }}</li>
+						<li class="check_btn"><a href="javascript:void(0);" class="btn-search" ng-click="checkFn()">审核</a></li>
+					</ul>
+				</td>
+				<td colspan="2" ng-if="audit_data.withdrawState!=0">
+					<ul class="half" >
+						<li>
+							<strong>结算周期:</strong>{{audit_data.settlePeriod}}
+						</li>
+						<li ">
+							<strong>合伙人昵称:</strong>{{audit_data.nickname}}</li>
+						<li>
+							<strong>合伙人店铺名:</strong>{{audit_data.storeName || "--"}}</li>
+						<li>
+							<strong>合伙人手机:</strong>{{audit_data.phone }}</li>
+						<li>
+							<strong>提现总额:</strong>{{ audit_data.withdrawAmount }}</li>
+						<li>
+							<strong>代扣个税:</strong>{{audit_data.personalTax }}</li>
+						<li>
+							<strong>实际到账:</strong>{{audit_data.realAmount }}</li>
+					</ul>
+					<ul class="half half_rig" >
+						<li>
+							<strong>审核状态:</strong>{{ audit_data.withdrawState | withdrawStateFil}}
+						</li>
+						<li ">
+							<strong>审核备注:</strong>{{audit_data.remark}}</li>
+						<li>
+							<strong>时间:</strong>{{audit_data.auditTime | date:'yyyy-MM-dd HH:mm:ss' }}</li>
+					</ul>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<table class="table tb-type2">
+						<tbody class="tr-color">
+							<tr style="background: #f1f3f6;">
+								<td style="width: 120px;">序号</td>
+								<td style="width: 140px;">提现金额</td>
+								<td>代扣个税</td>
+								<td>实际到账</td>
+								<td>收款人名称</td>
+								<td>银行卡号</td>
+								<td>开户支行</td>
+								<td>审核状态</td>
+							</tr>
+							<tr ng-show="labelList && labelList.length > 0" ng-repeat="list in labelList">
+								<td>{{ (pagination.curPage-1) * 15 + $index+1 }}</td>
+								<td>{{list.amount}}</td>
+								<td>{{list.personalTax}}</td>
+								<td>{{list.realAmount}}</td>
+								<td>{{list.truename}}</td>
+								<td>{{list.bankCard}}</td>
+								<td>{{list.bankCardAddress}}</td>
+								<td>{{ list.withdrawState | withdrawStateFil }}</td>
+							</tr>
+							<tr ng-show="!labelList || labelList.length == 0">
+								<td colspan="20" class="norecord">
+									<div class="warning-option">
+										<i class="icon-warning-sign"></i>
+										<span>{{loading_text}}</span>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+						<tfoot ng-hide="to_loading">
+              <tr class="tfoot">
+                  <td colspan="8"><mt-pagination pagination-obj="pagination" form-page-one="true" ></mt-pagination></td>
+              </tr>
+	          </tfoot>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

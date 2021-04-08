@@ -1,0 +1,75 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>电话咨询服务</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPBsOrderListModel"><a href="#/main/fast_home/tel_service"><span>咨询列表</span></a></li>
+                <li mt-show-model model-name="IPRPBsOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+            <div class="detail_top_rt fr" ng-if="order_detail.consultationState == 2">
+                <a href="" class="btn" ng-click="addCustomer(true)">增加联系记录</a>
+            </div>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">客户信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>姓名：</strong>{{order_detail.contactName}}</li>
+                        <li><strong>性别：</strong>{{order_detail.sex | memberSexFilter}}</li>
+                        <!-- <li><strong>注册手机号：</strong>{{order_detail.contactPhone}}</li> -->
+                        <li><strong>联系手机号：</strong>{{order_detail.contactPhone}}</li>
+                        <!-- <li><strong>QQ：</strong>{{order_detail.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</li> -->
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">咨询信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>咨询类型：</strong>{{order_detail.consultationType|consultationType}}</li>
+                        <li><strong>咨询模块：</strong>{{order_detail.consultationModular|consultationModular}}</li>
+                        <li><strong>申请提交时间：</strong>{{order_detail.applyTime|date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                        <li><strong>咨询状态：</strong>{{order_detail.consultationState|consultationState}}</li>
+                    </ul>
+                </td>
+            </tr>
+            
+            <tr class="space" ng-show="order_detail.memberReceptionDTOs.length > 0">
+                <th colspan="2">联系记录</th>
+            </tr>
+            <tr ng-show="order_detail.memberReceptionDTOs.length > 0">
+                <td style="padding: 5px 0 20px!important">
+                    <!-- <div style="padding:5px 20px 10px;color: #888;">联系记录：</div> -->
+                    <table id="table_category" class="type" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="alignleft" width="60">序号</th>
+                                <th class="alignleft" width="160">咨询对接人</th>
+                                <th class="alignleft" width="320">联系时间</th>
+                                <th class="alignleft">备注</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="order_detail.memberReceptionDTOs.length > 0" ng-repeat="detail in order_detail.memberReceptionDTOs">
+                                <td class="alignleft"> {{$index+1}}</td>
+                                <td class="alignleft" ng-bind="detail.receptionName"></td>
+                                <td class="alignleft">{{detail.contactStartTime | date:'yyyy-MM-dd HH:mm:ss'}} ~ {{detail.contactEndTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td class="alignleft"><div ng-bind="detail.remarks" class="breakall"></div></td>
+                            </tr>
+                            <tr ng-show="order_detail.memberReceptionDTOs.length == 0">
+                                <td colspan="7">暂无记录</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

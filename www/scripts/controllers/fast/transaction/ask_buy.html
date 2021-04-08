@@ -1,0 +1,107 @@
+<div class="page">
+   <div class="fixed-bar">
+        <div class="item-title">
+            <h3>存证出证</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPNtOrderListModel"><a href="JavaScript:void(0);" class="current"><span>订单列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+     <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <td><input type="text" class="txt" ng-model="obj.orderSn"></td>
+                    <th><label>存证类型：</label></th>
+                    <td>
+                        <select ng-model="obj.notarizationType" style="width: 120px;">
+                            <option value="">请选择商标类别</option>
+                            <option value="1">网页存证</option>
+                            <option value="2">文件存证</option>
+                        </select>
+                    </td>
+                    <th><label>求购时间：</label></th>
+                    <td colspan="3">
+                        <input type="text" placeholder="请填写开始时间" class="txt date hasDatepicker" datepicker-popup placeholder="" name="start_notarization_time" id="start_notarization_time" ng-model="start_notarization_time"
+                                max-date="end_notarization_time" style="cursor:pointer" readonly/>
+                        <label for="end_notarization_time">~</label>
+                        <input type="text" placeholder="请填写结束时间" class="txt date hasDatepicker" datepicker-popup placeholder="" name="end_notarization_time" id="end_notarization_time"  ng-model="end_notarization_time" min-date="start_notarization_time" style="cursor:pointer" readonly/>
+                    </td>
+
+                    <th><label>反馈状态：</label></th>
+                    <td>
+                        <select ng-model="obj.notarizationType" style="width: 120px;">
+                            <option value="">请选择反馈状态</option>
+                            <option value="1">待反馈</option>
+                            <option value="2">已反馈</option>
+                        </select>
+                    </td>
+                    <th><label>联系号码：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.orderSn"></td>
+
+                    <td style="text-align:right;" colspan="7">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    </td>
+                </tr>
+                <tr>
+					 <th><label>排序：</label></th>
+					 <td style="color: #68a4fe;font-size: 12px;padding-bottom: 7px" colspan="3">
+					 	<label>申请时间</label>
+					 	<a href="javascript:void(0);" ng-class="{true: 'active', false: 'inactive'}[isActive]" ng-click="sortingClick()">▲</a>
+					 	<a href="javascript:void(0);" ng-class="{false: 'active', true: 'inactive'}[isActive]" ng-click="sortingClick()">▼</a>
+					 </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center"  width="20">序号</th>
+                    <th class="align-center" width="80">商标类别</th>
+                    <th class="align-center" width="120">求购时间</th>
+                    <th class="align-center" width="60">反馈状态</th>
+                    <th class="align-center" width="140">联系号码</th>
+                    <th class="align-center" width="140">求购详情</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr  class="hover">
+                    <td class="align-center">1</td>
+                    <td class="align-center">01-化学原料</td>
+                    <td class="align-center">2017-05-04 12:00：00</td>
+                    <td class="align-center">已反馈</td>
+                    <td class="align-center">13603030303</td>
+                    <td class="align-center">含有“龙”的2个字的商标，价格在10万元左右。含有“龙”的2个字的商标，价格在10万元左右。</td>
+                    <td class="w120 align-center">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="czdetail(list)">查看存证</a>
+                        <!-- <a ng-if="list.issueStatus<2" href="JavaScript:void(0);" style="cursor: pointer" ng-click="czEditor(list)">编辑</a>
+                        <a ng-if="list.issueStatus>=2" href="JavaScript:void(0);" style="color: #999;cursor: not-allowed;">编辑</a> -->
+                    </td>
+
+                    <td style="text-align:right;" colspan="7">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">搜索</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+.tb-type1 .hasDatepicker{width: 88px}
+.tb-type1 .hasDatepicker:hover{width: 88px}
+</style>

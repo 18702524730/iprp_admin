@@ -1,0 +1,85 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>发票管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPUnopenInvoiceListModel"><a href="#/main/finance_home/unopen_list"><span>未开列表</span></a></li>
+                <li mt-show-model model-name="IPRPOpenInvoiceListModel"><a href="#/main/finance_home/open_list"><span>已开列表</span></a></li>
+                <li mt-show-model model-name="IPRPInvoiceExpressModel"><a href="JavaScript:void(0);" class="current"><span>物流</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="invoice_form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 order">
+            <tbody class="tr-color">
+                <tr class="space"
+                    ng-show="invoice_detail.pid === 0 && invoice_detail.state === 2">
+                    <th colspan="2">物流信息</th>
+                </tr>
+                <tr ng-show="invoice_detail.pid === 0 && invoice_detail.state === 2">
+                    <td>
+                        <ul>
+                            <li>
+                                <strong>快递公司：</strong>
+                                <select name="express" ng-model="invoice_detail.express_id"
+                                        ng-options="a.express_id as a.name for a in expressAll.elements" required>
+                                    <option value="">选择快递公司</option>
+                                </select>
+                                <span ng-show="invoice_form.express.$invalid && invoice_form.submitted">
+                                    <small ng-show="invoice_form.express.$error.required" class="error">
+                                        <label><i class="icon-exclamation-sign"></i>快递公司不可以为空</label>
+                                    </small>
+                                </span>
+                            </li>
+                            <li>
+                                <strong>快递单号：</strong>
+                                <input name="express_number" ng-maxlength="20" ng-pattern="/^[1-9][0-9]*$/" type="text"
+                                       ng-model="invoice_detail.express_number" required>
+                                <span ng-show="invoice_form.express_number.$invalid && invoice_form.submitted">
+                                    <small ng-show="invoice_form.express_number.$error.required" class="error">
+                                        <label><i class="icon-exclamation-sign"></i>快递单号不可以为空</label>
+                                    </small>
+                                    <small class="error" ng-show="invoice_form.express_number.$error.maxlength">
+                                        <label><i class="icon-exclamation-sign"></i>快递单号长度为20位</label>
+                                    </small>
+                                    <small class="error" ng-show="invoice_form.express_number.$error.pattern">
+                                        <label><i class="icon-exclamation-sign"></i>快递单号只能为数字</label>
+                                    </small>
+                                </span>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <textarea name="message" ng-minlength="5" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9]+$/"
+                                          ng-maxlength="50" style="width: 600px;height: 160px;"  placeholder="请填写备注信息" ng-model="invoice_detail.express_message" required>
+                                </textarea>
+                                <span ng-show="invoice_form.message.$invalid && invoice_form.submitted">
+                                    <small ng-show="invoice_form.message.$error.required" class="error">
+                                        <label><i class="icon-exclamation-sign"></i>备注信息不可以为空</label>
+                                    </small>
+                                    <small class="error" ng-show="invoice_form.message.$error.minlength">
+                                        <label><i class="icon-exclamation-sign"></i>备注信息最小长度为5位</label>
+                                    </small>
+                                    <small class="error" ng-show="invoice_form.message.$error.maxlength">
+                                        <label><i class="icon-exclamation-sign"></i>备注信息最大长度为50位</label>
+                                    </small>
+                                    <small class="error" ng-show="invoice_form.message.$error.pattern">
+                                        <label><i class="icon-exclamation-sign"></i>备注信息只能使用中文,数字,字母</label>
+                                    </small>
+                                </span>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td>
+                        <a href="JavaScript:void(0);" ng-show="invoice_detail.pid === 0 && invoice_detail.state === 2"
+                           class="btn" ng-click="save(invoice_detail.invoice_id,invoice_detail.invoice_sn)"><span>提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,182 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>渠道工单</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPBsOrderListModel"><a href="JavaScript:history.go(-1)"><span>订单列表</span></a></li>
+				<li mt-show-model model-name="IPRPBsOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>工单详情</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<table class="table tb-type2 order myselftable">
+		<tbody class="tr-color">
+			<tr class="space">
+				<th colspan="2">工单信息</th>
+			</tr>
+			<tr>
+				<td>
+					<ul class="twocol">
+						<li><strong>工单状态：</strong>{{order_detail.status | orderTypeFormat}}</li>
+						<li><strong>订单来源：</strong>{{order_detail.inputChannelOrder.orderOrigin}}</li>
+						<li><strong>客户平台：</strong>{{order_detail.inputChannelOrder.custPlatform}}</li>
+						<li><strong>客户姓名：</strong>{{order_detail.inputChannelOrder.memberName}}</li>
+						<li><strong>客户手机号：</strong>{{order_detail.inputChannelOrder.memberPhone}}</li>
+						<li><strong>平台订单号：</strong>{{order_detail.inputChannelOrder.markSn}}</li>
+						<li><strong>昵称旺旺：</strong>{{order_detail.inputChannelOrder.nickname}}</li>
+						<li><strong>邮箱：</strong>{{order_detail.subject.applyEmail}}</li>
+						<li><strong>订单金额：</strong>{{order_detail.inputChannelOrder.orderAmount | number: 2}}</li>
+						<li><strong>折后价格：</strong>{{order_detail.inputChannelOrder.discountPrice}}</li>
+						<!-- <li><strong>汇款人：</strong>{{order_detail.inputChannelOrder.remitter}}</li> -->
+						<li><strong>付款时间：</strong>{{order_detail.inputChannelOrder.payTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+						<li><strong>业务专员：</strong>{{order_detail.inputChannelOrder.salesman}}</li>
+						<li><strong>完成专员：</strong>{{order_detail.inputChannelOrder.agentName}}</li>
+						<li><strong>流程专员：</strong>{{order_detail.inputChannelOrder.selectDocument}}</li>
+						<!-- <li><strong>支付方式：</strong>{{order_detail.inputChannelOrder.payType | payTypeFormat}}</li> -->
+						<!-- <li><strong>商户订单号：</strong>{{order_detail.order_payment_sn}}</li> -->
+						
+						<!-- <li><strong>下单时间：</strong>{{order_detail.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+						<li><strong>用户确认：</strong>{{order_detail.order_check_accept | orderCheckAcceptFilter}}</li> -->
+					</ul>
+					<div class="picbox" ng-if="voucherUrl">
+						<div class="posbox"  ng-click="preview(order_detail.inputChannelOrder.voucherUrl)">
+							<img ng-src="{{voucherUrl}}" alt="">
+							<p title="支付凭证">支付凭证</p>
+						</div>
+					</div>
+				</td>
+				<td></td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">主体信息</th>
+			</tr>
+			<tr>
+				<td>
+					<ul class="twocol">
+						<li><strong>主体类型：</strong>{{order_detail.subject.applyType |subjectTypeFormat}}</li>
+						<li><strong>{{order_detail.subject.applyType|subjectTypeFormat}}名称：</strong>{{order_detail.subject.applyName}}</li>
+						<li><strong>{{order_detail.subject.applyType|subjectTypeFormat}}营业执照号：</strong>{{order_detail.subject.applyNumber}}</li>
+						<li><strong>{{order_detail.subject.applyType|subjectTypeFormat}}联系电话：</strong>{{order_detail.subject.applyPhone}}</li>
+						<li><strong>{{order_detail.subject.applyType|subjectTypeFormat}}注册地址：</strong><i>{{order_detail.subject.applyAreaInfo}}{{order_detail.subject.applyAddress}}</i></li>
+						
+					</ul>
+					<div class="picbox" ng-if="imgUrl">
+						<div class="posbox"  ng-click="preview(order_detail.subject.standby1)">
+							<img ng-src="{{imgUrl}}" alt="">
+							<p title="营业执照">营业执照</p>
+						</div>
+					</div>
+				</td>
+				<td></td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">开票信息</th>
+			</tr>
+			<tr ng-if="order_detail.invoice && order_detail.invoice.invoiceType && order_detail.subject">
+				<td>
+					<ul class="twocol">
+						<li><strong>发票类型</strong>{{order_detail.invoice.invoiceType | invoiceTypeFormat}}</li>
+						<li><strong>发票抬头</strong>{{order_detail.invoice.invoiceTitle || '--'}}</li>
+						<li><strong>纳税人识别号</strong>{{order_detail.invoice.invoiceCode||'--'}}</li>
+					</ul>
+				</td>
+				<td >
+				</td>
+			</tr>
+			<tr ng-if = '!order_detail.invoice.invoiceType'>
+				<td style='text-indent: 20px;' colspan="2">无开票信息</td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">商标注册信息</th>
+			</tr>
+			<tr ng-if='order_detail.information.trademarkName'>
+				<td>
+					<ul class="onecol">
+						<li><strong>商标名称：</strong>{{order_detail.information.trademarkName}}</li>
+						<li><strong>图样类型：</strong>{{order_detail.information.picType | picType}}</li>
+						<li><strong>商标描述：</strong><i>{{order_detail.information.trademarkDesc}}</i></li>
+					</ul>
+					<div class="picboxmore">
+							<div class="posbox" ng-if="order_detail.information.proxyUrl" ng-click="preview(order_detail.information.proxyUrl)">
+								<img ng-src="{{order_detail.information.proxyUrl}}" alt="">
+								<p title="委托书">委托书</p>
+							</div>
+							<div class="posbox" ng-if="order_detail.information.blackWhitePicUrl" ng-click="preview(order_detail.information.blackWhitePicUrl)">
+								<img ng-src="{{order_detail.information.blackWhitePicUrl}}" alt="">
+								<p title="黑白色商标图样">黑白色</p>
+							</div>
+							<div class="posbox" ng-if="order_detail.information.specifyPicUrl" ng-click="preview(order_detail.information.specifyPicUrl)">
+									<img ng-src="{{order_detail.information.specifyPicUrl}}" alt="">
+									<p title="指定色商标图样">指定色</p>
+								</div>
+						</div>
+				</td>
+				<td></td>
+			</tr>
+			<tr ng-if = '!order_detail.information.trademarkName'>
+				<td style='text-indent: 20px;' colspan="2">无商标信息</td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">服务信息</th>
+			</tr>
+			<tr class="msgtitle" ng-if='order_detail.orderInformation.length>0'>
+				<th colspan="2" class="bordertop">
+					<ul>
+						<li class="thenum">序号</li>
+						<li class="theorder">服务单号</li>
+						<li class="thetype">商标类别</li>
+						<li class="thecont">小项数</li>
+					</ul>
+				</th>
+			</tr>
+			<tr ng-if = 'order_detail.orderInformation.length == 0'>
+					<td style='text-indent: 20px;' colspan="2">暂无服务信息</td>
+				</tr>
+			<tr class="msgtitle" ng-repeat='val in order_detail.orderInformation'>
+				<td colspan="2">
+						<ul>
+							<li class="thenum">{{val.seqNo}}</li>
+							<li class="theorder">{{val.orderSn}}</li>
+							<li class="thetype">{{val.intCls | ClsDataFormat}}</li>
+							<li class="thecont">{{val.minNumber}}</li>
+						</ul>
+				</td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">操作记录</th>
+			</tr>
+			<tr class="space">
+					<th colspan="2">
+						<p class="service_tit">当前服务状态：{{order_detail.status | orderTypeFormat}}
+							<button ng-if="order_detail.status==11" class="service_btn ml10"  ng-click="showaudit()">审核</button>
+						</p>
+					</th>
+				</tr>
+			<tr class="hasbg" ng-if='order_detail.operationRecord.length>0'>
+				<td colspan="2">
+						<ul class="table_tit clearfix" ng-if='true'>
+							<li class="fl tb01">操作时间</li>
+							<li class="fl tb02">操作类型</li>
+							<li class="fl tb03">操作人</li>
+						</ul>
+								
+				</td>
+			</tr>
+			<tr ng-show ='order_detail.operationRecord.length ==0'>
+				<td style='text-indent: 20px;' colspan="2">暂无操作记录</td>
+			</tr>
+			<tr ng-repeat = 'it in order_detail.operationRecord'>
+				<td colspan="2">
+						<ul class="table_list clearfix">
+							<li class="fl tb01"><p>{{it.operatorTime | date:'yyyy-MM-dd HH:mm:ss'}}</p></li>
+							<li class="fl tb02"><p>{{it.recordContentService}}</p></li>
+							<li class="fl tb03"><p>{{it.operatorName}}</p></li>
+						</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<style>
+	.setup{padding: 5px 10px;background-color: #e6e8ee;border-radius: 3px;color: #78829b;cursor: pointer;}
+	.setup:hover{color: #fff;background-color: #68a4fe}
+</style>

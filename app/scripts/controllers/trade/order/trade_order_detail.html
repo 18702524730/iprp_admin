@@ -1,0 +1,121 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>订单列表 > 查看</h3>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">支付单信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li>
+                            <strong>订单号：</strong>
+                            {{ orderdetail.tradeOrder.fictitious_order_sn }}
+                        </li>
+                        <li><strong>订单金额：</strong>{{ orderdetail.tradeOrder.order_money }}</li>
+                        <li><strong>下单时间：</strong>{{ orderdetail.tradeOrder.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</li>
+                        <li><strong>支付状态：</strong>{{ orderdetail.tradeOrder.payment_state == 1 ? '已付' : '未付' }}</li>
+                        <li><strong>支付方式：</strong>{{ orderdetail.tradeOrder.payment_name }}</li>
+                        <li><strong>支付时间：</strong>{{ orderdetail.tradeOrder.payment_time | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                        <li><strong>商户订单号：</strong>{{ orderdetail.tradeOrder.payment_id }}</li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr class="space">
+                <th colspan="2">买家信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>买家姓名：</strong>{{ orderdetail.buyer.truename }}</li>
+                        <li><strong>昵称：</strong>{{ orderdetail.buyer.nickname }}</li>
+                        <li><strong>性别：</strong>{{ sexList[orderdetail.buyer.sex-1].name }}</li>
+                        <li><strong>买家手机号：</strong>{{ orderdetail.buyer.phone }}</li>
+                        <li><strong>历史服务单数：</strong>{{ orderdetail.buyer.his_order_count }}</li>
+                        <li><strong>微信号：</strong>{{ orderdetail.buyer.memberWechat || '--' }}</li>
+                        <li><strong>QQ：</strong>{{ orderdetail.buyer.memberQQ || '--' }}</li>
+                        <li><strong>邮箱：</strong>{{ orderdetail.buyer.email || '--' }}</li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr class="space">
+                <th colspan="2">商家信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>商家姓名：</strong>{{ orderdetail.seller.seller_name || '--'}}</li>
+                        <li><strong>商家手机号：</strong>{{ orderdetail.seller.seller_phone || '--'}}</li>
+                        <li><strong>入驻类型：</strong>{{ sellerTypeList[orderdetail.seller.seller_type-1].name || '--'}}</li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr class="space">
+                <th colspan="2">商标信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>商标图样：</strong><img src="{{ orderdetail.trademark.picture }}" alt="" style="width:30px; height:30px;"></li>
+                        <li><strong>注册号：</strong>{{ orderdetail.trademark.acceptmaterials }}</li>
+                        <li><strong>商标类别：</strong>{{ orderdetail.trademark.category<10 ? '0'+orderdetail.trademark.category : orderdetail.trademark.category }}-{{ cateIdData[orderdetail.trademark.category-1].goodsname }}</li>
+                        <li><strong>商标名称：</strong>{{ orderdetail.trademark.trademark_name }}</li>
+                        <li><strong>商标价格：</strong>{{ orderdetail.trademark.seller_price }}</li>
+                        <li><strong>转让手续：</strong>{{ leaveTypeList[orderdetail.trademark.tm_lease_type-1].name }}</li>
+                        <li><strong>订单总额：</strong>{{ orderdetail.trademark.order_money }}</li>
+                    </ul>
+                </td>
+            </tr>
+            
+            <tr class="space">
+                <th colspan="2">收件地址</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>收件人姓名：</strong>{{ orderdetail.address.receiveName }}</li>
+                        <li><strong>收件人电话：</strong>{{ orderdetail.address.receivePhone || '--'}}</li>
+                        <li><strong>收件人邮箱：</strong>{{ orderdetail.address.receiveEmail || '--'}}</li>
+                        <li><strong>收件地址:</strong>{{ orderdetail.address.receiveAddress || '--'}}</li>
+                        <li><strong>收件人邮编:</strong>{{ orderdetail.address.zipCode }}</li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr class="space">
+                <th colspan="2">开票信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>是否开票：</strong>{{ needTicketList[orderdetail.invoice.need_ticket-1].name }}</li>
+                        <li><strong>发票类型：</strong>{{ fapiaoList[orderdetail.invoice.invoice_type-1].name }}</li>
+                        <li><strong>发票抬头：</strong>{{ orderdetail.invoice.invoice_title }}</li>
+                        <li><strong>纳税人识别号:</strong>{{ orderdetail.invoice.invoice_code || '--' }}</li>
+                        <template ng-show="orderdetail.invoice.invoice_type==2">
+                        <li><strong>注册地址:</strong>{{ orderdetail.invoice.invoice_address || '--' }}</li>
+                        <li><strong>开户行:</strong>{{ orderdetail.invoice.bank_name || '--' }}</li>
+                        <li><strong>银行账号:</strong>{{ orderdetail.invoice.back_account || '--' }}</li>
+                        <li><strong>注册电话:</strong>{{ orderdetail.invoice.regis_phone || '--' }}</li>
+                        </template>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+        <!-- <tfoot>
+            <tr class="tfoot">
+                <td>
+                    <a href="JavaScript:void(0);" ng-show="order_detail.distributeType === 1" ng-click="back_order(order_detail.order_id,order_detail.distributeType)" class="btn" id="submitBtn"><span>收回订单</span></a>
+                    <a href="JavaScript:void(0);" ng-show="order_detail.distributeType === 0" ng-click="allot_order(order_detail.order_id,order_detail.bs_id)" class="btn"><span>分配服务商</span></a>
+                </td>
+            </tr>
+        </tfoot> -->
+    </table>
+</div>

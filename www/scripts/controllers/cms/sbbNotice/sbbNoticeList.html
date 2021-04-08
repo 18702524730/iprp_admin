@@ -1,0 +1,72 @@
+<div class="page feedback">
+  <div class="fixed-bar">
+       <div class="item-title">
+           <h3>拾贝宝公告</h3>
+           <ul class="tab-base">
+               <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>拾贝宝公告</span></a></li>
+               <!-- <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);"><span>导出</span></a></li> -->
+           </ul>
+       </div>
+   </div>
+   <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+
+            <tr>
+                <th><label>标题</label></th>
+                <td>
+                    <input type="text" ng-model="obj.title" class="ng-pristine ng-untouched ng-valid ng-empty">
+                </td>
+                <th><label>创建时间</label></th>
+               <td >
+                   <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="startCreateDate" id="startCreateDate" ng-model="obj.createStartTime" max-date="startCreateDate" style="cursor:pointer" readonly/>
+                   <label>~</label>
+                   <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="endCreateDate" id="endCreateDate" ng-model="obj.createEndTime" max-date="endCreateDate" style="cursor:pointer" readonly/>
+               </td>
+                <td colspan="2">
+                    <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                    <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    <a href="#/main/cms_home_list/addNotice/" class="btn-reset">新增</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<form>
+    <table class="table tb-type2">
+        <thead>
+            <tr class="thead">
+                <th class="align-center" width="40">序号</th>
+                <th class="align-center" width="100">标题</th>
+                <th class="align-center" width="100">创建日期</th>
+                <th class="align-center" width="80" class="align-center">操作</th>
+            </tr>
+        </thead>
+        <tbody class="tr-color">
+            <tr class="" class="hover" ng-show="EvaluateGoodsList.length" ng-repeat="list in EvaluateGoodsList">
+                <td class="align-center">
+                    <span ng-bind="list.number"></span>
+                </td>
+                <td class="align-center" ng-bind="list.title"></td>
+                <td class="align-center" ng-bind="list.createTime | date:'yyyy-MM-dd HH:ss:mm'"></td>
+
+                <td class="align-center w120">
+                    <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="toTop(list.id, list.sort)">{{list.sort==1 ? '取消置顶' : '置顶'}}</a>
+                    <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="goDetailFn(list.id)">修改</a>
+                    <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="delItem(list.id)">删除</a>
+                </td>
+            </tr>
+            <tr ng-show="to_loading">
+              <td colspan="12" class="norecord">
+                <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+              </td>
+            </tr>
+        </tbody>
+        <tfoot ng-hide="to_loading">
+            <tr class="tfoot">
+                <td colspan="12"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+            </tr>
+        </tfoot>
+    </table>
+</form>
+</div>

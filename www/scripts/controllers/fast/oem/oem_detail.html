@@ -1,0 +1,66 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>OEM详情</h3>
+        </div>
+    </div>
+    <!-- 基本资料 -->
+    <div >
+      <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 order order_line">
+          <tbody class="tr-color">
+              <tr class="space">
+                  <th colspan="15">用户提交内容</th>
+              </tr>
+              <tr>
+                  <td colspan="2">
+                      <ul>
+                          <li>
+                              <strong>昵称:</strong>{{ tmDetail.nickname }}
+                          </li>
+                          <li><strong>手机号:</strong>{{tmDetail.phone}}</li>
+                          <li><strong>提交时间:</strong>{{tmDetail.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                          <li><strong>品牌名称:</strong>{{tmDetail.brand}}</li>
+                          <li><strong>来源国:</strong>{{tmDetail.originCountry}}</li>
+                          <li><strong>权属号:</strong>{{tmDetail.ownSn}}</li>
+                      </ul>
+                  </td>
+              </tr>
+              <tr class="space">
+                  <th colspan="2">处理</th>
+              </tr>
+              <tr>
+                  <td colspan="2">
+                      <ul>
+                          <li><strong>当前状态:</strong>{{tmDetail.state|oemstateFormat}} <span ng-if='tmDetail.state==0' class="chulibtn" ng-click="showaudit()">立即处理</span></li>
+                          <li><strong>处理结果说明:</strong>{{tmDetail.remark}}</li>
+                      </ul>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </form>
+      
+    </div>
+
+</div>
+
+<style>
+  .order ul li strong {
+    width: 100px; display: inline-block;
+    
+  }
+  .order .chulibtn {
+      display: inline-block;
+      width: 80px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      font-size: 14px;
+      color: #fff;
+      background: #379dea;
+      border-radius: 4px;
+      margin-left: 10px;
+      cursor: pointer;
+  }
+</style>

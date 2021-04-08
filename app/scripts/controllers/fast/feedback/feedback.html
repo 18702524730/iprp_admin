@@ -1,0 +1,132 @@
+
+<div class="page feedback">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>商标管家意见反馈</h3>
+			<ul class="tab-base">
+				<li><a href="JavaScript:void(0);" class="current"><span>反馈列表</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch" style="position: relative;">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>客户账号：</label></th>
+					<td>
+						<input type="text" ng-model="obj.memberPhone">
+					</td>
+					<th><label>微信昵称：</label></th>
+					<td>
+						<input type="text" ng-model="obj.nickname">
+					</td>
+					<th><label>反馈时间：</label></th>
+          <td colspan="2">
+              <input type="text" placeholder="请填写开始日期" class="txt date hasDatepicker" datepicker-popup name="startTime" id="startTime" ng-model="obj.startOpinionTime"
+                      max-date="endTime" style="cursor:pointer" readonly/>
+              <label>~</label>
+              <input type="text" placeholder="请填写结束日期" class="txt date hasDatepicker" datepicker-popup name="endTime" id="endTime"  ng-model="obj.endOpinionTime"
+                      min-date="startTime" style="cursor:pointer" readonly/>
+          </td>
+          <td style="text-align:right;" colspan="8">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_apply()">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+					</td>
+				</tr>
+				<!-- <tr>
+					<th><label>邮寄类型：</label></th>
+					<td>
+						<select ng-model="obj.mailType" style="width: 141px;">
+							<option value="">请选择</option>
+							<option value="1">商标注册证</option>
+							<option value="2">发票</option>
+						</select>
+					</td>
+          <th><label>上传日期：</label></th>
+          <td colspan="2">
+              <input type="text" placeholder="起始日期" class="txt date hasDatepicker" datepicker-popup name="createStartTime" id="createStartTime" ng-model="createStartTime"
+                      max-date="createEndTime" style="cursor:pointer" readonly/>
+              <label>~</label>
+              <input type="text" placeholder="终止日期" class="txt date hasDatepicker" datepicker-popup name="createEndTime" id="createEndTime"  ng-model="createEndTime"
+                      min-date="createStartTime" style="cursor:pointer" readonly/>
+          </td>
+					<td style="text-align:right;">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_apply()">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+					</td>
+					<td>
+
+					</td>
+				</tr> -->
+			</tbody>
+		</table>
+
+	</form>
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center" width="30">序号</th>
+					<th class="align-center" width="80">客户账号</th>
+					<th class="align-center" width="80">微信昵称</th>
+					<th class="align-center" width="90">反馈时间</th>
+					<th class="align-center" width="80">反馈内容</th>
+					<th class="align-center" width="100">反馈图片</th>
+					<th class="align-center" width="80">意见类型</th>
+					<th class="align-center" width="80">意见查收人</th>
+					<th class="align-center" width="80">查收时间</th>
+					<th class="align-center" width="80">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" class="hover" ng-repeat="item in ApplyList">
+					<td class="align-center">{{ item.number }}</td>
+					<td class="align-center">{{item.memberPhone}}</td>
+					<td class="align-center">{{item.nickname}}</td>
+					<td class="align-center">{{item.opinionTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td class="align-center">{{item.opinionContent || '--'}}</td>
+					<td class="align-center"><a href="{{ item.opinionImage }}" target="_blank"><img src="{{ item.opinionImage }}" alt="" style="width:30px; height:30px"></a></td>
+					<td class="align-center" >{{ typeList[item.opinionType-1].name }}</td>
+					<td class="align-center">{{item.receiveName }}</td>
+					<td class="align-center">{{item.receiveTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td class="align-center">
+						<span class="btn-search" style="width: 30px;" ng-click="edit(item)">编辑</span>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="23" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="23"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>
+<style>
+.btn-search{
+	letter-spacing: 2px;
+	padding: 0 8px;
+	background: #68a4fe;
+	text-align: center;
+	border-radius: 3px;
+	color: #fff;
+	line-height: 23px;
+	display: inline-block;
+	height: 23px;
+	margin-top: 1px;
+	cursor: pointer;
+}
+.wordwrap{-ms-word-break: break-word;
+word-break: break-word;}
+.over_btn{
+	color: #999;
+	}
+.rt_action{position: absolute;right: 0;bottom: 2px;}
+.rt_action a{display: inline-block;margin-left: 10px;width: 60px;height: 23px;text-align: center;line-height: 23px;background-color: #68a4fe;color: #fff;font-size: 13px;border-radius: 3px;cursor: pointer;}
+
+</style>

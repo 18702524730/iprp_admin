@@ -1,0 +1,226 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>商标管理</h3>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th class="min_width"><label>注册号：</label></th>
+                    <td style="width:300px;"><input type="text" class="txt" ng-model="obj.acceptmaterials"></td>
+                    <th class="min_width"><label>商品名称：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.trademarkName"></td>
+                    <!-- <th class="min_width"><label>商标类别：</label></th>
+                    <td>
+                        <select ng-model="obj.category">
+                            <option value="">请选择商标类别</option>
+                            <option ng-repeat="type in businessTypes" ng-value="type.id">{{type.name}}</option>
+                        </select>
+                    </td> -->
+                    <th><label>运营位：</label></th>
+                    <td>
+                        <select ng-model="obj.businessPositionId">
+                            <option value="" disabled>请选择运营位</option>
+                            <option ng-repeat="type in positionList" ng-value="type.id">{{type.show_name}}</option>
+                        </select>
+                    </td>
+                    <th class="min_width"><label>价格类型：</label></th>
+                    <td>
+                        <select ng-model="obj.priceType">
+                            <option value="" disabled>请选择价格类型</option>
+                            <option ng-repeat="type in priceTypes" ng-value="type.id">{{type.name}}</option>
+                        </select>
+                    </td>
+                    <th class="min_width"><label>是否开票：</label></th>
+                    <td>
+                        <select ng-model="obj.needTicket">
+                            <option value="" disabled>请选择是否开票</option>
+                            <option ng-repeat="type in needTicketList" ng-value="type.id">{{type.name}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>提交时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="offShelfTimeStart" id="offShelfTimeStart" ng-model="obj.commitStartTime"
+                                max-date="offShelfTimeEnd" style="cursor:pointer" readonly/>
+                        <label for="offShelfTimeEnd">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="offShelfTimeEnd" id="offShelfTimeEnd"  ng-model="obj.commitEndTime" min-date="offShelfTimeStart" style="cursor:pointer" readonly/>
+                    </td>
+                    <th><label>上架状态：</label></th>
+                    <td>
+                        <select ng-model="obj.groundStatus">
+                            <option value="" disabled>请选择上架状态</option>
+                            <option ng-repeat="type in groundStatusList" ng-value="type.id">{{type.name}}</option>
+                        </select>
+                    </td>
+                    <th><label>审核状态：</label></th>
+                    <td>
+                        <select ng-model="obj.verifyStatus">
+                            <option value="" disabled>请选择审核状态</option>
+                            <option ng-repeat="type in verifyStatusList" ng-value="type.id">{{type.name}}</option>
+                        </select>
+                    </td>
+                    <th><label>销售状态：</label></th>
+                    <td>
+                        <select ng-model="obj.saleStatus">
+                            <option value="" disabled>请选择销售状态</option>
+                            <option ng-repeat="type in saleStatusList" ng-value="type.id">{{type.name}}</option>
+                        </select>
+                    </td>
+                    <th><label>字数：</label></th>
+                    <td>
+                        <select ng-model="obj.wordCountType">
+                          <option value="" disabled>请选择字数类型</option> 
+                          <option ng-repeat="type in wordList" ng-value="type.id">{{type.name}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>注册日期：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="registryStartTime" id="registryStartTime" ng-model="obj.registryStartTime" max-date="registryEndTime" style="cursor:pointer" readonly/>
+                        <label for="offShelfTimeEnd">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="registryEndTime" id="registryEndTime"  ng-model="obj.registryEndTime" min-date="registryStartTime" style="cursor:pointer" readonly/>
+                    </td>
+                    <th><label>商标组合：</label></th>
+                    <td>
+                        <select ng-model="obj.comby">
+                            <option value="" disabled>请选择商标组合</option>
+                            <option ng-repeat="type in combyList" ng-value="type.id">{{type.name}}</option>
+                        </select>
+                    </td>
+                    <th><label>注册年限：</label></th>
+                    <td>
+                        <select ng-model="obj.regDataTypeId">
+                            <option value="" disabled>请选择注册年限</option>
+                            <option ng-repeat="type in regYearList" ng-value="type.id">{{type.name}}</option>
+                        </select>
+                    </td>
+                    <th><label>商家名称：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.sellerName"></td>
+                    <th><label>联系号码：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.phone"></td> 
+                </tr>
+                <tr>
+                  <th><label>售价：</label></th>
+                  <td>
+                    <input type="text" class="txt" placeholder="最低价" ng-model="obj.startSellerPrice" style="width:50px;">
+                    <span>-</span>
+                    <input type="text" class="txt" placeholder="最高价" ng-model="obj.endSellerPrice" style="width:50px;">
+                  </td>
+                  <th class="min_width"><label>商标来源：</label></th>
+                    <td>
+                        <select ng-model="obj.trademarkFrom">
+                            <option value="" disabled>请选择商标来源</option>
+                            <option value="1">自己</option>
+                            <option value="2">他人</option>
+                        </select>
+                    </td>
+                  <td colspan="2">
+                      <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                      <a href="javascript:void(0);" class="btn-search" ng-click="search_reset()">重置</a>
+                  </td>
+                </tr>
+                <tr>
+                  <th><label>商标分类：</label></th>
+                  <td colspan="8">
+                    <ul class="ui_list" ng-class="{ 'all': showAllIntCls }">
+                      <li ng-class="{ 'active': activeId==0}" ng-click="selectInClsFn(1)">不限</li>
+                      <!-- <li class="active">01-化学原料</li> -->
+                      <li ng-repeat="info in cateIdData" ng-class="{ 'active': activeId==info.id }" ng-click="selectInClsFn(0, info)">{{ info.id < 10 ? '0'+info.id : info.id }}-{{ info.goodsname }}</li>
+                    </ul>
+                  </td>
+                  <th class="align-center">
+                    <label ng-show="!showAllIntCls" ng-click="showAllIntCls = true">展开 &nbsp;<i class="fa fa-chevron-down"></i></label>
+                    <label ng-show="showAllIntCls" ng-click="showAllIntCls = false">收起 &nbsp;<i class="fa fa-chevron-up"></i></label>
+                  </th>
+                </tr>
+                <tr ng-show="activeId">
+                  <th></th>
+                  <td colspan="9" class="similar_group">
+                    <label class="name">类似群组</label>
+                    <ul class="ui_list all">
+                      <li ng-class="{'active': groupAll}" ng-click="selectGroupFn(1)">不限</li>
+                      <li ng-class="{'active': item.active}" ng-repeat="item in groupList" ng-click="selectGroupFn(0, item)">{{ item.niceGroupGovernNum }}</li>
+                    </ul>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">商标编号</th>
+                    <th class="align-center">注册号</th>
+                    <th class="align-center">商标图案</th>
+                    <th class="align-center">商标名称</th>
+                    <th class="align-center">商标类别</th>
+                    <th class="align-center">店铺名称</th>
+                    <th class="align-center">售价</th>
+                    <th class="align-center">价格类型</th>
+                    <th class="align-center">是否开票</th>
+                    <th class="align-center">销售状态</th>
+                    <th class="align-center">上架状态</th>
+                    <th class="align-center">审核状态</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="OrderList.length" class="hover" ng-repeat="list in OrderList">
+                    <td class="align-center" ng-bind="list.goodsSn"></td>
+                    <td class="align-center" ng-bind="list.acceptmaterials"></td>
+                    <td class="align-center" ><img ng-src="{{list.picture}}" height="60" width="60" /></td>
+                    <td class="align-center" ><!-- <div ng-bind-html="list.trustTrademarkNameTag"></div> -->{{ list.trademarkName }}</td>
+                    <td class="align-center">{{ list.category < 10 ? 0+list.category : list.category }}- {{ cateIdData[list.category-1].goodsname }}</td>
+                    <td class="align-center" ng-bind="list.sellerName || '--'"></td>
+                    <td class="align-center" ng-bind="list.sellerPrice"></td>
+                    <td class="align-center" >{{ priceTypes[list.priceType-1].name }}</td>
+                    <td class="align-center" >{{ needTicketList[list.needTicket-1].name }}</td>
+                    <td class="align-center" >{{ saleStatusList[list.saleStatus-1].name }}</td>
+                    <td class="align-center" >{{ groundStatusList[list.groundStatus-1].name }}</td>
+                    <td class="align-center" >{{ verifyStatusList[list.verifyStatus-1].name }}</td>
+                    <td class="align-center w120 link_box">
+                        <a ng-click="goDetailFn(list)">详情</a>
+                        <a ng-click="setServiceState(list)" ng-show="!(list.saleStatus==3 || list.saleStatus==5 || list.verifyStatus==2)">销售</a>
+                        <a ng-show="list.verifyStatus==1" ng-click="setVerifyStatuFn(list.id, 2)">审核不通过</a>
+                        <a ng-show="list.verifyStatus==2" ng-click="setVerifyStatuFn(list.id, 1)">审核通过</a>
+                    </td>
+                </tr>
+                <tr ng-show="!OrderList.length">
+                  <td colspan="13" class="align-center" ng-show="!remarkList.length"><div class="warning-option"><i class="icon-warning-sign"></i><span class="ng-binding">没有符合条件的记录</span></div></td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+
+<style>
+  .tb-type1 td .ui_list {
+    line-height: 1.2;
+  }
+  .noborder td.similar_group {
+    background: #eee;
+  }
+  .noborder td.similar_group .name {
+    display: inline-block; width: 60px; float: left; height: 60px; padding-left: 20px;
+  }
+  .noborder td.similar_group .ui_list {
+    float: left; width: calc(100% - 80px);
+  }
+  .link_box a {cursor: pointer;}
+</style>

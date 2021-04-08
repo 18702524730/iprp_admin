@@ -1,0 +1,26 @@
+/*详情页面 头部右侧菜单*/
+.detail_top_rt{ margin-top: 16px; }
+
+/*相当于radio功能的单选按钮*/
+.radiobtn{background-color: #e6e8ee;color:#7B87A2;cursor: pointer; height: 22px;line-height: 22px;display: inline-block;padding:0 15px;margin-right: 10px;border-radius: 13px;}
+.radiobtn.cur{background-color: #68a4fe;color: #fff;}
+
+/*置灰，禁止点击*/
+.notallowed{color: #999;cursor: not-allowed;}
+.notallowed:hover{text-decoration: none;color: #999;}
+
+/*长文字段强制换行显示*/
+.breakall{word-break: break-all;}
+
+
+
+
+
+/*快服-电话咨询服务*/
+.tel_service_action .btn{display: inline-block;margin-top:2px;margin-bottom: 2px;}
+.tel_service_action .notallowed{color: #fff;cursor: not-allowed;background-color: #ccc;}
+.tel_service_action .notallowed:hover{color: #fff;}
+.tel_service_action a{margin-right:8px;display: inline-block; }
+.tel_service_list .zoom{margin: 0 5px;background-color: #68a4fe;color: #fff;cursor: pointer; height: 20px;line-height:18px;display: inline-block;padding:0 10px;border-radius: 10px;}
+p.contact{font-size: 24px;text-align: center;line-height: 40px;padding: 0 20px 20px;}
+p.contact span{font-size: 30px;}

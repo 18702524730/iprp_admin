@@ -1,0 +1,83 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>版权（云表）</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPCopyrightModel"><a href="JavaScript:void(0);" class="current"><span>工单列表</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>客户名称：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.customerName"></td>
+					<td colspan="2">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()" style="margin-left: 4px">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+						<!-- <a mt-show-model model-name="IPRPOrderReportModel" href="javascript:void(0);" class="btn-reset" ng-click="search_export()" title="导出">导出</a> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center">序号</th>
+					<th class="align-center">业务员</th>
+                    <th class="align-center">业务类型</th>
+					<th class="align-center">业务来源</th>
+					<th class="align-center">客户名称</th>
+					<th class="align-center">合同金额</th>
+                    <th class="align-center">服务费</th>
+					<th class="align-center">官费</th>
+                    <th class="align-center">纳税人识别号</th>
+                    <th class="align-center">发票收件电话</th>
+                    <th class="align-center">发票类型</th>
+                    <th class="align-center">备注</th>
+                    <th class="align-center">开票日期</th>
+                    <th class="align-center">官费发票号</th>
+                    <th class="align-center">服务费发票号</th>
+					<th class="align-center">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<td class="align-center"><span ng-bind="list.seqNo"></span></td>
+					<td class="align-center" ng-bind="list.salesman"></td>
+                    <td class="align-center" ng-bind="list.businessType"></td>
+					<td class="align-center" ng-bind="list.businessSource"></td>
+					<td class="align-center" ng-bind="list.customerName"></td>
+					<td class="align-center" ng-bind="list.contractMoney| number:2"></td>
+					<td class="align-center" ng-bind="list.serviceCharge| number:2"></td>
+					<td class="align-center" ng-bind="list.officialFees| number:2"></td>
+					<td class="align-center" ng-bind="list.taxpayerNumber"></td>
+					<td class="align-center" ng-bind="list.contactsPhoneOne"></td>
+					<td class="align-center" ng-bind="list.invoiceType"></td>
+					<td class="align-center" ng-bind="list.remarks"></td>
+					<td class="align-right" ng-bind="list.billingDate|date:'yyyy-MM-dd'"></td>
+                    <td class="align-center" ng-bind="list.officialFeesNo"></td>
+                    <td class="align-center" ng-bind="list.serviceMoneyNo"></td>
+                    
+                    
+					<td class="align-center w120">
+						<a href="JavaScript:void(0);" model-name="IPRPBsOrderDetailModel" style="cursor: pointer" ng-click="setInvoiceMsg(list)">编辑</a>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="16" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="16"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

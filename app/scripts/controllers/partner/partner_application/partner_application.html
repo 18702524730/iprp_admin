@@ -1,0 +1,97 @@
+<div class="page">
+  <div class="fixed-bar">
+      <div class="item-title">
+          <h3>合伙人入驻申请</h3>
+          <ul class="tab-base">
+              <li mt-show-model model-name="IPRPBillTplListModel"><a href="JavaScript:void(0);" class="current"><span>合伙人入驻申请</span></a></li>
+              <!-- <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/service_home/label_tpl_add"><span>添加</span></a></li> -->
+          </ul>
+      </div>
+  </div>
+  <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+            <tr>
+              <th><label>主体类型:</label></th>
+              <td>
+                <select ng-model="obj.apply_types" style="width: 140px;">
+                    <option value="2,3">请选择主体类型</option>
+                    <option value="2">机构合伙人</option>
+                    <option value="3">个人合伙人</option>
+                    <!-- <option value="1">个人合伙人</option> -->
+                </select>
+              </td>
+              <th><label>公司名称:</label></th>
+              <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.companyName"></td>
+              <th><label>联系人姓名:</label></th>
+              <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.name"></td>
+              <th><label>联系电话:</label></th>
+              <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.phone"></td>
+              <th><label>申请状态:</label></th>
+              <td>
+                  <select ng-model="obj.sp_confirm" style="width: 140px;">
+                      <option value="">请选择申请状态</option>
+                      <option value="2">通过</option>
+                      <option value="3">不通过</option>
+                  </select>
+              </td>
+              <td>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="reset()">重置</a>
+              </td>
+            </tr>
+            <tr>
+          </tr>
+        </tbody>
+    </table>
+</form>
+
+  <form>
+      <table class="table tb-type2">
+          <thead>
+              <tr class="thead">
+                  <th class="align-center" style="width: 40px;">序号</th>
+                  <th class="align-center">主体类型</th>
+                  <th class="align-center">公司名称</th>
+                  <th class="align-center">联系人姓名</th>
+                  <th style="width: 120px;" class="align-center">联系电话</th>
+                  <th style="width: 120px;" class="align-center">推荐人账号</th>
+                  <th style="width: 120px;" class="align-center">申请时间</th>
+                  <th class="align-center">申请状态</th>
+                  <th class="align-center">操作</th>
+              </tr>
+          </thead>
+          <tbody class="tr-color">
+            <tr class="" ng-show="labelList.length > 0" class="hover" ng-repeat="list in labelList">
+                  <td class="align-center">
+                      <span ng-bind="list.number"></span>
+                  </td>
+                  <td class="align-center">{{list.applyTypeText}}</td>
+
+                  <td class="align-center" ng-bind="list.companyName"></td>
+                  <td class="align-center" ng-bind="list.name"></td>
+                  <td class="align-center">{{list.phone}}</td>
+                  <td class="align-center">{{list.inviteCode || "--"}}</td>
+                  <td class="align-center">{{list.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                  <td class="align-center">{{list.confirmText}}</td>
+                  <td class="align-center w120">
+                      <a href="JavaScript:void(0);" mt-show-model model-name="IPRPHandleModel"
+                              style="cursor: pointer" ng-if="list.confirm == 1" ng-click = "handleClickFeedBaack(list.applyId)">经办</a>
+                      <a href="JavaScript:void(0);" ng-if="list.confirm != 1"
+                              style="cursor: pointer" ng-click = "handleClickDetail(list.applyId)">详情</a>
+                  </td>
+              </tr>
+              <tr ng-show="to_loading">
+                  <td colspan="20" class="norecord">
+                      <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                  </td>
+              </tr>
+          </tbody>
+          <tfoot ng-hide="to_loading">
+              <tr colspan="15" class="tfoot">
+                  <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+              </tr>
+          </tfoot>
+      </table>
+  </form>
+</div>

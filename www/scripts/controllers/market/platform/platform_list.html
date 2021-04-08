@@ -1,0 +1,90 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>平台运营位</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>运营位列表</span></a></li>
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="#main/market_home/platformAdd"><span>新增运营位</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 列表 -->
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" width="100">序号</th>
+                    <th class="align-center" width="200" >运营位名称</th>
+                    <th class="align-center" width="100">权重</th>
+                    <th class="align-center" width="200">备注</th>
+                    <th class="align-center" width="200">最后编辑时间</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="positionList.length > 0" class="hover" ng-repeat="list in positionList">
+                    <td class="align-center"><span ng-bind="$index+1"></span></td>
+                    <td class="align-center">
+                        <span ng-bind="list.positionName"></span>
+                    </td>
+                    <td class="align-center">
+                        <span ng-bind="list.showWeight"></span>
+                    </td>
+                    <td class="align-center">
+                        <span ng-bind="list.remark"></span>
+                    </td>
+                    <!-- 最后编辑时间 -->
+                    <td class="align-center"><span >{{list.updateTime | date : 'yyyy-MM-dd  HH:mm:ss'}}</span></td>
+                    <td class="align-center w120">
+                        <a href="#main/market_home/platformEdit/{{list.id}}" style="cursor:pointer;">编辑</a>
+                        <a ng-click="deleteFn(list)" ng-show="list.positionType === 4" style="cursor:pointer;">删除</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+.excelbtn{
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    width: 110px;
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #666;
+    margin:10px auto 0;
+}
+.excelbtn:hover{
+    color: #fff;
+    background-color: #68a4fe;
+    border-color: #68a4fe;
+}
+.item-title .tab-base li .current{background-color: #68a4fe;}
+.item-title .tab-base li .current span{color: #fff;}
+label.no_must {background: none; padding: 0;}
+.upload-btn {
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background: #eee;
+}
+.tm_manage .line {
+  width: 100%; height: 30px; line-height: 30px; margin-bottom: 10px;
+}
+.thead th.maxwidth { max-width: 120px; }
+</style> 
+ 

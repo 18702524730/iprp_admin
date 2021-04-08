@@ -1,0 +1,130 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>服务商</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPServicerListModel"><a href="#/main/merchant_home/servicer_list"><span>服务商列表</span></a></li>
+                <li mt-show-model model-name="IPRPServiceManageModel"><a href="JavaScript:void(0);" class="current"><span>服务商管理</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+        <thead>
+            <tr>
+                <th colspan="20">服务商信息</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>服务商名称：</th>
+                <td colspan="20">
+                    <span ng-bind="service_detail.name"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>账号：</th>
+                <td>
+                    <span ng-bind="service_detail.account"></span>
+                </td>
+                <!-- <th>能力值：</th>
+                <td>
+                    <span ng-bind="service_detail.ability"></span>
+                </td> -->
+                    <th>状态：</th>
+                <td>
+                    <span ng-bind="service_detail.state | servicerStatusFilter"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+        <thead>
+        <tr>
+            <th colspan="20">服务开通</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label for="">渠道：</label> 
+                    <select ng-model="channel_id" ng-options="sortName.channel_id as sortName.name for sortName in channel_list" ng-change="channelChange(channel_id)">
+                    </select>
+                    <label for="" style="margin-left: 50px">服务分类：</label>
+                    <select
+                            ng-model="bs_class_id"
+                            ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessFirst.elements"
+                            ng-change="searchSecond(bs_class_id)">
+                        <option value="">请选择...</option>
+                    </select>
+                    <select ng-model="s_bs_class_id"
+                            ng-show="bs_class_id && BusinessSrcondclass.elements.length > 0"
+                            ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessSrcondclass.elements"
+                            ng-change="searchThird(s_bs_class_id)">
+                        <option value="">请选择...</option>
+                    </select>
+                    <select ng-model="t_bs_class_id"
+                            ng-show="s_bs_class_id && BusinessThreeclass.elements.length > 0"
+                            ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessThreeclass.elements"
+                            ng-change="showBusiness(t_bs_class_id)">
+                        <option value="">请选择...</option>
+                    </select>
+                    &nbsp;&nbsp;
+                    <a href="" ng-click = "all_service()">全部服务</a>
+
+                    <span class="error" ng-show="open_service_show">
+                        <small class="error">
+                            <label><i class="icon-exclamation-sign"></i>请选择开通的服务</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table style="width: 860px" id="table_category" class="type">
+                        <thead>
+                            <tr>
+                                <th>渠道</th>
+                                <th>服务分类</th>
+                                <th>服务</th>
+                                <th>现有能力值</th>
+                                <th>配置能力值</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="tempServiceBusiness.length > 0" ng-repeat="detail in tempServiceBusiness">
+                                <td ng-bind="detail.channel_name"></td>
+                                <td ng-bind="detail.bs_class_name"></td>
+                                <td ng-bind="detail.name"></td>
+                                <td>{{!detail.sp_now_ability && detail.sp_now_ability!=0? '--':detail.sp_now_ability}}</td>
+                                <td>{{!detail.sp_ability && detail.sp_ability!=0? '--':detail.sp_ability}}</td>
+                                <td>
+                                    <a href="" ng-click="servAction(detail, false)" ng-if="!detail.check">开通</a>
+                                    <a href="" ng-click="servAction(detail, true)" ng-if="detail.check && detail.channel_id == channel_id">修改</a>
+                                    <a href="" ng-click="close(detail)" ng-if="detail.check && detail.channel_id == channel_id">关闭</a>
+                                    <!-- <input type="checkbox" ng-click="sChoose(detail)" ng-checked="!!detail.check"> -->
+                                </td>
+                            </tr>
+                            <!-- <tr ng-show="tempServiceBusiness.length > 0">
+                                <td colspan="6">
+                                    <a style="margin-left: 575px;"
+                                       href="JavaScript:void(0);" class="btn" ng-click="save()"><span>确定</span></a>
+                                </td>
+                            </tr> -->
+                            <tr ng-show="to_loading">
+                                <td colspan="20" class="norecord">
+                                    <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot ng-hide="to_loading">
+                            <tr colspan="15" class="tfoot">
+                                <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,38 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">设置销售状态：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form role="form" style="padding:5px 15px 20px;">
+        <table class="table tb-type2 nobdb" >
+            <tbody class="tr-color">
+                <tr class="noborder">
+                    <td colspan="4" >
+                        <label>请选择服务状态：</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label ng-repeat="item in sellStateList" style="margin-right: 20px;"><input type="radio" name="service_type" ng-value="item.id" ng-model="tmData.saleStatus" >{{item.name}}</label>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td colspan="4" ng-show="tmData.saleed">
+                        注：商标设置为“已售”后，商标将自动下架并不可编辑。
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="4">
+                      <a class="btn" ><span ng-click="cancel()">取消</span></a>  
+                      <a class="btn" id="submitBtn"><span ng-click="save()">确定</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

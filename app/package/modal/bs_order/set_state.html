@@ -1,0 +1,38 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">设置服务状态：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form role="form" style="padding:5px 15px 20px;">
+        <table class="table tb-type2 nobdb" >
+            <tbody class="tr-color">
+                <tr class="noborder">
+                    <td colspan="4" >
+                        <label>请选择服务状态：</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label style="margin-right: 20px;"><input type="radio" name="service_type" ng-value='data.state'  ng-model="data.state">已完成</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label><span style="color: red"></span>上传服务合同：</label>
+                        <label ng-if="!obj.reportUrl"><a class="upload-btn2" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file)" ngf-pattern="'.pdf,.PDF,.rar,.zip,.jpg,.bmp,.png,.RAR,.ZIP,.JPG,.BMP,.PNG'" ngf-multiple="false" style="display: inline-block;margin-right: 0px;padding: 5px 10px; border-radius: 2px;border:1px solid #68a4fe;color:#68a4fe;">上传</a>  备注：格式为RAR、ZIP、PDF、JPG、BMP、PNG大小限5M以内</label>
+                        <label ng-if="obj.reportUrl" style="vertical-align: top;"> <span style="display: inline-block;max-width:350px;margin-bottom: 10px">{{fileData.fileName}}</span><br><a class="upload-btn2" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file)" ngf-pattern="'.pdf,.PDF,.rar,.zip,.jpg,.bmp,.png,.RAR,.ZIP,.JPG,.BMP,.PNG'" ngf-multiple="false" style="display: inline-block;margin-right: 0px;padding: 5px 10px; border-radius: 2px;border:1px solid #68a4fe;color:#68a4fe;">重新上传</a> 备注：格式为RAR、ZIP、PDF、JPG、BMP、PNG大小限5M以内</label>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="4">
+                        <a class="btn" id="submitBtn"><span ng-click="save()">设置</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

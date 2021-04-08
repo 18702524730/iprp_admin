@@ -1,0 +1,60 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>我要砍价 > 备注</h3>
+        </div>
+    </div>
+
+    <!-- 备注 -->
+    <div >
+      <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 order order_line">
+          <tbody class="tr-color">
+              <tr class="space">
+                  <th colspan="2">备注信息</th>
+              </tr>
+              <tr>
+                <td colspan="2" style="padding:0 !important;">
+                  <table class="table tb-type2" style="border:1px solid #DFE4EA;">
+                    <thead>
+                        <tr class="thead">
+                            <th class="align-center" style="width:100px;">备注人</th>
+                            <th class="align-center" style="width:100px;">备注时间</th>
+                            <th class="align-center">备注内容</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tr-color">
+                        <tr class="" ng-show="remarkList.length" class="hover" ng-repeat="list in remarkList">
+                            <td class="align-center" ng-bind="list.operatorName"></td>
+                            <td class="align-center" >{{ list.feedbackTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                            <td class="align-center" ng-bind="list.feedbackContent"> </td>
+                        </tr>
+                        <td colspan="3" class="align-center" ng-show="!remarkList.length"><div class="warning-option"><i class="icon-warning-sign"></i><span class="ng-binding">没有符合条件的记录</span></div></td>
+                        <tr ng-show="to_loading">
+                            <td colspan="20" class="norecord">
+                                <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-right:none;">
+                  <a href="javascript:void(0);" class="btn-search" ng-click="addRemarkFn({})">添加备注</a>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+</div>
+
+<style>
+  .order ul li strong {
+    width: 100px; display: inline-block;
+  }
+  .tb-type2 td, .tb-type2 th {
+    border-right: 1px solid #DFE4EA;
+  }
+</style>

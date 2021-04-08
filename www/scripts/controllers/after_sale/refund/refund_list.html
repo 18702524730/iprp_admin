@@ -1,0 +1,158 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>退款管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPRefundListModel"><a href="JavaScript:void(0);" class="current"><span>退款列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddRefundModel"><a href="#/main/trade_home/refund_add"><span>添加退款</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>退款单号：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.refund_sn"></td>
+                    <th><label>服务单号：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.order_sn"></td>
+                    <th><label>客户姓名：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.user_account"></td>
+                    <th><label>申请时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="begin_time" id="begin_time"  ng-model="begin_time"
+                               max-date="end_time" datepicker-popup style="cursor:pointer" readonly/>
+                        <label for="end_time">~</label>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="end_time" id="end_time"  ng-model="end_time"
+                               is-open="endOpened0" datepicker-popup  ng-click="endOpened0 = true" min-date="begin_time" style="cursor:pointer" readonly/>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>退款状态：</label></th>
+                    <td>
+                        <select ng-model="obj.state" style="width: 120px;">
+                            <option value="">请选择</option>
+                            <option value="0">待审核</option>
+                            <option value="1">商家同意</option>
+                            <option value="2">商家驳回</option>
+                            <option value="3">退款完成</option>
+                            <option value="4">先行赔付</option>
+                        </select>
+                    </td>
+                    <th><label>服务状态：</label></th>
+                    <td>
+                        <select ng-model="obj.sp_state" style="width: 120px;">
+                            <option value="">请选择</option>
+                            <option value="0">待服务</option>
+                            <option value="1">服务中</option>
+                            <option value="2">服务关闭</option>
+                            <option value="3">服务完成</option>
+                        </select>
+                    </td>
+                    <th><label>注册手机号：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.phone"></td>
+                    <th><label>完成时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="complete_begin_time" id="complete_begin_time" ng-model="complete_begin_time" is-open="startOpened" ng-click="startOpened = true" max="obj.complete_end_time" style="cursor:pointer" readonly/>
+                        <label for="complete_end_time">~</label>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="complete_end_time" id="complete_end_time"  ng-model="complete_end_time"
+                               is-open="endOpened" datepicker-popup ng-click="endOpened = true" min="obj.complete_begin_time" style="cursor:pointer" readonly/>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>商品筛选：</label></th>
+                    <td colspan="5">
+                        <select ng-model="typeobj.fir_id" ng-change="bs_type_change(1, typeobj.fir_id)" ng-options="type.id as type.name for type in firTypeData">
+                            <option value="">请选择</option>
+                        </select>
+                        <select ng-model="typeobj.sec_id" ng-change="bs_type_change(2, typeobj.sec_id)" ng-options="type.id as type.name for type in secTypeData">
+                            <option value="">请选择</option>
+                        </select>
+                        <select ng-model="typeobj.thi_id" ng-change="bs_type_change(3, typeobj.thi_id)" ng-options="type.id as type.name for type in thiTypeData">
+                            <option value="">请选择</option>
+                        </select>
+                        <select ng-model="typeobj.fou_id" ng-change="bs_type_change(4)" ng-options="type.bs_feedback_id as type.name for type in fouTypeData">
+                            <option value="">请选择服务状态</option>
+                        </select>
+                    </td>
+                    <th><label>来源：</label></th>
+                    <td>
+                        <select ng-model="obj.order_distribute_from" style="width: 120px;">
+                        		<option value="">请选择</option>
+                            <option value="1">拾贝分单</option>
+                            <option value="2">店铺下单</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+										<th><label>商家名称：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.sp_name"></td>
+                    <th><label>商家编号：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.sp_code"></td>
+                    <td style="text-align: right;">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">序号</th>
+                    <th class="align-center">退款单号</th>
+                    <th class="align-center">来源</th>
+                    <th class="align-center">服务单号</th>
+                    <th class="align-right">退款金额</th>
+                    <th class="align-right">实退金额</th>
+                    <th class="align-center">商品编号</th>
+                    <th class="align-center">商品名称</th>
+                    <th class="align-center">客户姓名</th>
+                    <th class="align-center">注册手机号</th>
+                    <th class="align-center">申请退款时间</th>
+                    <th class="align-center">退款状态</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="RefundList.length > 0" class="hover" ng-repeat="list in RefundList">
+                    <td class="align-center">
+                        <span ng-bind="list.number"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.refund_sn"></td>
+                    <td class="align-center" ng-bind="list.order_distribute_from == 1 ? '拾贝分单' : '店铺下单'"></td>
+                    <td class="align-center" ng-bind="list.order_sn"></td>
+
+                    <td class="align-right" ng-bind="list.amount_user | number:2" ng-if="list.amount_user!==0"></td>
+                    <td class="align-center" ng-if="list.amount_user===0"></td>
+                    <td class="align-right" ng-bind="list.amount | number:2" ng-if="list.amount!==0"></td>
+                    <td class="align-center" ng-if="list.amount===0"></td>
+
+										<td class="align-center" ng-bind="list.order_bs_number"></td>
+                    <td class="align-center" ng-bind="list.bs_name"></td>
+                    <td class="align-center" ng-bind="list.truename"></td>
+                    <td class="align-center" ng-bind="list.phone"></td>
+                    <td class="align-center" ng-bind="list.create_time | date : 'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center" ng-bind="list.audit_state | refundStatusFilter"></td>
+                    <td class="align-center w120"><!--refund_check(list.refund_id,list.state,list.audit_state)-->
+                        <a herf style="cursor: pointer" ng-click="refund_check(list)">退款详情</a>
+                        <a herf style="cursor: pointer" ng-click="orderDetail(list)">订单详情</a>
+                        <!-- <a herf mt-show-model model-name="IPRPRefundDetailModel" style="cursor: pointer" ng-click="refund_check(list.refund_id,list.state,list.audit_state)">查看</a> -->
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="13" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr class="tfoot">
+                    <td colspan="13"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

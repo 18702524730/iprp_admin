@@ -1,0 +1,62 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>企业主体认证审核</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPMemberManageModel"><a href="JavaScript:history.go(-1)"><span>审核列表</span></a></li>
+                <li mt-show-model model-name="IPRPMemberManageModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">企业认证信息</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li>
+                    <strong>企业名称：</strong>
+                    {{order_detail.applyName}}&nbsp;&nbsp;
+                  </li>
+                  <li><strong>统一社会信用代码：</strong>{{order_detail.applyNumber}}</li>
+                  <li><strong>联系电话：</strong>{{order_detail.applyPhone}}</li>
+                  <li><strong>企业邮箱：</strong>{{order_detail.applyEmail}}</li>
+                  <li><strong>企业地址：</strong>{{order_detail.applyAddress}}</li>
+                  <li><strong>邮编：</strong>{{order_detail.applyZipCode}}</li>
+                  <li><strong style="vertical-align: top">企业营业执照副本复印件（加盖公章）：</strong><img ng-src="{{imgurl}}" width="100" ng-click='preview(order_detail.standby1)' alt=""></li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">申请认证用户信息</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li><strong>用户ID：</strong>{{order_detail.memberId}}</li>
+                  <li><strong>用户手机：</strong>{{order_detail.memberPhone}}</li>
+                  <li><strong>用户姓名：</strong>{{order_detail.memberTruename}}</li>
+                  <li><strong>用户注册时间：</strong>{{order_detail.createTime  | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                  <li><strong>注册渠道：</strong>{{order_detail.memberChannelName}}</li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">审核信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>认证状态：</strong>{{order_detail.isChecked|checkedStautsFormat}} <span class="mygraybtn ml10" ng-if="order_detail.isChecked==2" ng-click="showaudit()">审核</span></li>
+                        <!-- <li><strong>备注：</strong>{{order_detail.authFailReason}}</li> -->
+                    </ul>
+                    <ul>
+                      <li><strong>备注：</strong>{{order_detail.authFailReason}}</li>
+                  </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

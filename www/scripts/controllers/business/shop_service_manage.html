@@ -1,0 +1,115 @@
+<div class="page feedback">
+   <div class="fixed-bar">
+        <div class="item-title">
+            <h3>店铺服务管理</h3>
+            <ul class="tab-base">
+                <li><a href="JavaScript:void(0);" class="current"><span>管理列表</span></a></li>
+                <li><a href="#main/business_home/add_business_class"><span>添加店铺服务类目</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>商品编号：</label></th>
+                    <td>
+                        <!--
+                        <select ng-model="obj.adviseSpName" ng-options="item.name as item.name for item in spList" style="width:150px;">
+                            <option value="">请选择</option>
+                        </select>
+                         -->
+                        <input type="text" class="txt" ng-model="obj.product_num" style="width: 120px">
+                    </td>
+                    <th><label>服务名称：</label></th>
+                    <td>
+                        <input type="text" class="txt" ng-model="obj.service_name" style="width: 120px">
+                    </td>
+                    <th><label>商家名称：</label></th>
+                    <td>
+                        <input type="text" class="txt" ng-model="obj.sp_name" style="width: 120px">
+                    </td>
+                    <th><label>服务类目：</label></th>
+                    <td colspan="4">
+                        <select ng-model="typeobj.fir_id" ng-change="bs_type_change(1, typeobj.fir_id)" ng-options="type.id as type.name for type in firTypeData">
+                            <option value="">请选择</option>
+                        </select>
+                        <select ng-model="typeobj.sec_id" ng-change="bs_type_change(2, typeobj.sec_id)" ng-options="type.id as type.name for type in secTypeData">
+                            <option value="">请选择</option>
+                        </select>
+                        <select ng-model="typeobj.thi_id" ng-change="bs_type_change(3, typeobj.thi_id)" ng-options="type.id as type.name for type in thiTypeData">
+                            <option value="">请选择</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+										<th><label>审核状态：</label></th>
+                    <td>
+                    		<select ng-model="obj.verify_status" style="width: 130px">
+                            <option value="">请选择</option>
+                            <option value="1">审核通过</option>
+                            <option value="2">审核不通过</option>
+                        </select>
+                    </td>
+                    <td style="text-align:right;">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                		<th class="align-center" width="30"></th>
+                    <th class="align-center" width="120">商品编号</th>
+                    <th class="align-center">服务类目</th>
+                    <th class="align-center">服务名称</th>
+                    <th class="align-center" width="130">商家名称</th>
+                    <th class="align-right">服务售价</th>
+                    <th class="align-right" width="100">折扣价格</th>
+                    <th class="align-center" width="80">最后修改时间</th>
+                    <!-- <th class="align-center" width="130">搜索权重</th> -->
+                    <th class="align-center" width="130">审核状态</th>
+                    <th class="align-center" width="80" class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+                    <td class="align-center">
+                      <input type="checkbox" name="" value="" class="checkitem" ng-click="sChoose(list.service_id)" ng-checked="allId.indexOf(list.bs_id) !== -1">
+                    </td>
+                    <td class="align-center">{{list.product_num}}</td>
+                    <td class="align-center">{{list.category}}</td>
+                    <td class="align-center">{{list.service_name}}</td>
+                    <td class="align-center">{{list.sp_name}}</td>
+                    <td class="align-right">{{list.service_price | number:2}}</td>
+                    <td class="align-right">{{list.sale_price | number:2}}</td>
+                    <td class="align-center">{{list.update_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="align-center">{{list.verify_status == 1 ? '审核通过' : list.verify_status == 2 ?'审核未通过' : '--'}}</td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="view(list.service_id)">查看</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="11" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr class="tfoot">
+                		<td class="align-center"><input type="checkbox" class="checkall" id="checkallBottom" ng-checked="checkall" ng-click="allChoose()" name="chkVal"></td>
+                    <td colspan="4">
+                        <label for="checkallBottom">全选</label> &nbsp;&nbsp;
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPDeleteBusinessClassModel" ng-click="checkPass(1)" class="btn" style="margin: 5px;"><span>审核通过</span></a>
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPDeleteBusinessClassModel" ng-click="checkPass(0)" class="btn" style="margin: 5px;"><span>审核不通过</span></a>
+                    </td>
+                    <td colspan="6"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

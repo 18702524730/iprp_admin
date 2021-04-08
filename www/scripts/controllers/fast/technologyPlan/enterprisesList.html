@@ -1,0 +1,113 @@
+<div class="page">
+  <div class="fixed-bar">
+      <div class="item-title">
+          <h3>三年双倍增计划</h3>
+          <ul class="tab-base">
+              <li><a href="JavaScript:void(0);" class="current"><span>三年双倍增计划</span></a></li>
+              <!-- <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/service_home/label_tpl_add"><span>添加</span></a></li> -->
+          </ul>
+      </div>
+  </div>
+  <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+            <tr>
+                <th><label>街道:</label></th>
+                <td>
+                    <select ng-model="obj.street" style="width: 140px;">
+                    		<option value="">请选择</option>
+                        <option value="1">闸弄口街道</option>
+                        <option value="2">凯旋街道</option>
+                        <option value="3">采荷街道</option>
+                        <option value="4">四季青街道</option>
+                        <option value="5">笕桥街道</option>
+                        <option value="6">彭埠街道</option>
+                        <option value="7">钱塘智慧城</option>
+                        <option value="8">丁兰街道</option>
+                        <!-- <option value="1">个人合伙人</option> -->
+                    </select>
+                    <!-- <input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.demandType"> -->
+                </td>
+                <th><label>申请状态:</label></th>
+                <td>
+                    <select ng-model="obj.apply2019Status" style="width: 140px;">
+                    		<option value="">请选择</option>
+                        <option value="1">新认定2019</option>
+                        <option value="2">复评2019</option>
+                        <option value="3">新认定2020</option>
+                        <option value="4">复评2020</option>
+                        <option value="5">新认定2021</option>
+                        <option value="6">复评2021</option>
+                        <option value="7">暂无意向</option>
+                    </select>
+                    <!-- <input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.apply2019Status"> -->
+                </td>
+                <th><label>企业名称:</label></th>
+                <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.companyName"></td>
+                <th><label>联系人:</label></th>
+                <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.contact"></td>
+                <th><label>联系电话:</label></th>
+                <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.contactNumber"></td>
+              </tr>
+              <tr>
+                <td colspan="10">
+                  <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="reset()">重置</a>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="search_export(2)">导出增量数据</a>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="search_export(1)">导出全部数据</a>
+              	</td>
+              </tr>
+        </tbody>
+    </table>
+</form>
+
+  <form>
+      <table class="table tb-type2">
+          <thead>
+              <tr class="thead">
+                  <th class="align-center" style="width: 40px;">序号</th>
+                  <th class="align-center" style="width: 140px;">街道</th>
+                  <th class="align-center">申请状态</th>
+                  <th class="align-center">企业名称</th>
+                  <th style="width: 120px;" class="align-center">企业注册时间</th>
+                  <th style="width: 120px;" class="align-center">企业规模</th>
+                  <th style="width: 120px;" class="align-center">技术领域</th>
+                  <th class="align-center">是否设有研发机构</th>
+                  <th class="align-center">联系人</th>
+                  <th class="align-center">联系电话</th>
+                  <th class="align-center">操作</th>
+              </tr>
+          </thead>
+          <tbody class="tr-color">
+            <tr class="" ng-show="labelList.length > 0" class="hover" ng-repeat="list in labelList">
+                  <td class="align-center">
+                      <span ng-bind="list.number"></span>
+                  </td>
+                  <td class="align-center">{{list.streetText}}</td>
+
+                  <td class="align-center" ng-bind="list.apply2019Status|applyStatus"></td>
+                  <td class="align-center" ng-bind="list.companyName"></td>
+                  <td class="align-center">{{list.regDate | date:'yyyy-MM-dd'}}</td>
+                  <td class="align-center">{{list.companyText}}</td>
+                  <td class="align-center">{{list.productField}}</td>
+                  <td class="align-center">{{list.researchOrgLevelText}}</td>
+                  <td class="align-center">{{list.contact}}</td>
+                  <td class="align-center">{{list.contactNumber}}</td>
+                  <td class="align-center w120">
+                    <a href="JavaScript:void(0);" style="cursor: pointer" ng-click = "handleClickDetail(list.id)">详情</a>
+                  </td>
+              </tr>
+              <tr ng-show="to_loading">
+                  <td colspan="20" class="norecord">
+                      <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                  </td>
+              </tr>
+          </tbody>
+          <tfoot ng-hide="to_loading">
+              <tr colspan="15" class="tfoot">
+                  <td colspan="19"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+              </tr>
+          </tfoot>
+      </table>
+  </form>
+</div>

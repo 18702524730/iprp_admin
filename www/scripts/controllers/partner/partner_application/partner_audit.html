@@ -1,0 +1,201 @@
+<style>
+	.radio_align {
+		vertical-align: middle;
+		margin-top: -2px;
+		margin-bottom: 1px;
+	}
+
+	.order .typeOrder>li:nth-child(3n+2) {
+		width: 34.1%;
+	}
+
+	.order .typeOrder>li:nth-child(3n+3) {
+		width: 32.9%;
+	}
+</style>
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>反馈</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPServicerListModel">
+					<a href="#/main/fast_home/partner_application">
+						<span>合伙人入驻申请</span>
+					</a>
+				</li>
+				<li mt-show-model model-name="IPRPServicerDetailModel">
+					<a href="JavaScript:void(0);" class="current">
+						<span>{{type == 'bl' ? '经办' : '详情'}}</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<table class="table tb-type2 order">
+		<tbody class="tr-color">
+			<tr class="space">
+				<th colspan="15">申请资料</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<ul class="typeOrder">
+						<li>
+							<strong>主体类型:</strong>{{audit_data.applyTypeText}}
+						</li>
+						<li ng-if="audit_data.applyType == 3">
+							<strong>机构名称:</strong>{{audit_data.companyName || "--"}}</li>
+						<li>
+							<strong>联系人姓名:</strong>{{audit_data.name || "--"}}</li>
+						<li>
+							<strong>联系电话:</strong>{{audit_data.phone || "--"}}</li>
+						<li>
+							<strong>申请时间:</strong>{{audit_data.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+						<li>
+							<strong>推荐人账号:</strong>{{audit_data.inviteCode || "--"}}</li>
+						<li>
+							<strong>{{audit_data.applyType == 3 ? "机构" : "个人"}}介绍:</strong>{{audit_data.remark || "--"}}</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">申请结果</th>
+			</tr>
+			<tr>
+				<td>
+					<form name="auditForm" role="form" class="form-horizontal" novalidate>
+						<table class="table tb-type2">
+							<tbody class="tr-color">
+								<tr>
+									<td colspan="2" class="required">
+										<label class="validation">申请状态:</label>
+										<span class="error" ng-show="auditForm.auditStatus.$invalid && auditForm.submitted">
+											<small ng-show="auditForm.auditStatus.$error.required" class="error">
+												<label>
+													<i class="icon-exclamation-sign"></i>请选择审核状态</label>
+											</small>
+										</span>
+									</td>
+								</tr>
+								<tr class="noborder">
+									<td class="vatop rowform">
+										<input class="radio_align" type="radio" ng-disabled="type == 'det'" name="auditStatus" ng-model="auditFormData.auditStatus"
+										 required value="2" />通过
+										<input class="radio_align" type="radio" ng-disabled="type == 'det'" name="auditStatus" ng-model="auditFormData.auditStatus"
+										 required value="3" />不通过
+									</td>
+									<td class="vatop tips"></td>
+								</tr>
+								<tr class="noborder" ng-if="auditFormData.auditStatus == 3">
+									<td colspan="2" class="required">
+										<label class="validation">不通过原因:</label>
+										<span class="error" ng-show="auditForm.reason.$invalid && auditForm.submitted">
+											<small ng-show="auditForm.reason.$error.required" class="error">
+												<label>
+													<i class="icon-exclamation-sign"></i>请选择不通过原因</label>
+											</small>
+										</span>
+									</td>
+								</tr>
+								<tr class="noborder" ng-if="auditFormData.auditStatus == 3">
+									<td class="vatop rowform">
+										<select ng-model="auditFormData.reason" name="reason" ng-disabled="type == 'det'" required>
+											<option value="">请选择不通过原因</option>
+											<option value="1">申请资料有误</option>
+											<option value="2">合伙人放弃入驻</option>
+											<option value="3">平台不予招商</option>
+											<option value="4">无效申请信息</option>
+											<option value="0">其他</option>
+										</select>
+									</td>
+									<td class="vatop tips"></td>
+								</tr>
+								<tr class="noborder" ng-if="type == 'bl'">
+									<td colspan="2">
+										<a href="JavaScript:void(0);" class="btn" id="submitBtn" ng-click="confirmAudit()">
+											<span>确认</span>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">沟通记录</th>
+			</tr>
+			<tr>
+				<td>
+					<table class="table tb-type2">
+						<tbody class="tr-color">
+							<tr style="background: #f1f3f6;">
+								<td style="width: 120px;">操作员</td>
+								<td style="width: 140px;">备注时间</td>
+								<td>沟通内容</td>
+							</tr>
+							<tr ng-show="audit_data.adminRemark && audit_data.adminRemark.length > 0" ng-repeat="list in audit_data.adminRemark | filter:{nick:searchNick} track by $index">
+								<td>{{list.operator}}</td>
+								<td>{{list.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+								<td>{{list.content}}</td>
+							</tr>
+							<tr ng-show="!audit_data.adminRemark || audit_data.adminRemark.length == 0">
+								<td colspan="20" class="norecord">
+									<div class="warning-option">
+										<i class="icon-warning-sign"></i>
+										<span>{{loading_text}}</span>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr class="noborder" ng-if="type == 'bl'">
+				<td colspan="2">
+					<a href="javascript:void(0);" class="btn-search" ng-click="addRemarks()">
+						<span>添加记录</span>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div id="addDialog" style="display: none;margin-top: 10px;width: 360px;">
+	<form class="layui-form" name="addRemarksForm" role="form" novalidate style="overflow: hidden;">
+		<table class="table" style="margin-left:18px;overflow: hidden; ">
+			<tbody class="tr-color">
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">备注信息:</label>
+						<span class="error" ng-show="addRemarksForm.remarks.$invalid && addRemarksForm.submitted">
+							<small ng-show="addRemarksForm.remarks.$error.required" class="error">
+								<label>
+									<i class="icon-exclamation-sign"></i>请填写备注信息</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform" style="position: relative;">
+						<textarea style="width: 300px;" rows="5" cols="20"  maxlength="100"  placeholder="请填写备注信息" name="remarks" required ng-model="remarks" class="layui-textarea"></textarea>
+						<span style="position: absolute;bottom: 15px;right: 30px;">{{remarks.length}}/100</span>
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr class="tfoot">
+					<td colspan="15">
+						<a href="JavaScript:void(0);" style="margin-left: 111px; " class="btn" id="submitBtn" ng-click="comfirmAdd()">
+							<span>确定</span>
+						</a>
+						<a href="JavaScript:void(0);" class="btn" ng-click="canelAdd()">
+							<span>取消</span>
+						</a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+
+</div>

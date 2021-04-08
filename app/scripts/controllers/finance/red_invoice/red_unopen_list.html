@@ -1,0 +1,133 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>红冲发票管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPRedInvoiceCheckListModel"><a href="#/main/finance_home/red_check_list"><span>审核列表</span></a></li>
+                <li mt-show-model model-name="IPRPRedUnOpenInvoiceListModel"><a href="JavaScript:void(0);" class="current"><span>未开列表</span></a></li>
+                <li mt-show-model model-name="IPRPRedOpenInvoiceListModel"><a href="#/main/finance_home/red_open_list"><span>已开列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>订单编号：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.order_sn"></td>
+                    <th><label>审核时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="query_start_date" id="query_start_date" datepicker-popup ng-model="query_start_date"
+                               is-open="startOpened" ng-click="startOpened = true" max-date="query_end_date" style="cursor:pointer" readonly/>
+                        <label for="query_end_date">~</label>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="query_end_date" id="query_end_date" datepicker-popup ng-model="query_end_date"
+                               is-open="endOpened" ng-click="endOpened = true" min-date="query_start_date" style="cursor:pointer" readonly/>
+                    </td>
+                    <th><label>发票种类：</label></th>
+                    <td>
+                        <select ng-model="obj.open_type">
+                            <option value="">请选择状态</option>
+                            <option value="1">电子发票</option>
+                            <option value="2">纸质发票</option>
+                        </select>
+                    </td>
+                    <th><label>发票类型：</label></th>
+                    <td>
+                        <select ng-model="obj.type">
+                            <option value="">请选择状态</option>
+                            <option value="1">普通发票</option>
+                            <option value="2">增值发票</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="12"><div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+        <tr class="odd" ng-show="hint">
+            <td>
+                <ul>
+                    <li>1.选取序号点击开发票，选择发票类型和开票形式</li>
+                    <li>2.纸质发票处理回填发票项</li>
+                    <li>导出可以选择指定的发票，不选导出全部</li>
+                    <li>你可以根据条件搜索发票，然后选择相应的操作</li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <a class="btn" mt-show-model model-name="IPRPRedOpenInvoiceModel" style="float: left"><span ng-click="open_invoice()">开发票</span></a>
+        <a class="btn" id="submitBtn">
+            <span ng-click="export()">导出</span>
+        </a>
+    </div>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th>
+                        <input type="checkbox" class="checkall" id="checkallBottom2" ng-checked="checkAll" ng-click="allChoose()" name="chkVal">
+                    </th>
+                    <th>序号</th>
+                    <th class="align-center">订单编号</th>
+                    <th class="align-center">发票种类</th>
+                    <th class="align-center">发票类型</th>
+                    <th class="align-center">合计金额</th>
+                    <th class="align-center">购方名称</th>
+                    <th class="align-center">审核时间</th>
+                    <th class="align-center">状态</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="red_unInvoiceList.length > 0" class="hover" ng-repeat="list in red_unInvoiceList">
+                    <td class="w24">
+                        <span>
+                            <input type="checkbox" name="" value="" class="checkitem" ng-disabled="list.state === 1"
+                                   ng-click="sChoose(list.invoice_id)" ng-checked="allId.indexOf(list.invoice_id) !== -1">
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-bind="list.number"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.order_sn"></td>
+                    <td class="align-center" ng-bind="list.open_type | InvoiceOpenTypeFilter"></td>
+                    <td class="align-center" ng-bind="list.type | InvoiceTypeFilter"></td>
+                    <td class="align-center" ng-bind="list.invoice_amount | number:2"></td>
+                    <td class="align-center" ng-if= "list.type === 1" ng-bind="list.title"></td>
+                    <td class="align-center" ng-if= "list.type === 2" ng-bind="list.company"></td>
+                    <td class="align-center" ng-bind="list.update_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center" ng-bind="list.state | InvoiceStateFilter"></td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);"
+                                style="cursor: pointer" ng-show="list.state ===0 || list.state === 1 && list.open_type === 1" ng-click = "detail(list.invoice_id)">查看</a>
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPRedDealInvoiceModel"
+                                style="cursor: pointer" ng-show="list.state ===1 && list.open_type === 2" ng-click = "check(list.invoice_id)">处理</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

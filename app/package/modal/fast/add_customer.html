@@ -1,0 +1,58 @@
+<div class="add_customer">
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">填写联系记录：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form role="form" style="padding:5px 15px 20px;">
+        <table class="table tb-type2 nobdb" >
+            <tbody class="tr-color">
+                <!-- <tr class="noborder">
+                    <td colspan="4" >
+                        <label>客服联系人：</label>
+                        <input type="text" name="" placeholder="请输入自己的姓名，方便查询" style="width:200px">
+                    </td>
+                </tr> -->
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label>联系时间：</label>
+                        <span>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="finished_start_time" id="finished_start_time" ng-model="data.contactStartTime" placeholder="开始时间" 
+                                max-date="data.contactEndTime" style="cursor:pointer" readonly/>
+                        <label for="finished_end_time">~</label>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="finished_end_time" id="finished_end_time"  ng-model="data.contactEndTime" placeholder="结束时间" min-date="data.contactStartTime" style="cursor:pointer" readonly/>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label>备注信息：</label>
+                        <textarea ng-model="data.remarks" style="width: 400px;height: 90px;display: inline-block;vertical-align: top;margin-bottom: 10px;" maxlength="180"></textarea>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-if="error">
+                    <td colspan="4">
+                        <label></label>
+                        <span style="color:red;">{{error}}</span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="4">
+                        <a class="btn" id="submitBtn"><span ng-click="save()">确认已联系</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style type="text/css">
+.add_customer tbody{padding-bottom: 20px;}
+.add_customer .tfoot td{border-top: 0}
+.add_customer .tb-type2 .txt{margin: 0; width: 110px;}
+.add_customer td>label{width: 75px;}
+.add_customer td .btn{margin-left: 75px;height: 30px;line-height: 30px;}
+.add_customer td input{height: 20px;}
+</style>

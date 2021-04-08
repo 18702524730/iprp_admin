@@ -1,0 +1,135 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>退款管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPRefundListModel"><a href="#/main/trade_home/refund_list"><span>退款列表</span></a></li>
+                <li mt-show-model model-name="IPRPCheckRefundModel"><a href="JavaScript:void(0);" class="current"><span>审核</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="refund_check_form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 order">
+            <tbody>
+            <tr class="space">
+                <th colspan="15">退款申请</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li><strong>退款单号:</strong>{{refund_detail.refund_sn}}</li>
+                        <li><strong>申请时间:</strong>{{refund_detail.create_time | date : 'yyyy-MM-hh'}}</li>
+                        <li><strong>退款状态:</strong>{{refund_detail.state | refundStatusFilter}}</li>
+                        <li><strong>是否关单:</strong>{{refund_detail.orderDTO.order_closed | OrderIsCloseFilter}}</li>
+                        <li><strong>退款方式:</strong>&nbsp;{{refund_detail.type | RefundTypeFilter}}</li>
+                        <li><strong>退款总额:</strong>&nbsp;{{refund_detail.amount | number:2}}</li>
+                        <li><strong>审核备注:</strong>&nbsp;{{refund_detail.audit_message}}</li>
+                        <li><strong>退款原由:</strong>{{refund_detail.message}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space" data-ng-show="refund_detail.refundChildDTOs.length > 0">
+                <th colspan="2">退款明细</th>
+            </tr>
+            <tr data-ng-show="refund_detail.refundChildDTOs.length > 0">
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+                        <thead>
+                        <tr>
+                            <th colspan="20"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">
+                                <table id="table_category" class="type" style="width:975px">
+                                    <thead>
+                                    <tr>
+                                        <th>支付单</th>
+                                        <th>官费</th>
+                                        <th>服务费</th>
+                                        <th>支付说明</th>
+                                        <th>承担方</th>
+                                        <th>支付渠道</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-show="refund_detail.refundChildDTOs.length > 0" ng-repeat="list in refund_detail.refundChildDTOs">
+                                        <td ng-bind="list.payment_sn"></td>
+                                        <td>{{list.payment_pe_amount | number:2}}&nbsp;/&nbsp;{{list.refund_child_real_pe_amount | number:2}}</td>
+                                        <td>{{list.payment_sp_amount | number:2}}&nbsp;/&nbsp;{{list.refund_child_real_sp_amount | number:2}}</td>
+                                        <td ng-bind="list.payment_description"></td>
+                                        <td ng-bind="list.refund_child_responsibility | RefundBearerFilter"></td>
+                                        <td ng-bind="list.payment_channel_name"></td>
+                                    </tr>
+                                    <tr ng-show="refund_detail.refundChildDTOs.length === 0">
+                                        <td colspan="6">没有符合条件的记录</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">订单信息</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li><strong>订单编号:</strong>{{refund_detail.orderDTO.order_sn}}</li>
+                        <li><strong>创建时间:</strong>{{refund_detail.orderDTO.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                        <li><strong>服务:</strong>{{refund_detail.orderDTO.bs_name}}</li>
+                        <li><strong>服务商:</strong>{{refund_detail.orderDTO.sp_name}}</li>
+                        <li><strong>订单状态:</strong>{{refund_detail.orderDTO.state | orderStatusFilter}}-{{refund_detail.orderDTO.sub_state_description}}</li>
+                        <li><strong>来源渠道:</strong>{{refund_detail.orderDTO.channel_name}}</li>
+                        <li><strong>缴费合计:</strong>{{refund_detail.orderDTO.order_amount | number:2}}</li>
+                        <li><strong>官费:</strong>{{refund_detail.orderDTO.pe_amount | number:2}}</li>
+                        <li><strong>服务费:</strong>{{refund_detail.orderDTO.sp_amount | number:2}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">客户信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li ng-if="refund_detail.buyer_email === null || refund_detail.buyer_email != null">
+                            <strong>账号：</strong>{{refund_detail.buyer_phone}}</li>
+                        <li ng-if="refund_detail.buyer_phone === null"><strong>账号：</strong>{{refund_detail.buyer_email}}</li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot ng-show="refund_detail.audit_state === 2">
+                <tr class="tfoot">
+                    <td>
+                        <a href="JavaScript:void(0);" class="btn" ng-click="auditFun()"><span>更新退款</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+            <tfoot ng-show="refund_detail.state != 0 && refund_detail.dataDTOs != null || refund_detail.dataDTOs.length > 0">
+                <tr class="space">
+                    <th colspan="2">处理记录</th>
+                </tr>
+                <tr ng-show="refund_detail.dataDTOs != null || refund_detail.dataDTOs.length > 0">
+                    <td>
+                        <ul>
+                            <li><strong>处理时间</strong></li>
+                            <li><strong>行为</strong></li>
+                            <li><strong>操作人</strong></li>
+                        </ul>
+                        <ul data-ng-repeat="dataDTO in refund_detail.dataDTOs">
+                            <li>{{dataDTO.update_time | date :'yyyy-MM-dd HH:mm:ss'}}</li>
+                            <li>{{dataDTO.content}}</li>
+                            <li>{{dataDTO.admin_name}}</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

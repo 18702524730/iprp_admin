@@ -1,0 +1,162 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">结算配置：</span>
+            <span class="error" style="font-size: 12px;">{{temp_error}}</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 order">
+            <tbody class="tr-color">
+                <tr class="space">
+                    <th colspan="15">服务</th>
+                </tr>
+                <tr><td>服务分类：{{feed_template_detail.bs_class_name}}</td></tr>
+                <tr><td>服务：{{feed_template_detail.bs_name}}</td></tr>
+                <tr><td>阶段：{{feed_template_detail.bs_feedback_name}}</td></tr>
+            </tbody>
+            <tbody class="tr-color">
+                <tr class="space">
+                    <th colspan="15">结算配置</th>
+                </tr>
+                <tr class="space">
+                    <td class="vatop rowform onoff">
+                        <div class="fixed-bar">
+                            <div class="item-title">
+                                <ul class="tab_tit">
+                                    <li ng-repeat="data in bill_data" ng-click="bill_screen($index)"
+                                        ng-class="{'tit_no_activate':type !== $index  ,'tit_activate': type === $index}" ng-bind="data.bill_name">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-show="type === 0 || type === 2">
+                    <th colspan="15">分佣比例</th>
+                </tr>
+                <tr ng-show="type === 2">
+                    <td>
+                        <input type="radio" value="1" ng-click=pr_comm_type(1) ng-model="feed_template_detail.pr_commission_type">固定金额
+                        <input type="radio" value="2" ng-click=pr_comm_type(2) ng-model="feed_template_detail.pr_commission_type">比例结算
+                    </td>
+                </tr>
+                <tr ng-show="type === 2">
+                    <td>
+                        <input style="width: 60px;" type="text" width="" ng-model="feed_template_detail.pr_commission_rate">
+                        <span ng-if="feed_template_detail.pr_commission_type === '2'
+                        || feed_template_detail.pr_commission_type ===2">%</span>
+                    </td>
+                </tr>
+                <tr ng-show="type === 0">
+                    <td>
+                        <input type="radio" value="1" ng-click=sp_comm_type(1) ng-model="feed_template_detail.sp_commission_type">固定金额
+                        <input type="radio" value="2" ng-click=sp_comm_type(2) ng-model="feed_template_detail.sp_commission_type">比例结算
+                    </td>
+                </tr>
+                <tr ng-show="type === 0">
+                    <td>
+                        <input style="width: 60px;" type="text" width="" ng-model="feed_template_detail.sp_commission_rate">
+                        <span ng-if="feed_template_detail.sp_commission_type === '2'
+                        || feed_template_detail.sp_commission_type ===2">%</span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody class="tr-color" ng-show="type === 2">
+                <tr>
+                    <th colspan="15">结算周期</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" value="0" ng-model="feed_template_detail.pr_bill_time_type">自然月
+                        <input type="radio" value="1" ng-model="feed_template_detail.pr_bill_time_type">自然周
+                        <input type="radio" value="2" ng-model="feed_template_detail.pr_bill_time_type">固定日期
+                        <input type="radio" value="3" ng-model="feed_template_detail.pr_bill_time_type">固定周期
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span ng-show="feed_template_detail.pr_bill_time_type === '0' ||
+                        feed_template_detail.pr_bill_time_type === 0">自然月：如：9月1日至9月30日。</span>
+                        <span ng-show="feed_template_detail.pr_bill_time_type === '1' ||
+                        feed_template_detail.pr_bill_time_type === 1">自然周：如：周一至周日。</span>
+                        <span ng-show="feed_template_detail.pr_bill_time_type === '2' ||
+                        feed_template_detail.pr_bill_time_type === 2">
+                            每月<input type="number" min="1" max="31" style="width: 60px;" ng-model="feed_template_detail.pr_bill_times">&nbsp;日
+                        </span>
+                        <span ng-show="feed_template_detail.pr_bill_time_type === '3' ||
+                        feed_template_detail.pr_bill_time_type === 3">
+                            <input type="number" min="1" style="width: 60px;" ng-model="feed_template_detail.pr_bill_times">&nbsp;天
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody class="tr-color" ng-show="type === 0">
+                <tr>
+                   <th colspan="15">结算周期</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" value="0" ng-model="feed_template_detail.sp_bill_time_type">自然月
+                        <input type="radio" value="1" ng-model="feed_template_detail.sp_bill_time_type">自然周
+                        <input type="radio" value="2" ng-model="feed_template_detail.sp_bill_time_type">固定日期
+                        <input type="radio" value="3" ng-model="feed_template_detail.sp_bill_time_type">固定周期
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span ng-show="feed_template_detail.sp_bill_time_type === '0' ||
+                        feed_template_detail.sp_bill_time_type === 0">自然月：如：9月1日至9月30日。</span>
+                        <span ng-show="feed_template_detail.sp_bill_time_type === '1' ||
+                        feed_template_detail.sp_bill_time_type === 1">自然周：如：周一至周日。</span>
+                        <span ng-show="feed_template_detail.sp_bill_time_type === '2' ||
+                        feed_template_detail.sp_bill_time_type === 2">
+                            每月<input type="number" min="1" max="31" style="width: 60px;" ng-model="feed_template_detail.sp_bill_times">&nbsp;日
+                        </span>
+                        <span ng-show="feed_template_detail.sp_bill_time_type === '3' ||
+                        feed_template_detail.sp_bill_time_type === 3">
+                            <input type="number" min="1" style="width: 60px;" ng-model="feed_template_detail.sp_bill_times">&nbsp;天
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody class="tr-color" ng-show="type === 1">
+                <tr class="space">
+                    <th colspan="15">结算周期</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" value="0" ng-model="feed_template_detail.pe_bill_time_type">自然月
+                        <input type="radio" value="1" ng-model="feed_template_detail.pe_bill_time_type">自然周
+                        <input type="radio" value="2" ng-model="feed_template_detail.pe_bill_time_type">固定日期
+                        <input type="radio" value="3" ng-model="feed_template_detail.pe_bill_time_type">固定周期
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span ng-show="feed_template_detail.pe_bill_time_type === '0'||
+                        feed_template_detail.pe_bill_time_type === 0">自然月：如：9月1日至9月30日。</span>
+                        <span ng-show="feed_template_detail.pe_bill_time_type === '1' ||
+                        feed_template_detail.pe_bill_time_type === 1">自然周：如：周一至周日。</span>
+                            <span ng-show="feed_template_detail.pe_bill_time_type === '2' ||
+                            feed_template_detail.pe_bill_time_type === 2">
+                                每月<input type="number" min="1" max="31" style="width: 60px;" ng-model="feed_template_detail.pe_bill_times">&nbsp;日
+                            </span>
+                            <span ng-show="feed_template_detail.pe_bill_time_type === '3' ||
+                            feed_template_detail.pe_bill_time_type === 3">
+                                <input type="number" min="1" style="width: 60px;" ng-model="feed_template_detail.pe_bill_times">&nbsp;天
+                            </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2">
+                        <a class="btn" id="submitBtn"><span ng-click="editBillTpl()">提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,115 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>网页侵权存证</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPNtOrderListModel"><a href="JavaScript:history.go(-1)" class="current"><span>订单列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>订单编号：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.order_fictitious_sn"></td>
+                    <th><label>申报主体：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.order_apply_subject_name"></td>
+                    <!-- <th><label>存证状态：</label></th>
+                    <td>
+                        <select ng-model="obj.evidenceState" style="width: 120px;">
+                            <option value="">请选择</option>
+                            <option value="0">待存证</option>
+                            <option value="1">存证中</option>
+                            <option value="2">存证失败</option>
+                            <option value="3">存证成功</option>
+                        </select>
+                    </td>
+                    <th style="text-align: right"><label>存证时间：</label></th>
+                    <td colspan="2">
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="startUpdateTime" id="startUpdateTime"  ng-model="startUpdateTime"
+                                max-date="endUpdateTime" datepicker-popup style="cursor:pointer" readonly/>
+                        <label for="payment_end_time">~</label>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="endUpdateTime" id="endUpdateTime"  ng-model="endUpdateTime"
+                                min-date="startUpdateTime" datepicker-popup style="cursor:pointer" readonly/>
+                    </td> -->
+                    <td style="text-align:left;" colspan="2">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <!-- <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="12"><div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table> -->
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th width="30" class="align-center">序号</th>
+                    <th width="120" class="align-center">订单编号</th>
+                    <th width="200">存证内容</th>
+                    <th width="120" class="align-center">存证时间</th>
+                    <th width="60" class="align-center">存证状态</th>
+                    <th width="100" class="align-center">存证渠道</th>
+                    <th width="100" class="align-center">存证分类</th>
+                    <th width="100" class="align-center">存证类型</th>
+                    <th width="100" class="align-center">出证状态</th>
+                    <!-- <th width="100" class="align-center">用户姓名</th>
+                    <th width="100" class="align-center">注册手机号</th> -->
+                    <th class="align-center">申报主体</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+                    <td class="align-center">
+                        <span ng-bind="list.number"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.order_fictitious_sn"></td>
+                    <!-- <td ng-bind="list.object.orderSn"></td> -->
+                    <td style="word-break:break-all;" ng-bind="list.object.fileName"></td>
+                    <td class="align-center" ng-bind="list.object.updateTime | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center" ng-bind="list.object.state|ntStateFilter"></td>
+                    <td class="align-center" ng-bind="list.object.czChannel | ntChannelFilter"></td>
+                    <td class="align-center" ng-bind="list.object.type | czTypeFilter"></td>
+                    <td class="align-center" ng-bind="list.object.notarizationType | ntTypeFilter"></td>
+                    <td class="align-center" ng-bind="list.object.issueStatus | issueStatusFilter"></td>
+                    <!-- <td class="align-center" ng-bind="list.member.truename"></td>
+                    <td class="align-center" ng-bind="list.member.phone"></td> -->
+                    <td class="align-center" ng-bind="list.object.name"></td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" model-name="IPRPNtOrderDetailModel" style="cursor: pointer" ng-click="detail_orders(list.order_sn)">详情</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

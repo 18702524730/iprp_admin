@@ -1,0 +1,79 @@
+<div class="page">
+  <div class="fixed-bar">
+      <div class="item-title">
+          <h3>求助站</h3>
+          <ul class="tab-base">
+              <li><a href="JavaScript:void(0);" class="current"><span>求助站</span></a></li>
+              <!-- <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/service_home/label_tpl_add"><span>添加</span></a></li> -->
+          </ul>
+      </div>
+  </div>
+  <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+            <tr>
+                <th><label>企业名称:</label></th>
+                <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.companyName"></td>
+                <th><label>联系人:</label></th>
+                <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.contact"></td>
+                <th><label>联系电话:</label></th>
+                <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.contactPhone"></td>
+                <td>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="reset()">重置</a>
+              	</td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+  <form>
+      <table class="table tb-type2">
+          <thead>
+              <tr class="thead">
+                  <th class="align-center" style="width: 40px;">序号</th>
+                  <th style="width: 360px;">求助内容</th>
+                  <th class="align-center">企业名称</th>
+                  <th class="align-center">联系人</th>
+                  <th class="align-center">联系电话</th>
+                  <th class="align-center">备注</th>
+                  <th class="align-center">操作</th>
+              </tr>
+          </thead>
+          <tbody class="tr-color">
+            <tr class="" ng-show="labelList.length > 0" class="hover" ng-repeat="list in labelList">
+                  <td class="align-center">
+                      <span ng-bind="list.seqNo"></span>
+                  </td>
+                  <td>
+                  	<div class="helpContent">
+                  		<span class="limit">{{list.content}}</span><span class="view" ng-click="handleView(list.content)" ng-if="list.isLong">查看完整内容</span>
+                  	</div>
+                  </td>
+                  <td class="align-center" ng-bind="list.companyName"></td>
+                  <td class="align-center">{{list.contact}}</td>
+                  <td class="align-center">{{list.contactPhone}}</td>
+                  <td class="align-center" style="width: 300px;word-break: break-all;">{{list.remark}}</td>
+                  <td class="align-center w120">
+                    <a href="JavaScript:void(0);" style="cursor: pointer" ng-click = "handleMemo(list.id, $index)">备注</a>
+                  </td>
+              </tr>
+              <tr ng-show="to_loading">
+                  <td colspan="20" class="norecord">
+                      <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                  </td>
+              </tr>
+          </tbody>
+          <tfoot ng-hide="to_loading">
+              <tr colspan="15" class="tfoot">
+                  <td colspan="19"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+              </tr>
+          </tfoot>
+      </table>
+  </form>
+</div>
+<style type="text/css">
+    .helpContent{vertical-align: middle;}
+    .helpContent span.limit{max-width: 230px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;display: inline-block;vertical-align: middle;}
+    .helpContent span.view{color: #68a4fe; margin-left: 10px;cursor: pointer;vertical-align: middle;}
+</style>

@@ -1,0 +1,83 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>线索举报</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPClueReportModel"><a href="#/main/fast_home/clues_report"><span>咨询列表</span></a></li>
+                <li mt-show-model model-name="IPRPClueReportModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+            <div class="detail_top_rt fr" ng-if="order_detail.consultationState == 2">
+                <a href="" class="btn" ng-click="addCustomer(true)">增加联系记录</a>
+            </div>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">客户信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>联系人：</strong>{{order_detail.contactName}}</li>
+                        <!-- <li><strong>性别：</strong>{{order_detail.sex | memberSexFilter}}</li> -->
+                        <!-- <li><strong>注册手机号：</strong>{{order_detail.contactPhone}}</li> -->
+                        <li><strong>联系电话：</strong>{{order_detail.contactPhone}}</li>
+                        <!-- <li><strong>QQ：</strong>{{order_detail.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</li> -->
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">举报信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="reportItem"><strong>举报单位：</strong> {{order_detail.reportUnit}}</div>
+                    <div class="reportItem"><strong>地址/网址：</strong> {{order_detail.address}}</div>
+                    <div class="reportItem"><strong>举报类型：</strong> {{order_detail.reportType|reportTypeFormat}}</div>
+                    <div class="reportItem"><strong>商品/服务名称：</strong> {{order_detail.productName}}</div>
+                    <div class="reportItem"><strong>线索描述：</strong> {{order_detail.clueDesc}}</div>
+                    <div class="reportItem"><strong style="vertical-align: top;">证据照片：</strong>
+                        <div class="itemReport" ng-repeat='url in order_detail.evidenceArr'>
+                            <img ng-src="{{url}}" alt="">
+                            <div class="clearfix">
+                                <span style='color:#68a4fe;cursor: pointer;' ng-click='prevImg(url)' class="fl">预览</span>
+                                <span  class="fr" style="display: inline-block;cursor: pointer;"><a ng-href="{{adminUrl+'/iprp_operator/api/downFile?access_token='+token+'&url='+url}}" style='color:#68a4fe' target="_blank">下载</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="space" ng-show="order_detail.memberReceptionDTOs.length > 0">
+                <th colspan="2">联系记录</th>
+            </tr>
+            <tr ng-show="order_detail.memberReceptionDTOs.length > 0">
+                <td style="padding: 5px 0 20px!important">
+                    <!-- <div style="padding:5px 20px 10px;color: #888;">联系记录：</div> -->
+                    <table id="table_category" class="type" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="alignleft" width="60">序号</th>
+                                <th class="alignleft" width="160">咨询对接人</th>
+                                <th class="alignleft" width="320">联系时间</th>
+                                <th class="alignleft">备注</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="order_detail.memberReceptionDTOs.length > 0" ng-repeat="detail in order_detail.memberReceptionDTOs">
+                                <td class="alignleft"> {{$index+1}}</td>
+                                <td class="alignleft" ng-bind="detail.receptionName"></td>
+                                <td class="alignleft">{{detail.contactStartTime | date:'yyyy-MM-dd HH:mm:ss'}} ~ {{detail.contactEndTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td class="alignleft"><div ng-bind="detail.remarks" class="breakall"></div></td>
+                            </tr>
+                            <tr ng-show="order_detail.memberReceptionDTOs.length == 0">
+                                <td colspan="7">暂无记录</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

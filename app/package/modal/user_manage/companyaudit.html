@@ -1,0 +1,164 @@
+
+    <div class="auditbox">
+        <div>
+          <h3>企业认证审核<span class="dialog_close_button" ng-click = "closeaudit()">x</span></h3>
+          <div class="auditresult">
+            <i>*</i><label>审核结果</label><label for="auditpass"><input type="radio" id="auditpass" name="isPass" ng-model='ispass.step' value="1"/>认证通过</label><input type="radio" id="auditpassno" name="isPass" ng-model='ispass.step' value ='4'/> <label for="auditpassno">认证失败</label>
+            <div class="msgtips">
+                <span ng-show ='ispass.errmsg !="" && ispass.step==""'>{{ispass.errmsg}}</span>
+                <!-- <select ng-model="allreason.reason" style="width: 225px;" ng-show = 'ispass.step ==2' ng-options="type.id as type.name for type in reasons">
+                    <option value="">请选择</option>
+                </select> -->
+            </div>
+          </div>
+          
+          <div class="commentbox">
+            <h4>备注:</h4>
+            <textarea ng-model='ispass.memo' maxlength="200"></textarea>
+            <!-- <span>{{comment.memo.length}}-200字</span> -->
+          </div>
+        </div>
+        <div class="buttonbox">
+          <button type="button" class="submitbtn" ng-click='submitdata()'>提 交</button>
+          <button type="button" class="cancelbtn" ng-click = 'closeaudit()'>取 消</button>
+        </div>
+      </div>
+  <style>
+    .modal-dialog{width: 650px;}
+  .auditbox{
+    /* display: none; */
+    /* position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%); */
+    width: 600px;
+    height: 400px;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    /* z-index: 10000; */
+}
+.auditbox h3{
+    position: relative;
+    font-size: 16px;
+    color: #333;
+    height: 20px;
+    line-height: 20px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+.auditbox .closebtn{
+    position: absolute;
+    right: 0px;
+    top: 0;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    color: #888;
+    font-size: 18px;
+    cursor: pointer;
+}
+.auditbox .auditresult{
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+    color:  #000;
+    padding-bottom: 25px;
+}
+.auditbox .msgtips {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-top: 5px;
+    height: 30px;
+    width: 100%;
+    padding-left: 106px;
+    padding-right: 140px;
+}
+.auditbox select{
+    float: right;
+}
+.auditbox .msgtips span{
+    color:#f00;
+    font-size: 12px;
+    line-height: 25px;
+}
+.auditbox .auditresult i{
+    display: inline-block;
+    width: 16px;
+    height: 20px;
+    line-height: 20px;
+    text-align: left;
+    color: #f00;
+    font-size: 14px;
+    font-weight: normal;
+    vertical-align: middle;
+}
+.auditbox .auditresult label{
+    vertical-align: middle;
+    height: 20px;
+    line-height: 20px;
+}
+.auditbox .auditresult input{
+    margin: 0;
+    padding: 0;
+    margin-left: 40px;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+.auditbox .commentbox{
+    position: relative;
+    margin-bottom: 10px;
+}
+.auditbox .commentbox h4{
+    font-size: 14px;
+    color:  #666;
+    font-weight: normal;
+}
+.auditbox .commentbox textarea{
+    width: 560px;
+    height: 150px;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 10px;
+    outline:  none;
+    border: 1px solid #68a4fe;
+    resize: none;
+    word-break: break-all;
+}
+.auditbox .commentbox span{
+    position: absolute;
+    right: 30px;
+    bottom: 10px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 10px;
+}
+.auditbox .buttonbox{
+    text-align: right;
+    font-size: 16px;
+    padding-right: 18px;
+}
+.auditbox .buttonbox button{
+    width: 100px;
+    padding: 10px 0;
+    text-align: center;
+    outline: none;
+    margin-left: 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+.auditbox .buttonbox .submitbtn{
+    background: #68a4fe;
+    color: #fff;
+}
+.auditbox .buttonbox  .cancelbtn{
+    background-color: #fff;
+    color: #68a4fe;
+    border: 1px solid #68a4fe;
+}
+  </style>

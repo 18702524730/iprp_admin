@@ -1,0 +1,81 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>操作日志</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPLogListModel"><a href="JavaScript:void(0);" class="current"><span>日志列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th>操作人</th>
+                    <td>
+                        <input class="txt" value="" ng-model="obj.admin_name" type="text">
+                    </td>
+                    <th>时间</th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="query_start_date" id="query_start_date" datepicker-popup ng-model="query_start_date"
+                               is-open="startOpened" ng-click="startOpened = true" max="query_end_date" style="cursor:pointer" readonly/>
+                        <label for="query_end_date">~</label>
+                        <input type="text" class="txt date hasDatepicker" placeholder="" name="query_end_date" id="query_end_date" datepicker-popup ng-model="query_end_date"
+                               is-open="endOpened" ng-click="endOpened = true" min="query_start_date" style="cursor:pointer" readonly/>
+                    </td>
+                    <td>
+                        <a ng-click="search()" id="ncsubmit" class="btn-search" ng-click="search()">查询</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd">
+                <th colspan="12"><div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li>日志可以记录管理人员的关键操作</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form id="form_list">
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th>操作人</th>
+                    <th class="align-center">行为</th>
+                    <th class="align-center">时间</th>
+                    <th class="align-center">IP</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr ng-repeat="list in AdminLogList" ng-show="AdminLogList.length>0">
+                    <td ng-bind="list.admin_name"></td>
+                    <td style="text-align: center" ng-bind="list.content"></td>
+                    <td style="text-align: center" ng-bind="list.create_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td style="text-align: center" ng-bind="list.ip"></td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="5"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

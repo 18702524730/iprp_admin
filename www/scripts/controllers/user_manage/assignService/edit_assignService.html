@@ -1,0 +1,39 @@
+<div class="page" ng-hide="next_open_service">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>指定服务商</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPAssignServicerListModel"><a href="#/main/user_home/assignService_list"><span>指定服务商列表</span></a></li>
+                <li mt-show-model model-name="IPRPUpdateAssignServicerModel"><a class="current"><span>编辑</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="edit_assign_form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2">
+            <tbody class="tr-color">
+                <tr>
+                    <td colspan="2" class="required">
+                        用户编码:
+                        <span class="error" ng-show="edit_assign_form.name.$invalid && edit_assign_form.submitted">
+                            <small ng-show="edit_assign_form.name.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>用户编码不可以为空</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform" >
+                        <input type="text" name="name" ng-maxlength="40" class="txt" ng-model="assgin_detail.apply_code" required/>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2">
+                        <a href="JavaScript:void(0);" class="btn" ng-click="save()"><span>提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

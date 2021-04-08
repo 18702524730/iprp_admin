@@ -1,0 +1,71 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>失信商家管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPBadServicerListModel"><a href="#/main/merchant_home/bad_servicer_list"><span>失信商家列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddBadServicerModel"><a href="JavaScript:void(0);" class="current"><span>添加失信商家</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="serviceForm" role="form" class="form-horizontal" novalidate>
+        <table class="tb-type1 noborder search left">
+            <tbody>
+                <tr>
+                    <th>
+                        <label>商家：</label>
+                        <input type="text" placeholder="商家名称或账号" name="key_word" ng-model="key_word" required style="height: 19px">
+                    </th>
+                    <td style="vertical-align: top">
+                        <a href="javascript:void(0);" id="ncsubmit" class="btn-search" ng-click="search()" title="查询">查询</a>
+                    </td>
+                    <td>
+                        <span class="error" ng-show="serviceForm.key_word.$invalid && serviceForm.submitted">
+                            <small ng-show="serviceForm.key_word.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>搜索项不可以为空</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" style="width: 40px;">序号</th>
+                    <th class="align-center">联系人</th>
+                    <th class="align-center">账号</th>
+                    <th class="align-center">商家名称</th>
+                    <th class="align-center">手机号</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="hover" ng-show="badServiceList.length > 0" ng-repeat="list in badServiceList">
+                    <td class="align-center" ng-bind="list.number"></td>
+                    <td class="align-center" ng-bind="list.sp_contacts"></td>
+                    <td class="align-center" ng-bind="list.account"></td>
+                    <td class="align-center" ng-bind="list.name"></td>
+                    <td class="align-center" ng-bind="list.phone"></td>
+                    <td class="align-center w120">
+                        <a herf style="cursor: pointer" ng-click = "detail_badService(list.sp_id)">管理</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19">
+                        <!--<mt-pagination pagination-obj="pagination"></mt-pagination>-->
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,101 @@
+<style>
+.upload-btn{border-radius: 3px;height: 40px;line-height: 40px;text-align: center;cursor: pointer;}
+</style>
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>商家标签编辑</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPServicerListModel"><a href="#/main/merchant_home/label_tpl_list"><span>商家标签列表</span></a></li>
+				<li mt-show-model model-name="IPRPUpdateServicerModel"><a href="JavaScript:void(0);" class="current"><span>编辑</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="editLabelForm" role="form" class="form-horizontal __form-horizontal" novalidate>
+		<table class="table tb-type2">
+			<tbody class="tr-color">
+				<tr class="noborder">
+					<td colspan="3" class="required">
+						<label>商家标签信息</label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="required">
+					<label class="validation">商家标签名称:</label>
+						<span class="error" ng-show="editLabelForm.name.$invalid && editLabelForm.submitted">
+							<small ng-show="editLabelForm.name.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>商家标签名称不可以为空</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform" colspan="2">
+                        <!-- <span>{{service_detail.account}}</span> -->
+                        <input type="text" name="name" class="txt" ng-maxlength="50" ng-model="editLabel.name" required/>
+						<!-- <span>test</span> -->
+					</td>
+					<td class="vatop tips">
+					</td>
+        </tr>
+
+
+				<tr>
+					<td colspan="3" class="required">
+						<label class="validation">点亮图样:</label>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform upload-tr" colspan="2">
+            <a class="upload-btn upload-btn-small" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file, 'iconUrl')" ngf-accept="'image/*'" ngf-pattern="'.png'" ngf-multiple="false" style="display: inline-block;margin-right: 0px;">上传</a><img ng-show="iconUrl" src="{{iconUrl}}" style="max-width: 24px;"><span>格式：png ；尺寸：20*20；大小：30KB</span>
+
+					</td>
+					<td class="vatop tips">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="required">
+						<label class="validation">灰色图样:</label>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform upload-tr" colspan="2">
+            <a class="upload-btn upload-btn-small" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file, 'iconDisableUrl')" ngf-accept="'image/*'" ngf-pattern="'.png'" ngf-multiple="false" style="display: inline-block;margin-right: 0px;">上传</a><img ng-show="iconDisableUrl" src="{{iconDisableUrl}}" style="max-width: 24px;"><span>格式：png ；尺寸：20*20；大小：30KB</span>
+					</td>
+					<td class="vatop tips">
+					</td>
+				</tr>
+        <tr>
+            <td colspan="3" class="required">
+                <label class="validation">描述:</label>
+                <span class="error" ng-show="editLabelForm.tagDesc.$invalid && editLabelForm.submitted">
+                    <small ng-show="editLabelForm.tagDesc.$error.required" class="error">
+                        <label><i class="icon-exclamation-sign"></i>描述不可以为空</label>
+                    </small>
+                </span>
+            </td>
+        </tr>
+        <tr class="noborder">
+            <td class="vatop rowform" colspan="2">
+                <input type="text" name="tagDesc" class="txt" ng-maxlength="50" ng-model="editLabel.tagDesc" required/>
+            </td>
+            <td class="vatop tips"></td>
+        </tr>
+			</tbody>
+			<tfoot>
+			<tr class="tfoot">
+				<td colspan="15">
+					<a href="JavaScript:void(0);" class="btn" id="submitBtn" ng-click="handleClickEditLabel()"><span>提交</span></a>
+          <a href="#/main/merchant_home/label_tpl_list" class="btn btn-gray"><span>取消</span></a>
+				</td>
+			</tr>
+		</tfoot>
+		</table>
+	</form>
+</div>
+<style type="text/css">
+.__form-horizontal label{margin-bottom: 0;}
+.upload-tr .upload-btn-small{width: 60px;height: 30px;line-height: 30px;}
+.upload-tr img{vertical-align: middle;margin-left: 15px;}
+.upload-tr span{line-height: 30px;padding-left: 10px;}
+</style>

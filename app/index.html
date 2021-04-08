@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html ng-app="iprpAdminApp">
+<head>
+	<title>平台管理</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="https://www.ipsebe.com/cms/webfile/sebe16-3.ico" data-concat="false" />
+	<link href="styles/js/dialog/dialog.css" type="text/css" rel="stylesheet">
+	<!-- 新老版本的font-awesome 共用 -->
+	<link href="styles/css/font-awesome.min_3.2.1.css" type="text/css" rel="stylesheet">
+	<link href="styles/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+	<link href="bower_components/smalot-bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" type="text/css" rel="stylesheet/less">
+	<link href="bower_components/wangEditor/wangEditor.min.css" type="text/css" rel="stylesheet/less">
+	<link href="styles/main.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="bower_components/nvd3/build/nv.d3.css">
+	<link rel="stylesheet" type="text/css" href="bower_components/sweetalert/lib/sweet-alert.css">
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-select.min.css">
+
+
+	<script type="text/javascript" src="styles/js/ie.js" data-concat="false"></script>
+</head>
+<body style="margin: 0;padding: 0;" onload="IE8following()">
+<div id="IE8followings" style="width: 100%;height: 35px;border: #FFF9D7 solid 1px;display: none">
+	<div style="width: 100%;height: 35px;line-height: 35px; font-size: 15px;text-align: center;">
+		<span style="margin-top: 5px"><img src="styles/images/login/untitled.png"></span>
+		 <span>
+			 畅享更佳的平台体验，请
+			 <a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie">更新您的浏览器</a>，
+			 也可下载<a href="http://www.google.cn/chrome/browser/desktop/index.html">Google Chrome浏览器</a>或
+			 <a href="http://chrome.360.cn/">360极速浏览器</a>
+		 </span>coupon_shop
+		<span style="height: 20px;width: 20px; margin-top: 8px; line-height: 20px; margin-right: 50px; float: right">
+			<a href="javascript:void('#')" onclick="hideIE8followings()" ><img width="10" height="10" src="styles/images/login/close.png"></a>
+		</span>
+	</div>
+</div>
+<div ui-view style="height: 100%">
+
+</div>
+	<script src="scripts/service/intClsData.js"></script>
+	
+	<!-- JS from Bower Components -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+	<script src="bower_components/kindeditor/kindeditor-min.js"></script>
+	<!-- 以前是用kindeditor的，后面要废弃掉，主用wangEditor -->
+	<!-- <script src="bower_components/wangEditor/wangEditor.min.js"></script> -->
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="bower_components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="bower_components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script src="bower_components/angular-locale_zh-cn/angular-locale_zh-cn.js"></script>
+	<script src="bower_components/angular-ui-utils/ui-utils.min.js"></script>
+	<script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+	<script src="bower_components/ng-file-upload/dist/ng-file-upload-all.min.js"></script>
+	<script src="bower_components/angular-locale_zh-cn/angular-locale_zh-cn.js"></script>
+	<script src="bower_components/angular-nvd3/dist/angularjs-nvd3-directives.min.js"></script>
+	<script src="bower_components/sweetalert/lib/sweet-alert.min.js"></script>
+	<!-- Add New Bower Component JS Above -->
+
+	<script src="styles/js/jquery.md5.js"></script>
+	<!-- <script src="styles/js/echarts/echarts.common.min.js" data-concat="false"></script> -->
+	<script src="styles/js/echarts.min.js" data-concat="false"></script>
+	<script src="styles/js/echarts/shine.js" data-concat="false"></script>
+	<script src="styles/js/wangEditor/wangEditor.min.js" data-concat="false"></script>
+	<!-- layer.js 基本依赖的问题，直接在gulpfile.js中处理 -->
+	<script src="styles/js/layer/layer.js" data-concat="false"></script>
+	<script src="styles/js/layer/ng-layer.js" data-concat="false"></script>
+	<script src="styles/js/bootstrap-select.js" data-concat="false"></script>
+	<script src="styles/js/i18n/defaults-zh_CN.min.js" data-concat="false"></script>
+
+	<!-- Main App JS -->
+	<script src="scripts/app.js"></script>
+	<script src="constant.js"></script>
+	<script src="scripts/controllers/left.js"></script>
+	<script src="package/directive/head/head.js"></script>
+	<script src="scripts/controllers/home_page.js"></script>
+	<script src="scripts/home/system_home/system_home.js"></script>
+	<script src="scripts/controllers/login/login_page.js"></script>
+	<script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/error_page.js"></script>
+	<script src="scripts/service/comm/upload.js"></script>
+
+	<!--快服-->
+	<script src="scripts/home/fast_home/fast_home.js"></script>
+	<script src="scripts/controllers/fast/czout/czout_list.js"></script>
+	<script src="scripts/controllers/fast/czout/czout_note.js"></script>
+	<script src="scripts/controllers/fast/reportKeeper/keeper_list.js"></script>
+	<script src="scripts/controllers/fast/reportKeeper/keeper_manager.js"></script>
+	<script src="scripts/controllers/fast/reportKeeper/keeper_detail.js"></script>
+	<script src="scripts/controllers/fast/telService/tel_service_list.js"></script>
+	<script src="scripts/controllers/fast/telService/tel_service_detail.js"></script>
+	<script src="scripts/controllers/fast/service_feedback/feedback_detail.js"></script>
+	<script src="scripts/controllers/fast/service_feedback/feedback_service.js"></script>
+	<script src="scripts/controllers/fast/feedback_apply/feedback_apply.js"></script>
+	<script src="scripts/controllers/fast/highTechEnterprises/highTechEnterprises.js"></script>
+	<script src="scripts/controllers/fast/postal/postal.js"></script>
+	<script src="scripts/controllers/fast/feedback/feedback.js"></script>
+	<script src="scripts/controllers/fast/bargain/bargain.js"></script>
+	<script src="scripts/controllers/fast/bargain/bargain_detail.js"></script>
+	<script src="scripts/controllers/fast/tm_fast_sell/tm_fast_sell.js"></script>
+	<script src="scripts/controllers/fast/tm_fast_sell/tm_fast_sell_detail.js"></script>
+	<script src="scripts/controllers/fast/buy_good_tm/buy_good_tm.js"></script>
+	<script src="scripts/controllers/fast/buy_good_tm/buy_good_tm_detail.js"></script>
+	<script src="package/modal/fast/add_customer.js"></script>
+	<script src="package/modal/fast/editHighTech.js"></script>
+	<script src="package/modal/fast/add_remark.js"></script>
+	<script src="package/modal/fast/editPostal.js"></script>
+	<script src="package/modal/fast/editFeedback.js"></script>
+	<script src="scripts/service/fast/telService.js"></script>
+	<script src="scripts/service/fast/feedbackService.js"></script>
+	<script src="scripts/service/fast/partner.js"></script>
+	<script src="package/filter/telServiceFilter.js"></script>
+	<script src="scripts/service/fast/highTechEnterprises.js"></script>
+	<script src="scripts/service/fast/postal.js"></script>
+	<script src="scripts/controllers/fast/partner_app/partner_app.js"></script>
+	<script src="scripts/controllers/fast/outpatient/demand_list.js"></script>
+	<script src="scripts/controllers/fast/outpatient/demand_detail.js"></script>
+	<script src="scripts/controllers/fast/technologyPlan/enterprisesDetail.js"></script>
+	<script src="scripts/controllers/fast/technologyPlan/enterprisesList.js"></script>
+	<script src="scripts/controllers/fast/technologyPlan/techAdvisory.js"></script>
+	<script src="scripts/controllers/fast/technologyPlan/ipSurvey.js"></script>
+	<script src="scripts/controllers/fast/technologyPlan/ggImport.js"></script>
+	<script src="scripts/controllers/fast/technologyPlan/skImport.js"></script>
+	<script src="scripts/controllers/fast/ipProtect/ip_protect_list.js"></script>
+	<script src="scripts/controllers/fast/ipProtect/ip_protect_detail.js"></script>
+	<script src="scripts/controllers/fast/clues_report/clues_report_list.js"></script>
+	<script src="scripts/controllers/fast/clues_report/clues_report_detail.js"></script>
+	<script src="scripts/controllers/fast/epidemic_report/epidemic_report_list.js"></script>
+	<script src="scripts/controllers/fast/epidemic_report/epidemic_report_detail.js"></script>
+
+	<script src="scripts/controllers/fast/foreign_trade/foreign_trade_list.js"></script>
+	<script src="scripts/controllers/fast/foreign_trade/foreign_trade_detail.js"></script>
+	<script src="scripts/controllers/fast/oem/oem_list.js"></script>
+	<script src="scripts/controllers/fast/oem/oem_detail.js"></script>
+
+	
+	<!--订单-->
+	<script src="scripts/home/trade_home/trade_home.js"></script>
+	<script src="scripts/controllers/trade/order/order_list.js"></script>
+	<script src="scripts/controllers/trade/order/order_detail.js"></script>
+	<script src="scripts/controllers/trade/order/history_order.js"></script>
+	<script src="scripts/controllers/trade/order/trade_order_list.js"></script>
+	<script src="scripts/controllers/trade/order/trade_order_detail.js"></script>
+	<script src="scripts/controllers/trade/wm_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/wm_order/order_detail.js"></script>
+	<script src="scripts/controllers/trade/hzwm_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/hzwm_order/order_detail.js"></script>
+	<script src="scripts/controllers/trade/hzwm_order/user_list.js"></script>
+	<script src="scripts/controllers/trade/hyhl_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/partner_bs_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/partner_bs_order/order_detail.js"></script>
+	<script src="scripts/controllers/trade/partner_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/partner_order/order_detail.js"></script>
+	<script src="scripts/controllers/trade/demand_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/demand_order/order_detail.js"></script>
+	<script src="scripts/controllers/trade/ip_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/ip_order/order_detail.js"></script>
+	<script src="scripts/controllers/trade/channel_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/channel_order/order_detail.js"></script>
+	<script src="scripts/controllers/trade/channel_order/service_order_list.js"></script>
+	<script src="scripts/controllers/trade/channel_order/service_order_detail.js"></script>
+	<script src="scripts/controllers/trade/channel_order/work_order_list.js"></script>
+	<script src="scripts/controllers/trade/channel_order/work_order_detail.js"></script>
+	<script src="scripts/controllers/channel/kuaimai/quick_wheat.js"></script>
+	<script src="scripts/controllers/trade/tmall_nice/tmall_nice_list.js"></script>
+	<script src="package/modal/ip_order/check.js"></script>
+	<script src="package/modal/ip_order/report.js"></script>
+	<script src="scripts/controllers/trade/dunhuang_order/dunhuang_list.js"></script>
+	<script src="scripts/controllers/trade/dunhuang_order/dunhuang_detail.js"></script>
+	
+
+	<!--管家-->
+	<script src="scripts/home/master_home/master_home.js"></script>
+	<script src="scripts/controllers/master/cunZ/cz_list.js"></script>
+	<script src="scripts/controllers/master/cunZ/cz_detail.js"></script>
+
+	<!--售后-->
+	<script src="scripts/home/after_sale_home/after_sale_home.js"></script>
+	<!--<script src="scripts/controllers/after_sale/refund_list.js"></script>-->
+
+	<!--会员-->
+	<script src="scripts/service/member/MemberApplicationService.js"></script>
+	<script src="scripts/service/member/MemberBlackService.js"></script>
+	<script src="scripts/service/member/MemberStatisticsService.js"></script>
+	<script src="scripts/service/member/MemberService.js"></script>
+	<script src="scripts/service/member/AssignService.js"></script>
+
+	<!--商品-->
+	<script src="scripts/home/business_home/business_home.js"></script>
+	<script src="scripts/controllers/business/business_list.js"></script>
+	<script src="scripts/controllers/business/add_business.js"></script>
+	<script src="scripts/controllers/business/edit_business_feedback.js"></script>
+	<script src="scripts/controllers/business/add_business_feedback.js"></script>
+	<script src="scripts/controllers/business/business_class_list.js"></script>
+	<script src="scripts/controllers/business/mallService/mall_service_class.js"></script>
+	<script src="scripts/controllers/business/add_mall_service_class.js"></script>
+	<script src="scripts/controllers/business/edit_mall_service_class.js"></script>
+	<script src="scripts/controllers/business/add_business_class.js"></script>
+	<script src="scripts/controllers/business/edit_business_class.js"></script>
+	<script src="scripts/controllers/business/product_list.js"></script>
+	<script src="scripts/controllers/business/product_detail.js"></script>
+	<script src="scripts/controllers/business/add_product.js"></script>
+	<script src="scripts/controllers/business/edit_product.js"></script>
+	<script src="scripts/controllers/business/edit_good_detail.js"></script>
+	<script src="scripts/controllers/business/tm_manage.js"></script>
+	<script src="scripts/controllers/business/tm_manage_detail.js"></script>
+	<script src="scripts/controllers/business/shop_service_manage.js"></script>
+	<script src="scripts/controllers/business/shop_service_detail.js"></script>
+	<script src="scripts/controllers/business/coupon/coupon_redact.js"></script>
+	<script src="scripts/controllers/business/coupon/coupon_materials.js"></script>
+	<script src="scripts/controllers/business/coupon/coupon_list.js"></script>
+	<script src="package/modal/business/set_sell_state.js"></script>
+	<script src="package/modal/business/edit_position.js"></script>
+	<script src="package/modal/coupon/coupon_shop.js"></script>
+	<script src="package/modal/coupon/material_conpon.js"></script>
+	<script src="package/modal/coupon/coupon_give.js"></script>
+	<script src="package/modal/coupon/coupon_materials.js"></script>
+	<script src="package/modal/coupon/materials_name.js"></script>
+	<script src="scripts/service/product/ProductService.js"></script>
+
+
+	<!--营销-->
+	<script src="scripts/home/market_home/market_home.js"></script>
+	<script src="scripts/controllers/market/809/rechargeList.js"></script>
+	<script src="scripts/controllers/market/809/prizeList.js"></script>
+	<script src="scripts/controllers/market/809/activeSet.js"></script>
+	<script src="scripts/controllers/market/platform/platform_list.js"></script>
+	<script src="scripts/controllers/market/platform/platform_add.js"></script>
+	<script src="scripts/controllers/market/platform/platform_edit.js"></script>
+	<script src="scripts/controllers/market/operation/operation_list.js"></script>
+	<!-- 优惠券 -->
+	<script src="scripts/controllers/market/coupon/coupon_add.js"></script>
+	<script src="scripts/controllers/market/coupon/coupon_list.js"></script>
+	<script src="scripts/controllers/market/coupon/coupon_look.js"></script>
+	<script src="scripts/controllers/market/coupon/coupon_record_list.js"></script>
+
+	<script src="package/modal/market/add_tm.js"></script>
+	<script src="scripts/service/market/market.js"></script>
+
+	<!--内容-->
+	<script src="scripts/service/cms/cmsList.js"></script>
+	<script src="scripts/service/cms/sbb.js"></script>
+	<script src="scripts/home/cms_home/cms_home.js"></script>
+	<script src="scripts/controllers/cms/cms_list.js"></script>
+	<script src="scripts/controllers/cms/cms_detail.js"></script>
+	<script src="scripts/controllers/cms/cms_shop_list.js"></script>
+	<script src="scripts/controllers/cms/cms_shop_detail.js"></script>
+	<script src="scripts/controllers/cms/cms_tag.js"></script>
+
+	<script src="scripts/controllers/cms/parterStory/storyList.js"></script>
+	<script src="scripts/controllers/cms/parterStory/addStory.js"></script>
+	<script src="scripts/controllers/cms/sbbBanner/sbbBanner.js"></script>
+	<script src="scripts/controllers/cms/sbbBanner/addBanner.js"></script>
+	<script src="scripts/controllers/cms/sbbNotice/sbbNoticeList.js"></script>
+	<script src="scripts/controllers/cms/sbbNotice/addNotice.js"></script>
+	<script src="scripts/controllers/cms/IPTNotice/sbbNoticeList.js"></script>
+	<script src="scripts/controllers/cms/IPTNotice/addNotice.js"></script>
+	<script src="scripts/controllers/cms/sbbTech/techList.js"></script>
+	<script src="scripts/controllers/cms/sbbTech/addTech.js"></script>
+	<script src="scripts/controllers/cms/sbbRule/addRule.js"></script>
+	<script src="scripts/controllers/cms/sbbRule/sbbRule.js"></script>
+
+	<!--商家-->
+	<script src="scripts/home/merchant_home/merchant_home.js"></script>
+	<script src="scripts/service/merchant/merchantManageService.js"></script>
+	<script src="scripts/controllers/merchant/merchant_list.js"></script>
+	<script src="scripts/controllers/merchant/merchant_detail.js"></script>
+	<script src="scripts/controllers/merchant/merchant_edit.js"></script>
+
+
+	<!--财务-->
+	<script src="scripts/home/finance_home/finance_home.js"></script>
+	<script src="package/modal/business/business_edit.js"></script>
+	<script src="package/modal/cz_editor/cz_editor.js"></script>
+	<script src="package/modal/keerper/keerper_file.js"></script>
+	<script src="scripts/service/finance/Bill_Template_Service.js"></script>
+	<script src="scripts/service/finance/Bill_Tpl_Feedbacks_Service.js"></script>
+	<script src="scripts/service/finance/CapitalAccount_Service.js"></script>
+	<script src="scripts/service/finance/Bill_Service.js"></script>
+	<script src="scripts/service/finance/BillOrderService.js"></script>
+	<script src="scripts/service/finance/BillOrderPaymentService.js"></script>
+	<script src="scripts/service/finance/BillLogService.js"></script>
+
+	
+
+	<!--服务商manage-->
+	<script src="scripts/home/service_home/service_home.js"></script>
+	<script src="package/modal/service/bill_order_payment.js"></script>
+	<script src="package/modal/service/check.js"></script>
+	<script src="package/modal/service/check_bill_order.js"></script>
+	<script src="package/modal/service/affirm_bill.js"></script>
+	<script src="package/modal/service/reject.js"></script>
+	<script src="package/modal/service/edit_bill.js"></script>
+	<script src="package/modal/service/service_charge_allocation.js"></script>
+	<script src="package/modal/service/add_service_charge_allocation.js"></script>
+	<script src="package/modal/service/edit_servicer_manage.js"></script>
+	<script src="scripts/controllers/service/servicer_list.js"></script>
+	<script src="scripts/controllers/service/add_servicer.js"></script>
+	<script src="scripts/controllers/service/add_badServicer.js"></script>
+	<script src="scripts/controllers/service/add_badServiceManage.js"></script>
+	<script src="scripts/controllers/service/bad_servicer_list.js"></script>
+	<script src="scripts/controllers/service/servicer_detail.js"></script>
+	<script src="scripts/controllers/service/edit_servicer.js"></script>
+	<script src="scripts/controllers/service/edit_badServicer.js"></script>
+	<script src="scripts/controllers/service/add_badServicer.js"></script>
+	<script src="scripts/controllers/service/servicer_manage.js"></script>
+	<script src="scripts/controllers/service/servicer_statistics.js"></script>
+	<script src="scripts/controllers/service/reset_pwd.js"></script>
+	<script src="scripts/controllers/service/bill_manage/bill_tpl_list.js"></script>
+	<script src="scripts/controllers/service/bill_manage/add_bill_tpl_deploy.js"></script>
+	<script src="scripts/controllers/service/bill_manage/add_tpl.js"></script>
+	<script src="scripts/controllers/service/bill_manage/edit_bill_tpl_deploy.js"></script>
+	<script src="scripts/controllers/service/label_manage/label_tpl_list.js"></script>
+	<script src="scripts/controllers/service/label_manage/label_tpl_edit.js"></script>
+	<script src="scripts/controllers/service/label_manage/label_tpl_add.js"></script>
+	<script src="scripts/controllers/service/application_for_admission/seller_application.js"></script>
+	<script src="scripts/controllers/service/application_for_admission/seller_application_detail.js"></script>
+	<script src="scripts/controllers/service/application_for_admission/seller_application_remarks.js"></script>
+	<script src="scripts/controllers/service/application_for_admission/seller_audit.js"></script>
+
+
+	<script src="scripts/controllers/service/sp_bill/sp_bill.js"></script>
+	<script src="scripts/controllers/service/sp_bill/bill_detail.js"></script>
+	<script src="scripts/controllers/service/sp_bill/statement.js"></script>
+	<script src="scripts/controllers/service/sp_capital_account/capital_account.js"></script>
+	<script src="scripts/controllers/service/sp_capital_account/account_detail.js"></script>
+	<script src="scripts/controllers/service/business_manage/service_manage.js"></script>
+
+	<!--服务商service-->
+	<script src="scripts/service/servicer/servicer.js"></script>
+	<script src="scripts/service/servicer/badServicer.js"></script>
+	<script src="scripts/service/servicer/BusinessService.js"></script>
+	<script src="scripts/service/servicer/BusinessClassService.js"></script>
+	<script src="scripts/service/servicer/businessFeedBackService.js"></script>
+	<script src="scripts/service/servicer/LabelServicer.js"></script>
+	<script src="scripts/service/servicer/SellerApplicationService.js"></script>
+	<script src="scripts/service/servicer/mallServiceClassService.js"></script>
+
+	<!--会员-指定服务商-->
+	<script src="scripts/controllers/user_manage/assignService/assignService_list.js"></script>
+	<script src="scripts/controllers/user_manage/assignService/add_assignService.js"></script>
+	<script src="scripts/controllers/user_manage/assignService/edit_assignService.js"></script>
+	<script src="scripts/controllers/user_manage/assignService/assignService.js"></script>
+	<!--会员-企业主体认证审核-->
+	<script src="scripts/controllers/user_manage/companyaudit/companyauditlist.js"></script>
+	<script src="scripts/controllers/user_manage/companyaudit/companyauditdetail.js"></script>
+
+	<!--渠道商-->
+	<script src="scripts/home/channel_home/channel_home.js"></script>
+	<script src="scripts/controllers/channel/channel_list.js"></script>
+	<script src="scripts/controllers/channel/add_channel.js"></script>
+	<script src="scripts/controllers/channel/edit_channel.js"></script>
+	<script src="scripts/controllers/channel/assign_servicer.js"></script>
+	<script src="scripts/controllers/channel/channel_service_list.js"></script>
+
+	<!--合伙人-->
+	<script src="scripts/home/partner_home/partner_home.js"></script>
+	<script src="scripts/controllers/partner/partner_application/partner_application_detail.js"></script>
+	<script src="scripts/controllers/partner/partner_application/partner_application_remarks.js"></script>
+	<script src="scripts/controllers/partner/partner_application/partner_application.js"></script>
+	<script src="scripts/controllers/partner/partner_application/partner_audit.js"></script>
+	<script src="scripts/controllers/partner/partner_manage/partner_manage.js"></script>
+	<script src="scripts/controllers/partner/partner_manage/addParter.js"></script>
+	<script src="scripts/controllers/partner/partner_manage/partner_manage_detail.js"></script>
+	<script src="scripts/controllers/partner/partner_cash/partner_cash.js"></script>
+	<script src="scripts/controllers/partner/partner_cash/partner_cash_detail.js"></script>
+	<script src="scripts/service/partner/partnerService.js"></script>
+	<script src="package/modal/partner/check.js"></script>
+
+	<!-- 合伙人退款 -->
+	<script src="scripts/controllers/after_sale/partner_after_sale/after_sale_list.js"></script>
+	<script src="scripts/controllers/after_sale/partner_after_sale/after_sale_detail.js"></script>
+
+	<!--统计-->
+	<script src="scripts/home/statistics_home/statistics_home.js"></script>
+	<script src="scripts/controllers/statistics/partner/partner_list.js"></script>
+	<script src="scripts/controllers/statistics/businessStatistical/businessStatistical_list.js"></script>
+
+
+	<!--珍珠 IPT-->
+	<script src="scripts/home/ipt_home/ipt_home.js"></script>
+	<script src="scripts/controllers/ipt/record_list/record_list.js"></script>
+	<script src="scripts/controllers/ipt/record_statistics/record_statistics.js"></script>
+	<script src="scripts/controllers/ipt/award_list/award_list.js"></script>
+	<script src="scripts/controllers/ipt/pearl_list/pearl_list.js"></script>
+	<script src="scripts/service/ipt/iptService.js"></script>
+
+	<!--设置 || 权限manage-->
+	<script src="scripts/home/setting_home/setting_home.js"></script>
+	<script src="scripts/controllers/setting/admin/admin_list.js"></script>
+	<script src="scripts/controllers/setting/admin/add_admin.js"></script>
+	<script src="scripts/controllers/setting/admin/edit_admin.js"></script>
+	<script src="scripts/controllers/setting/data/data_group_list.js"></script>
+	<script src="scripts/controllers/setting/data/add_data_group.js"></script>
+	<script src="scripts/controllers/setting/data/edit_data_group.js"></script>
+	<script src="scripts/controllers/setting/g_limits/gadmin_list.js"></script>
+	<script src="scripts/controllers/setting/g_limits/add_gadmin.js"></script>
+	<script src="scripts/controllers/setting/g_limits/edit_gadmin.js"></script>
+	<script src="scripts/controllers/setting/logs/log_list.js"></script>
+	<script src="scripts/controllers/setting/email/email.js"></script>
+	<script src="scripts/controllers/setting/email/email_tpl.js"></script>
+	<script src="scripts/controllers/setting/email/email_tpl_edit.js"></script>
+	<script src="scripts/controllers/setting/email/add_email_tpl.js"></script>
+	<script src="scripts/controllers/setting/express/express_list.js"></script>
+	<script src="scripts/controllers/setting/payment/payment_list.js"></script>
+	<script src="scripts/controllers/setting/payment/add_payment.js"></script>
+	<script src="scripts/controllers/setting/payment/ping_edit.js"></script>
+	<script src="scripts/controllers/setting/payment/payment_edit.js"></script>
+	<script src="scripts/controllers/setting/payment/weChat_payment_edit.js"></script>
+	<script src="scripts/controllers/setting/setOrder/OrderSetting.js"></script>
+
+	<!--服务单-->
+	<script src="scripts/controllers/trade/bs_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/bs_order/order_detail.js"></script>
+	<script src="package/modal/bs_order/set_service_state.js"></script>
+	<script src="package/modal/bs_order/refund_reason.js"></script>
+	<script src="package/modal/bs_order/setup.js"></script>
+	<script src="package/modal/bs_order/refund_setAfterStatus.js"></script>
+	<!-- 图片预览 -->
+	<script src="package/modal/bs_order/imgprev.js"></script>
+	<!-- 敦煌网订单设置服务状态 -->
+	<script src="package/modal/bs_order/set_state.js"></script>
+	<!--创新保订单-->
+	<script src="scripts/controllers/trade/cxb_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/cxb_order/order_detail.js"></script>
+	<!-- <script src="package/modal/bs_order/set_service_state.js"></script>
+	<script src="package/modal/bs_order/refund_reason.js"></script>
+	<script src="package/modal/bs_order/setup.js"></script>
+	<script src="package/modal/bs_order/refund_setAfterStatus.js"></script> -->
+
+	<!--存证单-->
+	<script src="scripts/controllers/trade/nt_order/order_list.js"></script>
+	<script src="scripts/controllers/trade/nt_order/order_detail.js"></script>
+	<!--<script src="package/modal/nt_order/refund_reason.js"></script>
+	<script src="package/modal/nt_order/refund_setAfterStatus.js"></script> -->
+
+
+	<!--消息-->
+	<script src="scripts/controllers/setting/news/news_list.js"></script>
+
+	<!--权限的Service-->
+	<script src="scripts/service/admin_service/AdminService.js"></script>
+	<script src="scripts/service/admin_service/DataGroupService.js"></script>
+	<script src="scripts/service/limits_service/LimitsService.js"></script>
+	<script src="scripts/service/purview/purviewService.js"></script>
+	<script src="scripts/service/admin_service/AdminLogService.js"></script>
+	<script src="scripts/service/limits_service/NewsService.js"></script>
+	<script src="scripts/service/limits_service/PaymentService.js"></script>
+	<script src="scripts/service/limits_service/MailService.js"></script>
+	<!--用户manage-->
+	<script src="scripts/home/user_home/user_home.js"></script>
+	<script src="scripts/controllers/user_manage/user/user_list.js"></script>
+	<script src="scripts/controllers/user_manage/user_black/user_black_list.js"></script>
+	<script src="scripts/controllers/user_manage/user/edit_user.js"></script>
+	<script src="scripts/controllers/user_manage/user/service_record.js"></script>
+	<script src="scripts/controllers/user_manage/apply_user/apply_user_list.js"></script>
+	<!--  <script src="scripts/controllers/user_manage/apply_user/apply_user_list_test.js"></script> -->
+	<script src="scripts/controllers/user_manage/apply_user/apply_user_detail.js"></script>
+	<script src="scripts/controllers/user_manage/user/user_detail.js"></script>
+
+	<!--新增 by hk-->
+	<script src="scripts/controllers/user_manage/user_520/user_list.js"></script>
+	<script src="scripts/controllers/user_manage/user_520/user_detail.js"></script>
+	<script src="package/modal/member/member_dongjie.js"></script>
+	<script src="package/modal/user_manage/editServicer.js"></script>
+
+
+	<!--结算-->
+	<script src="package/modal/members/members_frozen_details.js"></script>
+	<script src="package/modal/members/members_thaw_details.js"></script>
+
+	<!--用户Service-->
+	<script src="scripts/service/user/UserService.js"></script>
+	<!--地区-->
+	<script src="scripts/service/area/areaService.js"></script>
+	<!--快递-->
+	<script src="scripts/service/express/expressService.js"></script>
+	<!--图片code-->
+	<script src="scripts/service/imgCode_service/ImgCodeService.js"></script>
+	<!--订单-->
+	<script src="scripts/service/order/orderService.js"></script>
+	<script src="scripts/service/order/bsOrderService.js"></script>
+	<script src="scripts/service/order/ntOrderService.js"></script>
+	<script src="scripts/service/order/cxbOrderService.js"></script>
+	<script src="scripts/service/order/OrderPaymentService.js"></script>
+	<script src="scripts/service/order/demandService.js"></script>
+	<script src="scripts/service/order/ipService.js"></script>
+	<!--退款-->
+	<script src="scripts/service/order/refundService.js"></script>
+
+	<!--发票-->
+	<script src="scripts/service/invoice/InvoiceService.js"></script>
+	<script src="scripts/service/invoice/RedInvoiceService.js"></script>
+	<script src="scripts/service/invoice/InvoiceStatisticsService.js"></script>
+	<!--渠道-->
+	<script src="scripts/service/channel/channelService.js"></script>
+	<script src="scripts/service/channel/channelSpService.js"></script>
+	<script src="scripts/service/channel/channelBsService.js"></script>
+	<script src="scripts/service/channel/ChannelApplicationService.js"></script>
+	<!-- 快服 -->
+	<script src="scripts/service/fast/czoutList.js"></script>
+	<script src="scripts/service/fast/keeperReport.js"></script>
+	<script src="scripts/service/fast/Outpatient.js"></script>
+	<script src="scripts/service/fast/enterprises.js"></script>
+	<!--退款-->
+	<script src="scripts/home/after_sale_home/after_sale_home.js"></script>
+	<script src="scripts/controllers/after_sale/refund/refund_list.js"></script>
+	<script src="scripts/controllers/after_sale/refund/refund_check.js"></script>
+	<script src="scripts/controllers/after_sale/refund/update_refund.js"></script>
+	<script src="scripts/controllers/after_sale/refund/reject_check.js"></script>
+	<script src="scripts/controllers/after_sale/refund/wait_refund.js"></script>
+	<script src="scripts/controllers/after_sale/refund/refund_add.js"></script>
+	<script src="scripts/controllers/after_sale/refund/create_refund.js"></script>
+	<script src="scripts/service/tradeStatistics/TradeStatisticsService.js"></script>
+
+	<!--维权-->
+	<script src="scripts/home/ip_protect_home/ip_protect_home.js"></script>
+	<script src="scripts/controllers/ip_protect/ts_order/order_list.js"></script>
+	<script src="scripts/controllers/ip_protect/ts_order/order_detail.js"></script>
+	<script src="scripts/controllers/ip_protect/bh_order/order_list.js"></script>
+	<script src="scripts/controllers/ip_protect/bh_order/order_detail.js"></script>
+	<script src="scripts/controllers/ip_protect/ss_order/order_list.js"></script>
+	<script src="scripts/controllers/ip_protect/ss_order/order_detail.js"></script>
+	<script src="scripts/controllers/ip_protect/cz_order/order_list.js"></script>
+	<script src="scripts/controllers/ip_protect/cz_order/order_detail.js"></script>
+	<script src="scripts/controllers/ip_protect/patent_order/order_list.js"></script>
+	<script src="scripts/controllers/ip_protect/patent_order/order_detail.js"></script>
+	<script src="scripts/controllers/ip_protect/quality_order/order_list.js"></script>
+	<script src="scripts/controllers/ip_protect/quality_order/order_detail.js"></script>
+	<script src="scripts/controllers/ip_protect/customs_order/order_list.js"></script>
+	<script src="scripts/controllers/ip_protect/customs_order/order_detail.js"></script>
+	<script src="scripts/controllers/ip_protect/case_order/order_list.js"></script>
+	<script src="scripts/controllers/ip_protect/case_order/order_detail.js"></script>
+	<script src="package/modal/ip_protect/check.js"></script>
+	<script src="package/modal/ip_protect/report.js"></script>
+	<script src="package/modal/ip_bhrect/check.js"></script>
+	<script src="package/modal/ip_bhrect/report.js"></script>
+
+	<!--发票信息-->
+	<script src="scripts/controllers/finance/invoice/open_list.js"></script>
+	<script src="scripts/controllers/finance/invoice/unopen_list.js"></script>
+	<script src="scripts/controllers/finance/invoice/backfill_express.js"></script>
+	<script src="scripts/controllers/finance/invoice/backfill_invoice.js"></script>
+	<script src="scripts/controllers/finance/red_invoice/red_check_list.js"></script>
+	<script src="scripts/controllers/finance/red_invoice/red_open_list.js"></script>
+	<script src="scripts/controllers/finance/red_invoice/red_unopen_list.js"></script>
+	<script src="scripts/controllers/finance/red_invoice/red_check.js"></script>
+	<script src="scripts/controllers/finance/red_invoice/red_backfill.js"></script>
+	<script src="scripts/controllers/finance/invoice/open_invoice_detail.js"></script>
+	<script src="scripts/controllers/finance/red_invoice/red_open_detail.js"></script>
+	<script src="scripts/controllers/finance/red_invoice/original_invoice_detail.js"></script>
+	<script src="scripts/controllers/finance/cxb/cxb.js"></script>
+	<script src="scripts/controllers/finance/zs_ai/zs_ai.js"></script>
+	<script src="scripts/controllers/finance/zs_ai/zs_single.js"></script>
+
+	<script src="scripts/controllers/finance/trademark/list.js"></script>
+	<script src="scripts/controllers/finance/trademark/interlist.js"></script>
+	<script src="scripts/controllers/finance/trademark/otherlist.js"></script>
+	<script src="scripts/controllers/finance/trademark/tablist.js"></script>
+	<script src="scripts/controllers/finance/trademark/copyright.js"></script>
+
+	<script src="scripts/controllers/finance/trademark/techlist.js"></script>
+	<script src="scripts/controllers/finance/trademark/zlxklist.js"></script>
+	<script src="scripts/controllers/finance/trademark/ylzllist.js"></script>
+	<!--公共信息-->
+	<script src="scripts/service/comm/pagination/paginationService.js"></script>
+	<script src="scripts/service/comm/openAddressService.js"></script>
+	<script src="package/directive/mt-pagination/mt-pagination.js"></script>
+	<script src="package/directive/filterUpload/upload.js"></script>
+	<script src="package/directive/contentEditable/contentEditable.js"></script>
+	<script src="scripts/service/comm/session.js"></script>
+	<script src="scripts/service/comm/publicService.js"></script>
+	<script src="scripts/service/comm/AuthenticationService.js"></script>
+	<script src="scripts/service/comm/SettingService.js"></script>
+	<script src="scripts/service/comm/timeService.js"></script>
+
+	<!--modal-->
+	<script src="package/modal/edit_password/edit_password.js"></script>
+	<script src="package/modal/invoice/open_invoice.js"></script>
+	<script src="package/modal/invoice/order_back.js"></script>
+	<script src="package/modal/bad_service/break.js"></script>
+	<script src="package/modal/service/service_list.js"></script>
+	<script src="package/modal/service/allot_service.js"></script>
+	<script src="package/modal/service/member_allot_service.js"></script>
+	<script src="package/modal/member/account_associated.js"></script>
+
+	<script src="package/modal/invoice/invoice_msg.js"></script>
+	<script src="package/modal/invoice/remain_case.js"></script>
+
+	<!--member filter-->
+	<script src="package/filter/menberStatusFilter.js"></script>
+	<script src="package/filter/invoiceStateFilter.js"></script>
+	<!--service-->
+	<script src="package/filter/serviceStatusFilter.js"></script>
+	<script src="package/filter/orderStatusFilter.js"></script>
+	<script src="package/filter/ntStatusFilter.js"></script>
+	<script src="package/filter/demandFilter.js"></script>
+	<script src="package/filter/SettingStatusFilter.js"></script>
+	<script src="package/filter/czFiler.js"></script>
+	<script src="package/filter/reportKeerper.js"></script>
+	<script src="package/filter/productStatusFilter.js"></script>
+	<script src="package/filter/highTech.js"></script>
+	<script src="package/filter/partnerFilter.js"></script>
+	<script src="package/filter/marketFilter.js"></script>
+
+	<script src="package/filter/othersFilter.js"></script>
+	<!--bill-->
+	<script src="package/filter/billStatusFilter.js"></script>
+	<!--directive-->
+	<script src="package/directive/ng-show/mt-show-model.js"></script>
+	<script src="package/directive/open-mt-address/open-mt-address.js"></script>
+	<script src="scripts/service/payment/payment.js"></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>服务单管理</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPBsOrderListModel"><a href="JavaScript:void(0);" class="current"><span>订单列表</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>订单号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.pay_order_sn"></td>
+					<th><label>下单时间：</label></th>
+					<td>
+						<div class="time_wrap">
+						<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="start_create_time" id="start_create_time" ng-model="start_create_time"
+								max-date="end_create_time" style="cursor:pointer" readonly/>
+						<label for="end_create_time">~</label>
+						<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="end_create_time" id="end_create_time"  ng-model="end_create_time"
+								min-date="start_create_time" style="cursor:pointer" readonly/>
+					  </div>
+					</td>
+					<th><label>服务单号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.bs_order_sn"></td>
+					<th><label>客户姓名：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.truename"></td>
+
+					<!-- <th><label>商户订单号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.pay_order_sn"></td> -->
+					<th><label>服务验收：</label></th>
+					<td>
+						<select ng-model="obj.order_check_accept" style="width: 120px;">
+								<option value="">请选择</option>
+							<option value="0">未发起验收</option>
+							<option value="1">服务验收中</option>
+							<option value="2">服务已验收</option>
+							<option value="3">验收不通过</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<th><label>支付状态：</label></th>
+					<td>
+						<select ng-model="obj.payment_state" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="0">未支付</option>
+							<option value="1">已支付</option>
+						</select>
+					</td>
+					<th><label>支付时间：</label></th>
+					<td>
+						<div class="time_wrap">
+						<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="payment_start_time" id="payment_start_time" ng-model="payment_start_time"
+								max-date="payment_end_time" style="cursor:pointer" readonly/>
+						<label for="payment_end_time">~</label>
+						<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="payment_end_time" id="payment_end_time"  ng-model="payment_end_time"
+								min-date="payment_start_time" style="cursor:pointer" readonly/>
+					  </div>
+					</td>
+					<!-- <th><label>服务状态：</label></th>
+					<td>
+						<select ng-model="obj.service_state" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="0">待服务</option>
+							<option value="1">服务中</option>
+							<option value="2">服务完成</option>
+							<option value="3">服务关闭</option>
+						</select>
+					</td> -->
+					<th><label>售后状态：</label></th>
+					<td>
+						<select ng-model="obj.refund_state" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="0">退款审核</option>
+							<option value="1">已退款</option>
+							<option value="2">退款已驳回</option>
+						</select>
+					</td>
+					<th><label>注册手机号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.phone"></td>
+
+					<th><label>商家编号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.sp_code"></td>
+
+					<td colspan="2"><label><input type="checkbox" ng-model="obj.is_filter_test" style="position: relative;top: 2px;">过滤测试单</label></th>
+				</tr>
+				<tr>
+					<th><label>申报主体：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.order_apply_subject_name"></td>
+					<th><label>完成时间：</label></th>
+					<td>
+						<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="finished_start_time" id="finished_start_time"  ng-model="finished_start_time"
+								max-date="finished_end_time" style="cursor:pointer" readonly/>
+						<label for="finished_end_time">~</label>
+						<input type="text" class="txt date hasDatepicker" datepicker-popup  placeholder="" name="finished_end_time" id="finished_end_time"  ng-model="finished_end_time"
+								min-date="finished_start_time" style="cursor:pointer" readonly/>
+					</td>
+					<th><label>商品筛选：</label></th>
+					<td colspan="5">
+						<select ng-model="typeobj.fir_id" ng-change="bs_type_change(1, typeobj.fir_id)" ng-options="type.id as type.name for type in firTypeData">
+							<option value="">请选择</option>
+						</select>
+						<select ng-model="typeobj.sec_id" ng-change="bs_type_change(2, typeobj.sec_id)" ng-options="type.id as type.name for type in secTypeData">
+							<option value="">请选择</option>
+						</select>
+						<select ng-model="typeobj.thi_id" ng-change="bs_type_change(3, typeobj.thi_id)" ng-options="type.id as type.name for type in thiTypeData">
+							<option value="">请选择</option>
+						</select>
+						<select ng-model="typeobj.fou_id" ng-change="bs_type_change(4)" ng-options="type.bs_feedback_id as type.name for type in fouTypeData">
+							<option value="">请选择服务状态</option>
+						</select>
+					</td>
+					<td style="text-align:left;" colspan="2">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_export()" title="导出">导出</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<!-- <table class="table tb-type2" id="prompt">
+		<tbody class="tr-color">
+			<tr class="space odd" >
+				<th colspan="12"><div class="title">
+					<h5>操作提示</h5>
+					<span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+					<span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+				</div></th>
+			</tr>
+			<tr class="odd" ng-show="hint">
+				<td>
+					<ul>
+						<li></li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table> -->
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center">序号</th>
+					<th class="align-center">服务单号</th>
+					<th class="align-center">服务类目</th>
+					<th class="align-center">商品编号</th>
+					<th class="align-center">服务名称</th>
+					<th style="width: 120px;" class="align-center">下单时间</th>
+					<th class="align-right">金额</th>
+					<th class="align-center">支付状态</th>
+					<th class="align-center">服务验收</th>
+					<th class="align-center">服务状态</th>
+					<th class="align-center">售后状态</th>
+					<th class="align-center">客户姓名</th>
+					<th class="align-center">注册手机号</th>
+					<th class="align-center">商家编号</th>
+					<th class="align-center">商家名称</th>
+					<th class="align-center">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<td class="align-center"><span ng-bind="list.number"></span></td>
+					<td class="align-center" ng-bind="list.order_sn"></td>
+					<td class="align-center" ng-bind="list.bs_class_name"></td>
+					<td class="align-center" ng-bind="list.product_num"></td>
+					<td class="align-center" ng-bind="list.bs_name"></td>
+					<td class="align-center" ng-bind="list.create_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+					<td class="align-right" ng-bind="list.order_amount | number:2"></td>
+					<td class="align-center" ng-bind="list.payment_state | paymentStatusFilter"></td>
+					<td class="align-center" ng-bind="list.order_check_accept | orderCheckAcceptFilter"></td>
+					<td class="align-center" ng-bind="list.order_feedback_state"></td>
+					<td class="align-center" ng-bind="list.refund_state_description"></td>
+					<td class="align-center" ng-bind="list.buyer_name"></td>
+					<td class="align-center" ng-bind="list.buyer_mobile"></td>
+					<!-- <td class="align-center" ng-if="list.buyer_mobile != null && list.buyer_mobile !=null" ng-bind="list.buyer_mobile"></td>
+					<td class="align-center" ng-if="list.buyer_mobile === null" ng-bind="list.buyer_email"></td> -->
+					<td class="align-center" ng-bind="list.sp_code"></td>
+					<td class="align-center" ng-bind="list.sp_name"></td>
+					<td class="align-center w120">
+						<a href="JavaScript:void(0);" model-name="IPRPBsOrderDetailModel" style="cursor: pointer" ng-click="detail_orders(list.order_sn)">查看</a>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="16" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="16"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

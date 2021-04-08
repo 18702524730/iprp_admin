@@ -1,0 +1,113 @@
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title">
+      <h3>查看拾贝券</h3>
+      <ul class="tab-base">
+        <li><a href="JavaScript:void(0);" class="current"><span>查看拾贝券</span></a></li>
+        <li><a href="#/main/market_home/coupon"><span>拾贝券列表</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <form class="form-horizontal">
+    <table class="table tb-type2 order">
+      <tbody>
+        <tr class="space">
+          <th colspan="15">基本信息</th>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <ul>
+              <li style="width:25%;"><strong>券名称:</strong>{{coupon_detail.baseInfo.couponName}}</li>
+              <li style="width:25%;"><strong>券类型:</strong>&nbsp;{{coupon_detail.baseInfo.couponType | couponType}}</li>
+
+              <li style="width:25%;" ng-if="coupon_detail.baseInfo.couponType == 1"><strong>升润比例:</strong>&nbsp;{{coupon_detail.baseInfo.couponAmount * 100}}%</li>
+              <li style="width:25%;" ng-if="coupon_detail.baseInfo.couponType == 2"><strong>提佣金额:</strong>&nbsp;{{coupon_detail.baseInfo.couponAmount}}元</li>
+
+              <li style="width:25%;"><strong>使用对象:</strong>{{coupon_detail.baseInfo.usageObj | usageObjType}}</li>
+              <li style="width:25%;"><strong>使用时限:</strong>{{coupon_detail.baseInfo.applicableTimeType | couponTimeType}}</li>
+
+              <li style="width:25%;" ng-if="coupon_detail.baseInfo.applicableTimeType == 1"><strong>时间范围:</strong>{{coupon_detail.baseInfo.applicableTimeStart | date : 'yyyy-MM-dd  HH:mm:ss'}}~{{coupon_detail.baseInfo.applicableTimeEnd | date : 'yyyy-MM-dd  HH:mm:ss'}}</li>
+              <li style="width:25%;" ng-if="coupon_detail.baseInfo.applicableTimeType == 2"><strong>领取日计时:</strong>{{coupon_detail.baseInfo.applicableTimeDay}}天</li>
+
+              <li style="width:25%;"><strong>券种ID:</strong>{{coupon_detail.baseInfo.couponId}}</li>
+              <li style="width:25%;"><strong>重复领取:</strong>{{coupon_detail.baseInfo.isRepeatGet | RepeatGet}}</li>
+              <li style="width:25%;"><strong>生成数量:</strong>{{coupon_detail.baseInfo.couponNum}}</li>
+              <li style="width:25%;"><strong>发放状态:</strong>{{coupon_detail.baseInfo.couponSendState | couponStates}}
+                <a class="btn" id="submitBtn"><span ng-click="changeStates()">更改</span></a>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr class="space">
+          <th colspan="2">适用商品</th>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <ul>
+              <li style="width:100%;">{{coupon_detail.applicableProduct}}</li>
+            </ul>
+          </td>
+        </tr>
+        <tr class="space">
+          <th colspan="2">发放情况</th>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <ul>
+              <li style="width:25%;"><strong>已发放:</strong>{{coupon_detail.sendCond.couponSendNum}}</li>
+              <li style="width:25%;"><strong>使用中:</strong>{{coupon_detail.sendCond.couponUsingNum}}</li>
+              <li style="width:25%;"><strong>已使用:</strong>{{coupon_detail.sendCond.couponUsedNum}}</li>
+              <li style="width:25%;"><strong>未使用:</strong>{{coupon_detail.sendCond.couponUnusedNum}}</li>
+              <li style="width:25%;"><strong>已过期:</strong>{{coupon_detail.sendCond.couponExpireNum}}</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  <form>
+    <table class="table tb-type2">
+      <thead>
+        <tr class="thead">
+          <th class="align-center" style="width: 40px;">序号</th>
+          <th class="align-center">注册手机号</th>
+          <th class="align-center">昵称</th>
+          <th class="align-center">获取方式</th>
+          <th style="width: 120px;" class="align-center">获得时间</th>
+          <th style="width: 120px;" class="align-center">券状态</th>
+          <th style="width: 120px;" class="align-center">使用时间</th>
+        </tr>
+      </thead>
+      <tbody class="tr-color">
+      <tr ng-show="CouponList.length > 0" class="hover" ng-repeat="list in CouponList">
+          <td class="align-center">{{ list.seqNo }}</td>
+          <td class="align-center" >{{ list.memberPhone || '--' }}</td>
+          <td class="align-center" >{{ list.nickname|| '--' }}</td>
+          <td class="align-center">{{ list.obtainType | obtainType }}</td>
+          <td class="align-center">{{ list.obtainTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td class="align-center">{{ list.couponStatus | couponStatus }}</td>
+          <td class="align-center">{{ (list.usageTime | date:'yyyy-MM-dd HH:mm:ss') || '--' }}</td>
+        </tr>
+        <tr ng-show="to_loading">
+          <td colspan="7" class="norecord">
+            <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot ng-hide="to_loading">
+        <tr colspan="7" class="tfoot">
+          <td colspan="7"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+        </tr>
+      </tfoot>
+    </table>
+  </form>
+  <div id="radioType" ng-show="couponStateBol">
+    <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="couponSendState" ng-model="couponSendState" required value="1"/>发放
+    <input class="radio_align ml30" type="radio" ng-disabled="type == 'det'" name="couponSendState" ng-model="couponSendState" required value="2"/>暂停
+  </div>
+</div>
+<style>
+  .disabled {color: #eee; cursor: none;}
+  #radioType{width: 300px;padding: 10px;}
+  .btn_list a{cursor: pointer;}
+</style>

@@ -1,0 +1,129 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>消息通知</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPEmailTplListModel"><a href="#/main/setting_home/email_tpl"><span>邮件模板列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddEmailTplModel"><a href="#/main/setting_home/add_email_tpl"><span>添加邮件模板</span></a></li>
+                <li mt-show-model model-name="IPRPEmailSetModel"><a class="current"><span>邮件设置</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form id="form_email" name="settingForm">
+        <table class="table tb-type2">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="required">
+                        SMTP 服务器:
+                        <span class="error">
+                            <small class="error">
+                                <span class="red">{{error_host_message}}</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform" >
+                        <input type="text" value="123" name="email_host" id="email_host" class="txt" ng-model="emailHost_obj.value">
+                    </td>
+                    <td class="vatop tips">
+                        <label class="field_notice">设置 SMTP 服务器的地址，如 smtp.163.com</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        SMTP 端口:
+                        <span class="error">
+                            <small class="error">
+                                <span class="red">{{error_port_message}}</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" value="25" name="email_port" id="email_port" class="txt" ng-model="emailPort_obj.value">
+                    </td>
+                    <td class="vatop tips">
+                        <label class="field_notice">设置 SMTP 服务器的端口，默认为 25</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        发信人邮件地址:
+                        <span class="error">
+                            <small class="error">
+                                <span class="red">{{addr_message}}</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" value="13" name="email_addr" id="email_addr" class="txt" ng-model="emailAddr_obj.value">
+                    </td>
+                    <td class="vatop tips"><label class="field_notice">使用SMTP协议发送的邮件地址，如 sebe@ipsebe.com</label></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        SMTP 身份验证用户名:
+                        <span class="error">
+                            <small class="error">
+                                <span class="red">{{error_emailId_message}}</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" value="13" name="email_id" id="email_id" class="txt" ng-model="emailId_obj.value">
+                    </td>
+                    <td class="vatop tips"><label class="field_notice">如 sebe@ipsebe.com</label></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        SMTP 身份验证密码:
+                        <span class="error">
+                            <small class="error">
+                                <span class="red">{{error_pass_message}}</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="password" value="" name="email_pass" id="email_pass" class="txt" ng-model="emailPass_obj.value">
+                    </td>
+                    <td class="vatop tips">
+                        <label class="field_notice">sebe@ipsebe.com邮件的密码，如 123456</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        测试接收的邮件地址:
+                        <span class="error">
+                            <small class="error">
+                                <span class="red">{{error_message}}</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" value="" name="email_test" id="email_test" class="txt" ng-model="send_email_obj.email">
+                    </td>
+                    <td class="vatop tips">
+                        <input type="button" value="测试" ng-click="send_test_email()" name="send_test_email" class="btn" id="send_test_email">
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2">
+                        <a href="JavaScript:void(0);" class="btn" ng-click="update()"><span>提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

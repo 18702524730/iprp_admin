@@ -1,0 +1,26 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">账号解冻：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 order">
+            <tbody class="tr-color">
+                <tr><td>解冻号码：{{member_detail.phone}} </td></tr>
+                <tr><td>点击确认则该用户的状态修改为正常 </td></tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                   <td colspan="2">
+                        <a class="btn" id="submitBtn"><span ng-click="cancel()">取消</span></a>
+                    </td>
+                    <td colspan="2">
+                        <a class="btn" id="submitBtn"><span ng-click="editMemberStatus(1)">确认</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,55 @@
+<div id="pagemask"></div>
+<table style="width: 100%;" id="frametable" height="100%" width="100%" cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td colspan="2" height="58" class="mainhd">
+                <div class="layout-header">
+                    <div style="font-size: 0">
+                        <img src="styles/images/mac/logo.jpg">
+                    </div>
+                    <div id="topnav" class="top-nav">
+                        <ul>
+                            <li class="adminid"><p title="{{admin_name}}" ng-bind="admin_name">{{admin_name}}</p><i></i></li>
+                            <li><a herf style="cursor: pointer" ng-click="UpdatePwd()"><span>修改密码</span></a></li>
+                            <li><a href="" title="退出" ng-click = "logout()"><span>退出</span></a></li>
+                        </ul>
+                    </div>
+                    <nav id="nav" class="main-nav">
+                        <ul>
+                            <li mt-show-model model-name="IPRPTradeModel"><a ng-click="select($event)" class="link" id="nav_dashboard" href="#/main/left"><span>控制台</span></a></li>
+                            <li mt-show-model model-name="IPRPFastModel"><a ng-click="select($event)" id="nav_fast" class="link" href="#/main/fast_home"><span>快服</span></a></li>
+                            <li mt-show-model model-name="IPRPTradeModel"><a ng-click="select($event)" id="nav_trade" class="link" href="#/main/trade_home"><span>订单</span></a></li>
+                            <li mt-show-model model-name="IPRPServicerModel"><a ng-click="select($event)" id="nav_merchant" class="link" href="#/main/merchant_home"><span>商家</span></a></li>
+                            <li mt-show-model model-name="IPRPMasterModel"><a ng-click="select($event)" id="nav_master" class="link" href="#/main/master_home"><span>管家</span></a></li>
+                            <li mt-show-model model-name="IPRPAfterSaleModel"><a ng-click="select($event)" id="nav_after_sale" class="link" href="#/main/after_sale_home"><span>售后</span></a></li>
+                            <li mt-show-model model-name="IPRPMemberModel" class="ng-isolate-scope"><a ng-click="select($event)" id="nav_member" class="link" href="#/main/user_home"><span>会员</span></a></li>
+                            <li mt-show-model model-name="IPRPSystemModel"><a ng-click="select($event)" id="nav_business" class="link" href="#/main/business_home"><span>商品</span></a></li>
+                            <li mt-show-model model-name="IPRPMarketModel"><a ng-click="select($event)" id="nav_market" class="link" href="#/main/market_home"><span>营销</span></a></li>
+                            <li mt-show-model model-name="IPRPCmsModel"><a ng-click="select($event)" id="nav_cms" class="link" href="#/main/cms_home_list"><span>内容</span></a></li>
+                            <li mt-show-model model-name="IPRPFinanceModel"><a ng-click="select($event)" id="nav_finance" class="link" href="#/main/finance_home"><span>财务</span></a></li>
+                            <!-- <li mt-show-model model-name="IPRPServicerModel"><a ng-click="select($event,'servicer')" id="nav_servicer" class="link" href="JavaScript:void(0);"><span>服务商</span></a></li> -->
+                            <li mt-show-model model-name="IPRPPartnerModel"><a ng-click="select($event)" id="nav_partner" class="link" href="#/main/partner_home"><span>合伙人</span></a></li>
+                            <li mt-show-model model-name="IPRPChannelModel"><a ng-click="select($event)" id="nav_channel" class="link" href="#/main/channel_home"><span>渠道</span></a></li>
+                            <li mt-show-model model-name="IPRPStatisticsModel"><a ng-click="select($event)" id="nav_statistics" class="link" href="#/main/statistics_home"><span>统计</span></a></li>
+                            <li mt-show-model model-name="IPRPPearlModel"><a ng-click="select($event)" id="nav_ipt" class="link" href="#/main/ipt_home"><span>珍珠</span></a></li>
+                            <li mt-show-model model-name="IPRPRightProtectModel"><a ng-click="select($event)" id="nav_ip_protect" class="link" href="#/main/ip_protect_home"><span>维权</span></a></li>
+                            <li mt-show-model model-name="IPRPSystemModel"><a ng-click="select($event)" id="nav_setting" class="link" href="#/main/setting_home"><span>设置</span></a></li>
+                        </ul>
+                    </nav>
+                   <!--  <div class="loca">
+                        <strong>您的位置:</strong>&nbsp;&nbsp;
+                        <span>{{place}}</span>
+                    </div> -->
+                </div>
+                <div>
+                </div>
+            </td>
+        </tr>
+        <tr style="vertical-align: top;">
+            <td class="menutd">
+                <div ui-view></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

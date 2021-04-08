@@ -1,0 +1,116 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>商家管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPServicerListModel"><a href="JavaScript:void(0);" class="current"><span>商家列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddServicerModel"><a href="#/main/merchant_home/add_servicer"><span>添加商家</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>商家名称：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.name"></td>
+                    <th><label>商家编号：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.name"></td>
+                    <th><label>状态：</label></th>
+                    <td>
+                        <select ng-model="obj.status">
+                            <option value="">请选择状态</option>
+                            <option value="1">正常</option>
+                            <option value="0">冻结</option>
+                        </select>
+                    </td>
+                    <th><label>创新保：</label></th>
+                    <td>
+                        <select ng-model="obj.isCxb">
+                            <option value="">请选择是否创新保</option>
+                            <option value="1">是</option>
+                            <option value="0">否</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="12"><div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li>通过商家管理，你可以进行查看、添加、编辑商家操作</li>
+                        <li>你可以通过服务管理，根据服务分类开通相应的服务</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">序号</th>
+                    <!-- <th class="align-center">识别码</th> -->
+                    <th class="align-center">商家编码</th>
+                    <th class="align-center">联系人</th>
+                    <th class="align-center">账号</th>
+                    <th class="align-center">拾贝账号</th>
+                    <th class="align-center">联系手机号</th>
+                    <th class="align-center">商家名称</th>
+                    <!-- <th class="align-right">能力值</th> -->
+                    <th class="align-center">状态</th>
+                    <th class="align-center">搜索权重</th>
+                    <th class="align-center">是否创新保</th>
+                    <th style="width: 120px;" class="align-center">创建时间</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="serviceList.length > 0" class="hover" ng-repeat="list in serviceList">
+                    <td class="align-center">
+                        <span ng-bind="list.number"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.idCode"></td>
+                    <td class="align-center" ng-bind="list.sp_contacts"></td>
+                    <td class="align-center" ng-bind="list.account"></td>
+                    <td class="align-center" ng-bind="list.account"></td>
+                    <td class="align-center" ng-bind="list.phone"></td>
+                    <td class="align-center" ng-bind="list.name"></td>
+                    <!-- <td class="align-right" ng-bind="list.ability"></td> -->
+                    <td class="align-center" ng-bind="list.state | servicerStatusFilter"></td>
+                    <td class="align-center" ng-bind="list.state"></td>
+                    <td class="align-center">{{list.isCxb ? '是' : '否'}}</td>
+                    <td class="align-center" ng-bind="list.create_time | date: 'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPServicerDetailModel" style="cursor: pointer" ng-click="detail(list.sp_id)">查看</a>
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPUpdateServicerModel" style="cursor: pointer" ng-click="update(list.sp_id)">编辑</a>
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPServiceManageModel" style="cursor: pointer" ng-click="service(list.sp_id)">服务管理</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

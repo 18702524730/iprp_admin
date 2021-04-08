@@ -1,0 +1,100 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title hzxw-item-title">
+			<h3>用户列表</h3>
+			<ul class="tab-base">
+				<li><a ng-click="goback()"><span>返回面板</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<!-- <th><label>单号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.workOrderSn"></td>
+					<th><label>商标名称：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.trademarkName"></td> -->
+					<th><label>用户类型：</label></th>
+					<td>
+						<select ng-model="obj.type" style="width: 180px;">
+							<option value="">请选择</option>
+							<option value="跨境企业">跨境企业</option>
+							<option value="普通企业">普通企业</option>
+						</select>
+					</td>
+					<th><label>区域：</label></th>
+					<td>
+						<select ng-model="obj.applyArea" style="width: 180px;">
+							<option value="">请选择</option>
+							<option value="杭州">杭州</option>
+							<option value="全国">全国</option>
+						</select>
+					</td>
+					<td style="text-align:left;">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+						<!-- <a ng-show="showTable==='true'" href="javascript:void(0);" class="btn-reset" ng-click="search_export()" title="导出">导出</a> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<!-- <table class="table tb-type2" id="prompt">
+		<tbody class="tr-color">
+			<tr class="space odd" >
+				<th colspan="12"><div class="title">
+					<h5>操作提示</h5>
+					<span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+					<span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+				</div></th>
+			</tr>
+			<tr class="odd" ng-show="hint">
+				<td>
+					<ul>
+						<li></li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table> -->
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center">序号</th>
+					<th style="width: 200px;" class="align-center">用户名称</th>
+					<th class="align-center">联系方式</th>
+					<th class="align-center">用户类型</th>
+					<th class="align-center">区域</th>
+					<th class="align-center">来源</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<td class="align-center">
+						<span ng-bind="list.number"></span>
+					</td>
+					<td class="align-center" ng-bind="list.name"></td>
+					<td class="align-center" ng-bind="list.contact | strToStar:3:4"></td>
+					<td class="align-center" ng-bind="list.type"></td>
+					<td class="align-center" ng-bind="list.applyArea"></td>
+					<td class="align-center" ng-bind="list.origin"></td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="20" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr colspan="15" class="tfoot">
+						<td colspan="3">
+					  <span style="padding-left:10px;font-size: 13px;color: red;">总用户数：{{countAmountData.ordinary+countAmountData.foreign}}，跨境企业：{{countAmountData.ordinary}}，普通企业：{{countAmountData.foreign}}</span>
+					</td>
+					<td colspan="3"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

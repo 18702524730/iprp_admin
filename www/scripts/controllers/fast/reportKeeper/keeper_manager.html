@@ -1,0 +1,93 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>管家报告</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPNtOrderListModel"><a href="Javascript:history.go(-1)"><span>订单列表</span></a></li>
+                <li mt-show-model model-name="IPRPNtOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>修改</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch" style="border-bottom: 1px solid #dfe4ea">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>服务单号</label></th>
+                </tr>
+                <tr>
+					 <td style="color: #333;font-size: 12px;padding-bottom: 7px" colspan="3">
+					 	{{obj.orderSn || "--"}}
+					 </td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label class="validation">联系状态：</label></th>
+                </tr>
+                <tr>
+                    <td>
+                        <select ng-model="obj.contactState" style="width: 150px;">
+                            <option value="1">未联系</option>
+                            <option value="2">已联系</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label class="validation">报告状态：</label></th>
+                </tr>
+                <tr>
+                    <td>
+                        <select ng-model="obj.state" style="width: 150px;" ng-change="chooseState(obj.state)">
+                            <option value="1">未报告</option>
+                            <option value="2">待报告</option>
+                            <option value="3">报告中</option>
+                            <option value="4">已报告</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>报告文件：</label></th>
+                    <tr><td>请上传pdf格式文件！</td></tr>
+                </tr>
+                <tr>
+                    <td>
+                        <div ng-if="upfile!=4" class="button upfile-btn" ngf-select="uploadFile($file)">上传</div>
+                        <div ng-if="upfile==4" class="downbtn upfile-btn">上传</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td ng-if="successfile"><p class="upfile-success"><img src="../styles/images/mac/true.png" alt="">文件上传成功！</p></td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+    
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <td style="text-align:right;" colspan="7">
+                        <a ng-if="upfile!=4" href="javascript:void(0);" class="btn-form" ng-click="keerper_form()" title="提交">提交</a>
+                        <a ng-if="upfile==4" href="javascript:void(0);" class="btn-form uploadbtn" title="提交">提交</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+</div>

@@ -1,0 +1,95 @@
+<div class="page">
+  <div class="fixed-bar">
+      <div class="item-title">
+          <h3>门诊室管理</h3>
+          <ul class="tab-base">
+              <li><a href="JavaScript:void(0);" class="current"><span>门诊室需求列表</span></a></li>
+              <!-- <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/service_home/label_tpl_add"><span>添加</span></a></li> -->
+          </ul>
+      </div>
+  </div>
+  <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+            <tr>
+                <th><label>需求类型:</label></th>
+                <td>
+                    <input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.demandType">
+                </td>
+                <th><label>经营平台:</label></th>
+                <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.platform"></td>
+                <th><label>店铺名称:</label></th>
+                <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.storeName"></td>
+                <th><label>联系人:</label></th>
+                <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.contactsName"></td>
+                <th><label>联系电话:</label></th>
+                <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.contactsPhone"></td>
+              </tr>
+
+            <tr>
+              <th><label>提交时间:</label></th>
+              <td style="width: 240px;" colspan="2">
+                <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="offShelfTimeStart" id="offShelfTimeStart" ng-model="obj.startCreateTime"
+                        max-date="offShelfTimeEnd" style="cursor:pointer" readonly/>
+                <label for="offShelfTimeEnd">~</label>
+                <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="offShelfTimeEnd" id="offShelfTimeEnd"  ng-model="obj.endCreateTime" min-date="offShelfTimeStart" style="cursor:pointer" readonly/>
+              </td>
+              <td style="width: 120px;">
+                  <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="reset()">重置</a>
+              </td>
+            </tr>
+            <tr>
+          </tr>
+        </tbody>
+    </table>
+</form>
+
+  <form>
+      <table class="table tb-type2">
+          <thead>
+              <tr class="thead">
+                  <th class="align-center" style="width: 40px;">序号</th>
+                  <th class="align-center">需求类型</th>
+                  <th class="align-center">经营平台</th>
+                  <th class="align-center">店铺名称</th>
+                  <th style="width: 120px;" class="align-center">联系人</th>
+                  <th style="width: 120px;" class="align-center">联系电话</th>
+                  <th style="width: 120px;" class="align-center">需求描述</th>
+                  <th class="align-center">提交时间</th>
+                  <th class="align-center">最新备注</th>
+                  <th class="align-center">操作</th>
+              </tr>
+          </thead>
+          <tbody class="tr-color">
+            <tr class="" ng-show="labelList.length > 0" class="hover" ng-repeat="list in labelList">
+                  <td class="align-center">
+                      <span ng-bind="list.number"></span>
+                  </td>
+                  <td class="align-center">{{list.demandType}}</td>
+
+                  <td class="align-center" ng-bind="list.platform"></td>
+                  <td class="align-center" ng-bind="list.storeName"></td>
+                  <td class="align-center">{{list.contactsName}}</td>
+                  <td class="align-center">{{list.contactsPhone}}</td>
+                  <td class="align-center">{{list.demandDescribe}}</td>
+                  <td class="align-center">{{list.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                  <td class="align-center">{{list.remarks}}</td>
+                  <td class="align-center w120">
+                    <a href="JavaScript:void(0);" style="cursor: pointer" ng-click = "handleClickDetail(list.helpId)">详情</a>
+                  </td>
+              </tr>
+              <tr ng-show="to_loading">
+                  <td colspan="20" class="norecord">
+                      <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                  </td>
+              </tr>
+          </tbody>
+          <tfoot ng-hide="to_loading">
+              <tr colspan="15" class="tfoot">
+                  <td colspan="19"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+              </tr>
+          </tfoot>
+      </table>
+  </form>
+</div>

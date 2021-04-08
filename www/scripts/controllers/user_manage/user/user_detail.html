@@ -1,0 +1,118 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>会员管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPMemberListModel"><a href="#/main/user_home/user_list"><span>会员列表</span></a></li>
+                <li mt-show-model model-name="IPRPMemberDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+        <thead>
+            <tr>
+                <th colspan="20">基本信息</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>昵称：</th>
+                <td ng-bind="member_detail.nickname"></td>
+                <th>姓名：</th>
+                <td ng-bind="member_detail.truename"></td>
+                <th rowspan="3">头像：</th>
+                <td rowspan="3">
+                    <img style="width:120px; height:120px;" ng-src="{{member_detail.avatar}}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>性别：</th>
+                <td ng-bind="member_detail.sex | memberSexFilter"></td>
+                <th>邮箱：</th>
+                <td ng-bind="member_detail.email"></td>
+            </tr>
+            <tr>
+                <th>出生日期：</th>
+                <td ng-bind="member_detail.birthday | date:'yyyy-MM-dd'"></td>
+                <th>手机号：</th>
+                <td ng-bind="member_detail.phone"></td>
+            </tr>
+            <tr>
+                <th>用户类型：</th>
+                <td ng-bind="member_detail.type | memberTypeFilter"></td>
+                <th>身份证：</th>
+                <td ng-bind="member_detail.memberIdentificationCard"></td>
+                <th>所属行业：</th>
+                <td ng-bind="member_detail.member_industry"></td>
+            </tr>
+            <tr>
+                <th>所属集团：</th>
+                <td ng-bind="member_detail.name"></td>
+                <th>联系地址：</th>
+                <td colspan="20">{{member_detail.area_info}}&nbsp;{{member_detail.member_address}}</td>
+            </tr>
+            <tr>
+                <th>用户来源：</th>
+                <td ng-bind="member_detail.channel_name"></td>
+                <th>所属区域：</th>
+                <td colspan="20" ng-bind="member_detail.area_info"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table ng-show="member_application.owner_name != null" border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+        <thead>
+            <tr>
+                <th colspan="20">企业信息</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>企业法人：</th>
+            <td ng-bind="member_application.owner_name"></td>
+            <th rowspan="3">法人身份证：</th>
+            <td rowspan="3">
+                <img style="width:120px; height:120px;" ng-src="{{member_application.owner_identification_card_electronic}}">
+            </td>
+            <th rowspan="3">营业执照副本：</th>
+            <td rowspan="3">
+                <img style="width:120px; height:120px;" ng-src="{{member_application.business_licence_number_electronic}}"/>
+            </td>
+        </tr>
+        <tr>
+            <th>营业注册号：</th>
+            <td ng-bind="member_application.business_licence_number"></td>
+        </tr>
+        <tr>
+            <th>企业名称：</th>
+            <td ng-bind="member_application.company_name"></td>
+        </tr>
+        <tr>
+            <th>联系地址：</th>
+            <td colspan="20">
+                {{member_application.area_info}}&nbsp;{{member_application.contacts_address}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+        <thead>
+            <tr>
+                <th colspan="20">既往服务商</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat = "assign in AssignService.elements">
+                <td>
+                    <span>{{assign.sp_name}}
+                    </span>
+                </td>
+            </tr>
+            <td ng-show="AssignService.elements.length === 0" colspan="20" style="text-align: center">
+                <span>没有既往服务商</span>
+            </td>
+        </tbody>
+    </table>
+    <!--<a href="JavaScript:void(0);" ng-click="account_relevance(member_detail.order_id)" class="btn" id="submitBtn"><span>账号关联</span></a>-->
+    <a ng-show="member_detail.status === 1" ng-click="editMemberStatus(false)" href="JavaScript:void(0);" class="btn"><span>冻结</span></a>
+    <a ng-show="member_detail.status === 0" ng-click="editMemberStatus(true)" href="JavaScript:void(0);" class="btn"><span>解冻</span></a>
+</div>

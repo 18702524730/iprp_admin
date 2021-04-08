@@ -1,0 +1,63 @@
+<div class="page feedback">
+   <div class="fixed-bar">
+        <div class="item-title">
+            <h3>评价标签</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>评价标签列表</span></a></li>
+                <li mt-show-model model-name="IPRPOrderListModel" ng-click="add()"><a href="JavaScript:void(0);"><span>新增标签</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>标签名称：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.labelName" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+
+                    <td style="text-align:right;">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" width="40">序号</th>
+                    <th class="align-center" width="100">标签名称</th>
+                    <th class="align-center" width="100">创建时间</th>
+                    <th class="align-center" width="80" class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="hover" ng-show="resultList.length" ng-repeat="list in resultList">
+                    <td class="align-center">
+                        <span>{{list.seqNo}}</span>
+                    </td>
+                    <td class="align-center">{{list.labelName}}</td>
+                    <td class="align-center">{{list.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="edit(list)">编辑</a>
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="remove(list)">删除</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+									<td colspan="4" class="norecord">
+										<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+									</td>
+								</tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr class="tfoot">
+                    <td colspan="4"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

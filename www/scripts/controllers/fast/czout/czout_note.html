@@ -1,0 +1,87 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>存证出证</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPNtOrderListModel"><a href="Javascript:history.go(-1)"><span>订单列表</span></a></li>
+                <li mt-show-model model-name="IPRPNtOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>修改</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch" style="border-bottom: 1px solid #dfe4ea">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>服务单号</label></th>
+                </tr>
+                <tr>
+					 <td style="color: #333;font-size: 12px;padding-bottom: 7px" colspan="3">
+					 	{{note.orderSn}}
+					 </td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label class="validation">联系状态：</label></th>
+                </tr>
+                <tr>
+                    <td>
+                        <select ng-model="note.contactStatus" style="width: 150px;">
+                            <option value="1">未联系</option>
+                            <option value="2">已联系</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label class="validation">出证状态：</label></th>
+                </tr>
+                <tr>
+                    <td>
+                        <select ng-model="note.issueStatus" style="width: 150px;">
+                            <option value="1">待出证</option>
+                            <option value="2">放弃出证</option>
+                            <option value="3">出证成功</option>
+                            <option value="4">出证失败</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+    <form name="formSearch" id="formSearch" style="border-bottom: 1px solid #dfe4ea">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>备注：</label></th>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea maxlength="100" ng-model="textarea" rows="10" cols="50"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <td style="text-align:right;" colspan="7">
+                        <a ng-if="upstate<2" href="javascript:void(0);" class="btn-form" ng-click="cz_form()" title="提交">提交</a>
+                        <a ng-if="upstate>=2" href="javascript:void(0);" class="btn-move" title="提交">提交</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+</div>

@@ -1,0 +1,108 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>合伙人商品管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:history.go(-1)"><span>合伙人商品列表</span></a></li>
+                <li mt-show-model model-name="IPRPOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>
+                    {{id === 'add' ? '添加合伙人商品' : '编辑合伙人商品'}}</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">基本信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul class="baseInfo">
+                        <li><strong>商品名称：</strong><input type="text" ng-model="order_detail.name" placeholder="请填写商品名称"></li>
+                        <li><strong>商品首图</strong>
+                            <a class="btn" style="height: 22px;line-height: 22px;width: 30px;display: inline-block" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file)" ngf-accept="'file/*'" ngf-multiple="false">
+                                <span >上传</span>
+                                
+                            </a><img ng-click="preview()" style="height: 25px;vertical-align: middle;cursor: pointer;" src="{{order_detail.picture}}" alt="">
+                        </li>
+                        <li><strong>商品介绍：</strong><input type="text" ng-model="order_detail.productIntroduce" placeholder="请填写商品介绍"></li>
+                        <li><strong>所属业务：</strong>
+                            
+                            <span ng-if="id !== 'add'">{{order_detail.shopBusinessTypeName}}</span>
+                            <select ng-if="id === 'add'" ng-model="order_detail.firstCategory" ng-change="bs_type_change(1, order_detail.firstCategory)" ng-options="type.id as type.name for type in firTypeData">
+                                    <option value="">请选择</option>
+                                </select>
+                        </li>
+                        <li><strong>业务分类：</strong>
+                            <span ng-if="id !== 'add'">{{order_detail.shopClassTypeName}}</span>
+                            <!-- {{order_detail.shopClassTypeName}} -->
+                            <select ng-if="id === 'add'" ng-model="order_detail.secondCategory" ng-change="bs_type_change(2, order_detail.secondCategory)" ng-options="type.id as type.name for type in secTypeData">
+                                    <option value="">请选择</option>
+                                </select>
+                        </li>
+                        <li><strong>服务类目：</strong>
+                            <!-- {{order_detail.shopProductTypeName}} -->
+                            <span ng-if="id !== 'add'">{{order_detail.shopProductTypeName}}</span>
+                            <select ng-if="id === 'add'" ng-model="order_detail.codes" ng-options="type.code as type.name for type in thiTypeData">
+                                    <option value="">请选择</option>
+                                </select>
+                        </li>
+                        
+                        <!-- <li><strong>商品ID：</strong>{{order_detail.shopProductId}}</li> -->
+
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">合伙人商品信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li class="ipt_txt"><label class="validation">市场指导价：</label><input type="text" ng-model="order_detail.guidePrice" placeholder="请填写市场指导价"></li>
+                        <li class="ipt_txt"><label class="validation">官费：</label><input type="text" ng-model="order_detail.peAmount" placeholder="请填写官费"></li>
+                        <li class="ipt_txt"><label class="validation">结算底价：</label><input type="text" ng-model="order_detail.reservePrice" placeholder="请填写结算底价"></li>
+                        <li class="ipt_txt"><label class="validation">销售作业佣金比：</label><input type="text" ng-model="order_detail.saleTaskReturnProportion" placeholder="请填写销售作业佣金比"></li>
+                        <li class="ipt_txt"><label class="validation">销售佣金比：</label><input type="text" ng-model="order_detail.saleReturnProportion" placeholder="请填写销售佣金比"></li>
+                        <li class="ipt_txt"><label class="validation">需求佣金比：</label><input type="text" ng-model="order_detail.requirementReturnProportion" placeholder="请填写销售佣金比"></li>
+                        <li class="ipt_txt"><label class="validation">禁用作业：</label><input type="checkbox" ng-model="disablePartnerTask">禁用<span style="font-size:12px;color:#999;">（勾选此项后用户无法选择自己作业）</span></li>
+
+                    </ul>
+                    <div class="name_list">
+                        <label class="validation">关联材料：</label>
+                        <p ng-repeat="item in allProductNumInfo track by $index">{{item.title}}<span class="ml5" ng-click="removeName($index)">X</span></p>
+                        <p ng-click="checkFn()"><span style="font-size: 20px;line-height: 17px;">+</span></p>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="detailInfo clearfix">
+       <h3>PC业务介绍</h3>
+       <div id="server" ng-model="order_detail.descriptions" contenteditable="false" ng-change="ceshi()" style="height: 330px;width: 950px;"></div>
+    </div>
+    <div class="detailInfo">
+       <h3>H5业务介绍</h3>
+       <div id="sebeNic" ng-model="order_detail.applyProcess" contenteditable="false" style="height: 330px;width: 950px;"></div>
+    </div> 
+    <div class="detailInfo">
+       <h3>常见问题（PC端与移动端共用）</h3>
+       <div id="usquestion" ng-model="order_detail.commonProblem" contenteditable="false" style="height: 330px;width: 950px;"></div>
+    </div>
+    
+    <div class="mt20" style="text-align: center;width: 950px;">
+        <button class="btn good-sure-btn" ng-click="sureEditPrice()">保存</button>
+        <button class="btn good-sure-btn" ng-click="cancelEditPrice()">取消</button>
+    </div>
+</div>
+<style>
+.ipt_txt label{width: 96px;display: inline-block;}
+.name_list{padding: 0 1%;}
+.validation{color:#000;}
+.name_list p{padding: 5px;background-color:#f2f2f2;border-radius: 3px;margin-right: 5px;display: inline-block;margin-bottom: 10px;}
+.name_list p span{width: 20px;height: 20px;background-color: #666;display: inline-block;color:#fff;text-align: center;line-height: 20px;border-radius: 20px;cursor: pointer;}
+#server{z-index: 10;}
+#server .w-e-text-container,#sebeNic .w-e-text-container,#usquestion .w-e-text-container{z-index: 1 !important;}
+.good-sure-btn {width: 80px;margin:0 20px;}
+.picIcon{position: absolute;top: 28px;left: 513px;width: 12px; padding: 8px 10px;font-size: 0;}
+.baseInfo li{line-height: 42px;}
+</style>

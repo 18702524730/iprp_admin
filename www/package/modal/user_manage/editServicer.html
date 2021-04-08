@@ -1,0 +1,39 @@
+<div>
+    <style type="text/css">
+        .error{line-height: 20px;color: red;padding-left: 20px;padding-top: 10px;}
+        .con_body{padding:10px 20px;}
+        .label_span{min-height: 30px;line-height: 30px;vertical-align: top;}
+        .label_span label{width:70px;margin-right: 10px;vertical-align: top;}
+        .btn_wrap{padding: 10px 0;padding-left: 80px;}
+        .btn_wrap a{margin-right: 20px;}
+        .modal-dialog{width: 400px;}
+    </style>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">客服联系人选择：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <div class="error">{{error}}</div>
+    <div class="con_body">
+        <div class="label_span">
+            <label>会员姓名: </label><span>{{itemD.truename}}</span>
+        </div>
+        <div class="label_span">
+            <label>客服联系人: </label>
+            <span>
+                <select ng-model="itemD.linkman_name" ng-options="linkman.name as linkman.name for linkman in linkman_list" ng-change="linkmanChange(linkman_name)">
+                    <option value="">请选择...</option>
+                </select>
+            </span>
+        </div>
+        <div class="label_span">
+            <label>备注信息: </label>
+            <span><textarea ng-model="itemD.memo" maxlength="150" style="width: 240px;height: 100px;">{{memo}}</textarea></span>
+        </div>
+        <div class="btn_wrap">
+            <a class="btn"><span ng-click="cancel()">取消</span></a>
+            <a class="btn"><span ng-click="save()">确定</span></a>
+        </div>
+    </div>
+</div>

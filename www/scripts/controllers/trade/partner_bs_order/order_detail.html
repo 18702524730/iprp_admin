@@ -1,0 +1,225 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>服务单管理</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPBsOrderListModel"><a href="JavaScript:history.go(-1)"><span>订单列表</span></a></li>
+				<li mt-show-model model-name="IPRPBsOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<table class="table tb-type2 order">
+		<tbody class="tr-color">
+			<tr class="space">
+				<th colspan="2">基本信息</th>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li><strong>联系人：</strong>{{order_detail.contactName}}</li>
+						<li><strong>联系电话：</strong>{{order_detail.contactPhone}}</li>
+						<li><strong>邮箱：</strong>{{order_detail.contactEmail}}</li>
+						<li><strong>业务专员：</strong>{{order_detail.salesman}}</li>
+						<li><strong>完成专员：</strong>{{order_detail.agentName}}</li>
+						<li><strong>流程专员：</strong>{{order_detail.selectDocument}}</li>
+						<li><strong>服务单号：</strong>{{order_detail.order_sn}}</li>
+						<li><strong>金额：</strong>{{order_detail.payment_amount | number:2}}</li>
+						<li><strong>服务名称：</strong>{{order_detail.bs_name}}</li>
+						<li><strong>商品分类：</strong>{{order_detail.bs_class_name}}</li>
+						<li><strong>商品编号：</strong>{{order_detail.order_bs_number}}</li>
+						<li><strong>订单号：</strong>{{order_detail.payment_sn}}</li>
+						<li><strong>支付状态：</strong>{{order_detail.payment_state | paymentStatusFilter}}</li>
+						<li><strong>支付方式：</strong>{{order_detail.payment_name}}</li>
+						<!-- <li><strong>商户订单号：</strong>{{order_detail.order_payment_sn}}</li> -->
+						<li><strong>支付时间：</strong>{{order_detail.payment_time | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+						<li><strong>下单时间：</strong>{{order_detail.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+						<li><strong>用户确认：</strong>{{order_detail.order_check_accept | orderCheckAcceptFilter}}</li>
+						<li><strong>作业类型：</strong>{{order_detail.jobType == 1 ? '平台作业' : '自行作业'}}</li>
+
+
+						<li><strong>使用拾贝券：</strong>{{order_detail.ticketNo ? '是' : '否'}}</li>
+						<li><strong>券种ID：</strong>{{order_detail.couponId || '--'}}</li>
+						<li><strong>券名称：</strong>{{order_detail.couponName || '--'}}</li>
+						<li><strong>附加收益：</strong>{{order_detail.additionalProfit | number:2}}元</li>
+						<li><strong>服务收益总计：</strong>{{order_detail.commissionRate | number:2}}元</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">验收信息</th>
+			</tr>
+			<tr ng-show="order_detail.orderRecordDTOs">
+				<td style="padding: 0 0 20px!important">
+					<table id="table_category" class="type" style="width:100%">
+						<thead>
+							<tr>
+								<th class="alignleft" width="160">操作时间</th>
+								<th class="alignleft" width="160">操作前状态</th>
+								<th class="alignleft">操作后状态</th>
+								<th class="alignleft">操作人</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-show="order_detail.orderRecordDTOs.length > 0" ng-repeat="detail in order_detail.orderRecordDTOs">
+								<td class="alignleft" ng-bind="detail.create_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+								<td class="alignleft" ng-bind="detail.pre_status"></td>
+								<td class="alignleft" ng-bind="detail.end_status"></td>
+								<td class="alignleft" ng-bind="detail.operator_name"></td>
+							</tr>
+							<tr ng-show="order_detail.orderRecordDTOs.length == 0">
+								<td colspan="4">暂无记录</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr class="space" ng-if="order_detail.partner">
+				<th colspan="2">下单合伙人信息</th>
+			</tr>
+			<tr ng-if="order_detail.partner">
+				<td>
+					<ul>
+						<li><strong>合伙人手机：</strong>{{order_detail.partner.partnerPhone}}</li>
+						<li><strong>合伙人昵称：</strong>{{order_detail.partner.partnerName}}</li>
+            <li><strong>合伙人店铺名称：</strong>{{order_detail.partner.partnerStore}}</li>
+            <li><strong>上级合伙人手机：</strong>{{order_detail.partner.prePartnerPhone}}</li>
+            <li><strong>上级合伙人昵称：</strong>{{order_detail.partner.prePartnerName}}</li>
+          </ul>
+				</td>
+			</tr>
+
+			<tr class="space" ng-if="order_detail.bs_code != 'sbfw_gnsb_zzzc'">
+				<th colspan="2">服务信息</th>
+			</tr>
+			<tr ng-if="order_detail.bs_code != 'sbfw_gnsb_zzzc'">
+				<td colspan="2">
+					<div style="padding:5px 10px 10px;color: #333;">合伙人信息：</div>
+					<ul style="width: 100%;padding: 0 10px;">
+						<li>
+							<strong>合伙人店铺：</strong><span style="display: inline-block;max-width: 200px;vertical-align: top;">{{order_detail.jobPartnerName || '空'}}</span>
+							<a mt-show-model model-name="IPRPSetServicerModel" href="JavaScript:void(0);" class="setup" ng-click="refund_setup(order_detail,setupList)">
+								<span>设置合伙人</span>
+							</a>
+						</li>
+						<li><strong>合伙人手机：</strong>{{order_detail.jobPartnerPhone}} </li>
+						<li><strong>合伙人昵称：</strong>{{order_detail.jobPartnerStore}} </li>
+					</ul>
+				</td>
+			</tr>
+
+			<tr ng-show="order_detail.spFeedbacks && order_detail.bs_code != 'sbfw_gnsb_zzzc'">
+				<td style="padding: 5px 0 20px!important">
+					<div style="padding:5px 15px 10px;color: #333;">合伙人设置记录：</div>
+					<table id="table_category" class="type" style="width:100%">
+						<thead>
+							<tr>
+								<th class="alignleft" width="160">操作时间</th>
+								<th class="alignleft" width="160">设置前合伙人</th>
+								<th class="alignleft" width="160">设置后合伙人</th>
+								<th class="alignleft" width="160">操作人</th>
+								<th class="alignleft">备注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-show="order_detail.spFeedbacks.length > 0" ng-repeat="detail in order_detail.spFeedbacks">
+								<td class="alignleft" ng-bind="detail.operating_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+								<td class="alignleft" ng-bind="detail.operating_start_sp"></td>
+								<td class="alignleft" ng-bind="detail.operating_end_sp"></td>
+								<td class="alignleft" ng-bind="detail.operator"></td>
+								<td class="alignleft" ng-bind="detail.memo"></td>
+							</tr>
+							<tr ng-show="order_detail.spFeedbacks.length == 0">
+								<td colspan="5">暂无记录</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+
+			<tr ng-show="order_detail.order_state>0">
+				<td colspan="2">
+					<div style="padding:5px 10px 10px;color: #333;">服务跟踪：</div>
+					<ul style="width: 100%;padding: 0 10px;">
+						<li><strong>当前服务状态：</strong>{{order_detail.order_feedback_state || '--'}} <span class="setup" ng-show="order_detail.feedback_stage<90 && order_detail.bs_code != 'sbfw_gnsb_zs'" ng-click="setServiceState(order_detail)">设置服务状态</span></li><!-- 国内商标在中台设置服务状态 -->
+						<li><strong>代理人：</strong>{{order_detail.sp_account}} </li>
+						<li><strong>备注：</strong>{{order_detail.sp_account}} </li>
+					</ul>
+				</td>
+			</tr>
+			<tr ng-show="order_detail.order_state>0">
+				<td style="padding: 5px 0 20px!important">
+					<div style="padding:5px 15px 10px;color: #333;">服务设置记录：</div>
+					<table id="table_category" class="type" style="width:100%">
+						<thead>
+							<tr>
+								<th class="alignleft" width="160">操作时间</th>
+								<th class="alignleft" width="160">操作前状态</th>
+								<th class="alignleft" width="160">操作后状态</th>
+								<th class="alignleft" width="160">操作人</th>
+								<th class="alignleft">备注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-show="order_detail.feedbacks.length > 0" ng-repeat="detail in order_detail.feedbacks">
+								<td class="alignleft" ng-bind="detail.operating_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+								<td class="alignleft" ng-bind="detail.operating_satrt_state"></td>
+								<td class="alignleft" ng-bind="detail.operating_end_state"></td>
+								<td class="alignleft" ng-bind="detail.operator"></td>
+								<td class="alignleft" ng-bind="detail.memo"></td>
+							</tr>
+							<tr ng-show="order_detail.feedbacks.length == 0">
+								<td colspan="5">暂无记录</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr class="space" ng-show="order_detail.refunds.length > 0  && order_detail.order_state>0">
+				<th colspan="2">售后信息</th>
+			</tr>
+			<tr ng-show="order_detail.refunds.length > 0  && order_detail.order_state>0">
+				<td>
+					<ul>
+						<li><strong>当前售后状态：</strong>{{order_detail.refund_state_description}} </li>
+					</ul>
+				</td>
+			</tr>
+			<tr ng-show="order_detail.order_state>0">
+				<td style="padding: 5px 0 20px!important">
+					<div style="padding:5px 20px 10px;color: #888;">售后记录：</div>
+					<table id="table_category" class="type" style="width:100%">
+						<thead>
+							<tr>
+								<th class="alignleft" width="160">操作时间</th>
+								<th class="alignleft" width="160">操作</th>
+								<th class="alignleft" width="160">操作后状态</th>
+								<th class="alignleft" width="160">金额</th>
+								<th class="alignleft" width="160">操作人</th>
+								<th class="alignleft" width="160">退款原因</th>
+								<th class="alignleft">备注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-show="order_detail.refunds.length > 0" ng-repeat="detail in order_detail.refunds">
+								<td class="alignleft" ng-bind="detail.operating_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+								<td class="alignleft" ng-bind="detail.operating_state_description"></td>
+								<td class="alignleft" ng-bind="detail.operating_end_state_description"></td>
+								<td class="alignleft" ng-bind="detail.refund_amount===0 ? '--' : (detail.refund_amount|number:2)"></td>
+								<td class="alignleft" ng-bind="detail.operator"></td>
+								<td class="alignleft"><a href="" ng-click="refund_reason(detail)">查看</a></td>
+								<td class="alignleft" ng-bind="detail.refund_return_message"></td>
+							</tr>
+							<tr ng-show="order_detail.refunds.length == 0">
+								<td colspan="7">暂无记录</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<style>
+	.setup{padding: 5px 10px;background-color: #e6e8ee;border-radius: 3px;color: #78829b;cursor: pointer;}
+	.setup:hover{color: #fff;background-color: #68a4fe}
+</style>

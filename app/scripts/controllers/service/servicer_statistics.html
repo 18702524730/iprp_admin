@@ -1,0 +1,78 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>商家统计</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPServicerListModel"><a href="JavaScript:void(0);" class="current"><span>统计列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>商家名称：</label></th>
+                    <td>
+                        <select ng-model="obj.sp_id" ng-options="item.sp_id as item.name for item in spList" style="width:150px;">
+                            <option value="">请选择</option>
+                        </select>
+                    </td>
+                    <th><label>服务单生成时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="order_start_time" id="order_start_time"  ng-model="order_start_time"
+                                max-date="order_end_time" style="cursor:pointer" readonly/>
+                        <label for="order_end_time">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="order_end_time" id="order_end_time"  ng-model="order_end_time"
+                                min-date="order_start_time" style="cursor:pointer" readonly/>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <div class="amount-to">合计服务单数量{{allData.allOrderCount || '0'}}单，未支付{{allData.allUnpayCount || '0'}}单，已支付{{allData.allPaiedCount || '0'}}单，付款率{{allData.allPayRate*100 | number : 2 || '0'}}%</div>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" width="60">序号</th>
+                    <th class="align-left" width="200">商家名称</th>
+                    <th class="align-center">商家类型</th>
+                    <th class="align-center">服务单总数</th>
+                    <th class="align-center">未支付</th>
+                    <th class="align-center">已支付</th>
+                    <th class="align-center">付款率</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="serviceList.length > 0" class="hover" ng-repeat="list in serviceList">
+                    <td class="align-center">
+                        <span ng-bind="list.number"></span>
+                    </td>
+                    <td class="align-left" ng-bind="list.spName"></td>
+                    <td class="align-center" ng-bind="list.spType == 1 ? '企业服务商' : list.spType == 2 ? '个人服务商' : ''"></td>
+                    <td class="align-center" ng-bind="list.orderCount"></td>
+                    <td class="align-center" ng-bind="list.unpayCount"></td>
+                    <td class="align-center" ng-bind="list.paiedCount"></td>
+                    <td class="align-center">{{list.payRate*100 | number : 2 || '0'}}%</td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style type="text/css">
+.amount-to{height: 34px;line-height: 34px;margin-top: 10px;padding-top:10px;padding-left:4px;font-size: 13px;border-top: 1px solid #eee;}
+</style>

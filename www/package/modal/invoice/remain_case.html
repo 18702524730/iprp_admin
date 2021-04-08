@@ -1,0 +1,178 @@
+<div>
+    <div class="invoiceboxremain">
+        <h3 class="invoice_head">
+            <span class="invoice_title">发票信息</span>
+            <span class="close_button"  ng-click="cancel()">X</span>
+        </h3>
+            <ul class="invoice_content" ng-if="show.type==1">
+                <li  style="margin-bottom: 20px;"><span class="tit">客户名称：</span><span class="txt">{{details.orderSn}}</span></li>
+                <li class="hasmb"><span class="tit">预付款发票号：</span><span class="txt"><input type="text" ng-model="obj.preInvoiceNo" placeholder="请输入预付款发票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="firstinvoice_time" id="firstinvoice_time" ng-model="obj.firstinvoice_time"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+                <li class="hasmb"><span class="tit">第二期发票号：</span><span class="txt"><input type="text" ng-model="obj.secondInvoiceNo" placeholder="请输入第二期发票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="secinvoice_time" id="secinvoice_time" ng-model="obj.secinvoice_time"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+                <li class="hasmb"><span class="tit">尾款发票号：</span><span class="txt"><input type="text" ng-model="obj.lastInvoiceNo" placeholder="请输入尾款发票号" class="shuru"></span></li>
+                <li><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="lastinvoice_time" id="lastinvoice_time" ng-model="obj.lastinvoice_time"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+            </ul>
+            <ul class="invoice_content" ng-if="show.type==2">
+                <li style="margin-bottom: 20px;"><span class="tit">单位名称：</span><span class="txt">{{details.orderSn}}</span></li>
+                <li class="hasmb"><span class="tit">发票号码：</span><span class="txt"><input type="text" ng-model="obj.invoiceNum" placeholder="请输入发票号码" class="shuru"></span></li>
+            </ul>
+            <div class="invoice_content" ng-if="show.type==3"><span class="tit">申请号：</span><span class="txt">{{details.orderSn}}</span></div>
+            <ul class="invoice_content" ng-if="show.type==3">
+                <!-- <li style="margin-bottom: 20px;" ng-if="show.type==3"><span class="tit">申请号：</span><span class="txt">{{details.orderSn}}</span></li> -->
+                <li class="hasmb"><span class="tit">申请费官费号：</span><span class="txt"><input type="text" ng-model="obj.guanfeea" placeholder="请输入申请费官费号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">申请费服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeea" placeholder="请输入申请服务费票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="invoice_timea" id="invoice_timea" ng-model="obj.invoice_timea"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+                <li class="hasmb"><span class="tit">办登费官费号：</span><span class="txt"><input type="text" ng-model="obj.guanfeeb" placeholder="请输入办登费官费号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">办登费服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeeb" placeholder="请输入办登费服务费票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="invoice_timeb" id="invoice_timeb" ng-model="obj.invoice_timeb"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+                <li class="hasmb"><span class="tit">第2年费官票号：</span><span class="txt"><input type="text" ng-model="obj.guanfeec" placeholder="请输入第2年费官票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">第2年费服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeec" placeholder="请输入第2年费服务费票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="invoice_timec" id="invoice_timec" ng-model="obj.invoice_timec"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+
+                <li class="hasmb"><span class="tit">第3年费官票号：</span><span class="txt"><input type="text" ng-model="obj.guanfeed" placeholder="请输入第3年费官票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">第3年费服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeed" placeholder="请输入第3年费服务费票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="invoice_timed" id="invoice_timed" ng-model="obj.invoice_timed"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+                <li class="hasmb"><span class="tit">第4年费官票号：</span><span class="txt"><input type="text" ng-model="obj.guanfeee" placeholder="请输入第4年费官票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">第4年费服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeee" placeholder="请输入第4年费服务费票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="invoice_timee" id="invoice_timee" ng-model="obj.invoice_timee"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+                <li class="hasmb"><span class="tit">第5年费官票号：</span><span class="txt"><input type="text" ng-model="obj.guanfeef" placeholder="请输入第5年费官票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">第5年费服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeef" placeholder="请输入第5年费服务费票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="invoice_timef" id="invoice_timef" ng-model="obj.invoice_timef"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+                <li class="hasmb"><span class="tit">第6年费官票号：</span><span class="txt"><input type="text" ng-model="obj.guanfeeg" placeholder="请输入第6年费官票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">第6年费服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeeg" placeholder="请输入第6年费服务费票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="invoice_timeg" id="invoice_timeg" ng-model="obj.invoice_timeg"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+                <li class="hasmb"><span class="tit">官票号：</span><span class="txt"><input type="text" ng-model="obj.guanfeeh" placeholder="请输入官票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeeh" placeholder="请输入服务费票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">开票时间：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="invoice_timeh" id="invoice_timeh" ng-model="obj.invoice_timeh"
+                     style="cursor:pointer" readonly/>
+                </div></span></li>
+                <li class="hasmb"><span class="tit">官票号：</span><span class="txt"><input type="text" ng-model="obj.guanfeei" placeholder="请输入官票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeei" placeholder="请输入服务费票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">官票号：</span><span class="txt"><input type="text" ng-model="obj.guanfeej" placeholder="请输入官票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeej" placeholder="请输入服务费票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">官票号：</span><span class="txt"><input type="text" ng-model="obj.guanfeek" placeholder="请输入官票号" class="shuru"></span></li>
+                <li class="hasmb"><span class="tit">服务费票号：</span><span class="txt"><input type="text" ng-model="obj.fuwufeek" placeholder="请输入服务费票号" class="shuru"></span></li>
+            </ul>
+        <div style="text-align: center;margin-bottom: 20px;">
+            
+            <span ng-click="cancel()" class="cancelbtn">取消</span>
+            <span ng-click="save()" class="yesbtn">确定</span>
+        </div>
+    </div>
+</div>
+<style>
+    .invoiceboxremain{
+        padding: 10px 30px;
+        min-width: 540px;
+        min-height: 300px;
+        font-size: 12px;
+    }
+    .invoiceboxremain .invoice_head{
+        height: 20px;
+        margin: 0;
+        margin-bottom: 20px;
+        padding: 10px 0;
+        line-height: 20px;
+    }
+    .invoiceboxremain .invoice_head .invoice_title{
+        float: left;
+        font-size: 16px;
+    }
+    .invoiceboxremain .invoice_head .close_button{
+        float: right;
+        font-weight: normal;
+        cursor: pointer;
+    }
+    .invoiceboxremain .invoice_content{
+        max-height: 246px;
+        margin-bottom: 20px;
+        overflow-y: auto;
+    }
+    .invoiceboxremain .invoice_content li{
+        height: 26px;
+        line-height: 26px;
+    }
+    .invoiceboxremain .invoice_content .hasmb{
+        margin-bottom: 5px;
+    }
+    .invoiceboxremain .invoice_content .tit{
+        float: left;
+        vertical-align: middle;
+        line-height: 26px;
+        height: 26px;
+        width: 120px;
+        text-align: right;
+        margin-right: 10px;
+    }
+    .invoiceboxremain .invoice_content .hasrequired:before{
+        content: '*';
+        font-size: 14px;
+        line-height: 26px;
+        color: red;
+    }
+    .invoiceboxremain .invoice_content .txt{
+        float: left;
+        vertical-align: middle;
+        line-height: 26px;
+        min-width: 320px;
+    }
+    .invoiceboxremain .invoice_content .txt .shuru{
+        width: 100%;
+        height: 100%;
+    }
+    .invoiceboxremain .yesbtn{
+        display: inline-block;
+        width: 80px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        background-color: #379dea;
+        color:#fff;
+        border-radius: 2px;
+        margin-left: 20px;
+    }
+    .invoiceboxremain .cancelbtn{
+        display: inline-block;
+        width: 80px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        border:1px solid #ccc;
+        color:#333;
+        border-radius: 2px;
+    }
+</style>

@@ -1,0 +1,56 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>会员管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPMemberListModel"><a href="#/main/user_home/user_list"><span>会员列表</span></a></li>
+                <li mt-show-model model-name="IPRPMemberServiceModel"><a href="JavaScript:void(0);" class="current"><span>服务记录</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">会员服务记录</th>
+            </tr>
+            <tr>
+                <th>订单统计</th>
+            </tr>
+            <tr>
+                <td>
+                    <table class="table tb-type2 goods ">
+                        <tbody class="tr-color">
+                            <tr>
+                                <th></th>
+                                <th>序号</th>
+                                <th class="align-center">服务</th>
+                                <th class="align-center">订单数</th>
+                                <th class="align-center">金额合计</th>
+                            </tr>
+                            <tr ng-show="member_service_record.length > 0" ng-repeat="service in member_service_record">
+                                <td class="w60 picture"></td>
+                                <td class="w49pre" ng-bind="service.number"></td>
+                                <td class="w350 align-center" ng-bind="service.orderBsName"></td>
+                                <a href="#/main/trade_home/order_list">
+                                    <td class="align-center" ng-if="service.orderBsSpAccount != null" ng-bind="service.orderBsSpAccount"></td>
+                                </a>
+                                <td class="align-center" ng-if="service.orderBsSpAccount === null" ng-bind="service.orderBsSpAccount"></td>
+                                <td class="align-center" ng-bind="service.orderBsSum"></td>
+                            </tr>
+                            <tr ng-show="to_loading">
+                                <td colspan="20">
+                                    <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr class="tfoot">
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

@@ -1,0 +1,119 @@
+<div class="page feedback">
+   <div class="fixed-bar">
+        <div class="item-title">
+            <h3>商品评价</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>商品评价列表</span></a></li>
+                <!-- <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);"><span>导出</span></a></li> -->
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>评论ID：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.evaluationSn" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+                    <th><label>用户手机号：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.memberPhone" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+                    <th><label>用户姓名：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.memberTruename" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+                    <th><label>商家编码：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.storeCode" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+                    <th><label>商家名称：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.storeName" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+
+                </tr>
+                <tr>
+                		<th><label>服务单号：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.serviceSn" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+                    <th><label>服务名称：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.serviceInfo" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+                    <th><label>内容：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.content" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+                    <th><label>状态：</label></th>
+                    <td>
+                        <select ng-model="obj.isHide" style="width: 140px;">
+                            <option value="">请选择状态</option>
+                            <option value="1">隐藏</option>
+                            <option value="0">显示</option>
+                        </select>
+                    </td>
+
+                    <td colspan="2">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" width="40">序号</th>
+                    <th class="align-center" width="100">评论ID</th>
+                    <th class="align-center" width="100">用户手机号</th>
+                    <th class="align-center" width="80">用户姓名</th>
+                    <th class="align-center" width="80">服务单号</th>
+                    <th class="align-center" width="80">服务名称</th>
+                    <th class="align-center" width="80">是否匿名</th>
+                    <th class="align-center" width="80">商家名称</th>
+                    <th class="align-center" width="80">内容</th>
+                    <th class="align-center" width="80">状态</th>
+                    <th class="align-center" width="100">时间</th>
+                    <th class="align-center" width="80" class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" class="hover" ng-show="EvaluateGoodsList.length" ng-repeat="list in EvaluateGoodsList">
+                    <td class="align-center">
+                        <span ng-bind="list.seqNo"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.evaluationSn"></td>
+                    <td class="align-center" ng-bind="list.memberPhone"></td>
+                    <td class="align-center" ng-bind="list.memberTruename"></td>
+                    <td class="align-center" ng-bind="list.serviceSn"></td>
+                    <td class="align-center" ng-bind="list.serviceInfo"></td>
+                    <td class="align-center" ng-bind="list.anonymous ? '是' : '否'"></td>
+                    <td class="align-center" ng-bind="list.shopName"></td>
+                    <td class="align-center" ng-bind="list.content"></td>
+                    <td class="align-center" ng-bind="list.isHide ? '隐藏' : '显示'"></td>
+                    <td class="align-center" ng-bind="list.createTime | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="goDetailFn(list.id)">查看</a>
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-show="list.isHide" ng-click="setShow(list, 0)">显示</a>
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-show="!list.isHide" ng-click="setShow(list, 1)">隐藏</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+									<td colspan="12" class="norecord">
+										<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+									</td>
+								</tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr class="tfoot">
+                    <td colspan="12"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

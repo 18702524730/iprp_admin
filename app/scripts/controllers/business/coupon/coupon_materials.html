@@ -1,0 +1,47 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>合伙人材料</h3>
+            <ul class="tab-base">
+                <li><a href="JavaScript:void(0);" class="current"><span>合伙人材料列表</span></a></li>
+                <li><a href="JavaScript:void(0);" ng-click="checkFnName()"><span>添加材料类目</span></a></li>
+                <li><a href="JavaScript:void(0);" ng-click="addMaterials()"><span>添加合伙人材料</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="materials_list">
+        <ul class="materials_title">
+            <li class="align-center w30">类目</li>
+            <li class="align-center w30">材料名称</li>
+        </ul>
+        <ul class="list_materials" ng-repeat="item in obj">
+            <li class="materials_operation">
+                <p class="fl align-center w30" ng-click="addArray(item)"><span class="mr30" ng-class="{'rotate':idArray.indexOf(item.id) != -1}">〉</span>{{item.title}}</p>
+                <p class="fr mr30" ng-click="removeMaterials(item)">删除</p>
+            </li>
+            <li class="materials_name" ng-repeat="info in item.subMaterials" ng-show="idArray.indexOf(item.id) != -1">
+                <div class="fr w30 align-right mr30">
+                    <p ng-click="downFile(info)">下载</p>
+                    <p class="ml30" ng-click="removeMaterials(info)">删除</p>
+                </div>
+                <div class="fl w30 name align-center">{{info.title}}</div>
+            </li>
+        </ul>
+    </div>
+</div>
+<style>
+.w30{width: 30%;}
+.w70{width: 70%;}
+.materials_list{width: 100%;border: 1px solid #e5e5e5;}
+.materials_list .materials_title{width: 100%;height: 40px;background-color: #f1f3f6;display: flex;}
+.materials_list .materials_title li{line-height: 40px;font-size: 14px;}
+
+.list_materials .materials_operation{width: 100%;height: 40px;background-color: #e4e4e4;font-size: 14px;line-height: 40px;}
+.list_materials .materials_operation p{position: relative;cursor: pointer;}
+.list_materials .materials_operation span{position: absolute;left: 50px;color:#000;font-weight: bold;font-size: 14px;}
+.list_materials .materials_operation .rotate{transform:rotate(90deg);top: 3px}
+
+.materials_name{width: 100%;line-height: 40px;font-size: 14px;border-top: 1px solid #e3e3e3;overflow: hidden;}
+.materials_name div p{display: inline-block;cursor: pointer;}
+.materials_name .name{margin-left: 30%;}
+</style>

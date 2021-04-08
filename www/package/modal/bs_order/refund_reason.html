@@ -1,0 +1,28 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">查看退款原因</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form role="form" style="padding:5px 15px 20px;">
+        <ul>
+            <li>
+                <label>退款原因：</label>
+                <div style="min-height: 30px;">{{itemData.refund_reason_type_name}}</div>
+            </li>
+            <li>
+                <label>描述原因：</label>
+                <div style="min-height: 30px;">{{itemData.refund_message}}</div>
+            </li>
+            <li>
+                <label>上传图片：</label>
+                <div style="min-height: 60px;">
+                    <a ng-repeat="item in pics track by $index" href="{{item}}" target="_blank">
+                        <img src="{{item}}" width="60" height="60">
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>

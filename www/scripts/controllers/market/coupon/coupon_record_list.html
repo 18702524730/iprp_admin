@@ -1,0 +1,121 @@
+<div class="page">
+  <div class="fixed-bar">
+      <div class="item-title">
+          <h3>拾贝券领取记录</h3>
+          <ul class="tab-base">
+              <li mt-show-model model-name="IPRPBillTplListModel"><a href="JavaScript:void(0);" class="current"><span>领取列表</span></a></li>
+          </ul>
+      </div>
+  </div>
+  <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+            <tr>
+              <th><label>注册手机:</label></th>
+              <td><input type="text" value="" placeholder="请填写注册手机" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.memberPhone"></td>
+              <th><label>昵称:</label></th>
+              <td><input type="text" value="" placeholder="请填写昵称" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.nickname"></td>
+              <th><label>券种ID:</label></th>
+              <td><input type="text" value="" placeholder="请填写券种ID" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.couponId"></td>
+              <th><label>券名称:</label></th>
+              <td><input type="text" value="" placeholder="请填写券名称" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.couponName"></td>
+              <th><label>使用时间：</label></th>
+              <td colspan="2">
+                  <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开始时间" name="usageTimeStart" id="usageTimeStart" ng-model="usageTimeStart"
+                          max-date="usageTimeEnd" style="cursor:pointer" readonly/>
+                  <label>~</label>
+                  <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="结束时间" name="usageTimeEnd" id="usageTimeEnd"  ng-model="usageTimeEnd"
+                          min-date="usageTimeStart" style="cursor:pointer" readonly/>
+              </td>
+            </tr>
+            <tr>
+              <th><label>获取方式:</label></th>
+              <td>
+                <select ng-model="obj.obtainType" style="width: 140px;">
+                    <option value="">请选择</option>
+                    <option value="1">用户领取</option>
+                    <option value="2">系统发放</option>
+                </select>
+              </td>
+              <th><label>券状态:</label></th>
+              <td>
+                <select ng-model="obj.couponStatus" style="width: 140px;">
+                    <option value="">请选择</option>
+                    <option value="0">未使用</option>
+                    <option value="1">已使用</option>
+                    <option value="2">使用中</option>
+                    <option value="-1">已过期</option>
+                </select>
+              </td>
+              <th><label>使用对象:</label></th>
+              <td>
+                <select ng-model="obj.usageObj" style="width: 140px;">
+                    <option value="">请选择</option>
+                    <option value="1">B端</option>
+                    <option value="2">C端</option>
+                </select>
+              </td>
+              <th><label>获得时间：</label></th>
+              <td colspan="2">
+                  <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开始时间" name="obtainTimeStart" id="obtainTimeStart" ng-model="obtainTimeStart"
+                          max-date="obtainTimeEnd" style="cursor:pointer" readonly/>
+                  <label>~</label>
+                  <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="结束时间" name="obtainTimeEnd" id="obtainTimeEnd"  ng-model="obtainTimeEnd"
+                          min-date="obtainTimeStart" style="cursor:pointer" readonly/>
+              </td>
+              <td>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="search_reset()">重置</a>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+  <form>
+      <table class="table tb-type2">
+          <thead>
+              <tr class="thead">
+                  <th class="align-center" style="width: 40px;">序号</th>
+                  <th class="align-center">注册手机号</th>
+                  <th class="align-center">昵称</th>
+                  <th class="align-center">券种ID</th>
+                  <th style="width: 120px;" class="align-center">券名称</th>
+                  <th style="width: 120px;" class="align-center">使用对象</th>
+                  <th style="width: 120px;" class="align-center">获取方式</th>
+                  <th class="align-center">获得时间</th>
+
+                  <th class="align-center">券状态</th>
+                  <th class="align-center">使用时间</th>
+              </tr>
+          </thead>
+          <tbody class="tr-color">
+            <tr class="" ng-show="recodeList.length > 0" class="hover" ng-repeat="list in recodeList">
+                  <td class="align-center">{{list.seqNo}}</td>
+                  <td class="align-center" >{{ list.memberPhone }}</td>
+                  <td class="align-center" >{{ list.nickname }}</td>
+                  <td class="align-center">{{ list.couponId }}</td>
+                  <td class="align-center">{{ list.couponName }}</td>
+                  <td class="align-center">{{ list.usageObj | usageObjType }}</td>
+                  <td class="align-center">{{ list.obtainType | obtainType }}</td>
+                  <td class="align-center">{{ list.obtainTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                  <td class="align-center">{{ list.couponStatus | couponStatus }}</td>
+                  <td class="align-center">{{ (list.usageTime | date:'yyyy-MM-dd HH:mm:ss') || '--' }}</td>
+              </tr>
+              <tr ng-show="to_loading">
+                  <td colspan="20" class="norecord">
+                      <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                  </td>
+              </tr>
+          </tbody>
+          <tfoot ng-hide="to_loading">
+              <tr colspan="13" class="tfoot">
+                  <td colspan="13"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+              </tr>
+          </tfoot>
+      </table>
+  </form>
+</div>
+<style>
+  .disabled {color: #eee; cursor: none;}
+</style>

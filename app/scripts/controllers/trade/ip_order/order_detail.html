@@ -1,0 +1,109 @@
+<div class="page lt_order_detail">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>立体保护订单管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:history.go(-1)"><span>订单列表</span></a></li>
+                <li mt-show-model model-name="IPRPOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+        	<tr class="space">
+                <th colspan="2">报告进度</th>
+            </tr>
+            <tr>
+              <td colspan="2" ng-if="order_detail.orderState === 0">
+                <span class="status">待受理</span> <span class="btn" ng-click="checkFn(orderSn)">受理</span>
+              </td>
+              <td colspan="2" ng-if="order_detail.orderState === 1">
+                <span class="status">已受理</span> <span class="norm">等待用户支付</span>
+              </td>
+              <td colspan="2" ng-if="order_detail.orderState === 2">
+                <span class="status">报告出具中</span> <span class="btn" ng-click="uploadFn(orderSn)">上传报告</span>
+              </td>
+              <td colspan="2" ng-if="order_detail.orderState === 3">
+                <span class="status">报告完成</span>
+              </td>
+              <td colspan="2" ng-if="order_detail.orderState === -1">
+                <span class="status">已关闭</span>
+              </td>
+            </tr>
+            <tr ng-if="order_detail.orderState !== 0">
+                <td ng-if="order_detail.orderState === 1 || order_detail.orderState === 2" colspan="2">
+                    <ul>
+                      <li><strong>报告类型：</strong>{{order_detail.reportDay}}个工作日出具</li>
+                      <li><strong>金额：</strong>￥{{order_detail.reportAmount | number:2}}</li>
+                    </ul>
+                </td>
+                <td ng-if="order_detail.orderState === 3" colspan="2">
+                    <ul>
+                      <li><strong>报告类型：</strong>{{order_detail.reportDay}}个工作日出具</li>
+                      <li><strong>金额：</strong>￥{{order_detail.reportAmount | number:2}}</li>
+                      <li><strong>判定结果：</strong>{{order_detail.judgeResult === 1 ? '侵权' : order_detail.judgeResult === 2 ? '不侵权' : ''}}</li>
+                      <li><strong>报告上传时间：</strong>{{order_detail.reportUploadTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                    </ul>
+                    <div style="margin-left: 1%">
+                        <a class="btn" target="_blank" ng-href="{{order_detail.reportUrl}}">查看报告</a>
+                        <a class="btn" target="_blank" ng-href="{{order_detail.reportUrl}}">下载报告</a>
+                    </div>
+                </td>
+                <td ng-if="order_detail.orderState === -1" colspan="2">
+                    <ul>
+                      <li><strong>关闭原因：</strong>{{order_detail.closeReason}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">联系人信息</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li><strong>联系人：</strong>{{order_detail.contactName}}</li>
+                  <li><strong>联系电话：</strong>{{order_detail.contactPhone}}</li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">专利信息</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li><strong>专利类型：</strong>{{order_detail.patentType|patentType}}</li>
+                  <li><strong>专利申请号：</strong>{{order_detail.patentApplySn}}</li>
+                  <li><strong>专利名称：</strong>{{order_detail.patentName}}</li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">侵权商品信息</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li style="width: 100%;word-break: break-all;"><strong>侵权商品链接:</strong><a target="_blank" ng-href="{{order_detail.infringeGoodUrl}}">{{order_detail.infringeGoodUrl}}</a></li>
+                    </ul>
+                    <ul>
+                        <li style="width: 100%;">
+                            <strong>侵权商品图片:</strong>
+                            <div class="imgs" ng-if="order_detail.infringeImgArr">
+                              <a download ng-href="{{item}}" target="_blank" ng-repeat="item in order_detail.infringeImgArr track by $index"><img ng-src="{{item}}"></a>
+                            </div>
+                            <span ng-if="!order_detail.infringeImgArr">无</span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<style type="text/css">
+    .lt_order_detail .table .status{color: red;margin-right: 20px;margin-left:1%;}
+    .lt_order_detail .table .btn{height: 18px;line-height: 18px; padding: 5px 10px;background-color: #68a4fe;border-radius: 3px;color: #fff;cursor: pointer;display: inline-block;}
+    .lt_order_detail .table .imgs{padding: 20px 0;}
+    .lt_order_detail .table .imgs a{display: inline-block;margin-right: 20px;}
+    .lt_order_detail .table .imgs a img{width: 150px;max-height: 150px;}
+</style>

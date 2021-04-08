@@ -1,0 +1,78 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>消息通知</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPNewsListModel"><a class="current"><span>消息列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd">
+                <th colspan="12"><div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li>通过消息通知，你可以通过消息处理、删除操作</li>
+                        <li>提示：加粗的消息为未读消息通知</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form id="form_list">
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <!--<th>-->
+                        <!--<input type="checkbox" class="checkall" id="checkallBottom2" ng-checked="checkAll" ng-click="allChoose()" name="chkVal">-->
+                    <!--</th>-->
+                    <th class="align-center" style="width: 40px;">序号</th>
+                    <th class="align-center">消息</th>
+                    <th width="120px" class="align-center">日期</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+            <tr ng-show="NewsList.length > 0" class="hover" ng-repeat="list in NewsList">
+                <!--<td class="w24">-->
+                    <!--<span>-->
+                        <!--<input type="checkbox" name="" value="" class="checkitem" ng-click="sChoose(list.admin_id)" ng-checked="allId.indexOf(list.admin_id) !== -1">-->
+                    <!--</span>-->
+                <!--</td>-->
+                <td class="align-center" ng-bind="list.number"></td>
+                <td ng-class="{'new_color':list.state === 0,'color':list.state === 1}" class="align-center" ng-bind="list.content"></td>
+                <td class="align-center" ng-bind="list.create_time | date : 'yyyy-MM-dd HH:mm:ss'"></td>
+                <td class="w150 align-center">
+                    <span>
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPNewsDealModel">
+                            <span style="cursor: pointer" class="btn btn-default"  ng-click="news_deal(list.message_id,list.bs_id,list.resource_type,list.resource_id)">处理</span></a>
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPDeleteNewsModel">
+                            <span style="cursor: pointer" class="btn btn-default"  ng-click="news_delete(list.message_id)">删除</span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr ng-show="to_loading">
+                <td colspan="20" class="norecord">
+                    <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr class="tfoot">
+                    <!--<td><input type="checkbox" class="checkall" id="checkallBottom" ng-click="allChoose()" ng-checked="checkall" name="chkVal"></td>-->
+                    <!--<td><label for="checkallBottom">全选</label>-->
+                        <!--&nbsp;&nbsp;<a href="JavaScript:void(0);" ng-click="deleteAll()" class="btn"><span>删除</span></a>-->
+                    <!--</td>-->
+                    <td colspan="5"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

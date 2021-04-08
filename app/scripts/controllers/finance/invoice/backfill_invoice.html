@@ -1,0 +1,134 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>发票管理</h3>
+            <ul class="tab-base">
+				<li mt-show-model model-name="IPRPUnopenInvoiceListModel"><a href="#/main/finance_home/unopen_list"><span>未开列表</span></a></li>
+                <li><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+                <li mt-show-model model-name="IPRPOpenInvoiceListModel"><a href="#/main/finance_home/open_list"><span>已开列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="invoice_form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 order">
+            <tbody class="tr-color">
+                <tr class="space">
+                    <th colspan="15">发票信息</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <ul>
+                            <li><strong>发票类型:</strong>{{invoice_detail.type | InvoiceTypeFilter}}</li>
+                            <li><strong>发票种类:</strong>{{invoice_detail.open_type | InvoiceOpenTypeFilter}}</li>
+                            <li><strong>发票状态:</strong>{{invoice_detail.state | InvoiceStateFilter}}</li>
+                            <li><strong>合计金额:</strong>{{invoice_detail.invoice_amount | number:2}}</li>
+                            <li><strong>税率:</strong><span>6%</span></li>
+                            <li><strong>合计税额:</strong>{{tax_amount | number:2}}</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="space">
+                    <th colspan="2">发票种类附属信息</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <ul ng-show="invoice_detail.type === 2">
+                            <li><strong>单位名称:</strong>{{invoice_detail.company}}</li>
+                            <li><strong>纳税人识别号:</strong>{{invoice_detail.code}}</li>
+                            <li><strong>注册地址:</strong>{{invoice_detail.reg_addr}}</li>
+                            <li><strong>注册电话:</strong>{{invoice_detail.reg_phone}}</li>
+                            <li><strong>开户银行:</strong>{{invoice_detail.reg_bname}}</li>
+                            <li><strong>银行账户:</strong>{{invoice_detail.reg_baccount}}</li>
+                        </ul>
+                        <ul>
+                            <li ng-show="invoice_detail.type === 1"><strong>发票抬头:</strong>{{invoice_detail.title}}</li>
+                            <li><strong>联系人:</strong>{{invoice_detail.rec_name}}</li>
+                            <li><strong>联系人电话:</strong>{{invoice_detail.rec_phone}}</li>
+                            <li><strong>收票人详细地址:</strong>
+                                {{invoice_detail.rec_address}}</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="tb-type1 noborder search" style="width: 100%;">
+            <tbody class="tr-color">
+                <tr class="space" ng-show="invoice_detail.state === 1 && invoice_detail.open_type === 2">
+                    <th colspan="5">发票项
+                </tr>
+            </tbody>
+            <tbody class="tr-color" ng-repeat="back in invoice_detail.invoiceOpenDTOList">
+                <tr ng-show="invoice_detail.state === 1 && invoice_detail.open_type === 2">
+                    <td style="width: 390px;">
+                        <span style="margin:0 15px;margin-right: 0 !important;">发票代码:</span>
+                        <input type="text" name="code" ng-blur="invoiceCode($index,invoice_detail.invoiceOpenDTOList)" ng-model="back.code" required>
+                    </td>
+                    <td style="width: 390px;">
+                        发票号码:
+                        <input type="text" name="number" ng-blur="invoiceMember($index,invoice_detail.invoiceOpenDTOList)" ng-model="back.number" required/>
+                    </td>
+                    <td>
+                        开票时间:
+                        <input type="text" class="txt hasDatepicker" placeholder="" name="time" id="form_datetime" ng-blur="invoiceTime($index,invoice_detail.invoiceOpenDTOList)"
+                               datepicker-popup ng-model="back.time" is-open="startOpened" ng-click="startOpened = true" min-date="TodayDate" required readonly/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="margin:0 15px;margin-right: 0 !important;">发票金额:</span>{{back.amount | number:2}}
+                    </td>
+                    <td>
+                        开票明目:{{back.type | OpenTypeFilter}}
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="error" style="margin:0 12px;" ng-show="invoiceOpenError">
+                            <small class="error">
+                                <label><i class="icon-exclamation-sign"></i>{{invoice_open_error}}</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table tb-type2 order">
+            <tbody class="tr-color">
+                <tr class="space">
+                    <th colspan="2">订单详情</th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li><strong>订单编号：</strong>{{order_detail.order_sn}}</li>
+                            <li><strong>订单金额：</strong>{{order_detail.order_amount | number:2}}</li>
+                            <li><strong>服务名称：</strong>{{order_detail.bs_name}}</li>
+                            <li><strong>服务商：</strong>{{order_detail.sp_name}}</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="space">
+                    <th colspan="2">用户信息</th>
+                </tr>
+                <tr>
+                    <td><ul>
+                        <li><strong>联 系  人：</strong>{{invoice_detail.rec_name}}</li>
+                        <li><strong>联系电话：</strong>{{invoice_detail.rec_phone}}</li>
+                        <li><strong>收票地址：</strong>{{invoice_detail.rec_address}}</li>
+                    </ul></td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr class="tfoot">
+                <td>
+                    <a href="JavaScript:void(0);"
+                       class="btn" ng-show="invoice_detail.state === 1 && invoice_detail.open_type === 2"
+                       ng-click="save(invoice_detail.invoice_id,invoice_detail.invoice_sn,invoice_detail.invoiceOpenDTOList)"><span>提交</span></a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,110 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>合伙人商品</h3>
+            <ul class="tab-base">
+                <li><a href="JavaScript:void(0);" class="current"><span>合伙人商品列表</span></a></li>
+                <li><a href="#/main/business_home/coupon_redact/add" ><span>添加合伙人商品</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>商品编号：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.productNum" style="width: 215px"></td>
+                    <th><label>商品名称：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.name"></td>
+                    <th><label>服务类目：</label></th>
+                    <td colspan="5">
+                        <select ng-model="obj.firstCategory" ng-change="serviceType()">
+                            <option value="">请选择</option>
+                            <option value="{{item.bsClassId}}" ng-repeat="item in serviceCategory">{{ item.bsClassName }}</option>
+                        </select>
+                        <select ng-model="obj.secondCategory">
+                            <option value="">请选择</option>
+                            <option value="{{info.bsClassId}}" ng-repeat="info in serviceList">{{ info.bsClassName }}</option>
+                        </select>
+                    </td>
+                    <th><label>合伙人商品状态：</label></th>
+                    <td>
+                        <select ng-model="obj.isPartnerProduct" style="width: 120px;">
+                            <option value="">请选择</option>
+                            <option value="0">已下架</option>
+                            <option value="1">已上架</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>添加时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开始时间" name="createTimeStart" id="createTimeStart" ng-model="createTimeStart"
+                                max-date="createTimeEnd" style="cursor:pointer" readonly/>
+                        <label>~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="结束时间" name="createTimeEnd" id="createTimeEnd"  ng-model="createTimeEnd" min-date="createTimeStart" style="cursor:pointer" readonly/>
+                    </td>
+                    <td colspan="2">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">商品编号</th>
+                    <th class="align-center">商品名称</th>
+                    <th class="align-center">图片</th>
+                    <th class="align-center">所属分类</th>
+                    <th class="align-center">市场指导价</th>
+                    <th class="align-center">官费</th>
+                    <th class="align-center">作业底价</th>
+                    <th class="align-center">需求分佣比</th>
+                    <th class="align-center">销售分佣比</th>
+                    <th class="align-center">销售作业分佣比</th>
+                    <th class="align-center">合伙人商品状态</th>
+                    <th class="align-center" style="width: 120px;">添加时间</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="businessList.length > 0" class="hover" ng-repeat="list in businessList">
+                    <td class="align-center" ng-bind="list.productNum"></td>
+                    <td class="align-center" ng-bind="list.name"></td>
+                    <td class="align-center"><img ng-src="{{list.picture}}" height="60" width="60" /></td>
+                    <td class="align-center" ng-bind="list.category"></td>
+                    <td class="align-center" ng-bind="list.guidePrice | number:2"></td>
+                    <td class="align-center" ng-bind="list.peAmount | number:2"></td>
+                    <td class="align-center" ng-bind="list.reservePrice | number:2"></td>
+                    <td class="align-center">{{(list.requirementReturnProportion*100)}}%</td>
+                    <td class="align-center">{{(list.saleReturnProportion*100)}}%</td>
+                    <td class="align-center">{{(list.saleTaskReturnProportion*100)}}%</td>
+                    <td class="align-center">{{list.isPartnerProduct==0 ? '已下架':list.isPartnerProduct==1?'已上架':'--'}}</td>
+                    <td class="align-right" ng-bind="list.createTime | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center w120">
+                        <a ng-show="list.isPartnerProduct != 1" ng-click="onShelves(list)">上架</a>
+                        <a ng-show="list.isPartnerProduct == 1" ng-click="offShelf(list)">下架</a>
+                        <a ng-click="lookChange(list)">编辑</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+td a{cursor: pointer;}
+</style>

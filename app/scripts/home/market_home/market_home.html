@@ -1,0 +1,18 @@
+<table class="menutd" valign="top" style="padding: 0px;width: 100%; height: 100%;margin-top:10px" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top" style="width: 161px;height: 690px;">
+      <ul style="display: block; width: 162px" class="main-menu">
+        <!-- <li><a id="recharge_list" ng-click="select($event)" href="#/main/market_home/rechargeList">809上线活动监控</a></li> -->
+        <li mt-show-model model-name="IPRPPlatformOperatePosModel"><a id="platform_list" ng-click="select($event)" href="#/main/market_home/platform">拾贝网-运营位</a></li>
+        <li mt-show-model model-name="IPTRADEPlatformYunyingManageModel"><a id="platform_list" ng-click="select($event)" href="#/main/market_home/operation">交易金融-运营位</a></li>
+        <li mt-show-model model-name="IPRPPartnerCouponManageModel"><a id="coupon_list" ng-click="select($event)" href="#/main/market_home/coupon">拾贝券管理</a></li>
+        <li mt-show-model model-name="IPRPPartnerCouponObtainRecordModel"><a id="coupon_record_list" ng-click="select($event)" href="#/main/market_home/coupon_record">拾贝券领取记录</a></li>
+      </ul>
+    </td>
+    <td ui-view class="ng-scope" valign="top" style="min-width: 1180px; min-height: 1000px;"></td>
+  </tr>
+</table>
+<div class="sebe">
+    <p class="sebename">拾贝管理后台</p>
+    <p class="sebeurl">www.ipsebe.com</p>
+</div>

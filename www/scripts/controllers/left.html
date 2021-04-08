@@ -1,0 +1,72 @@
+<table class="menutd" valign="top" cellpadding="0" cellspacing="0" style="width:100%;margin-top: 10px">
+    <tr>
+        <td valign="top" style="width: 161px;height: 690px;">
+            <ul style="display: block; height: 690px; width: 162px" class="main-menu">
+                <li><a class="selected" ng-click="select($event)" href="#/main/left/home_page">欢迎页面</a></li>
+                <!-- <li mt-show-model model-name="IPRPPrivilegeManageModel"><a ng-click="select($event,'setting')" href="JavaScript:void(0);">权限设置</a></li>
+                <li mt-show-model model-name="IPRPMemberListModel"><a ng-click="select($event)" href="#/main/user_home/user_list">会员管理</a></li>
+                <li mt-show-model model-name="IPRPBusinessListModel"><a id="business_list" ng-click="select($event)" href="#/main/business_home/business_list">服务</a></li>
+                <li mt-show-model model-name="IPRPServicerListModel"><a id="servicer_list" ng-click="select($event)" href="#/main/service_home/servicer_list">服务商管理</a></li>
+                <li mt-show-model model-name="IPRPChannelListModel"><a ng-click="select($event)" href="#/main/channel_home/channel_list">渠道商管理</a></li>
+                <li mt-show-model model-name="IPRPOrderListModel"><a ng-click="select($event)" href="#/main/trade_home/order_list">订单管理</a></li>
+                <li mt-show-model model-name="IPRPInvoiceListModel"><a ng-click="select($event)" href="#/main/trade_home/unopen_list">发票管理</a></li>
+                <li mt-show-model model-name="IPRPRefundListModel"><a ng-click="select($event)" href="#/main/trade_home/refund_list">退款管理</a></li> -->
+                <!--隐藏(home页权限需要加载)-->
+                <li ng-show="true" mt-show-model model-name="IPRPInvoiceManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPRedInvoiceManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPMemberListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBlocMemberListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBusinessListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPServicerListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPChannelListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPOrderListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPInvoiceListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPRedInvoiceListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPAdminListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPGadminListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPDateListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBusinessListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPServicerListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPAccountDetailListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPUnopenInvoiceListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPOpenInvoiceListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPRedInvoiceCheckListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPRedUnOpenInvoiceListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPRedOpenInvoiceListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPNewsManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPOrderSettingModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPSettingManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPPaymentManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPExpressManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPEmailManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPLogsManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPEmailTplListModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPEmailSetModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPMemberManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBlocMemberManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPAssignServicerManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBusinessClassManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPServiceManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPServicerManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBadServiceManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPCapitAlacountManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPSpBillManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBillTplManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPOrderManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPRefundManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBusinessManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBusinessClassManageModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPUpdateExpressModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBillFinancialAuditModel"></li>
+                <li ng-show="true" mt-show-model model-name="IPRPBillSalesmanAuditModel"></li>
+            </ul>
+        </td>
+        <td>
+            <div ui-view class="ng-scope" valign="top" style="min-width: 1270px; min-height: 700px;"></div>
+        </td>
+    </tr>
+</table>
+<div class="sebe">
+    <p class="sebename">拾贝管理后台</p>
+    <p class="sebeurl">www.ipsebe.com</p>
+</div>

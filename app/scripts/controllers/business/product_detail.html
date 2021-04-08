@@ -1,0 +1,69 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>商品管理</h3>
+            <ul class="tab-base">
+                <li><a href="JavaScript:history.go(-1)"><span>商品列表</span></a></li>
+                <li><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">基本信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>商品名称：</strong>{{detail.productName}}</li>
+                        <li><strong>商品类型：</strong>{{detail.productType}}</li>
+                        <li><strong>服务类型：</strong>{{detail.serviceType}}</li>
+                        <li><strong>所属业务：</strong>{{detail.businessName}}</li>
+                        <li><strong>商品ID：</strong>{{detail.productId}}</li>
+                        <li><strong>标准价：</strong>{{detail.standardPrice | number:2}}</li>
+                        <li><strong>订金：</strong>{{detail.depositPrice | number:2}}</li>
+                        <li><strong>订金优惠价：</strong>{{detail.preferentialPrice | number:2}}</li>
+                        <li><strong>状态：</strong>{{detail.status | productStatusFilter}} </li>
+                        <li><strong>业务编码：</strong>{{detail.codesDescriptions}}</li>
+                        <li><strong>上架时间：</strong>{{detail.onShelvesTime}}</li>
+                        <li><strong>下架时间：</strong>{{detail.offShelfTime}}</li>
+                        <li><strong>操作人：</strong>{{detail.operatorUserName}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">商品图片</th>
+            </tr>
+            <tr>
+                <td>
+                    <img src="{{detail.picture}}" width="540">
+                </td>
+            </tr>
+            <tr class="space">
+                <th>业务介绍(PC)</th>
+            </tr>
+            <tr>
+                <td colspan="20" style="padding: 5px 0!important">
+                    <div ng-bind-html="detail.businessIntroduction"></div>
+                </td>
+            </tr>
+            <tr class="space">
+                <th>业务介绍(H5)</th>
+            </tr>
+            <tr>
+                <td colspan="20" style="padding: 5px 0!important">
+                    <div ng-bind-html="detail.applyProcess"></div>
+                </td>
+            </tr>
+            <tr class="space">
+                <th>常见问题</th>
+            </tr>
+            <tr>
+                <td colspan="20" style="padding: 5px 0!important">
+                    <div ng-bind-html="detail.commonProblem"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

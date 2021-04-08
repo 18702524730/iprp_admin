@@ -1,0 +1,332 @@
+<div class="page">
+<div class="fixed-bar">
+    <div class="item-title">
+        <h3>服务商</h3>
+        <ul class="tab-base">
+            <li mt-show-model model-name="IPRPMemberListModel"><a href="#/main/user_home/user_list"><span>会员列表</span></a></li>
+            <li><a href="JavaScript:void(0);" class="current"><span>编辑</span></a></li>
+        </ul>
+    </div>
+</div>
+<form name="EditUserForm" role="form" class="form-horizontal" novalidate>
+    <table class="table tb-type2">
+        <tbody class="tr-color">
+            <tr class="noborder">
+                <td colspan="2" class="required">
+                    <label>基本信息</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">昵称:</label>
+                    <span class="error" ng-show="EditUserForm.nickname.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.nickname.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>昵称不可以为空</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.nickname.$error.pattern">
+                            <label><i class="icon-exclamation-sign"></i>昵称只能使用中文、英文字母</label>
+                        </small>
+                        <small class="error"
+                               ng-show="EditUserForm.nickname.$error.maxlength || EditUserForm.nickname.$error.minlength">
+                            <label><i class="icon-exclamation-sign"></i>昵称长度为2~15位</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" value="" name="nickname" class="txt" ng-minlength="2" ng-maxlength="15"
+                           ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9\-]+$/" ng-model="member_detail.nickname" required/>
+                </td>
+                <td class="vatop tips">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">姓名:</label>
+                    <span class="error" ng-show="EditUserForm.truename.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.truename.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>姓名不可以为空</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.truename.$error.pattern">
+                            <label><i class="icon-exclamation-sign"></i>姓名只能使用中文、英文字母</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.truename.$error.maxlength || EditUserForm.truename.$error.minlength">
+                            <label><i class="icon-exclamation-sign"></i>姓名长度为2~15位</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" value="" name="truename" class="txt" ng-minlength="2" ng-maxlength="15"
+                           ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9\-]+$/" ng-model="member_detail.truename" required/>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">所属行业:</label>
+                    <span class="error" ng-show="EditUserForm.basicIndustry.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.basicIndustry.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>所属行业不可以为空</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <select class="form-control" style="width: 260px" name="basicIndustry" ng-model="member_detail.member_industry" required>
+                        <option value="">选择所属行业</option>
+                        <option value="餐饮">餐饮</option>
+                        <option value="互联网">互联网</option>
+                        <option value="家政">家政</option>
+                    </select>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">身份证号:</label>
+                    <span class="error" ng-show="EditUserForm.memberIdentificationCard.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.memberIdentificationCard.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>身份证号不可以为空</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.memberIdentificationCard.$error.pattern">
+                            <label><i class="icon-exclamation-sign"></i>身份证号输入不合法</label>
+                        </small>
+                        <small class="error"
+                               ng-show="EditUserForm.memberIdentificationCard.$error.maxlength || EditUserForm.memberIdentificationCard.$error.minlength">
+                            <label><i class="icon-exclamation-sign"></i>身份证号长度为18位</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" value="" name="memberIdentificationCard" class="txt" ng-maxlength="18"
+                           ng-pattern="/(^\d{18}$)|(^\d{17}(\d|X|x)$)/" ng-model="member_detail.memberIdentificationCard" required/>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">所属区域:</label>
+                    <span class="error" ng-show="is_show_area">
+                        <small class="error">
+                            <label><i class="icon-exclamation-sign"></i>所属区域不可以为空</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform" style="width: 375px">
+                    <open-mt-address province-area-id="member_detail.provinceId"
+                                     city-area-id="member_detail.cityId" area-area-id="member_detail.areaId"
+                                     judge="submitted"
+                                     province-area-name="province_name"
+                                     city-area-name="city_name"
+                                     area-area-name="area_name">
+                    </open-mt-address>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">联系地址:</label>
+                    <span class="error" ng-show="EditUserForm.member_address.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.member_address.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>详细地址不可以为空</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.member_address.$error.pattern">
+                            <label><i class="icon-exclamation-sign"></i>详细地址只能使用中文、数字、字母和空格</label>
+                        </small>
+                        <small class="error"
+                               ng-show="EditUserForm.member_address.$error.maxlength || EditUserForm.member_address.$error.minlength">
+                            <label><i class="icon-exclamation-sign"></i>详细地址长度为3~15位</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" value="" name="member_address" ng-minlength="3" ng-maxlength="50"
+                           ng-pattern="/^[\u4e00-\u9fa5\sa-zA-Z0-9()]+$/" class="txt" ng-model="member_detail.member_address" required/>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">手机号:</label>
+                    <span class="error" ng-show="EditUserForm.phone.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.phone.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>手机号不可以为空</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.phone.$error.pattern">
+                            <label><i class="icon-exclamation-sign"></i>请输入正确的手机号</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" value="" name="phone"
+                           ng-pattern="/1\d{10}/" class="txt" ng-model="member_detail.phone" required/>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">出生日期:</label>
+                    <span class="error" ng-show="EditUserForm.address.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.address.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>出生日期不可以为空</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" class="txt date hasDatepicker" placeholder="" name="query_start_date" id="query_start_date" datepicker-popup ng-model="birthday"
+                           is-open="startOpened" ng-click="startOpened = true"  style="cursor:pointer" readonly/>
+                    <label for="query_start_date"></label>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">邮箱:</label>
+                    <span class="error" ng-show="EditUserForm.email.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.email.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>邮箱不可以为空</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.email.$error.pattern">
+                            <label><i class="icon-exclamation-sign"></i>输入的邮箱号有误</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" value="" name="email"
+                           ng-pattern="/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/" class="txt" ng-model="member_detail.email"
+                           required/>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+            </tbody>
+            <tbody class="tr-color">
+            <tr class="noborder">
+                <td colspan="2" class="required">
+                    <label>企业信息</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">企业名称:</label>
+                    <span class="error"
+                          ng-show="EditUserForm.company_name.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.company_name.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>企业名称不可以为空</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.company_name.$error.maxlength">
+                            <label><i class="icon-exclamation-sign"></i>企业名称最长长度为50位</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" value="" name="company_name" class="txt" ng-maxlength="50"
+                           ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9\-]+$/" ng-model="member_application.company_name" required/>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">企业法人:</label>
+                    <span class="error"
+                          ng-show="EditUserForm.owner_name.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.owner_name.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>企业法人不可以为空</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.owner_name.$error.pattern">
+                            <label><i class="icon-exclamation-sign"></i>企业法人只能使用中文、英文字母</label>
+                        </small>
+                        <small class="error"
+                               ng-show="EditUserForm.owner_name.$error.maxlength || EditUserForm.owner_name.$error.minlength">
+                            <label><i class="icon-exclamation-sign"></i>企业法人长度为2~15位</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" value="" name="owner_name" class="txt" ng-minlength="2" ng-maxlength="15"
+                           ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9\-]+$/" ng-model="member_application.owner_name" required/>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">营业执照号:</label>
+                    <span class="error"
+                          ng-show="EditUserForm.business_licence_number.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.business_licence_number.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>营业执照号不可以为空</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.business_licence_number.$error.pattern">
+                            <label><i class="icon-exclamation-sign"></i>营业执照号只能使用数字</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.business_licence_number.$error.maxlength">
+                            <label><i class="icon-exclamation-sign"></i>营业执照号长度为19位</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" value="" name="business_licence_number" class="txt" ng-maxlength="19"
+                           ng-pattern="/^[0-9]*[1-9][0-9]*$/" ng-model="member_application.business_licence_number" required/>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="required">
+                    <label class="validation">联系地址:</label>
+                    <span class="error"
+                          ng-show="EditUserForm.company_address.$invalid && EditUserForm.submitted">
+                        <small ng-show="EditUserForm.company_address.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>联系地址不可以为空</label>
+                        </small>
+                        <small class="error" ng-show="EditUserForm.company_address.$error.pattern">
+                            <label><i class="icon-exclamation-sign"></i>联系地址只能使用中文、数字、字母和空格特殊符号()</label>
+                        </small>
+                        <small class="error"
+                               ng-show="EditUserForm.company_address.$error.maxlength || EditUserForm.company_address.$error.minlength">
+                            <label><i class="icon-exclamation-sign"></i>联系地址长度为3~50位</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="vatop rowform">
+                    <input type="text" value="" name="company_address" class="txt" ng-minlength="3" ng-maxlength="50"
+                           ng-pattern="/^[\u4e00-\u9fa5\sa-zA-Z0-9()]+$/" ng-model="member_application.company_address" required/>
+                </td>
+                <td class="vatop tips"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr class="tfoot">
+                <td colspan="15">
+                    <a ng-show="member_application.status != 1" href="JavaScript:void(0);" class="btn" id="submitBtn" ng-click="update_member()">
+                        <span>提交</span>
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>
+</div>

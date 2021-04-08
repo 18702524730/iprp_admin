@@ -1,0 +1,81 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>店铺服务管理</h3>
+            <ul class="tab-base">
+            		<li><a href="#main/business_home/shop_service_manage"><span>店铺服务管理</span></a></li>
+                <li><a href="JavaScript:void(0);" class="current"><span>店铺服务详情</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="handle-bar">
+        <a ng-if="detail.verify_status == 2" class="btn" href="JavaScript:void(0);" ng-click="checkPass(1)"><span>审核通过</span></a><a ng-if="detail.verify_status == 1" class="btn" href="JavaScript:void(0);" style="margin-right: 0;" ng-click="checkPass(0)"><span>审核不通过</span></a>
+    </div>
+    <table class="table tb-type2 order" style="margin-top: 0;">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">基本信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>商品编号：</strong>{{detail.product_num}}</li>
+                        <li><strong>服务类目：</strong>{{detail.category}}</li>
+                        <li><strong>服务名称：</strong>{{detail.service_name}}</li>
+                        <li><strong>服务售价：</strong>{{detail.service_price}}</li>
+                        <li><strong>折扣价格：</strong>{{detail.sale_price}}</li>
+                        <li><strong>是否可开票：</strong>{{detail.need_ticket == 1 ? '是': '否'}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">搜索</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>系数：</strong>{{detail.search_coefficient}}<a class="btn ml10" href="JavaScript:void(0);" ng-click="edit()">修改</a></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">服务描述</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>服务描述：</strong>{{detail.product_introduce}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <!-- <tr class="space">
+                <th colspan="2">类目属性</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>行业：</strong>{{detail.productName}}</li>
+                        <li><strong>类型：</strong>{{detail.productType}}</li>
+                        <li><strong>适应场景：</strong>{{detail.serviceType}}</li>
+                    </ul>
+                </td>
+            </tr> -->
+            <tr class="space">
+                <th colspan="2">服务封面(PC)</th>
+            </tr>
+            <tr>
+                <td>
+                    <img src="{{pic}}" width="300" ng-repeat="pic in detail.pictureList">
+                </td>
+            </tr>
+            <tr class="space">
+                <th>服务详情(PC)</th>
+            </tr>
+            <tr>
+                <td colspan="20" style="padding: 5px 0!important">
+                    <div ng-bind-html="detail.descriptions"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

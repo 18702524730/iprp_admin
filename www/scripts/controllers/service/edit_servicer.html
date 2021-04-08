@@ -1,0 +1,447 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>商家</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPServicerListModel"><a href="#/main/merchant_home/servicer_list"><span>商家列表</span></a></li>
+				<li mt-show-model model-name="IPRPUpdateServicerModel"><a href="JavaScript:void(0);" class="current"><span>编辑</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="EditServiceForm" role="form" class="form-horizontal" novalidate>
+		<table class="table tb-type2">
+			<tbody class="tr-color">
+				<tr class="noborder">
+					<td colspan="2" class="required">
+						<label>商家信息</label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="required">
+					<label class="validation">账号:</label>
+						<span class="error" ng-show="EditServiceForm.account.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.account.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>账号不可以为空</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.account.$error.pattern">
+								<label><i class="icon-exclamation-sign"></i>账号只能使用数字</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.account.$error.maxlength || EditServiceForm.account.$error.minlength">
+								<label><i class="icon-exclamation-sign"></i>登录名长度为5~20位</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						<span>{{service_detail.account}}</span>
+					</td>
+					<td class="vatop tips">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">编码:</label>
+						<span class="error" ng-show="EditServiceForm.code.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.account.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>账号不可以为空</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.code.$error.pattern">
+								<label><i class="icon-exclamation-sign"></i>账号只能使用英文字母大小写和数字(特殊符号下划线和-)</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.code.$error.maxlength">
+								<label><i class="icon-exclamation-sign"></i>登录名长度为10位</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						<span>{{service_detail.code}}</span>
+					</td>
+					<td class="vatop tips">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">商家名称:</label>
+						<span class="error" ng-show="EditServiceForm.name.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.name.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>商家名称不可以为空</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.name.$error.pattern">
+								<label><i class="icon-exclamation-sign"></i>商家名称只能使用中文、数字、字母和空格</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.name.$error.maxlength || EditServiceForm.name.$error.minlength">
+								<label><i class="icon-exclamation-sign"></i>商家名称长度为3~50位</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						<span>{{service_detail.name}}</span>
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+				<tr ng-show="service_detail.spType">
+					<td colspan="2" class="required">
+						<b>商家类型:</b>
+					</td>
+				</tr>
+				<tr class="noborder" ng-show="service_detail.spType">
+					<td class="vatop rowform">
+						<span>{{service_detail.spType == 1 ? '企业商家' : '个人商家'}}</span>
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">联系人:</label>
+						<span class="error" ng-show="EditServiceForm.sp_contacts.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.sp_contacts.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>联系人不可以为空</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.sp_contacts.$error.pattern">
+								<label><i class="icon-exclamation-sign"></i>联系人只能使用中文、数字、字母和空格</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.sp_contacts.$error.maxlength || EditServiceForm.sp_contacts.$error.minlength">
+								<label><i class="icon-exclamation-sign"></i>联系人长度为2~15位</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						<input type="text" value="" name="sp_contacts" class="txt" ng-minlength="2" ng-maxlength="15"
+							   ng-pattern="/^[\u4e00-\u9fa5\sa-zA-Z0-9]+$/"  ng-model="service_detail.sp_contacts" required/>
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">手机号:</label>
+						<span class="error" ng-show="EditServiceForm.phone.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.phone.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>手机号不可以为空</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.phone.$error.pattern">
+								<label><i class="icon-exclamation-sign"></i>输入的手机号有误</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						<input type="text" value="" name="phone" class="txt" ng-pattern="/^1[0-9]{10}$/" ng-model="service_detail.phone" required>
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">邮箱:</label>
+						<span class="error" ng-show="EditServiceForm.email.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.email.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>邮箱不可以为空</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.email.$error.pattern">
+								<label><i class="icon-exclamation-sign"></i>输入的邮箱号有误</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						<!-- <input type="text" value="" name="email"
+							   ng-pattern="/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/" class="txt" ng-model="service_detail.email" required/> -->
+						{{service_detail.email}}
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">虚拟账户数量:</label>
+						<span class="error" ng-show="EditServiceForm.virtual_num.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.virtual_num.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>虚拟账户数量不可以为空</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.virtual_num.$error.pattern">
+								<label><i class="icon-exclamation-sign"></i>输入的虚拟账户数量有误，请输入大于0的两位整数</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						<input type="text" value="" name="virtual_num" class="txt" ng-pattern="/^[1-9]\d?$/" ng-model="service_detail.virtual_num" required/>
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+				<tr ng-if="service_detail.isCxb">
+					<td colspan="2" class="required">
+						<label class="validation">创新保虚拟账户数量(原创新保业务人员数):</label>
+						<span class="error" ng-show="EditServiceForm.serviceProviderSalesmanNum.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.serviceProviderSalesmanNum.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>创新保虚拟账户数量不可以为空</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.serviceProviderSalesmanNum.$error.pattern">
+								<label><i class="icon-exclamation-sign"></i>创新保虚拟账户数量有误，请输入0-1000整数</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr ng-if="service_detail.isCxb" class="noborder">
+					<td class="vatop rowform">
+						<input type="text" value="" name="serviceProviderSalesmanNum" class="txt" ng-pattern="/(^0$)|(^[1-9]\d{0,2}$)|(^1000$)/" ng-model="service_detail.serviceProviderSalesmanNum" required/>
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">被委托单位:</label>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						{{service_detail.entrustedUnit}}
+					</td>
+				</tr>
+				<!-- <tr>
+					<td colspan="2" class="required">
+						<label class="validation">能力值:</label>
+						<span class="error" ng-show="EditServiceForm.ability.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.ability.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>能力值不可以为空</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.ability.$error.pattern">
+								<label><i class="icon-exclamation-sign"></i>能力值只能使用数字</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.ability.$error.maxlength || EditServiceForm.ability.$error.minlength">
+								<label><i class="icon-exclamation-sign"></i>能力值长度为1~6位</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder" ng-repeat="service_detail in service_detail.subDTOs">
+					<td class="vatop rowform">
+						虚拟账号{{$index+1}}、<input style="width:170px;ime-mode:Disabled" type="number" value="" name="ability" class="txt" min="1"
+												onKeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))"
+												oninput="if(value.length > 6)value=value.slice(0,6)"
+												ng-model="service_detail.spAbility" required/>
+						<a href="" ng-if="$index+1 === 1" ng-click="addAbility()">+</a>
+						<a ng-if="$index+1 > 1" href="" ng-click="deleteAbility($index)">-</a>
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+				 -->
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">地址:</label>
+						<span class="error" ng-show="is_area_show">
+							<small class="error">
+								<label><i class="icon-exclamation-sign"></i>地址不可以为空</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td style="width: 200px;">
+						<!-- <open-mt-address province-area-id="service_detail.provinceId"
+										 city-area-id="service_detail.cityId" area-area-id="service_detail.areaId"
+										 judge="submitted"
+										 province-area-name="service_detail.provinceName"
+										 city-area-name="service_detail.cityName"
+										 area-area-name="service_detail.areaName">
+						</open-mt-address> -->
+						{{service_detail.areaInfo}}
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">详细地址:</label>
+						<span class="error" ng-show="EditServiceForm.address.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.address.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>详细地址不可以为空</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.address.$error.pattern">
+								<label><i class="icon-exclamation-sign"></i>详细地址只能使用中文、数字、字母和空格</label>
+							</small>
+							<small class="error" ng-show="EditServiceForm.address.$error.maxlength || EditServiceForm.address.$error.minlength">
+								<label><i class="icon-exclamation-sign"></i>详细地址长度为3~15位</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						<!-- <input type="text" value="" name="address" ng-minlength="3" ng-maxlength="50"
+							   ng-pattern="/^[\u4e00-\u9fa5\sa-zA-Z0-9()]+$/" class="txt" ng-model="service_detail.address" required/> -->
+						{{service_detail.address}}
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">状态:</label>
+						<span class="error" ng-show="EditServiceForm.address.$invalid && EditServiceForm.submitted">
+							<small ng-show="EditServiceForm.address.$error.required" class="error">
+								<label><i class="icon-exclamation-sign"></i>状态不可以为空</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						<label for="attr_show1"   class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-right:none;border-top-left-radius:4px;
+								border-top-right-radius:0;
+								border-bottom-right-radius:0;
+								border-bottom-left-radius:4px;">
+							<span ng-click="turnOn($event)" ng-class="{'selected':service_detail.state}">正常</span>
+						</label>
+						<label for="attr_show0"   class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-left:none;border-top-left-radius:0;
+								border-top-right-radius:4px;
+								border-bottom-right-radius:4px;
+								border-bottom-left-radius:0;">
+							<span ng-click="turnOff($event)" ng-class="{'selected':!service_detail.state}">冻结</span>
+						</label>
+						<input style="display:none;" id="attr_show1" name="attr_show" checked="checked" value="1" type="radio">
+						<input style="display:none;" id="attr_show0" name="attr_show" value="0" type="radio">
+					</td>
+				</tr>
+				</tbody>
+					<tbody class="tr-color">
+						<tr class="noborder">
+							<td colspan="2" class="required">
+								<label>结算信息</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="required">
+								<label class="validation">结算模板:</label>
+								<span class="error" ng-show="EditServiceForm.bill_tpl.$invalid && EditServiceForm.submitted">
+									<small ng-show="EditServiceForm.bill_tpl.$error.required" class="error">
+										<label><i class="icon-exclamation-sign"></i>结算模板不可以为空</label>
+									</small>
+								</span>
+							</td>
+						</tr>
+						<tr class="noborder">
+							<td class="vatop rowform">
+								<select name="bill_tpl" ng-model="service_detail.bill_template_id" ng-options="bill_tpl.bill_template_id as bill_tpl.template_name for bill_tpl in bill_template_list.elements" required>
+									<option value="">选择结算模板</option>
+								</select>
+							</td>
+							<td class="vatop tips"></td>
+						</tr>
+						<tr>
+							<td colspan="2" class="required">
+								<label class="validation">银行:</label>
+								<span class="error" ng-show="EditServiceForm.bank.$invalid && EditServiceForm.submitted">
+									<small ng-show="EditServiceForm.bank.$error.required" class="error">
+										<label><i class="icon-exclamation-sign"></i>银行不可以为空</label>
+									</small>
+								</span>
+							</td>
+						</tr>
+						<tr class="noborder">
+							<td class="vatop rowform">
+								<select name="bank" ng-model="service_detail.bank" ng-options="bank.name as bank.name for bank in bankArry" required>
+									<option value="">选择银行</option>
+								</select>
+							</td>
+							<td class="vatop tips"></td>
+						</tr>
+						<tr>
+							<td colspan="2" class="required">
+								<label class="validation">开户人:</label>
+								<span class="error" ng-show="EditServiceForm.account_holder.$invalid && EditServiceForm.submitted">
+									<small ng-show="EditServiceForm.account_holder.$error.required" class="error">
+										<label><i class="icon-exclamation-sign"></i>开户人不可以为空</label>
+									</small>
+									<small class="error" ng-show="EditServiceForm.account_holder.$error.pattern">
+										<label><i class="icon-exclamation-sign"></i>开户人只能使用中文、数字、字母和空格</label>
+									</small>
+									<small class="error" ng-show="EditServiceForm.account_holder.$error.maxlength || EditServiceForm.account_holder.$error.minlength">
+										<label><i class="icon-exclamation-sign"></i>开户人长度为2~50位</label>
+									</small>
+								</span>
+							</td>
+						</tr>
+						<tr class="noborder">
+							<td class="vatop rowform">
+								<input type="text" value="" name="account_holder" class="txt"
+									   ng-minlength="2" ng-maxlength="50" ng-model="service_detail.account_holder" required/>
+							</td>
+							<td class="vatop tips"></td>
+						</tr>
+						<tr>
+							<td colspan="2" class="required">
+								<label class="validation">银行账号:</label>
+								<span class="error" ng-show="EditServiceForm.account_number.$invalid && EditServiceForm.submitted">
+									<small ng-show="EditServiceForm.account_number.$error.required" class="error">
+										<label><i class="icon-exclamation-sign"></i>银行账号不可以为空</label>
+									</small>
+									<small class="error" ng-show="EditServiceForm.account_number.$error.pattern">
+										<label><i class="icon-exclamation-sign"></i>银行账号只能使用数字，且长度为19位</label>
+									</small>
+									<small class="error" ng-show="EditServiceForm.account_number.$error.maxlength">
+										<label><i class="icon-exclamation-sign"></i>银行账号长度为19位</label>
+									</small>
+								</span>
+							</td>
+						</tr>
+						<tr class="noborder">
+							<td class="vatop rowform">
+								<input type="text" value="" name="account_number" class="txt"
+									   ng-pattern="/^\d{19}$/" ng-model="service_detail.account_number" required/>
+							</td>
+							<td class="vatop tips"></td>
+						</tr>
+						<tr>
+							<td colspan="2" class="required">
+								<label class="validation">开户地址:</label>
+								<span class="error" ng-show="EditServiceForm.account_address.$invalid && EditServiceForm.submitted">
+									<small ng-show="EditServiceForm.account_address.$error.required" class="error">
+										<label><i class="icon-exclamation-sign"></i>开户地址不可以为空</label>
+									</small>
+									<small class="error" ng-show="EditServiceForm.account_address.$error.pattern">
+										<label><i class="icon-exclamation-sign"></i>开户地址只能使用中文、数字、字母和空格</label>
+									</small>
+									<small class="error" ng-show="EditServiceForm.account_address.$error.maxlength || EditServiceForm.account_address.$error.minlength">
+										<label><i class="icon-exclamation-sign"></i>开户地址长度为3~50位</label>
+									</small>
+								</span>
+							</td>
+						</tr>
+						<tr class="noborder">
+							<td class="vatop rowform">
+								<input type="text" value="" name="account_address" class="txt" ng-minlength="3" ng-maxlength="50"
+									   ng-pattern="/^[\u4e00-\u9fa5\sa-zA-Z0-9()]+$/" ng-model="service_detail.account_address" required/>
+							</td>
+							<td class="vatop tips"></td>
+						</tr>
+						<tr>
+							<td colspan="2" class="required">
+								<label style="font-weight: bold">商家识别码:</label>
+							</td>
+						</tr>
+						<tr class="noborder">
+							<td class="vatop rowform">
+								<span>{{service_detail.idCode}}</span>
+							</td>
+						</tr>
+				</tbody>
+				<tfoot>
+				<tr class="tfoot">
+					<td colspan="15">
+						<a href="JavaScript:void(0);" class="btn" id="submitBtn" ng-click="update_service()">
+							<span>提交</span>
+						</a>
+					</td>
+				</tr>
+		</tfoot>
+		</table>
+	</form>
+</div>

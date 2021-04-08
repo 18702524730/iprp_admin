@@ -1,0 +1,125 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>求购好标 > 查看详情</h3>
+            <ul class="tab-base">
+                <li><a href="JavaScript:void(0);" ng-class="{'current': tempTab==1}" ng-click="tempTab=1"><span>基本资料</span></a></li>
+                <li><a href="JavaScript:void(0);" ng-class="{'current': tempTab==2}" ng-click="tempTab=2"><span>备注</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 基本资料 -->
+    <div ng-show="tempTab==1">
+      <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 order order_line">
+          <tbody class="tr-color">
+              <tr class="space">
+                  <th colspan="15">求购信息</th>
+              </tr>
+              <tr>
+                  <td colspan="2">
+                      <ul>
+                          <li>
+                              <strong>商标类别:</strong>{{ tmDetail.category }}
+                          </li>
+                          <li><strong>联系号码:</strong>{{tmDetail.contact_phone}}</li>
+                          <li><strong>求购时间:</strong>{{tmDetail.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                          <li><strong>求购详情:</strong>{{tmDetail.buy_good_detail || '--'}}</li>
+                      </ul>
+                  </td>
+              </tr>
+              <tr class="space">
+                  <th colspan="2">反馈信息</th>
+              </tr>
+              <tr>
+                  <td colspan="2">
+                      <ul>
+                          <li><strong>反馈状态:</strong>{{tmDetail.feedback}}</li>
+                      </ul>
+                  </td>
+              </tr>
+
+              <tr class="space">
+                  <th colspan="2">反馈记录</th>
+              </tr>
+          </tbody>
+        </table>
+      </form>
+      <form>
+          <table class="table tb-type2">
+              <thead>
+                  <tr class="thead">
+                      <th class="align-center" style="width:100px;">操作人</th>
+                      <th class="align-center" style="width:100px;">操作时间</th>
+                      <th class="align-center">操作内容</th>
+                  </tr>
+              </thead>
+              <tbody class="tr-color">
+                  <tr class="" ng-show="tmDetail.feedbackRecord.length" class="hover" ng-repeat="list in tmDetail.feedbackRecord">
+                      <td class="align-center" >{{ list.operatorName }}</td>
+                      <td class="align-center" >{{ list.feedbackTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                      <td class="align-center" >{{ list.feedbackContent }}</td>
+                  </tr>
+                  <tr ng-show="!tmDetail.feedbackRecord.length">
+                    <td colspan="3" class="align-center"><div class="warning-option"><i class="icon-warning-sign"></i><span class="ng-binding">没有符合条件的记录</span></div></td>
+                  </tr>
+                  <tr ng-show="to_loading">
+                      <td colspan="20" class="norecord">
+                          <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </form>
+    </div>
+
+    <!-- 备注 -->
+    <div ng-show="tempTab==2">
+      <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 order order_line">
+          <tbody class="tr-color">
+              <tr class="space">
+                  <th colspan="2">备注信息</th>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <table class="table tb-type2">
+                    <thead>
+                        <tr class="thead">
+                            <th class="align-center" style="width:100px;">备注人</th>
+                            <th class="align-center" style="width:100px;">备注时间</th>
+                            <th class="align-center">备注内容</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tr-color">
+                        <tr class="" ng-show="remarkList.length" class="hover" ng-repeat="list in remarkList">
+                            <td class="align-center" ng-bind="list.operatorName"></td>
+                            <td class="align-center" >{{ list.feedbackTime | date:'yyyy-MM-dd' }}</td>
+                            <td class="align-center" ng-bind="list.feedbackContent"> </td>
+                        </tr>
+                        <td colspan="3" class="align-center" ng-show="!remarkList.length"><div class="warning-option"><i class="icon-warning-sign"></i><span class="ng-binding">没有符合条件的记录</span></div></td>
+                        <tr ng-show="to_loading">
+                            <td colspan="20" class="norecord">
+                                <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td >
+                  <a href="javascript:void(0);" class="btn-search" ng-click="addRemarkFn({})">添加备注</a>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+</div>
+
+<style>
+  .order ul li strong {
+    width: 100px; display: inline-block;
+  }
+</style>

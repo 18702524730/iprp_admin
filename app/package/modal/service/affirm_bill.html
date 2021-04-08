@@ -1,0 +1,66 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">确认结算：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form role="form" class="form-horizontal">
+        <table class="table tb-type2 nobdb" >
+            <tbody class="tr-color">
+                <tr class="noborder">
+                    <td colspan="2" >
+                        <label>结算订单数量:</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <span>{{temp_bill_order_sn}}</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label>资金账户:</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <span>{{service_account_amount.account_amount | number:2}}</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label>结算金额:</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <span>{{temp_bill_amount}}</span>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label>结算方式:</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="radio" ng-disabled ="true" value="0" ng-model="bill_type"/>线上结算
+                        <input type="radio" value="1" ng-model="bill_type"/>线下结算
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2">
+                        <a class="btn" id="submitBtn"><span ng-click="save()">提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

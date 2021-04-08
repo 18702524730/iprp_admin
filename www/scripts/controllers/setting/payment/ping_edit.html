@@ -1,0 +1,112 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>支付方式</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPPaymentListModel"><a href="#/main/setting_home/payment_list"><span>支付方式列表</span></a></li>
+                <li mt-show-model model-name="IPRPUpdatePaymentModel"><a class="current"><span>编辑支付方式</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formAliPay" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 nobdb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="required">支付方式: </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">{{payDetail.name}}</td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">编码: </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">{{payDetail.code}}</td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">应用ID（App_ID）:
+                        <span class="error" ng-show="formAliPay.app_id.$invalid && formAliPay.submitted">
+                            <small ng-show="formAliPay.app_id.$error.required" class="error">
+                                <span class="red">应用ID（App_ID）不可以为空</span>
+                            </small>
+                         </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input name="app_id" value="" class="txt" type="text" ng-model="Payment.appId" required>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">交易秘钥（Api_Key）:
+                        <span class="error" ng-show="formAliPay.api_key.$invalid && formAliPay.submitted">
+                            <small ng-show="formAliPay.api_key.$error.required" class="error">
+                                <span class="red">交易秘钥不可以为空</span>
+                            </small>
+                         </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input name="api_key"  class="txt" type="text" ng-model="Payment.apiKey" required>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">Ping++ 公钥 （Public_Key）:
+                        <span class="error" ng-show="formAliPay.public_key.$invalid && formAliPay.submitted">
+                            <small ng-show="formAliPay.public_key.$error.required" class="error">
+                                <span class="red">Ping++ 公钥不可以为空</span>
+                            </small>
+                         </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <textarea style="width:400px;height: 150px;" ng-model="Payment.publicKey" id="public_key" name="public_key" rows="6"
+                                  class="tarea ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" required>
+                          </textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">启用: </td>
+                </tr>
+                <tr>
+                    <td class="vatop rowform onoff">
+                        <label for="attr_show1"   class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-right:none;border-top-left-radius:4px;
+                            border-top-right-radius:0;
+                            border-bottom-right-radius:0;
+                            border-bottom-left-radius:4px;">
+                            <span ng-click="turnOn()" ng-class="{'selected':payDetail.state === 1}">是</span>
+                        </label>
+                        <label for="attr_show0" class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-left:none;border-top-left-radius:0;
+                            border-top-right-radius:4px;
+                            border-bottom-right-radius:4px;
+                            border-bottom-left-radius:0;">
+                            <span ng-click="turnOff()" ng-class="{'selected':payDetail.state === 0}">否</span>
+                        </label>
+                        <input style="display:none;" id="attr_show1" name="attr_show" checked="checked" value="1" type="radio">
+                        <input style="display:none;" id="attr_show0" name="attr_show" value="0" type="radio">
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2">
+                        <a class="btn" id="submitBtn"><span ng-click="edit()">提交</span></a>
+                        <!--<label class="submit-border">
+                            <input type="submit" class="submit" value="返回" ng-click="return()">
+                        </label>-->
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+
+
+

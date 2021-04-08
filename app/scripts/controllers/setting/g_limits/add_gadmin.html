@@ -1,0 +1,229 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>权限设置</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPAdminListModel"><a href="#/main/setting_home/admin_list"><span>管理员列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddAdminModel"><a href="#/main/setting_home/add_admin"><span>添加管理员</span></a></li>
+                <li mt-show-model model-name="IPRPGadminListModel"><a href="#/main/setting_home/gadmin_list"><span>功能组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddGadminModel"><a class="current"><span>添加功能组</span></a></li>
+                <li mt-show-model model-name="IPRPDataListModel"><a href="#/main/setting_home/data_group_list"><span>业务组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddDataModel"><a href="#/main/setting_home/add_data_group"><span>添加业务组</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form id="dialog_areas" name="add_power_form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 nobdb">
+            <tbody>
+                <tr class="noborder">
+                    <td colspan="2" class="required">
+                        <label class="validation">功能组:</label>
+                        <label class="error" ng-show="add_power_form.name.$invalid && add_power_form.submitted">
+                            <small ng-show="add_power_form.name.$error.required" class="error">
+                                <span class="red">功能组名不可以为空</span>
+                            </small>
+                            <small class="error" ng-show="add_power_form.name.$error.pattern">
+                                <span class="red">功能组名只能使用中文、数字、字母</span>
+                            </small>
+                            <small class="error" ng-show="add_power_form.name.$error.maxlength">
+                                <span class="red">功能组名最大长度为10位</span>
+                            </small>
+                        </label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" maxlength="40" name="name" class="txt" ng-model="add_power.name" required>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <table class="table tb-type2 nomargin">
+                            <thead>
+                            <tr class="space">
+                                <th>
+                                    <input id="limitAll" type="checkbox" ng-checked="is_checked_All" ng-model="checkall" ng-click="sChoose_all()" required>&nbsp;&nbsp;设置权限
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="get_purview_list.elements.length>0">
+                                    <td>
+                                        <div ui-tree>
+                                            <ol ui-tree-nodes="">
+                                                <li ng-repeat="item in get_purview_list.elements" ui-tree-node>
+                                                    <div ui-tree-handle="">
+                                                        <table class="table tb-type2" style="margin-top: 0">
+                                                            <tbody class="tr-color">
+                                                                <tr class="hover edit">
+                                                                    <td class="w12">
+                                                                        <input type="checkbox" class="checkitem" ng-click="sChoose_1(item,get_purview_list.elements)" ng-checked="!!item.checked">
+                                                                    </td>
+                                                                    <td class="w12">
+                                                                        <a ng-click="Unfold_1(get_purview_list.elements,$index,$event,item.isOpenFirst,item.isOpenSecond)" ng-show="item.have_child">
+                                                                            <img  src="images/tv-expandable.gif" style="display:block;">
+                                                                        </a>
+                                                                        <a ng-click="Unfold_1(get_purview_list.elements,$index,$event,item.isOpenFirst,item.isOpenSecond)" ng-show="item.have_child">
+                                                                            <img  src="images/tv-collapsable.gif" style="display:none;">
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="w50pre name">
+                                                                        {{item.name}}
+                                                                    </td>
+                                                                    <td></td>
+                                                                    <td style="text-align: center;width: 120px"></td>
+                                                                    <td class="w84" style="text-align: center"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <ol ui-tree-nodes="">
+                                                        <li ng-show="subItem.isOpenFirst" ng-repeat="subItem in item.childs" ui-tree-node>
+                                                            <div ui-tree-handle>
+                                                                <table class="table tb-type2" style="margin-top: 0">
+                                                                    <tbody class="tr-color">
+                                                                        <tr class="hover edit">
+                                                                            <td class="w12">
+                                                                                <input type="checkbox" class="checkitem" ng-click="sChoose_2(subItem,item,item.childs)" ng-checked="!!subItem.checked">
+                                                                            </td>
+                                                                            <td class="w12">
+                                                                                <a ng-click="Unfold_2(item.childs,$index,$event,subItem.isOpenFirst_1,subItem.isOpenSecond_1)" ng-show="subItem.have_child">
+                                                                                    <img  src="images/tv-expandable.gif" style="display:block;">
+                                                                                </a>
+                                                                                <a ng-click="Unfold_2(item.childs,$index,$event,subItem.isOpenFirst_1,subItem.isOpenSecond_1)" ng-show="subItem.have_child">
+                                                                                    <img  src="images/tv-collapsable.gif" style="display:none;">
+                                                                                </a>
+                                                                            </td>
+                                                                            <td class="w50pre name">
+                                                                                <img  nc_type="flex" src="images/tv-expandable1.gif">
+                                                                                {{subItem.name}}
+                                                                            </td>
+                                                                            <td></td>
+                                                                            <td style="text-align: center;width: 120px"></td>
+                                                                            <td class="w84" style="text-align: center"></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <ol ui-tree-node="">
+                                                                <li ng-show="list.isOpenFirst_1" ng-repeat="list in subItem.childs">
+                                                                    <div ui-tree-handle>
+                                                                        <table class="table tb-type2" style="margin-top: 0">
+                                                                            <tbody class="tr-color">
+                                                                                <tr class="hover edit">
+                                                                                    <td class="w12">
+                                                                                        <input type="checkbox" name="" value="" class="checkitem" ng-click="sChoose_3(list,subItem,subItem.childs,item)" ng-checked="!!list.checked">
+                                                                                    </td>
+                                                                                    <td class="w12">
+                                                                                        <a ng-click="Unfold_3(subItem.childs,$index,$event,list.isOpenFirst_2,list.isOpenSecond_2)" ng-show="list.have_child">
+                                                                                            <img  src="images/tv-expandable.gif" style="display:block;">
+                                                                                        </a>
+                                                                                        <a ng-click="Unfold_3(subItem.childs,$index,$event,list.isOpenFirst_2,list.isOpenSecond_2)" ng-show="list.have_child">
+                                                                                            <img  src="images/tv-collapsable.gif" style="display:none;">
+                                                                                        </a>
+                                                                                    </td>
+                                                                                    <td class="w50pre name">
+                                                                                        <span style="margin: 40px;">
+                                                                                        <img  nc_type="flex" src="images/tv-item1.gif">
+                                                                                        {{list.name}}
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                    <td style="text-align: center;width: 120px"></td>
+                                                                                    <td class="w84" style="text-align: center"></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <ol ui-tree-node="">
+                                                                        <li ng-show="four_list.isOpenFirst_2" ng-repeat="four_list in list.childs">
+                                                                            <div ui-tree-handle>
+                                                                                <table class="table tb-type2" style="margin-top: 0">
+                                                                                    <tbody class="tr-color">
+                                                                                        <tr class="hover edit">
+                                                                                            <td class="w12">
+                                                                                                <input type="checkbox" name="" value="" class="checkitem" ng-click="sChoose_4(four_list,list,subItem,subItem.childs,item)" ng-checked="!!four_list.checked">
+                                                                                            </td>
+                                                                                            <td class="w12">
+                                                                                                <a ng-click="Unfold_4(list.childs,$index,$event,four_list.isOpenFirst_3,four_list.isOpenSecond_3)" ng-show="four_list.have_child">
+                                                                                                    <img  src="images/tv-expandable.gif" style="display:block;">
+                                                                                                </a>
+                                                                                                <a ng-click="Unfold_4(list.childs,$index,$event,four_list.isOpenFirst_3,four_list.isOpenSecond_3)" ng-show="four_list.have_child">
+                                                                                                    <img  src="images/tv-collapsable.gif" style="display:none;">
+                                                                                                </a>
+                                                                                            </td>
+                                                                                            <td class="w50pre name">
+                                                                                                <span style="margin: 70px;">
+                                                                                                <img  nc_type="flex" src="images/tv-item1.gif">
+                                                                                                {{four_list.name}}
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td></td>
+                                                                                            <td style="text-align: center;width: 120px"></td>
+                                                                                            <td class="w84" style="text-align: center"></td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            <ol ui-tree-node="">
+                                                                                <li ng-show="six_list.isOpenFirst_3" ng-repeat="six_list in four_list.childs">
+                                                                                    <div ui-tree-handle>
+                                                                                        <table class="table tb-type2" style="margin-top: 0">
+                                                                                            <tbody class="tr-color">
+                                                                                                <tr class="hover edit">
+                                                                                                    <td class="w12">
+                                                                                                        <input type="checkbox" name="" value="" class="checkitem" ng-click="sChoose_5(six_list,four_list,list,subItem,item,get_purview_list.elements)" ng-checked="!!six_list.checked">
+                                                                                                    </td>
+                                                                                                    <td class="w12">
+                                                                                                        <a ng-click="Unfold_5(four_list.childs,$index,$event,six_list.isOpenFirst_4,six_list.isOpenSecond_4)" ng-show="six_list.have_child">
+                                                                                                            <img  src="images/tv-expandable.gif" style="display:block;">
+                                                                                                        </a>
+                                                                                                        <a ng-click="Unfold_5(four_list.childs,$index,$event,six_list.isOpenFirst_4,six_list.isOpenSecond_4)" ng-show="six_list.have_child">
+                                                                                                            <img  src="images/tv-collapsable.gif" style="display:none;">
+                                                                                                        </a>
+                                                                                                    </td>
+                                                                                                    <td class="w50pre name">
+                                                                                                        <span style="margin: 100px;">
+                                                                                                        <img  nc_type="flex" src="images/tv-item1.gif">
+                                                                                                        {{six_list.name}}
+                                                                                                        </span>
+                                                                                                    </td>
+                                                                                                    <td></td>
+                                                                                                    <td style="text-align: center;width: 120px"></td>
+                                                                                                    <td class="w84" style="text-align: center"></td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ol>
+                                                                        </li>
+                                                                    </ol>
+                                                                </li>
+                                                            </ol>
+                                                        </li>
+                                                    </ol>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover" ng-show="to_loading">
+                                    <td colspan="20" class="norecord">
+                                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2"><a href="JavaScript:void(0);" class="btn" id="submitBtn" ng-click="addGAdmin()"><span>提交</span></a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

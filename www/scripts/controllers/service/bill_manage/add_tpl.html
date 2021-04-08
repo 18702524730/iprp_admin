@@ -1,0 +1,69 @@
+<div class="page" ng-hide="next_open_service">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>添加结算模板</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/merchant_home/bill_tpl_list"><span>结算模板列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddBillTplModel"><a class="current"><span>添加结算模板</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="add_bill_template_tpl_Form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 nobdb" >
+            <tbody class="tr-color">
+                <tr>
+                    <td colspan="2">
+                        <label class="validation">模板名称:</label>
+                        <span class="error" ng-show="add_bill_template_tpl_Form.template_name.$invalid && add_bill_template_tpl_Form.submitted">
+                            <small ng-show="add_bill_template_tpl_Form.template_name.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>模板名称不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="add_bill_template_tpl_Form.template_name.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>模板名称只能中文,数字,字母</label>
+                            </small>
+                            <small class="error" ng-show="add_bill_template_tpl_Form.template_name.$error.maxlength">
+                                <label><i class="icon-exclamation-sign"></i>模板名称长度为30位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" name="template_name" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9]+$/"
+                               class="txt" ng-maxlength="30" ng-model="add_bill_template_obj.template_name" required />
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        <label class="validation">描述:</label>
+                        <span class="error" ng-show="add_bill_template_tpl_Form.desc.$invalid && add_bill_template_tpl_Form.submitted">
+                            <small ng-show="add_bill_template_tpl_Form.desc.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>描述不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="add_bill_template_tpl_Form.desc.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>描述只能中文,数字,字母,特殊符号(._()#@$%&*!)</label>
+                            </small>
+                            <small class="error" ng-show="add_bill_template_tpl_Form.desc.$error.maxlength">
+                                <label><i class="icon-exclamation-sign"></i>描述长度为50位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <textarea name="desc" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9._()#@$%&*!]+$/" style="width: 250px;height: 110px"
+                                  ng-model="add_bill_template_obj.template_description" ng-maxlength="50" required></textarea>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2">
+                        <a class="btn" id="submitBtn"><span ng-click="addBillTpl()">点击下一步，模板配置</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

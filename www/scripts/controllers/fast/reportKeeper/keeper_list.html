@@ -1,0 +1,164 @@
+<div class="page">
+   <div class="fixed-bar">
+        <div class="item-title">
+            <h3>管家报告</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPNtOrderListModel"><a href="JavaScript:void(0);" class="current"><span>订单列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+     <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>服务单号：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.orderSn"></td>
+                    <th><label>报告类型：</label></th>
+                    <td>
+                        <select ng-model="obj.type" style="width: 120px;">
+                            <option value="">全部</option>
+                            <option value="1">企业知识产权分析报告</option>
+                            <option value="2">近似商标监测报告</option>
+                            <option value="3">电商监测及销售报告</option>
+                        </select>
+                    </td>
+                    <th><label>用户姓名：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.memberName"></td>
+                    <th><label>注册手机号：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.memberPhone"></td>
+                    <th><label>申请人姓名：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.contactName"></td>
+                </tr>    
+                <tr>
+                    
+                    <th><label>申请人手机号：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.contactPhone"></td>
+                    <th><label>联系状态：</label></th>
+                    <td>
+                        <select ng-model="obj.contactState" style="width: 120px;">
+                            <option value="">请选择</option>
+                            <option value="1">未联系</option>
+                            <option value="2">已联系</option>
+                        </select>
+                    </td>
+                    
+                    <th><label>报告状态：</label></th>
+                    <td>
+                        <select ng-model="obj.state" style="width: 120px;">
+                            <option value="">请选择</option>
+                            <option value="1">未报告</option>
+                            <option value="2">待报告</option>
+                            <option value="3">报告中</option>
+                            <option value="4">已报告</option>
+                        </select>
+                    </td>
+                    <th><label>购买时间：</label></th>
+                    <td colspan="3">
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="请填写开始时间" name="finished_start_time" id="finished_start_time" ng-model="finished_start_time"
+                                max-date="finished_end_time" style="cursor:pointer" readonly/>
+                        <label for="finished_end_time">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="请填写结束时间" name="finished_end_time" id="finished_end_time"  ng-model="finished_end_time" min-date="finished_start_time" style="cursor:pointer" readonly/>
+                    </td>
+                </tr>
+                <tr>
+                    
+                    <th><label>申请时间：</label></th>
+                    <td colspan="2">
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="请填写开始时间" name="payment_start_time" id="payment_start_time" ng-model="payment_start_time"
+                                max-date="payment_end_time" style="cursor:pointer" readonly/>
+                        <label for="payment_end_time">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="请填写结束时间" name="payment_end_time" id="payment_end_time"  ng-model="payment_end_time"
+                                min-date="payment_start_time" style="cursor:pointer" readonly/>
+                    </td>
+                    <td style="text-align:right;" colspan="7">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    </td>
+                </tr>
+                <tr>
+					 <th><label>排序：</label></th>
+					 <td style="color: #3db1fa;font-size: 12px;padding-bottom: 7px" colspan="3">
+					 	<label>申请时间</label>
+					 	<a href="javascript:void(0);" ng-class="{true: 'active', false: 'inactive'}[isActive]" ng-click="onClick()">▲</a>
+					 	<a href="javascript:void(0);" ng-class="{false: 'active', true: 'inactive'}[isActive]" ng-click="downClick()">▼</a>
+					 </td>
+                </tr>
+            </tbody>
+        </table>
+    </form> 
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="12">
+                    <div class="title">
+                        <h5>操作提示</h5>
+                        <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                        <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                    </div>
+                </th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li>客户提交申请后，30分钟内需响应</li>
+                        <li>1个工作日内需完成出证</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" width="110">服务单号</th>
+                    <th class="align-center" width="130">报告类型</th>
+                    <th class="align-center" width="60">用户姓名</th>
+                    <th class="align-center" width="80">注册手机号</th>
+                    <th class="align-center" width="80">申请人姓名</th>
+                    <th class="align-center" width="80">申请人手机号</th>
+                    <th class="align-center" width="140">购买时间</th>
+                    <th class="align-center" width="140">申请时间</th>
+                    <th class="align-center" width="60">联系状态</th>
+                    <th class="align-center" width="60">报告状态</th>
+                    <th class="align-center" class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+                    <td class="align-center">
+                        <span>{{list.memberReportDTO.orderSn}}</span>
+                    </td>
+                    <td class="align-center">{{list.memberReportDTO.type|keerperType}}</td>
+                    <td class="align-center">{{list.memberDTO.truename}}</td>
+                    <td class="align-center" style="word-break:break-all;">{{list.memberDTO.phone}}</td>
+                    <td class="align-center">{{list.memberReportDTO.contactName}}</td>
+                    <td class="align-center">{{list.memberReportDTO.contactPhone}}</td>
+                    <td class="align-center">{{list.memberReportDTO.buyTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="align-center">{{list.memberReportDTO.applyTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="align-center">{{list.memberReportDTO.contactState|contactState}}</td>
+                    <td class="align-center">{{list.memberReportDTO.state|keerperState}}</td>
+                    <td class="align-center w120">
+                        <a ng-if="list.memberReportDTO.state!=4" href="JavaScript:void(0);" style="cursor: pointer" ng-click="keerperManager(list.memberReportDTO)">报告管理</a>
+                        <a ng-if="list.memberReportDTO.state==4" href="JavaScript:void(0);" style="color: #999;cursor: not-allowed">报告管理</a>
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="keerperDetail(list.memberReportDTO.id)">查看详情</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr> 
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+.tb-type1 .hasDatepicker{width: 88px}
+.tb-type1 .hasDatepicker:hover{width: 88px}
+</style>

@@ -1,0 +1,147 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>服务商</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPServicerListModel"><a href="#/main/merchant_home/servicer_list"><span>服务商列表</span></a></li>
+                <li mt-show-model model-name="IPRPServicerDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+                <li><a href="JavaScript:void(0);" ng-click="resetPwd()"><span>密码重置</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="15">基本信息</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>账号:</strong>{{service_detail.account}}
+                        </li>
+                        <li><strong>服务商名称:</strong>{{service_detail.name}}</li>
+                        <li><strong>负责人:</strong>{{service_detail.sp_contacts}}</li>
+                        <li><strong>手机号:</strong>{{service_detail.phone}}</li>
+                        <li><strong>邮箱:</strong>{{service_detail.email}}</li>
+                        <!-- <li><strong>能力值:</strong>{{service_detail.ability}}</li> -->
+                        <li><strong>状态:</strong>{{service_detail.state | servicerStatusFilter}}</li>
+                        <li><strong>服务商地址:</strong>{{service_detail.areaInfo}}&nbsp;{{service_detail.address}}</li>
+                        <li><strong>服务商类型:</strong>{{service_detail.spType==1 ? '企业服务商': '个人服务商'}}</li>
+                        <li><strong>识别码：</strong>{{service_detail.idCode}}</li>
+                        <li><strong>是否已绑定：</strong>{{service_detail.isBindWxSpAccount==1 ? '是': '否'}}</li>
+                        <li><strong>被委托单位：</strong>{{service_detail.entrustedUnit || '--'}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">结算信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>银行：</strong>{{service_detail.bank}}</li>
+                        <li><strong>开户人：</strong>{{service_detail.account_holder}}</li>
+                        <li><strong>银行账号：</strong>{{service_detail.account_number}}</li>
+                        <li><strong>开户地址：</strong>{{service_detail.account_address}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">创新保账号信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>绑定状态：</strong>{{service_detail.channelAccountBindDTO && service_detail.channelAccountBindDTO.isBindCxb==1 ? '已绑定': '未绑定'}}</li>
+                        <li ng-if="service_detail.channelAccountBindDTO && service_detail.channelAccountBindDTO.isBindCxb==1"><strong>创新保账号：</strong>{{service_detail.channelAccountBindDTO.thirdRelateAccount}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <!--<tr class="space">-->
+                <!--<th>渠道信息</th>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>-->
+                    <!--<table border="0" cellpadding="0" cellspacing="0" class="store-joinin">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<th colspan="20">渠道信息</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                            <!--<tr>-->
+                                <!--<td colspan="2">-->
+                                    <!--<table class="type" style="width:860px">-->
+                                        <!--<thead>-->
+                                            <!--<tr>-->
+                                                <!--<th>渠道</th>-->
+                                                <!--<th>渠道code</th>-->
+                                            <!--</tr>-->
+                                        <!--</thead>-->
+                                        <!--<tbody>-->
+                                            <!--<tr ng-show="service_detail.channelDTO.length > 0" ng-repeat="detail in service_detail.channelDTO">-->
+                                                <!--<td ng-bind="detail.name"></td>-->
+                                                <!--<td ng-bind="detail.code"></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr ng-show="service_detail.channelDTO.length === 0">-->
+                                                <!--<td colspan="2">-->
+                                                    <!--<span style="text-align: center">-->
+                                                        <!--没有渠道信息-->
+                                                    <!--</span>-->
+                                                <!--</td>-->
+                                            <!--</tr>-->
+                                        <!--</tbody>-->
+                                    <!--</table>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <tr class="space">
+                <th>服务信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+                        <thead>
+                            <tr>
+                                <th colspan="20">服务信息</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <table id="table_category" class="type" style="width:860px">
+                                        <thead>
+                                            <tr>
+                                                <th>渠道</th>
+                                                <th>服务分类</th>
+                                                <th>服务</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-show="business.elements.length > 0" ng-repeat="detail in business.elements">
+                                                <td ng-bind="detail.channel_name"></td>
+                                                <td ng-bind="detail.bs_class_name"></td>
+                                                <td ng-bind="detail.name"></td>
+                                            </tr>
+                                            <tr ng-hide="business.elements.length > 0">
+                                                <td colspan="2">
+                                            <span style="text-align: center">
+                                                没有服务信息
+                                            </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

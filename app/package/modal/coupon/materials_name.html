@@ -1,0 +1,22 @@
+<div>
+  <h3 class="dialog_head" style="cursor: move;">
+    <span class="dialog_title">
+      <span class="dialog_title_icon">添加材料类目</span>
+    </span>
+    <span class="dialog_close_button" ng-click="cancel()">X</span>
+  </h3>
+  <form class="lists mt20" style="padding:5px 15px 20px;">
+    <ul>
+      <li><label>类目名称：</label><input type="text" maxlength="20" ng-model="obj.materialsType"></li>
+    </ul>
+    <div class="mt20">
+      <a class="btn" id="submitBtn"><span ng-click="approve()">确认</span></a>
+      <a class="btn btn-gray" ><span ng-click="cancel()">取消</span></a>
+    </div>
+  </form>
+</div>
+<style>
+.modal-dialog{width: 400px;}
+.modal-dialog .modal-content{width: 400px;}
+ul li input{width: 250px;}
+</style>

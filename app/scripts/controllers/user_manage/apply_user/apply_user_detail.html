@@ -1,0 +1,131 @@
+    <div class="page">
+        <div class="fixed-bar">
+            <div class="item-title">
+                <h3>集团申请管理</h3>
+                <ul class="tab-base">
+                    <li mt-show-model model-name="IPRPBlocMemberListModel"><a href="#/main/user_home/apply_user_list"><span>集团申请列表</span></a></li>
+                    <li mt-show-model model-name="IPRPBlocMemberDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+            <thead>
+                <tr>
+                    <th colspan="20">基本信息</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr>
+                    <th>姓名：</th>
+                    <td>
+                        <span ng-bind="member_detail.memberDTO.truename"></span>
+                    </td>
+                    <th>手机号：</th>
+                    <td>
+                        <span ng-bind="member_detail.memberDTO.phone"></span></td>
+                    <th>邮箱：</th>
+                    <td>
+                        <span ng-bind="member_detail.memberDTO.email"></span></td>
+                </tr>
+                <tr>
+                    <th>性别：</th>
+                    <td><span ng-bind="member_detail.memberDTO.sex | memberSexFilter"></span></td>
+                    <th>用户类型：</th>
+                    <td><span ng-bind="member_detail.memberDTO.type | memberTypeFilter"></span></td>
+                    <th>出生年月：</th>
+                    <td><span ng-bind="member_detail.memberDTO.birthday | date:'yyyy-MM-dd'"></span></td>
+                </tr>
+                <tr>
+                    <th>头像：</th>
+                    <td colspan="20">
+                        <img ng-src="{{member_detail.memberDTO.avatar}}" style="width: 100px;height: 80px">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w150">联系地址：</th>
+                    <td colspan="20">{{member_detail.memberDTO.area_info}}&nbsp;{{member_detail.memberDTO.member_address}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <form id="form_store_verify" name="check_member_form" role="form" class="form-horizontal" novalidate>
+            <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+                <thead>
+                <tr>
+                    <th colspan="20">企业信息：</th>
+                </tr>
+                </thead>
+                <tbody class="tr-color">
+                <tr>
+                    <th>企业名称：</th>
+                    <td colspan="20">
+                        <span ng-bind="member_detail.company_name"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>法人姓名：</th>
+                    <td>
+                        <span ng-bind="member_detail.owner_name"></span>
+                    </td>
+                    <th>营业执照注册号：</th>
+                    <td>
+                        <span ng-bind="member_detail.business_licence_number"></span>
+                    </td>
+                    <th>所属行业：</th>
+                    <td>
+                        <span>{{member_detail.company_industry}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>联系人地址：</th>
+                    <td colspan="20">
+                        <span>{{member_detail.area_info}}&nbsp;{{member_detail.company_address}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>营业执照副本：</th>
+                    <td colspan="20">
+                        <a nctype="nyroModal"><img ng-src="{{member_detail.business_licence_number_electronic}}" style="width: 100px;height: 80px"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>法人身份证：</th>
+                    <td colspan="20">
+                        <a nctype="nyroModal"><img ng-src="{{member_detail.owner_identification_card_electronic}}" style="width: 100px;height: 80px"></a>
+                    </td>
+                </tr>
+                <tr ng-show="member_detail.status != -1">
+                    <th>审核状态：</th>
+                    <td><span ng-bind="member_detail.status | memberStatusFilter "></span></td>
+                    <th>审核原因：</th>
+                    <td colspan="20"><span ng-bind="member_detail.state_remark"></span></td>
+                </tr>
+                <tr style="width: 100px;" ng-show="member_detail.status === -1">
+                    <th>审核意见：</th>
+                    <td colspan="5">
+                        <textarea id="message" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9._()#@$%&*!]+$/"
+                                  name="message" maxlength="150"  ng-model="member_detail.message" required></textarea>
+                        <span class="error" ng-show="check_member_form.message.$invalid && check_member_form.submitted">
+                            <small class="error" ng-show="check_member_form.message.$error.required">
+                                <label><i class="icon-exclamation-sign"></i>审核意见不能为空</label>
+                            </small>
+                            <small class="error" ng-show="check_member_form.message.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>请使用中文,数字,字母,特殊符号(._()#@$%&*!)</label>
+                            </small>
+                            <small class="error" ng-show="check_member_form.message.$error.maxlength">
+                                <label><i class="icon-exclamation-sign"></i>字符长度为150位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div ng-show="member_detail.status === -1">
+                <a id="btn_fail" class="btn" href="JavaScript:void(0);" ng-click = "turn_down(member_detail.member_id)">
+                    <span>拒绝</span>
+                </a>
+                <a id="btn_pass" class="btn" href="JavaScript:void(0);" ng-click = "pass(member_detail.member_id)">
+                    <span>通过</span>
+                </a>
+            </div>
+        </form>
+</div>

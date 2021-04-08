@@ -1,0 +1,125 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>企业/个人网银支付</h3>
+            <ul class="tab-base">
+                <li><a class="current" href="JavaScript:void(0);"><span>财务对账</span></a></li>
+                <li><a href="#/main/finance_home/zs_single"><span>单笔订单查询</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>付款时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="payTimeBegin" id="payTimeBegin" ng-model="payTimeBegin"
+                                max-date="payTimeEnd" style="cursor:pointer" readonly/>
+                        <label for="payTimeEnd">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="payTimeEnd" id="payTimeEnd"  ng-model="payTimeEnd"
+                                data-start-date="payTimeBegin" style="cursor:pointer" readonly/>
+                    </td>
+                    <th><label>订单号：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.order_sn"></td>
+                	<th><label>商户订单号：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.trade_no"></td>
+                    <td style="text-align:left;">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="download()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="reset()">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="12">
+                    <h5>数据统计</h5>
+                </th>
+                <th style="text-align: right">
+                    <button  ng-if="!InfoList.length" class="nullInfo">导出数据</button>
+                    <button  ng-if="InfoList&&InfoList.length" class="dataInfo" ng-click="downloadExcle()">导出数据</button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+    <div class="table_header">
+        <div class="data_img01 fl">
+            <p>支付笔数</p>
+            <span>{{moneyNumber.payNumber || 0}}</span>
+        </div>
+        <div class="data_img02 fl">
+            <p>支付成功金额</p>
+            <span>{{moneyNumber.payMoney || '0.00'}}</span>
+        </div>
+        <div class="data_img03 fl">
+            <p>退款笔数</p>
+            <span>{{moneyNumber.refundNumber || 0}}</span>
+        </div>
+        <div class="data_img04 fl">
+            <p>退款金额</p>
+            <span>{{moneyNumber.refundMoney || '0.00'}}</span>
+        </div>
+    </div>
+    <!-- 默认数据全部为空，查询后显示对应数据 -->
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">序号</th>
+                    <th class="align-center">支付时间</th>
+                    <th class="align-center">商户订单号</th>
+                    <th class="align-center">订单号</th>
+                    <th class="align-center">支付方式</th>
+                    <th class="align-center">支付状态</th>
+                    <th class="align-center">支付金额</th>
+                    <th class="align-center">退款金额</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="hover" ng-repeat="item in InfoList" ng-if="InfoList&&InfoList.length">
+                	<td class="align-center">{{item.number}}</td> 
+                    <td class="align-center">{{item.payTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="align-center">{{item.tradeNo}}</td>
+                    <td class="align-center">{{item.orderSn}}</td>
+                    <td class="align-center">{{item.paymentName}}</td>
+                    <td class="align-center">{{item.payStt | InvoicePaySttFilter}}</td>
+                    <td class="align-center">{{item.orderAmt | number:2}}</td>
+                    <td class="align-center">{{item.refundment | number:2}}</td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="detail_orders(item.orderId)">查看详情</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-if="InfoList&&InfoList.length&&!to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+.table_header{padding-top: 8px;}
+.table_header,.table_header div{overflow: hidden;}
+.table_header div span{font-size: 14px;margin-left: 15px;}
+.current{cursor: pointer;}
+.data_img01{background:url(../images/sprite.png) 0 1px no-repeat;height: 38px;width: 25%;}
+.data_img02{background:url(../images/sprite.png) 0 -37px no-repeat;height: 38px;width: 25%;}
+.data_img03{background:url(../images/sprite.png) 0 -75px no-repeat;height: 38px;width: 25%;}
+.data_img04{background:url(../images/sprite.png) 0 -113px no-repeat;height: 38px;width: 25%;}
+
+.table_header div p{color:#999;font-weight: 600;padding-left: 40px;}
+.table_header div span{color:#444;display: block;padding-left: 40px;text-align: left;margin: 0;font-weight: 600;}
+.nullInfo{border:1px solid #999;border-radius: 3px;}
+.dataInfo{border:1px solid #68a4fe;background-color:#68a4fe;color:#fff;border-radius: 3px;cursor: pointer;}
+#prompt tr th{cursor:default;}
+</style>

@@ -1,0 +1,66 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>问题详情</h3>
+        </div>
+    </div>
+    <!-- 基本资料 -->
+    <div >
+      <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 order order_line">
+          <tbody class="tr-color">
+              <tr class="space">
+                  <th colspan="15">用户提交内容</th>
+              </tr>
+              <tr>
+                  <td colspan="2">
+                      <ul>
+                          <li>
+                              <strong>昵称:</strong>{{ tmDetail.nickname }}
+                          </li>
+                          <li><strong>手机号:</strong>{{tmDetail.phone}}</li>
+                          <li><strong>提交时间:</strong>{{tmDetail.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                          <li><strong>问题:</strong>{{tmDetail.title}}</li>
+                          <li><strong>问题补充:</strong>{{tmDetail.problemSupplement}}</li>
+                      </ul>
+                  </td>
+              </tr>
+              <tr class="space">
+                  <th colspan="2">处理</th>
+              </tr>
+              <tr>
+                  <td colspan="2">
+                      <ul>
+                          <li><strong>当前状态:</strong>{{tmDetail.state|dealStateFormat}} <span class="chulibtn" ng-if='tmDetail.state==1' ng-click="showaudit()">提交结果</span><span class="chulibtn" ng-if='tmDetail.state==0' ng-click="showaudits()">立即受理</span></li>
+                          <li><strong>业务转化结果:</strong>{{tmDetail.busiChange|busiChangeFormat}}</li>
+                          <li><strong>处理结果说明:</strong>{{tmDetail.remark}}</li>
+                      </ul>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </form>
+      
+    </div>
+
+</div>
+
+<style>
+  .order ul li strong {
+    width: 100px; display: inline-block;
+    
+  }
+  .order .chulibtn {
+      display: inline-block;
+      width: 80px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      font-size: 14px;
+      color: #fff;
+      background: #379dea;
+      border-radius: 4px;
+      margin-left: 10px;
+      cursor: pointer;
+  }
+</style>

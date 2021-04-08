@@ -1,0 +1,82 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">编辑服务：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form name="EditBusinessForm" role="form" class="form-horizontal" novalidate ng-controller="BusinessEditCtrl">
+        <table class="table tb-type2">
+            <tbody class="tr-color">
+                <tr>
+                    <td colspan="2" class="required">
+                        服务:
+                        <span class="error" ng-show="EditBusinessForm.submitted">
+                            <small ng-show="EditBusinessForm.name.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>服务不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="EditBusinessForm.name.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>服务只能中文,数字,字母</label>
+                            </small>
+                            <small class="error" ng-show="EditBusinessForm.name.$error.maxlength || EditBusinessForm.name.$error.minlength">
+                                <label><i class="icon-exclamation-sign"></i>服务长度为3~20位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform" >
+                        <input type="text"  name="name"
+                               ng-minlength="3" ng-maxlength="20" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9]+$/" class="txt" ng-model="businessService_detail.name" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        服务分类:
+                        <span class="error" ng-show="EditBusinessForm.bs_class_name.$invalid && EditBusinessForm.submitted">
+                            <small ng-show="EditBusinessForm.bs_class_name.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>请选择服务分类</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <select name="bs_class_name" ng-model="businessService_detail.service_class.bs_class_id"
+                                ng-options="a.bs_class_id as (a.deep === 1 ? '&nbsp;&nbsp;'+ a.name : a.deep > 1 ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ a.name : a.name) for a in business_class_tree_list" required>
+                            <option value="">请选择...</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        编码:
+                        <span class="error" ng-show="EditBusinessForm.code.$invalid && EditBusinessForm.submitted">
+                            <small ng-show="EditBusinessForm.code.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>编码不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="EditBusinessForm.code.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>编码只能字母和下划线</label>
+                            </small>
+                            <small class="error" ng-show="EditBusinessForm.code.$error.maxlength">
+                                <label><i class="icon-exclamation-sign"></i>编码长度为20位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform" >
+                        {{businessService_detail.code}}
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2">
+                        <a href="JavaScript:void(0);" class="btn" ng-click="edit_BusinessService()"><span>提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,193 @@
+<style>
+	.imgContainer {
+		display: block;
+		position: relative;
+		width: 100px;
+		height: 120px;
+		border: 1px solid #def2e5;
+		margin-left: 30px;
+	}
+
+	.imgContainer img {
+		width: 100px;
+		height: 118px;
+	}
+
+	.imgContainer p {
+		width: 100px;
+		text-align: center;
+		background: rgba(0, 0, 0, 0.6);
+		color: #fff;
+		line-height: 26px;
+		font-size: 13px;
+		position: absolute;
+		bottom: 0;
+		cursor: pointer;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		left: -1px;
+	}
+
+	.imgContainer:hover::after {
+		content: '';
+		position: absolute;
+		width: 100px;
+		height: 120px;
+		top: 0px;
+		left: 0px;
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+	.layui-layer-page .layui-layer-content {
+		overflow: hidden;
+	}
+</style>
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>实名认证</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPServicerListModel">
+					<a href="#/main/merchant_home/seller_application">
+						<span>商家入驻申请</span>
+					</a>
+				</li>
+				<li mt-show-model model-name="IPRPServicerListModel">
+					<a ng-href="{{'#/main/merchant_home/seller_audit/' + id + '/det'}}">
+						<span>详情</span>
+					</a>
+				</li>
+				<li mt-show-model model-name="IPRPServicerDetailModel">
+					<a href="JavaScript:void(0);" class="current">
+						<span>实名认证</span>
+					</a>
+				</li>
+				<!-- <li mt-show-model model-name="IPRPServicerDetailModel"><a href="JavaScript:void(0);" ><span>添加备注</span></a></li> -->
+			</ul>
+		</div>
+	</div>
+	<table class="table tb-type2 order">
+		<tbody class="tr-color">
+			<tr class="space">
+				<th colspan="15">实名认证</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<ul>
+						<li>
+							<strong>认证类型:</strong>{{serviceData.spTypeText}}
+						</li>
+						<li>
+							<strong>实名状态:</strong>{{serviceData.nameStatusText}}</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">实名信息</th>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<ul>
+						<li>
+							<strong>机构名称:</strong>{{serviceData.name}}
+						</li>
+						<li>
+							<strong>营业执照号码:</strong>{{serviceData.businessLicenseNo}}</li>
+						<li>
+							<strong>注册地址:</strong>{{serviceData.regAreaInfo  + ' ' + serviceData.regAddress}}</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="noborder">
+				<td colspan="3">
+					<ul>
+						<li>
+							<strong style="display: block;float: left;width: 93px;">营业执照:</strong>
+							<a href="{{serviceData.businessLicenseUrl}}" class="imgContainer fl" target="_blank">
+								<img src="{{serviceData.businessLicenseUrl}}" alt="">
+								<p style="margin: 0">查看</p>
+							</a>
+						</li>
+
+					</ul>
+				</td>
+			</tr>
+			<tr class="noborder" ng-if="serviceData.orgCodeCert">
+				<td colspan="3">
+					<ul>
+						<li>
+							<strong style="display: block;float: left;width: 93px;">组织机构代码证:</strong>
+							<a href="{{serviceData.orgCodeCert}}" class="imgContainer fl" target="_blank">
+								<img src="{{serviceData.orgCodeCert}}" alt="">
+								<p style="margin: 0">查看</p>
+							</a>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="noborder" ng-if="serviceData.taxRegistrationCert">
+				<td colspan="3">
+					<ul>
+						<li>
+							<strong style="display: block;float: left;width: 93px;">税务登记证:</strong>
+							<a href="{{serviceData.taxRegistrationCert}}" class="imgContainer fl" target="_blank">
+								<img src="{{serviceData.taxRegistrationCert}}" alt="">
+								<p style="margin: 0">查看</p>
+							</a>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="noborder" ng-if="serviceData.nameStatus == '0' || serviceData.nameStatus == '1'">
+				<td style="width: 127px;"></td>
+				<td colspan="2">
+					<a href="JavaScript:void(0);" class="btn" id="submitBtn" ng-click="confirmAudit()">
+						<span>实名审核</span>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div id="addDialog" style="display: none;margin-top: 10px;width: 360px;">
+	<form class="layui-form" name="addRemarksForm" role="form" novalidate>
+		<table class="table" style="margin-left:15px;overflow: hidden; ">
+			<tbody class="tr-color">
+				<tr>
+					<td colspan="2" class="required">
+						<label class="validation">认证状态:</label>
+						<span class="error" ng-show="addRemarksForm.remarks.$invalid && addRemarksForm.submitted">
+							<small ng-show="addRemarksForm.remarks.$error.required" class="error">
+								<label>
+									<i class="icon-exclamation-sign"></i>请选择认证状态</label>
+							</small>
+						</span>
+					</td>
+				</tr>
+				<tr class="noborder">
+					<td class="vatop rowform">
+						<input class="radio_align" type="radio" name="remarks" ng-model="remarks" required value="3" />通过
+						<input class="radio_align" type="radio" name="remarks" ng-model="remarks" required value="2" />不通过
+
+					</td>
+					<td class="vatop tips"></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr class="tfoot">
+					<td colspan="15">
+						<a href="JavaScript:void(0);" style="margin-left: 110px; " class="btn" id="submitBtn" ng-click="comfirmAdd()">
+							<span>确定</span>
+						</a>
+						<a href="JavaScript:void(0);" class="btn" ng-click="canelAdd()">
+							<span>取消</span>
+						</a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+
+</div>

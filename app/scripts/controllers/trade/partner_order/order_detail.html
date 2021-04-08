@@ -1,0 +1,113 @@
+<div class="page">
+		<div class="fixed-bar">
+				<div class="item-title">
+						<h3>订单管理</h3>
+						<ul class="tab-base">
+								<li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:history.go(-1)"><span>订单列表</span></a></li>
+								<li mt-show-model model-name="IPRPOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+						</ul>
+				</div>
+		</div>
+		<table class="table tb-type2 order">
+				<tbody class="tr-color">
+						<tr class="space">
+								<th colspan="2">支付单信息</th>
+						</tr>
+						<tr>
+							<td>
+								<ul>
+									<li>
+										<strong>订单号：</strong>
+										{{order_detail.orderFictitiousSn}}
+									</li>
+									<li><strong>订单金额：</strong>{{order_detail.orderAmount | number:2}}</li>
+									<li><strong>下单时间：</strong>{{order_detail.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+									<li><strong>支付状态：</strong>{{order_detail.paymentState | orderStatusFilter}}-{{order_detail.sub_state_description}}</li>
+									<li><strong>支付方式：</strong>{{order_detail.paymentName}}</li>
+									<li><strong>商户订单号：</strong>{{order_detail.paymentSn}}</li>
+									<li><strong>支付时间：</strong>{{order_detail.paymentTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+									<li><strong>订单来源：</strong>{{order_detail.orderFrom == 1 ? 'PC': order_detail.orderFrom == 4 ? '合伙人' : 'H5'}}</li>
+									<li><strong>邀请人：</strong>{{order_detail.asistantPhone || '--'}}</li>
+									<li><strong>使用拾贝券：</strong>{{order_detail.additionalProfit ? '是' : '否'}}</li>
+									<li><strong>券种ID：</strong>{{order_detail.couponId || '--'}}</li>
+									<li><strong>券名称：</strong>{{order_detail.couponName || '--'}}</li>
+									<li><strong>附加收益：</strong>{{order_detail.additionalProfit || 0}}元</li>
+								</ul>
+							</td>
+						</tr>
+						<tr class="space" ng-if="order_detail.partnerDTO">
+								<th colspan="2">合伙人信息</th>
+						</tr>
+						<tr ng-if="order_detail.partnerDTO">
+							<td>
+								<ul>
+									<li><strong>合伙人手机：</strong>{{order_detail.partnerDTO.partnerPhone || '--'}}</li>
+									<li><strong>合伙人昵称：</strong>{{order_detail.partnerDTO.partnerName || '--'}}</li>
+									<li><strong>合伙人店铺名称：</strong>{{order_detail.partnerDTO.storeName || '--'}}</li>
+									<li><strong>上级合伙人手机：</strong>{{order_detail.partnerDTO.prePartnerPhone || '--'}}</li>
+									<li><strong>上级合伙人昵称：</strong>{{order_detail.partnerDTO.prePartnerName || '--'}}</li>
+								</ul>
+							</td>
+						</tr>
+						<tr class="space" ng-if="order_detail.memberDTO">
+								<th colspan="2">客户信息</th>
+						</tr>
+						<tr ng-if="order_detail.memberDTO">
+								<td>
+										<ul>
+												<li><strong>姓名：</strong>{{order_detail.memberDTO.memberTruename}}</li>
+												<li><strong>性别：</strong>{{order_detail.memberDTO.memberSex|memberSexFilter}}</li>
+												<li><strong>注册手机号：</strong>{{order_detail.memberDTO.memberPhone}}</li>
+												<li><strong>历史服务单数：</strong>{{order_detail.memberDTO.historyOrderNumber}}</li>
+												<li><strong>微信号：</strong>{{order_detail.memberDTO.memberWechat}}</li>
+												<li><strong>QQ：</strong>{{order_detail.memberDTO.memberQQ}}</li>
+												<li><strong>邮箱：</strong>{{order_detail.memberDTO.memberEmail}}</li>
+												<li><strong>昵称：</strong>{{order_detail.memberDTO.memberNickname}}</li>
+										</ul>
+								</td>
+						</tr>
+						<tr class="space" ng-show="order_detail.serviceList.length > 0">
+								<th>服务单信息</th>
+						</tr>
+						<tr ng-show="order_detail.serviceList.length > 0">
+							<td colspan="20" style="padding: 5px 0!important">
+								<table id="table_category" class="type" style="width:100%;">
+									<thead>
+										<tr>
+											<th class="alignleft">服务单号</th>
+											<th class="alignleft">服务名称</th>
+											<th class="alignleft">商品编号</th>
+											<th class="alignleft">作业选择</th>
+											<th class="alignleft">需支付价格</th>
+											<th class="alignleft">实付</th>
+											<th class="alignleft">合伙人分润(总计)</th>
+											<th class="alignleft">附加收益</th>
+											<th class="alignleft">服务状态</th>
+											<th class="alignleft">售后状态</th>
+											<th class="alignleft">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-show="order_detail.serviceList.length > 0" ng-repeat="detail in order_detail.serviceList">
+											<td class="alignleft" ng-bind="detail.orderSn"></td>
+											<td class="alignleft" ng-bind="detail.orderBsName"></td>
+											<td class="alignleft" ng-bind="detail.orderBsNumber"></td>
+											<td class="alignleft">{{detail.serviceAbility == 1 ? '有作业能力' : '无作业能力'}}</td>
+											<td class="alignleft" ng-bind="detail.orderAmount | number:2"></td>
+											<td class="alignleft" ng-bind="detail.orderAmount | number:2"></td>
+											<td class="alignleft">{{detail.commissionRate | number:2}}</td>
+											<td class="alignleft">{{detail.additionalProfit | number:2}}</td>
+											<td class="alignleft" ng-bind="detail.orderServiceState|orderServiceStateFilter"></td>
+											<td class="alignleft" ng-bind="detail.refundState|refundStateFilter"></td>
+											<td class="alignleft"><a href="" ng-click="bs_detail_orders(0, detail.orderSn)">查看详情</a></td>
+										</tr>
+										<tr ng-show="order_detail.serviceList.length == 0">
+												<td colspan="10">暂无记录</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+				</tbody>
+		</table>
+</div>

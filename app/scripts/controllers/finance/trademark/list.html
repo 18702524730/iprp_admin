@@ -1,0 +1,86 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>国内商标（线上）</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPBsOrderListModel"><a href="JavaScript:void(0);" class="current"><span>工单列表</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					
+					<th><label>服务单号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.orderSn"></td>
+					<th><label>申请人：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.applyName"></td>
+					<td colspan="2">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()" style="margin-left: 4px">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+						<!-- <a mt-show-model model-name="IPRPOrderReportModel" href="javascript:void(0);" class="btn-reset" ng-click="search_export()" title="导出">导出</a> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center">序号</th>
+					<th class="align-center">业务员</th>
+                    <th class="align-center">需支付价格</th>
+                    <th class="align-center">实际支付金额</th>
+					<th class="align-center">服务费</th>
+					<th class="align-center">官费</th>
+					<th class="align-center">订单来源</th>
+                    <th class="align-center">服务单号</th>
+					<th class="align-center">申请人</th>
+					<th class="align-center">纳税人识别号</th>
+                    <th class="align-center">收件电话</th>
+                    <th class="align-center">发票类型</th>
+                    <!-- <th class="align-center">备注</th> -->
+                    <th class="align-center">开票日期</th>
+                    <th class="align-center">官费发票号</th>
+                    <th class="align-center">服务费发票号</th>
+					<th class="align-center">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+                    <td class="align-center"><span ng-bind="list.seqNo"></span></td>
+                    <td class="align-center" ng-bind="list.salesman"></td>
+					<td class="align-center" ng-bind="list.orderAmount| number:2"></td>
+					<td class="align-center" ng-bind="list.orderPaymentAmount| number:2"></td>
+					<td class="align-center" ng-bind="list.orderSpAmount| number:2"></td>
+					<td class="align-center" ng-bind="list.orderPeAmount| number:2"></td>
+					<td class="align-center" ng-bind="list.orderOriginName"></td>
+					<td class="align-center" ng-bind="list.orderSn"></td>
+					<td class="align-center" ng-bind="list.applyName"></td>
+					<td class="align-center" ng-bind="list.invoiceCode"></td>
+					<td class="align-right" ng-bind="list.contactPhone"></td>
+                    <td class="align-center" ng-bind="list.invoiceType|invoiceTypeFormat"></td>
+                    <!-- <td class="align-center" ng-bind="list.orderOrigin"></td> -->
+                    <td class="align-center" ng-bind="list.invoiceTime| date:'yyyy-MM-dd'"></td>
+                    <td class="align-center" ng-bind="list.peInvocieNo"></td>
+                    <td class="align-center" ng-bind="list.spInvocieNo"></td>
+					<td class="align-center w120">
+						<a href="JavaScript:void(0);" model-name="IPRPBsOrderDetailModel" style="cursor: pointer" ng-click="setInvoiceMsg(list)">编辑</a>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="16" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="16"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

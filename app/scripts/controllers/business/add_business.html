@@ -1,0 +1,107 @@
+<div class="page" ng-hide="next_open_service">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>添加服务</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPBusinessListModel"><a href="#/main/business_home/business_list"><span>服务列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddBusinessModel"><a class="current"><span>添加服务</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="AddBusinessForm" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2">
+            <tbody class="tr-color">
+                <tr>
+                    <td colspan="2" class="required">
+                        服务:
+                        <span class="error" ng-show="AddBusinessForm.name.$invalid && AddBusinessForm.submitted">
+                            <small ng-show="AddBusinessForm.name.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>服务不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="AddBusinessForm.name.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>服务只能中文,字母</label>
+                            </small>
+                            <small class="error" ng-show="AddBusinessForm.name.$error.maxlength || AddBusinessForm.name.$error.minlength">
+                                <label><i class="icon-exclamation-sign"></i>服务长度为3~20位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform" >
+                        <input type="text" name="name"
+                               ng-minlength="3" ng-maxlength="20" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z]+$/" class="txt" ng-model="add_business_obj.name" placeholder="服务名为中文或字母" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        服务分类:
+                        <span class="error" ng-show="AddBusinessForm.bs_class_name.$invalid && AddBusinessForm.submitted">
+                            <small ng-show="AddBusinessForm.bs_class_name.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>请选择服务分类</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <select name="bs_class_name" ng-model="add_business_obj.bs_class_id" ng-options="a.bs_class_id as (a.deep === 1 ? '&nbsp;&nbsp;'+ a.name : a.deep > 1 ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ a.name : a.name) for a in business_class_tree_list" required>
+                            <option value="">请选择...</option>
+                        </select>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td colspan="2" class="required">
+                        编码:
+                        <span class="error" ng-show="AddBusinessForm.code.$invalid && AddBusinessForm.submitted">
+                            <small ng-show="AddBusinessForm.code.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>编码不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="AddBusinessForm.code.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>编码只能字母和下划线</label>
+                            </small>
+                            <small class="error" ng-show="AddBusinessForm.code.$error.maxlength">
+                                <label><i class="icon-exclamation-sign"></i>编码长度为20位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr> -->
+                <!-- <tr class="noborder">
+                    <td class="vatop rowform" >
+                        <input type="text" name="code" ng-maxlength="20" ng-pattern="/^[a-zA-Z_]+$/" class="txt" ng-model="add_business_obj.code" required/>
+                    </td>
+                </tr> -->
+                <!--<tr>-->
+                <!--<td colspan="2" class="required">-->
+                <!--状态:-->
+                <!--</td>-->
+                <!--</tr>-->
+                <!--<tr class="noborder">-->
+                <!--<td class="vatop rowform onoff">-->
+                <!--<label class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-right:none;border-top-left-radius:4px;-->
+                <!--border-top-right-radius:0;-->
+                <!--border-bottom-right-radius:0;-->
+                <!--border-bottom-left-radius:4px;">-->
+                <!--<span ng-click="turnOff($event)" ng-class="{'selected':add_business_obj.state}">启用</span>-->
+                <!--</label>-->
+                <!--<label class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-left:none;border-top-left-radius:0;-->
+                <!--border-top-right-radius:4px;-->
+                <!--border-bottom-right-radius:4px;-->
+                <!--border-bottom-left-radius:0;">-->
+                <!--<span ng-click="turnOn($event)" ng-class="{'selected':!add_business_obj.state}">禁用</span>-->
+                <!--</label>-->
+                <!--<input style="display:none;" id="attr_show1" name="attr_show" checked="checked" value="1" type="radio">-->
+                <!--<input style="display:none;" id="attr_show0" name="attr_show" value="0" type="radio">-->
+                <!--</td>-->
+                <!--</tr>-->
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2">
+                        <a href="JavaScript:void(0);" class="btn" ng-click="add_BusinessService()"><span>点击下一步，配置服务阶段</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

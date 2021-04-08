@@ -1,0 +1,49 @@
+<div>
+    <div class="page">
+        <h3 class="dialog_head" style="cursor: move;">
+            <span class="dialog_title">
+                <span class="dialog_title_icon">请选择发票服务名称：</span>
+            </span>
+            <span class="dialog_close_button"  ng-click="cancel()">X</span>
+        </h3>
+        <div class="dialog_content" style="margin: 0px; padding: 0px;">
+            <div class="page">
+                <form role="form" class="form-horizontal" novalidate>
+                    <div style="text-align: center">
+                        <table class="tb-type1 noborder" >
+                            <tbody class="tr-color">
+                                <tr>
+                                    <th><label>发票类型：</label></th>
+                                    <td>
+                                        <input type="radio" value="2" ng-model="obj.invoice_type">
+                                        <span>两者包含</span>
+                                        <!--<select ng-model="obj.invoice_type">-->
+                                            <!--<option value="2">两者包含</option>-->
+                                            <!--<option ng-disabled = "obj.type === '2'" value="0">官费</option>-->
+                                            <!--<option ng-disabled = "obj.type === '2'" value="1">服务费</option>-->
+                                        <!--</select>-->
+                                    </td>
+                                    <th></th>
+                                    <td></td>
+                                    <th></th>
+                                    <td></td>
+                                    <th><label>开票形式：</label></th>
+                                    <td>
+                                        <input type="radio" value="2" ng-init="2" ng-model="obj.type">分开
+                                        <!--<input type="radio" value="1" ng-init="1" ng-model="obj.type">合开-->
+
+                                    </td>
+                                </tr>
+                                <tr>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div style="text-align: center">
+            <a class="btn" id="submitBtn"><span ng-click="save()">确定</span></a>
+        </div>
+    </div>
+</div>

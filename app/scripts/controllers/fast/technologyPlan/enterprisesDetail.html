@@ -1,0 +1,211 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>查看</h3>
+            <ul class="tab-base">
+                <li><a href="#/main/fast_home/enterprisesList"><span>三年双倍增计划</span></a></li>
+                <li><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="15">基本信息</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                    		<li><strong>企业名称:</strong>{{demandDetail.companyName}}</li>
+                    		<li><strong>街道:</strong>{{demandDetail.streetText}}</li>
+                    		<li><strong>企业注册所在地:</strong>{{demandDetail.regAddress}}</li>
+                    		<li><strong>企业注册时间:</strong>{{demandDetail.regDate | date:'yyyy-MM-dd'}}</li>
+                    		<li><strong>所属行业:</strong>{{demandDetail.industry}}</li>
+                    		<li><strong>技术领域:</strong>{{demandDetail.productField}}</li>
+                    		<li><strong>企业规模:</strong>{{demandDetail.companySize}}</li>
+                    		<li><strong>联系人:</strong>{{demandDetail.contact}}</li>
+                        <li><strong>联系电话:</strong>{{demandDetail.contactNumber }}</li>
+                        <li><strong>企业负责人(法人/分管副总):</strong>{{demandDetail.chargeName }}</li>
+                        <li><strong>企业负责人手机号:</strong>{{demandDetail.chargeNumber}}</li>
+                        <li><strong>企业负责人微信号:</strong>{{demandDetail.chargeWx }}</li>
+                        <li><strong>法人:</strong>{{demandDetail.frname || '--'}}</li>
+                        <li>
+                            <strong>国家高新技术企业认定计划:</strong>{{demandDetail.apply2019Status |applyStatus}}
+                        </li>
+                        <li style="position: relative;"><strong>评估结果:</strong>
+                          {{demandDetail.result == 1 ? '培育' : demandDetail.result == 2 ? '重点培育' : demandDetail.result == 3 ? '入库' : '--'}}
+                          <b ng-if="demandDetail.result==1 || demandDetail.result==2" class="picBtn" style="text-decoration: underline;" ng-click="addRemarks()">查看能力图</b>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">需求</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li><strong>是否有知识产权押融需求:</strong>{{demandDetail.wantPledge == 1 ? '有': '没有'}}</li>
+                        <li><strong>是否有技术对接需求(规划、购买、转化等):</strong>{{demandDetail.wantTechButt == 1 ? '有': '没有'}}</li>
+                        <li><strong>希望申请的资质荣誉:</strong>{{demandDetail.wantQualification}}</li>
+
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">已获得的资质荣誉</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            {{demandDetail.qualification}}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">企业近三年研发费用(万元)</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>2016:</strong>{{demandDetail.research2016Cost}}
+                        </li>
+                        <li><strong>2017:</strong>{{demandDetail.research2017Cost}}</li>
+                        <li><strong>2018:</strong>{{demandDetail.research2018Cost}}</li>
+
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">企业近三年销售收入(万元)</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>2016:</strong>{{demandDetail.sale2016}}
+                        </li>
+                        <li><strong>2017:</strong>{{demandDetail.sale2017}}</li>
+                        <li><strong>2018:</strong>{{demandDetail.sale2018}}</li>
+
+                    </ul>
+                </td>
+            </tr>
+
+            <tr class="space">
+                <th colspan="2">知识产权</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>发明专利:</strong>{{demandDetail.inventionPatentNum}}
+                        </li>
+                        <li><strong>实用性专利:</strong>{{demandDetail.utilityModelPatentNum}}</li>
+                        <li><strong>外观设计专利:</strong>{{demandDetail.industrialDesignPatentNum}}</li>
+                        <li><strong>软件著作权:</strong>{{demandDetail.softCopyrightNum}}</li>
+                        <li><strong>作品著作权:</strong>{{demandDetail.workCopyrightNum}}</li>
+                        <li><strong>知识产权贯标:</strong>{{demandDetail.intellectualPropertyIso|intellectualPropertyIso}}</li>
+                        <li><strong>集成电路布图设计专有权:</strong>{{demandDetail.icDesignNum}}</li>
+                        <li><strong>有效商标数量:</strong>{{demandDetail.effectiveTmNum}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">科技成果转化数量</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>2016:</strong>{{demandDetail.techTransformNum2016}}
+                        </li>
+                        <li><strong>2017:</strong>{{demandDetail.techTransformNum2017}}</li>
+                        <li><strong>2018:</strong>{{demandDetail.techTransformNum2018}}</li>
+
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">企业人员情况</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>企业人员概数:</strong>{{demandDetail.companyRoundNum}}
+                        </li>
+                        <li><strong>研发人员概数:</strong>{{demandDetail.researchRoundNum}}</li>
+                        <li><strong>本科及中级以上:</strong>{{demandDetail.middleRoundNum}}</li>
+                        <li><strong>高级工程师:</strong>{{demandDetail.seniorNum}}</li>
+                        <li><strong>中级工程师:</strong>{{demandDetail.middleNum}}</li>
+                        <li><strong>博士:</strong>{{demandDetail.doctorNum}}</li>
+                        <li><strong>硕士:</strong>{{demandDetail.masterNum}}</li>
+                        <li><strong>本科:</strong>{{demandDetail.collegeNum}}</li>
+                        <li><strong>大专:</strong>{{demandDetail.juniorNum}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">是否设有研发机构或平台</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>机构或平台等级:</strong>{{demandDetail.researchOrgLevel|researchOrgLevel}}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr class="space">
+                <th colspan="2">软硬件设施</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>科研用房面积(平方米):</strong>{{demandDetail.researchArea}}
+                        </li>
+                        <li><strong>企业技术开发仪器设备原值(万元):</strong>{{demandDetail.equipment}}</li>
+                        <li><strong>已通过的体系认证:</strong>{{demandDetail.passedSystem}}</li>
+                        <li><strong>是否引入卓越绩效管理模式:</strong>{{demandDetail.isExcellenceManage === 0 ? '是':'否'}}</li>
+                        <li><strong>标准参与制定情况:</strong>{{demandDetail.standardSituation}}</li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr class="space">
+                <th colspan="2">加分项</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>近三年企业信息化建设投入(万元):</strong>{{demandDetail.infoInvestment}}
+                        </li>
+                        <li><strong>中心从事研发工作的外部专家数:</strong>{{demandDetail.outerExpertNum}}</li>
+                        <li><strong>近三年无重大环境污染事故、消防安全生产事故、偷税漏税和知识产权违法行为:</strong>{{demandDetail.isAccident === 0 ? '有':'无'}}</li>
+                        <li><strong>通过省、国家（国际组织）认证的实验室和检测机构情况:</strong>{{demandDetail.certifiedLab}}</li>
+                        <li><strong>近三年获得市级及以上自然科学、技术发明、科技进步奖项目情况:</strong>{{demandDetail.awards}}</li>
+                    </ul>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div id="Dialog" style="display: none;width: 320px;">
+    <div id="myChart" style="width: 320px;height: 320px;"></div>
+</div>
+<style>
+#myChart{background: #074CBE;z-index: 200;}
+.picBtn{
+  cursor: pointer;vertical-align: top;
+}
+</style>
+

@@ -1,0 +1,70 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>809上线活动监控后台</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="#main/market_home/rechargeList"><span>话费充值</span></a></li>
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>中奖记录</span></a></li>
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="#main/market_home/activeSet"><span>活动设置</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="table_header">
+        <div class="fl">
+            <span>中奖记录</span><span>抽奖次数：{{winingnum.prizeCount}}次</span><span>参与人数：{{winingnum.prizePerson}}人</span><span> 已抽出奖品{{winingnum.prizeNum}}件</span>
+        </div>
+        <div class="fr">
+            <a ng-click="exportdata(5)">导出全部</a><a ng-click="exportdata(4)">导出流量</a><a ng-click="exportdata(3)">导出话费</a><a ng-click="exportdata(2)">导出电子卡</a><a ng-click="exportdata(1)">导出实物</a>
+        </div>
+    </div>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">序号</th>
+                    <th class="align-center">用户编号</th>
+                    <th class="align-center">会员姓名</th>
+                    <th class="align-center">注册手机号</th>
+                    <th class="align-center">所中奖品</th>
+                    <th class="align-center">数量</th>
+                    <th class="align-center">中奖时间</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+                    <td class="align-center"><span ng-bind="list.number"></span></td>
+                    <td class="align-center" ng-bind="list.member_num"></td>
+                    <td class="align-center" ng-bind="list.member_name"></td>
+                    <td class="align-center">
+                        <span ng-bind="list.register_phone"></span>
+                    </td>
+                    <td class="align-center">
+                        <span ng-bind="list.prize_name"></span>
+                    </td>
+                    <td class="align-center">
+                        <span ng-bind="list.prize_num"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.create_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+.table_header{padding-top: 8px;}
+.table_header,.table_header div{overflow: hidden;}
+.table_header div a{float: right;display: block;margin-left: 25px;width: 95px;height: 25px;text-align: center;line-height: 25px;background-color: #68a4fe;color: #fff;font-size: 13px;border-radius: 3px;cursor: pointer;}
+.table_header div span{font-size: 14px;margin-left: 15px;}
+.item-title .tab-base li .current{background-color: #68a4fe;}
+.item-title .tab-base li .current span{color: #fff;}
+</style>

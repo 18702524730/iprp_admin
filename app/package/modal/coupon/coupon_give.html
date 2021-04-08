@@ -1,0 +1,45 @@
+<div>
+  <h3 class="dialog_head" style="cursor: move;">
+    <span class="dialog_title">
+      <span class="dialog_title_icon">发放拾贝券</span>
+      <span style="font-size:12px;">(系统发券不受重复领取限制)</span>
+    </span>
+    <span class="dialog_close_button" ng-click="cancel()">X</span>
+  </h3>
+  <form role="form" class="lists" style="padding:5px 15px 20px;">
+    <ul>
+      <li><label>券种：</label><span>{{coupon_detail.baseInfo.couponId}}</span></li>
+      <li><label>券名称：</label><span>{{coupon_detail.baseInfo.couponName}}</span></li>
+      <li><label>使用对象：</label><span>{{coupon_detail.baseInfo.usageObj | usageObjType}}</span></li>
+      <li><label>券类型：</label><span>{{coupon_detail.baseInfo.couponType | couponType}}</span></li>
+      <li><label>升{{coupon_detail.baseInfo.couponType == 1 ? '润比例' : '佣金额'}}：</label><span>{{coupon_detail.baseInfo.couponType == 1 ? (coupon_detail.baseInfo.couponAmount*100) : (coupon_detail.baseInfo.couponAmount | number:2)}}{{coupon_detail.baseInfo.couponType == 1 ? '%' : '元'}}</span></li>
+      <li><label>发放对象：</label>
+        <input type="radio" name="type" ng-model="coupon_obj.type" value="1"/>全部已开店用户
+        <input type="radio" name="type" ng-model="coupon_obj.type" value="2"/>部分用户
+        <!-- <input type="radio" name="type" ng-model="coupon_obj.type" value="2"/>Tag用户 -->
+      </li>
+    </ul>
+    <div class="btn_sumbitBtn mb20" ng-show="coupon_obj.type == 2">
+      <a class="btn" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file)" ngf-accept="'file/*'" ngf-pattern="'.xlsx,.xls'" ngf-multiple="true" ng-show="frequencyExcel"><span>导入excel名单</span></a>
+      <a class="btn" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file)" ngf-accept="'file/*'" ngf-pattern="'.xlsx,.xls'" ngf-multiple="true" ng-show="!frequencyExcel"><span>重新导入</span></a>
+      <div class="info_lists mt15" ng-show="!frequencyExcel">
+        <p>有效用户数据：{{validNum}}个</p>
+        <p class="ml20">无效用户数据：{{unvalidNum}}个</p>
+        <a class="ml20" ng-click="upFile()">导出检测数据</a>
+      </div>
+    </div>
+    <div>
+      <a class="btn" id="submitBtn"><span ng-click="approve()">提交</span></a>
+      <a class="btn btn-gray" ><span ng-click="cancel()">取消</span></a>
+    </div>
+  </form>
+</div>
+<style>
+.lists ul li{line-height: 30px;}
+.lists ul li input{cursor: pointer;}
+
+.btn_sumbitBtn{padding-left: 70px;border-bottom:1px solid #eee;padding-bottom: 20px;}
+
+.btn_sumbitBtn .info_lists{display: flex;}
+.btn_sumbitBtn .info_lists a{color:#3399CC;cursor: pointer;}
+</style>

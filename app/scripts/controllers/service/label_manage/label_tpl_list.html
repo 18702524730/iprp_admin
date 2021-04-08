@@ -1,0 +1,76 @@
+<div class="page">
+  <div class="fixed-bar">
+      <div class="item-title">
+          <h3>商家标签管理</h3>
+          <ul class="tab-base">
+              <li mt-show-model model-name="IPRPBillTplListModel"><a href="JavaScript:void(0);" class="current"><span>商家标签列表</span></a></li>
+              <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/merchant_home/label_tpl_add"><span>添加</span></a></li>
+          </ul>
+      </div>
+  </div>
+  <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+            <tr>
+                <th><label>标签名称：</label></th>
+                <td><input type="text" value="" class="txt" ng-model="obj.name"></td>
+                <td>
+                    <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+  <form>
+      <table class="table tb-type2">
+          <thead>
+              <tr class="thead">
+                  <th class="align-center" style="width: 40px;">序号</th>
+                  <th class="align-center">商家标签名称</th>
+                  <th class="align-center">点亮图样</th>
+                  <th class="align-center">灰色图样</th>
+                  <th class="align-center">描述</th>
+                  <th style="width: 120px;" class="align-center">开通商家数量</th>
+                  <th style="width: 120px;" class="align-center">新增时间</th>
+                  <th class="align-center">操作</th>
+              </tr>
+          </thead>
+          <tbody class="tr-color">
+            <tr class="" ng-show="labelList.length > 0" class="hover" ng-repeat="list in labelList">
+                  <td class="align-center">
+                      <span ng-bind="list.seqNo"></span>
+                  </td>
+                  <td class="align-center" ng-bind="list.name"></td>
+                  <td class="align-center">
+                    <img style="height: 20px;" src="{{list.iconUrl}}" />
+                  </td>
+                  <td class="align-center">
+                    <img style="height: 20px;" src="{{list.iconDisableUrl}}" />
+                  </td>
+                  <td class="align-center" ng-bind="list.tagDesc"></td>
+                  <td class="align-center" ng-bind="list.applyCount"></td>
+                  <td class="align-center" ng-bind="list.createTime|date:'yyyy-MM-dd HH:mm:ss'"></td>
+                  <td class="align-center w120">
+                      <a href="JavaScript:void(0);" mt-show-model model-name="IPRPBillTplListModel"
+                              style="cursor: pointer" ng-click = "label_tpl_edit(list.tagId)">编辑</a>
+                      <a href="JavaScript:void(0);" ng-if="list.status == 1" mt-show-model model-name="IPRPBillTplListModel"
+                              style="cursor: pointer" ng-click = "label_tpl_state_toggle(list)">禁用</a>
+                      <a href="JavaScript:void(0);" ng-if="list.status == 0" mt-show-model model-name="IPRPBillTplListModel"
+                              style="cursor: pointer" ng-click = "label_tpl_state_toggle(list)">启用</a>
+                  </td>
+              </tr>
+              <tr ng-show="to_loading">
+                  <td colspan="8" class="norecord">
+                      <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                  </td>
+              </tr>
+          </tbody>
+          <tfoot ng-hide="to_loading">
+              <tr class="tfoot">
+                  <td colspan="8"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+              </tr>
+          </tfoot>
+      </table>
+  </form>
+</div>

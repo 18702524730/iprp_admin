@@ -1,0 +1,76 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>企业/个人网银支付</h3>
+            <ul class="tab-base">
+                <li><a href="#/main/finance_home/zs_ai"><span>财务对账</span></a></li>
+                <li><a href="JavaScript:void(0);" class="current"><span>单笔订单查询</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>订单号：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.order_sn"></td>
+                    <th><label>商户订单号：</label></th>
+                    <td><input type="text" value="" class="txt" ng-model="obj.trade_no"></td>
+                    <td style="text-align:left;">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="apply_Info()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="reset()">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    
+    <!-- 默认数据全部为空，查询后显示对应数据 -->
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">序号</th>
+                    <th class="align-center">支付时间</th>
+                    <th class="align-center">商户订单号</th>
+                    <th class="align-center">订单号</th>
+                    <th class="align-center">支付方式</th>
+                    <th class="align-center">支付状态</th>
+                    <th class="align-center">支付金额</th>
+                    <th class="align-center">退款金额</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="hover" ng-repeat="item in InfoList" ng-if="InfoList&&InfoList.length">
+                    <td class="align-center">{{item.number}}</td> 
+                    <td class="align-center">{{item.payTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="align-center">{{item.tradeNo}}</td>
+                    <td class="align-center">{{item.orderSn}}</td>
+                    <td class="align-center">{{item.paymentName}}</td>
+                    <td class="align-center">{{item.payStt | InvoicePaySttFilter}}</td>
+                    <td class="align-center">{{item.orderAmt | number:2}}</td>
+                    <td class="align-center">{{item.refundment | number:2}}</td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="detail_orders(item.orderId)">查看详情</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-if="InfoList&&InfoList.length&&!to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+.table_header{padding-top: 8px;}
+.table_header,.table_header div{overflow: hidden;}
+.table_header div span{font-size: 14px;margin-left: 15px;}
+</style>

@@ -1,0 +1,156 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>添加渠道商</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPChannelListModel"><a href="#/main/channel_home/channel_list"><span>渠道商列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddChannelModel"><a href="JavaScript:void(0);" class="current"><span>添加渠道商</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="AddChannelForm" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2">
+            <tbody>
+                <tr class="noborder">
+                    <td colspan="2" class="required">
+                        <label class="validation">编码:</label>
+                        <span class="error" ng-show="AddChannelForm.code.$invalid && AddChannelForm.submitted">
+                            <small ng-show="AddChannelForm.code.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>编码不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="AddChannelForm.code.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>编码只能使用英文和数字</label>
+                            </small>
+                            <small class="error" ng-show="AddChannelForm.code.$error.maxlength">
+                                <label><i class="icon-exclamation-sign"></i>编码名长度为10位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text"  name="code"
+                            ng-maxlength="10" ng-pattern="/^[sa-zA-Z0-9]+$/" ng-model="channel_obj.code" class="txt" required>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        <label class="validation">名称:</label>
+                        <span class="error" ng-show="AddChannelForm.name.$invalid && AddChannelForm.submitted">
+                            <small ng-show="AddChannelForm.name.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>名称不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="AddChannelForm.name.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>名称只能使用中文、数字、字母和空格</label>
+                            </small>
+                            <small class="error" ng-show="AddChannelForm.name.$error.maxlength || AddChannelForm.name.$error.minlength">
+                                <label><i class="icon-exclamation-sign"></i>名称长度为2~15位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" value="" name="name" ng-minlength="2" ng-maxlength="15"
+                               ng-pattern="/^[\u4e00-\u9fa5\sa-zA-Z0-9]+$/" ng-model="channel_obj.name" class="txt" required>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <!--<tr>-->
+                    <!--<td colspan="2" class="required">-->
+                        <!--<label class="validation">分佣比例:</label>-->
+                        <!--<span class="error" ng-show="AddChannelForm.commission_rate.$invalid && AddChannelForm.submitted">-->
+                            <!--<small ng-show="AddChannelForm.code.$error.required" class="error">-->
+                                <!--<label><i class="icon-exclamation-sign"></i>名称不可以为空</label>-->
+                            <!--</small>-->
+                            <!--<small class="error" ng-show="AddChannelForm.commission_rate.$error.pattern">-->
+                                <!--<label><i class="icon-exclamation-sign"></i>名称只能使用数字</label>-->
+                            <!--</small>-->
+                            <!--<small class="error" ng-show="AddChannelForm.commission_rate.$error.maxlength || AddChannelForm.commission_rate.$error.minlength">-->
+                                <!--<label><i class="icon-exclamation-sign"></i>名称长度为5~20位</label>-->
+                            <!--</small>-->
+                        <!--</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr class="noborder">-->
+                    <!--<td class="vatop rowform">-->
+                        <!--<input type="text" style="width: 60px;" value="" name="ac_name" ng-model="channel_obj.commission_rate" class="txt" required>%-->
+                    <!--</td>-->
+                    <!--<td class="vatop tips"></td>-->
+                <!--</tr>-->
+                <tr>
+                    <td colspan="2" class="required">
+                        <label class="validation">渠道网址:</label>
+                        <span class="error" ng-show="AddChannelForm.url.$invalid && AddChannelForm.submitted">
+                            <small ng-show="AddChannelForm.url.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>渠道网址不可以为空</label>
+                            </small>
+                            <small ng-show="AddChannelForm.url.$error.pattern" class="error">
+                                <label><i class="icon-exclamation-sign"></i>渠道网址格式有误</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" value="" name="url" ng-model="channel_obj.url" class="txt"
+                               ng-pattern="/^[a-zA-z]+://(\w+(-\w+)*)(\.(\w+(-\w+)*))*(\?\S*)?$/"required>
+
+                    </td>
+                    <td class="vatop tips"><span>渠道网址格式:https://www.baidu.com</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">线上退款: </td>
+                </tr>
+                <tr>
+                    <td class="vatop rowform onoff">
+                        <label for="attr_show1"   class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-right:none;border-top-left-radius:4px;
+                            border-top-right-radius:0;
+                            border-bottom-right-radius:0;
+                            border-bottom-left-radius:4px;">
+                            <span ng-click="turnOn($event)" ng-class="{'selected':channel_obj.online_pay === 1}">支持</span>
+                        </label>
+                        <label for="attr_show0" class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-left:none;border-top-left-radius:0;
+                            border-top-right-radius:4px;
+                            border-bottom-right-radius:4px;
+                            border-bottom-left-radius:0;">
+                            <span style="width:36px;" ng-click="turnOff($event)" ng-class="{'selected':channel_obj.online_pay === 0}">不支持</span>
+                        </label>
+                        <input style="display:none;" id="attr_show1" name="attr_show" checked="checked" value="1" type="radio">
+                        <input style="display:none;" id="attr_show0" name="attr_show" value="0" type="radio">
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        <label class="validation">描述:</label>
+                        <span class="error" ng-show="AddChannelForm.describe.$invalid && AddChannelForm.submitted">
+                            <small ng-show="AddChannelForm.describe.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>描述不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="AddChannelForm.describe.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>描述只能使用中文、数字、字母和特殊符号空格()_</label>
+                            </small>
+                            <small class="error" ng-show="AddChannelForm.describe.$error.maxlength || AddChannelForm.describe.$error.minlength">
+                                <label><i class="icon-exclamation-sign"></i>描述长度为5~20位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <textarea style="width: 255px; height: 130px;" ng-minlength="2" name="describe" ng-maxlength="20"
+                                  ng-pattern="/^[\u4e00-\u9fa5\sa-zA-Z0-9()_]+$/" ng-model="channel_obj.describe" required></textarea>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="15"><a href="JavaScript:void(0);" ng-click="add_channel()" class="btn" id="submitBtn"><span>提交</span></a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,136 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>交易订单管理</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>订单列表</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>订单号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.fictitious_order_sn"></td>
+					<th><label>服务单号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.order_sn"></td>
+					<th><label>商标名称：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.trademark_name"></td>
+					<th><label>订单状态：</label></th>
+					<td>
+						<select ng-model="obj.order_state">
+							<option value="" disabled>请选择订单状态</option>
+							<option ng-value="item.id" ng-repeat="item in orderStatusList">{{ item.name }}</option>
+						</select>
+					</td>
+					<th><label>转让手续：</label></th>
+					<td>
+						<select ng-model="obj.tm_lease_type">
+							<option value="" disabled>请选择转让手续</option>
+							<option ng-value="item.id" ng-repeat="item in leaveTypeList">{{ item.name }}</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th><label>是否开票：</label></th>
+					<td>
+						<select ng-model="obj.need_ticket">
+							<option value="" disabled>请选择是否开票</option>
+							<option ng-value="item.id" ng-repeat="item in needTicketList">{{ item.name }}</option>
+						</select>
+					</td>
+					<th><label>下单时间：</label></th>
+					<td>
+						<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="payment_start_time" id="payment_start_time"  ng-model="obj.create_time_start"
+								max-date="payment_end_time" style="cursor:pointer" readonly/>
+						<label for="payment_end_time">~</label>
+						<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="payment_end_time" id="payment_end_time"  ng-model="obj.create_time_end"
+								min-date="payment_start_time" style="cursor:pointer" readonly/>
+					</td>
+					<th><label>买家姓名：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.name_buyer"></td>
+					<th><label>买家手机号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.phone_buyer"></td>
+					<th><label>商家姓名：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.name_seller"></td>
+				</tr>
+				<tr>
+					<td colspan="8"></td>
+					<td colspan="2">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()" style="margin-left: 4px">搜索</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<!-- <table class="table tb-type2" id="prompt">
+		<tbody class="tr-color">
+			<tr class="space odd" >
+				<th colspan="12"><div class="title">
+					<h5>操作提示</h5>
+					<span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+					<span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+				</div></th>
+			</tr>
+			<tr class="odd" ng-show="hint">
+				<td>
+					<ul>
+						<li></li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table> -->
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center">序号</th>
+					<th class="align-center">订单号</th>
+					<th class="align-center">服务单号</th>
+					<th class="align-center">商品</th>
+					<th class="align-center">订单总额</th>
+					<th class="align-center">订单状态</th>
+					<th class="align-center">转让手续</th>
+					<th class="align-center">是否开票</th>
+					<th class="align-center">下单时间</th>
+					<th class="align-center">买家姓名</th>
+					<th class="align-center">买家手机号</th>
+					<th class="align-center">商家姓名</th>
+					<th class="align-center">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<td class="align-center" ng-bind="list.number"></td>
+					<td class="align-center" ng-bind="list.fictitious_order_sn"></td>
+					<td class="align-center" ng-bind="list.order_sn"></td>
+					<td class="align-center" ng-bind="list.trademark_name"></td>
+					<td class="align-center" ng-bind="list.order_money"></td>
+					<td class="align-center" >{{ orderStatusList[list.order_state-0+1].name }}</td>
+					<td class="align-center" >{{ leaveTypeList[list.tm_lease_type-1].name }}</td>
+					<td class="align-center" >{{ needTicketList[list.need_ticket-1].name }}</td>
+					<td class="align-center" ng-bind="list.create_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+					<td class="align-center" ng-bind="list.name_buyer"></td>
+					<td class="align-center" ng-bind="list.phone_buyer"></td>
+					<td class="align-center" ng-bind="list.name_seller"></td>
+					<td class="align-center w120">
+						<a href="JavaScript:void(0);" model-name="IPRPOrderDetailModel" style="cursor: pointer" ng-click="detail_orders(list)">详情</a>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="20" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr colspan="15" class="tfoot">
+					<td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

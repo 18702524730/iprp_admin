@@ -1,0 +1,49 @@
+<div>
+    <div class="page">
+        <h3 class="dialog_head" style="cursor: move;">
+            <span class="dialog_title">
+                <span class="dialog_title_icon">是否产生服务:</span>
+            </span>
+            <span class="dialog_close_button"  ng-click="cancel()">X</span>
+        </h3>
+        <form role="form" class="form-horizontal" novalidate>
+            <table class="table tb-type2 nobdb">
+                <tbody>
+                    <tr ng-show="order_payment_list.elements.length > 0">
+                        <td>
+                            <table class="table tb-type2">
+                                <thead>
+                                    <tr class="thead">
+                                        <th class="align-center" ng-show="distributeType === 1"></th>
+                                        <th class="align-center">支付单</th>
+                                        <th class="align-center">支付时间</th>
+                                        <th class="align-center">概述</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tr-color">
+                                    <tr ng-show="order_payment_list.elements.length > 0" ng-repeat="detail in order_payment_list.elements">
+                                        <td class="w12" style="width: 10px;" ng-show="distributeType === 1">
+                                            <input type="checkbox" name="" value="" class="checkitem" ng-disabled = "detail.is_product_bill"
+                                                   ng-click="sChoose(detail.order_pay_id)" ng-checked="array_ids.indexOf(detail.order_pay_id) !== -1">
+                                        </td>
+                                        <td class="align-center" ng-bind="detail.payment_sn"></td>
+                                        <td class="align-center" ng-bind="detail.payment_time | date:'yyyy-MM-dd HH:ss:mm'"></td>
+                                        <td class="align-center" ng-bind="detail.payment_description"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="hover">
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+        <div style="text-align: center">
+            <a class="btn" id="submitBtn"><span ng-click="save_order_back()">确定</span></a>
+        </div>
+    </div>
+</div>

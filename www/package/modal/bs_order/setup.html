@@ -1,0 +1,57 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">设置{{serviceType?'合伙人':'服务商'}}：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <div style="color: red;padding-left: 20px;padding-top: 15px;" ng-if="error_tip">{{error_tip}}</div>
+    <form role="form" style="padding:5px 15px 20px;">
+        <table class="table tb-type2 nobdb" >
+            <tbody class="tr-color">
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label><span style="color: red">*</span>请选择{{serviceType?'合伙人':'服务商'}}：</label>
+                        <div class="select">
+	                        <select ng-model="obj.setup_state" style="width: 420px;" class="selectpicker" data-live-search="true">
+	                            <option value="">请选择{{serviceType?'合伙人':'服务商'}}</option>
+	                            <option ng-if="!serviceType" value="-1">无服务商</option>
+	                            <option value="{{item.sp_id}}" ng-repeat="item in setupList">{{item.name}}</option>
+	                        </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label><span style="color: red">*</span>请填写备注：</label>
+                        <textarea ng-model="obj.memo" style="width: 410px;height: 90px;display: block;" maxlength="180"></textarea>
+                        <label class="instructions">说明：更换{{serviceType?'合伙人':'服务商'}}后，订单的服务状态将重置</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td>
+                        <label><input type="checkbox" name="confirm_type" value="1" ng-model="obj.queren">确认已与原{{serviceType?'合伙人':'服务商'}}联系</label>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="4" class="setup_tit">
+                        <a class="fr" ng-click="confirm()" ng-class="{'disabled': !obj.queren}">确认</a>
+                        <a class="fr setup_move" ng-click="cancel()">取消</a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+.modal-dialog{width: 470px;}
+.instructions{color: #999;}
+.bootstrap-select.btn-group .dropdown-menu{max-width: 420px;max-height:240px!important;padding-bottom: 40px!important;}
+.bootstrap-select.btn-group .dropdown-toggle .filter-option{color: #666; white-space: nowrap;}
+.bootstrap-select>.dropdown-toggle{background-color: #eee;}
+.bootstrap-select .dropdown-toggle:focus{outline: none!important;}
+.bootstrap-select.btn-group .dropdown-toggle .caret{color: #666;}
+
+</style>

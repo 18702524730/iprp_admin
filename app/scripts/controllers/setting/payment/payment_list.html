@@ -1,0 +1,58 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>支付方式</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPPaymentListModel"><a class="current"><span>支付方式列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddPaymentModel"><a href="#/main/setting_home/add_payment"><span>添加支付方式</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd">
+                <th colspan="12"><div class="title"><h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li>此处列出了系统支持的支付方式及开关状态</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table tb-type2">
+        <thead>
+            <tr class="thead">
+                <th>支付方式</th>
+                <th>编码</th>
+                <th>图片</th>
+                <th style="text-align: right">启用</th>
+                <th class="align-center">操作</th>
+            </tr>
+        </thead>
+        <tbody class="tr-color">
+            <tr class="hover" ng-repeat="pay in paySystem.elements">
+                <td ng-if="pay.code === 'ping++'">{{pay.name}}</td>
+                <td ng-if="pay.code != 'ping++'">
+                    &nbsp;&nbsp;<img nc_type="flex" src="images/tv-item1.gif">{{pay.name}}</td>
+                <td ng-bind="pay.code"></td>
+                <td><img ng-if="pay.image != null" ng-src="{{pay.image}}" style="width: 65px; height: 25px;"></td>
+                <td class="w25pre" style="text-align: right" ng-bind="pay.state | PayStateFilter"></td>
+                <td class="w156 align-center">
+                    <a mt-show-model model-name="IPRPUpdatePaymentModel"><span ng-if="pay.code != 'ping++'" style="cursor: pointer;color: #0D93BF" class="btn btn-default"  ng-click="paySystem_offline(pay.payment_id)">编辑</span></a>
+                    <a mt-show-model model-name="IPRPUpdatePaymentModel"><span ng-if="pay.code == 'ping++'" style="cursor: pointer;color: #0D93BF" class="btn btn-default" ng-click="paySystem_ping(pay.payment_id)">编辑</span></a>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr class="tfoot">
+                <td colspan="15"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

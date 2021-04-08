@@ -1,0 +1,135 @@
+<div class="page tel_service_list clues_report">
+   <div class="fixed-bar">
+		<div class="item-title">
+			<h3>线索举报</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPClueReportModel"><a href="JavaScript:void(0);" class="current"><span>咨询列表</span></a></li>
+			</ul>
+		</div>
+	</div>
+	 <form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody>
+				<tr>
+					<!-- <th><label>咨询对接人：</label></th>
+					<td>
+						<select ng-model="obj.receptionName" style="width: 120px;" ng-options="type.receptionName as type.receptionName for type in receptions">
+							<option value="">全部对接人</option>
+						</select>
+					</td> -->
+					<th><label>关键字：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.gather" style="width:310px;" placeholder="请输入联系人/联系手机号"><a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a></td>
+					<td colspan="7">
+						<!-- <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a> -->
+					</td>
+				</tr>
+				<tr>
+					<th><label>咨询状态：</label></th>
+					<td colspan="5">
+						<span class="radiobtn" ng-click="(obj.consultationState='') || search_order()" ng-class="{true: 'cur', false: ''}[obj.consultationState=='']">全部</span>
+						<span class="radiobtn" ng-click="(obj.consultationState='0') && search_order()" ng-class="{true: 'cur', false: ''}[obj.consultationState==='0']">待联系</span>
+						<span class="radiobtn" ng-click="(obj.consultationState=1) && search_order()" ng-class="{true: 'cur', false: ''}[obj.consultationState==1]">联系中</span>
+						<span class="radiobtn" ng-click="(obj.consultationState=2) && search_order()" ng-class="{true: 'cur', false: ''}[obj.consultationState==2]">已联系</span>
+					</td>
+				</tr>
+				<!-- <tr>
+					<th><label>咨询类型：</label></th>
+					<td colspan="5">
+						<span class="radiobtn" ng-click="(obj.consultationType='') || search_order()" ng-class="{true: 'cur', false: ''}[obj.consultationType=='']">全部</span>
+						<span class="radiobtn" ng-click="(obj.consultationType=9) && search_order()" ng-class="{true: 'cur', false: ''}[obj.consultationType==9]">投诉</span>
+						<span class="radiobtn" ng-click="(obj.consultationType=10) && search_order()" ng-class="{true: 'cur', false: ''}[obj.consultationType==10]">申诉</span>
+					</td>
+				</tr> -->
+			</tbody>
+		</table>
+	</form>
+	<!-- <table class="table tb-type2" id="prompt">
+		<tbody class="tr-color">
+			<tr class="space odd" >
+				<th colspan="12">
+					<div class="title">
+						<h5>操作提示</h5>
+						<span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+						<span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+					</div>
+				</th>
+			</tr>
+			<tr class="odd" ng-show="hint">
+				<td>
+					<ul>
+						<li>客户提交申请后，30分钟内需响应</li>
+						<li>1个工作日内需完成出证</li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table> -->
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center" width="50">序号</th>
+					<th class="align-center" width="120">联系人</th>
+					<th class="align-center" width="160">联系电话</th>
+					<!-- <th class="align-center" width="100">咨询类型</th> -->
+					<th class="align-center" width="180">举报单位</th>
+					<th class="align-center" width="300">地址/网址</th>
+					<th class="align-center" width="120">举报类型</th>
+					<th class="align-center" width="200">商品/服务名称</th>
+					<th class="align-center" width="140">提交时间</th>
+					<th class="align-center" width="60">咨询状态</th>
+					<th class="align-center" width="140">联系时间</th>
+					<th class="align-center" width="140">备注</th>
+					<th class="align-center" width="140">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<td class="align-center">
+						<span ng-bind="list.seqNo"></span>
+					</td>
+					<td class="align-center">
+						<span >{{list.contactName}}</span>
+					</td>
+					<td class="align-center">{{list.contactPhone}}<span class="zoom" ng-click="zoom(list)">放大</span></td>
+					<!-- <td class="align-center">{{list.consultationType|consultationType}}</td> -->
+					<td class="align-center">{{list.reportUnit}} </td>
+					<td class="align-center" class="netaddress">{{list.address}}</td>
+					<td class="align-center">{{list.reportType|reportTypeFormat}} </td>
+					<td class="align-center">{{list.productName}}</td>
+					<td class="align-center">{{list.applyTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td class="align-center">{{list.consultationState|consultationState}}</td>
+					<td class="align-center" ng-if="list.memberReceptionDTO.contactEndTime">{{list.memberReceptionDTO.contactStartTime|date:'yyyy-MM-dd HH:mm:ss'}}
+					<br><span style="transform:rotate(90deg);">~</span><br>{{list.memberReceptionDTO.contactEndTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td class="align-center" ng-if="!list.memberReceptionDTO.contactEndTime"></td>
+					<td class="align-center"><p style="min-width: 130px;max-width: 200px;text-overflow:ellipsis;overflow:hidden;white-space :nowrap;margin: 0 auto;">{{list.memberReceptionDTO.remarks||"暂无备注"}}</p></td>
+					<td class="w120 align-right tel_service_action">
+						<a href="JavaScript:void(0);" ng-click="viewDetail(list)">查看</a>
+						<a class="btn" ng-if="list.consultationState==0" href="JavaScript:void(0);" style="cursor: pointer" ng-click="reception(list)">接待</a>
+						<a class="btn notallowed" ng-if="list.consultationState==1" href="JavaScript:void(0);">已接待</a>
+						<a class="btn" ng-if="list.consultationState==1 && list.memberReceptionDTO.adminId == adminId" href="JavaScript:void(0);" style="cursor: pointer" ng-click="viewDetail(list, true)">确认联系</a>
+
+						<!-- <a ng-if="list.consultationState==1 && list.memberReceptionDTO.adminId != adminId"" href="JavaScript:void(0);" class="notallowed">确认联系</a> -->
+
+						
+						<a ng-if="list.consultationState==2" href="JavaScript:void(0);" ng-click="viewDetail(list, true, true)">增加联系记录</a>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="20" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr colspan="15" class="tfoot">
+					<td colspan="19"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>
+<style>
+.tb-type1 .hasDatepicker{width: 88px}
+.tb-type1 .hasDatepicker:hover{width: 88px}
+</style>

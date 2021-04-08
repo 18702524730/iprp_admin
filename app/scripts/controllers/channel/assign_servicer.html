@@ -1,0 +1,100 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>渠道商</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPChannelListModel"><a href="#/main/channel_home/channel_list"><span>渠道商列表</span></a></li>
+                <li mt-show-model model-name="IPRPChannelAssignServicer"><a href="JavaScript:void(0);" class="current"><span>指定服务商</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+        <thead>
+            <tr>
+                <th colspan="20">渠道商信息</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>名称：</th>
+                <td>
+                    <span ng-bind="channel_detail.name"></span>
+                </td>
+                <th>编码：</th>
+                <td>
+                    <span ng-bind="channel_detail.code"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+        <thead>
+            <tr>
+                <th colspan="20">服务开通</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <select
+                            ng-model="bs_class_id"
+                            ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessFirst.elements"
+                            ng-change="searchSecond(bs_class_id)">
+                        <option value="">请选择...</option>
+                    </select>
+                    <select ng-model="s_bs_class_id"
+                            ng-show="bs_class_id && BusinessSrcondclass.elements.length > 0"
+                            ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessSrcondclass.elements"
+                            ng-change="searchThird(s_bs_class_id)">
+                        <option value="">请选择...</option>
+                    </select>
+                    <select ng-model="t_bs_class_id"
+                            ng-show="s_bs_class_id && BusinessThreeclass.elements.length > 0"
+                            ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessThreeclass.elements"
+                            ng-change="showBusiness(t_bs_class_id)">
+                        <option value="">请选择...</option>
+                    </select>
+                    &nbsp;&nbsp;
+                    <a href="" ng-click = "all_service()">全部服务</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table style="width: 860px" id="table_category" class="type">
+                        <thead>
+                            <tr>
+                                <th>服务分类</th>
+                                <th>服务</th>
+                                <th>服务商</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="businessList.length > 0" ng-repeat="detail in businessList">
+                                <td ng-bind="detail.bs_class_name"></td>
+                                <td ng-bind="detail.name"></td>
+                                <td ng-if="detail.countsp != undefined">
+                                    <a href="" style="color: #0000ff" ng-click="channel_service(detail.bs_id)">{{detail.countsp}}</a>
+                                </td>
+                                <td ng-if="detail.countsp === undefined">0</td>
+                                <td>
+                                    <a herf style="cursor: pointer" ng-click = "assign(detail.bs_id)">指定</a>
+                                </td>
+                            </tr>
+                            <tr ng-show="to_loading">
+                                <td colspan="20" class="norecord">
+                                    <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot ng-hide="to_loading">
+                            <tr colspan="15" class="tfoot">
+                                <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

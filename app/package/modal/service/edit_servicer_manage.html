@@ -1,0 +1,36 @@
+<div>
+    <style type="text/css">
+        .error{line-height: 20px;color: red;padding-left: 20px;padding-top: 10px;}
+        .con_body{padding:10px 20px;}
+        .label_span{min-height: 30px;line-height: 30px;}
+        .label_span label{margin-right: 10px;}
+        .btn_wrap{padding: 10px 0;}
+        .modal-dialog{width: 400px;}
+    </style>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">配置能力值：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <div class="error">{{error}}</div>
+    <div class="con_body">
+        <div class="label_span">
+            <label>渠道: </label><span>{{itemD.item.channel_name}}</span>
+        </div>
+        <div class="label_span">
+            <label>服务分类: </label><span>{{itemD.item.bs_class_name}}</span>
+        </div>
+        <div class="label_span">
+            <label>服务: </label><span>{{itemD.item.name}}</span>
+        </div>
+        <div class="label_span">
+            <label>能力值: </label>
+            <span><input type="text" name="" ng-model="itemD.item.sp_ability"></span>
+        </div>
+        <div class="btn_wrap">
+            <a class="btn"><span ng-click="cancel()">取消</span></a>
+            <a class="btn"><span ng-click="save()">确定</span></a>
+        </div>
+    </div>
+</div>

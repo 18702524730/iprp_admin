@@ -1,0 +1,206 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>商家管理 - 商家详情</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPServicerDetailModel"><a href="JavaScript:void(0);" ng-class="{'current': tabType==1}" ng-click="tabType=1"><span>商家服务服务</span></a></li>
+                <li><a href="JavaScript:void(0);" ng-class="{'current': tabType==2}" ng-click="tabType=2"><span>平台导流类目</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 商家服务 -->
+    <table class="table tb-type2 order" ng-show="tabType==1">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="15">商家信息</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li style="width: 100%;"><strong>商家名称:</strong>{{service_detail.name}}</li>
+                        <li style="width: 100%;"><strong>联系人姓名:</strong>{{service_detail.sp_contacts}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">服务类目</th>
+            </tr>
+            <tr>
+              <td>
+                <p style="width:100%; margin: 10px 0;">请选择服务类目：</p>
+                <div class="list_box_wrap">
+                  <div class="list_box">
+                    <p class="item" ng-repeat="item in stepOneList" ng-class="{'active': item.active}" ng-click="selectStepOneFn(item)">{{ item.name }}</p>
+                  </div>
+                  <div class="list_box" ng-show="showStepTwo">
+                    <p class="item" ng-repeat="item in stepTwoList" ng-class="{'active': item.active}"  ng-click="selectStepTwoFn(item)">{{ item.name }}</p>
+                  </div>
+                  <div class="list_box"  ng-show="showStepThree">
+                    <p class="item" ng-repeat="item in stepThreeList">
+                      <label>
+                        <input type="checkbox" class="check" ng-model="item.isSelect" ng-click="selectStepThreeFn(item)">
+                        {{ item.name }}
+                      </label>
+                    </p>
+                  </div>
+                </div>
+                <p style="width:100%; margin: 10px 0;">已选服务类目：</p>
+                <table id="table_category" class="type full_table" style="width: 100%; ">
+                    <tbody>
+                      <tr ng-repeat="item in selectList">
+                        <td width="200px">{{ item.typeOne.name }}</td>
+                        <td width="200px">{{ item.typeTwo.name }}</td>
+                        <td class="lab_box">
+                          <span ng-repeat="info in item.typeThree track by $index" class="del_lab" ng-click="deleteLabFn(info, $index, item)">{{ info.name }}<i class="fa fa-times" aria-hidden="true"></i></span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">商家运营</th>
+            </tr>
+            <tr>
+              <td>
+                商家搜索：<input type="text" ng-model="weightNum"> <span style="color:#999;">请输入1-99之前的数数字，权重越大，搜索结果更靠前</span>                
+              </td>
+            </tr>
+            <tr class="space">
+              <td style="text-align:center;">
+                <button class="btn">返回</button>
+                <button class="btn">保存</button>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- 平台导流 -->
+    <table class="table tb-type2 order" ng-show="tabType==2">
+      <tbody class="tr-color">
+          <tr class="space">
+              <th colspan="15">商家信息</th>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <ul>
+                      <li style="width: 100%;"><strong>商家名称:</strong>{{service_detail.name}}</li>
+                      <li style="width: 100%;"><strong>联系人姓名:</strong>{{service_detail.sp_contacts}}</li>
+                  </ul>
+              </td>
+          </tr>
+          <tr class="space">
+              <th colspan="2">服务类目</th>
+          </tr>
+          <tr>
+            <td>
+              <table border="0" cellpadding="0" cellspacing="0" class="store-joinin" style="width:100%;">
+                  <thead>
+                  <tr>
+                      <th colspan="20">服务开通</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>
+                              <label for="">渠道：</label> 
+                              <select ng-model="channel_id" ng-options="sortName.channel_id as sortName.name for sortName in channel_list" ng-change="channelChange(channel_id)">
+                              </select>
+                              <label for="" style="margin-left: 50px">服务分类：</label>
+                              <select
+                                      ng-model="bs_class_id"
+                                      ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessFirst.elements"
+                                      ng-change="searchSecond(bs_class_id)">
+                                  <option value="">请选择...</option>
+                              </select>
+                              <select ng-model="s_bs_class_id"
+                                      ng-show="bs_class_id && BusinessSrcondclass.elements.length > 0"
+                                      ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessSrcondclass.elements"
+                                      ng-change="searchThird(s_bs_class_id)">
+                                  <option value="">请选择...</option>
+                              </select>
+                              <select ng-model="t_bs_class_id"
+                                      ng-show="s_bs_class_id && BusinessThreeclass.elements.length > 0"
+                                      ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessThreeclass.elements"
+                                      ng-change="showBusiness(t_bs_class_id)">
+                                  <option value="">请选择...</option>
+                              </select>
+                              &nbsp;&nbsp;
+                              <a href="" ng-click = "all_service()">全部服务</a>
+
+                              <span class="error" ng-show="open_service_show">
+                                  <small class="error">
+                                      <label><i class="icon-exclamation-sign"></i>请选择开通的服务</label>
+                                  </small>
+                              </span>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td colspan="2">
+                              <table style="width: 100%;" id="table_category" class="type">
+                                  <thead>
+                                      <tr>
+                                          <th>渠道</th>
+                                          <th>服务分类</th>
+                                          <th>服务</th>
+                                          <th>现有能力值</th>
+                                          <th>配置能力值</th>
+                                          <th>操作</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr ng-show="tempServiceBusiness.length > 0" ng-repeat="detail in tempServiceBusiness">
+                                          <td ng-bind="detail.channel_name"></td>
+                                          <td ng-bind="detail.bs_class_name"></td>
+                                          <td ng-bind="detail.name"></td>
+                                          <td>{{!detail.sp_now_ability && detail.sp_now_ability!=0? '--':detail.sp_now_ability}}</td>
+                                          <td>{{!detail.sp_ability && detail.sp_ability!=0? '--':detail.sp_ability}}</td>
+                                          <td>
+                                              <a href="" ng-click="servAction(detail, false)" ng-if="!detail.check">开通</a>
+                                              <a href="" ng-click="servAction(detail, true)" ng-if="detail.check && detail.channel_id == channel_id">修改</a>
+                                              <a href="" ng-click="close(detail)" ng-if="detail.check && detail.channel_id == channel_id">关闭</a>
+                                              <!-- <input type="checkbox" ng-click="sChoose(detail)" ng-checked="!!detail.check"> -->
+                                          </td>
+                                      </tr>
+                                      <tr ng-show="to_loading">
+                                          <td colspan="20" class="norecord">
+                                              <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                                  <tfoot ng-hide="to_loading">
+                                      <tr colspan="15" class="tfoot">
+                                          <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                                      </tr>
+                                  </tfoot>
+                              </table>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+            </td>
+          </tr> 
+          <tr class="space">
+            <td style="text-align:center;">
+              <button class="btn">返回</button>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+</div>
+
+<style>
+  .list_box_wrap {width:100%; background:#eee; border:1px solid #ddd; overflow:hidden;}
+  .list_box_wrap .list_box {
+    width: calc(33% - 20px); height: 200px; background:#fff; overflow-y: auto; overflow-x: hidden; float:left; margin: 10px; border:1px solid #ddd;
+  }
+  .list_box_wrap .list_box .item {width:100%; float:left; height:24px; line-height:24px; padding-left: 10px; margin:0; cursor: pointer;}
+  .list_box_wrap .list_box .item.active {background: #999; color:#fff;}
+  .list_box .item .check {vertical-align: middle;}
+  .full_table td {background: #eee;}
+  .full_table .del_lab {background: #fff; border:1px solid #ddd; cursor: pointer; padding: 0 5px 0 10px; height: 24px; line-height: 24px; display: inline-block; border-radius: 5px;}
+  .full_table .lab_box {text-align:left;}
+  .full_table .del_lab {margin-right:10px;}
+  .full_table .del_lab i {margin-left: 10px;}
+  .pagination ul {width: 100%;}
+  .pagination ul li {width:auto;}
+</style>

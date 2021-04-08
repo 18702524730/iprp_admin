@@ -1,0 +1,142 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>订单管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:history.go(-1)"><span>订单列表</span></a></li>
+                <li mt-show-model model-name="IPRPOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">支付单信息</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li>
+                    <strong>订单号：</strong>
+                    {{order_detail.order_sn}}&nbsp;&nbsp;
+                    <!--<a href="" ng-click="order_bs_detail(order_detail.channel_id,order_detail.bs_id,order_detail.order_sn)">-->
+                        <!--<span style="color: #0000ff">业务详情</span>-->
+                    <!--</a>-->
+                  </li>
+                  <li><strong>订单金额：</strong>{{order_detail.order_amount | number:2}}</li>
+                  <li><strong>下单时间：</strong>{{order_detail.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                  <li><strong>支付状态：</strong>{{order_detail.payment_state | orderStatusFilter}}-{{order_detail.sub_state_description}}</li>
+                  <li><strong>支付方式：</strong>{{order_detail.payment_name}}</li>
+                  <li><strong>商户订单号：</strong>{{order_detail.order_payment_sn}}</li>
+                  <li><strong>支付时间：</strong>{{order_detail.payment_time | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                  <li><strong>订单来源：</strong>{{order_detail.orderFrom | originType}}</li>
+                  <!-- <li><strong>勾选协议时间：</strong>{{order_detail.payment_time | date:'yyyy-MM-dd HH:mm:ss'}} <a class="btn" href="{{adminUrl+'/iprp_operator/api/downProtocol?orderSn='+order_detail.order_sn +'&access_token='+ access_token}}">下载协议</a></li> -->
+                  <li><strong>邀请人：</strong>{{order_detail.asistantPhone || '--'}}</li>
+                  <!-- <li><strong>是否参与活动：</strong>{{order_detail.promotion | PromotionFilter}}</li>
+                  <li><strong>订单状态:</strong>{{order_detail.state | orderStatusFilter}}-{{order_detail.sub_state_description}}</li>
+                  <li><strong>下单时间：</strong>{{order_detail.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                  <li><strong>完成时间：</strong>{{order_detail.finnshed_time | date:'yyyy-MM-dd HH:mm:ss'}}</li> -->
+                </ul>
+              </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">商家信息</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li><strong>商家编号：</strong>{{order_detail.sp_code}}</li>
+                  <li><strong>商家名称：</strong>{{order_detail.sp_name}}</li>
+                  <li><strong>店铺名称：</strong>{{order_detail.store_name || '--'}}</li>
+                  <li><strong>商家类型：</strong>{{order_detail.manage_type == 1 ? '优选商家': '普通商家'}}</li>
+                  <li><strong>商家手机号：</strong>{{order_detail.sp_phone || '--'}}</li>
+                </ul>
+              </td>
+            </tr>
+            <!-- <tr class="space">
+                <th colspan="2">金额信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>订单总额:</strong><span class="red_common">￥{{order_detail.order_amount | number:2}}</span></li>
+                        <li><strong>官费：</strong><span class="red_common">￥{{order_detail.pe_amount | number:2}}</span></li>
+                        <li><strong>服务费用：</strong><span class="red_common">￥{{order_detail.sp_amount | number:2}}</span></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">备注信息</th>
+            </tr>
+            <tr>
+                <td>
+                    {{order_detail.asistantremarks || '无'}}
+                </td>
+            </tr> -->
+            <tr class="space">
+                <th colspan="2">客户信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>姓名：</strong>{{order_detail.member.truename}}</li>
+                        <li><strong>性别：</strong>{{order_detail.member.sex|memberSexFilter}}</li>
+                        <li><strong>注册手机号：</strong>{{order_detail.member.phone}}</li>
+                        <li><strong>历史服务单数：</strong>{{order_detail.his_order_count}}</li>
+                        <li><strong>微信号：</strong>{{order_detail.member.memberWechat}}</li>
+                        <li><strong>QQ：</strong>{{order_detail.member.memberQQ}}</li>
+                        <li><strong>邮箱：</strong>{{order_detail.member.email}}</li>
+                        <li><strong>昵称：</strong>{{order_detail.member.nickname}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space" ng-show="order_detail.bsOrderVos.length > 0">
+                <th>服务单信息</th>
+            </tr>
+            <tr ng-show="order_detail.bsOrderVos.length > 0">
+              <td colspan="20" style="padding: 5px 0!important">
+                <table id="table_category" class="type" style="width:100%;">
+                  <thead>
+                    <tr>
+                      <th class="alignleft">服务单号</th>
+                      <th class="alignleft">服务名称</th>
+                      <th class="alignleft">商品编号</th>
+                      <!-- <th class="alignleft">商品信息</th> -->
+                      <th class="alignleft">需支付价格</th>
+                      <th class="alignleft">实付</th>
+                      <th class="alignleft">服务状态</th>
+                      <!-- <th class="alignleft">服务跟踪</th> -->
+                      <th class="alignleft">售后状态</th>
+                      <th class="alignleft">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="order_detail.bsOrderVos.length > 0" ng-repeat="detail in order_detail.bsOrderVos">
+                      <td class="alignleft" ng-bind="detail.order_sn"></td>
+                      <td class="alignleft" ng-bind="detail.bs_name"></td>
+                      <td class="alignleft" ng-bind="detail.order_bs_number"></td>
+                      <td class="alignleft" ng-bind="detail.order_amount | number:2"></td>
+                      <td class="alignleft" ng-bind="detail.payment_amount | number:2"></td>
+                      <td class="alignleft" ng-bind="detail.order_feedback_state"></td>
+                      <!-- <td class="alignleft"><a href="">查看进度</a></td> -->
+                      <td class="alignleft" ng-bind="detail.refund_state|refundStateFilter"></td>
+                      <td class="alignleft"><a href="" ng-click="bs_detail_orders(detail, detail.order_sn)">查看详情</a></td>
+                    </tr>
+                    <tr ng-show="order_detail.bsOrderVos.length == 0">
+                        <td colspan="7">暂无记录</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+        </tbody>
+        <!-- <tfoot>
+            <tr class="tfoot">
+                <td>
+                    <a href="JavaScript:void(0);" ng-show="order_detail.distributeType === 1" ng-click="back_order(order_detail.order_id,order_detail.distributeType)" class="btn" id="submitBtn"><span>收回订单</span></a>
+                    <a href="JavaScript:void(0);" ng-show="order_detail.distributeType === 0" ng-click="allot_order(order_detail.order_id,order_detail.bs_id)" class="btn"><span>分配服务商</span></a>
+                </td>
+            </tr>
+        </tfoot> -->
+    </table>
+</div>

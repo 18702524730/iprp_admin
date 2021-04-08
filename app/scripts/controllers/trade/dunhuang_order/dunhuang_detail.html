@@ -1,0 +1,63 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>敦煌网-订单</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPDhgateOrderListModel"><a href="JavaScript:history.go(-1)"><span>订单列表</span></a></li>
+                <li mt-show-model model-name="IPRPDhgateOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">用户信息</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li>
+                    <strong>用户名称</strong>
+                    {{order_detail.userName}}&nbsp;&nbsp;
+                    <!--<a href="" ng-click="order_bs_detail(order_detail.channel_id,order_detail.bs_id,order_detail.order_sn)">-->
+                        <!--<span style="color: #0000ff">业务详情</span>-->
+                    <!--</a>-->
+                  </li>
+                  <li><strong>姓名称呼：</strong>{{order_detail.contactName}}</li>
+                  <li><strong>联系电话：</strong>{{order_detail.contactPhone}}</li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">订单信息</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li><strong>订单号：</strong>{{order_detail.orderFuwuId}}</li>
+                  <li><strong>创建时间：</strong>{{order_detail.dateCreate | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                  <li><strong>提交时间：</strong>{{order_detail.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                  <li><strong>类目ID:</strong>{{order_detail.categoryId}}</li>
+                  <li><strong>服务名称：</strong>{{order_detail.fuwuName}}</li>
+                  <li><strong>版本：</strong>{{order_detail.edition}}</li>
+                  <li><strong>订单价格：</strong>{{order_detail.price}}</li>
+                  <li><strong>服务价格：</strong>{{order_detail.skuPrice}}</li>
+                  <li><strong>服务状态：</strong>{{order_detail.serviceStatus|orderServerStateFormat}}</li>
+                </ul>
+                <ul ng-if='order_detail.serviceStatus!=3'>
+                  <li mt-show-model model-name="IPRPDhgateOrderEditModel"><span ng-click='setState(order_detail)' style="display:inline-block;width: 120px;height:20px;line-height:20px;text-align:center; border-radius:10px; background-color: #68a4fe;color: #fff;font-size: 12px;cursor: pointer">设置服务状态</span></li>
+                </ul>
+                <ul ng-if='order_detail.serviceStatus==3&&order_detail.fileUrl'>
+                  <!-- <li ng-click='prevImg(order_detail.fileUrl)'><strong>服务合同：</strong><div style="padding: 10px 20px 20px 50px; width:300px;height:300px;"><img style="display: block;width:100%;height:100%;" ng-src="{{firstUrl}}" alt=""></div>
+                  </li> -->
+                  <li><strong style="vertical-align: top">服务合同：</strong>
+                    <span style="display: inline-block;max-width: 400px;word-break:break-all;vertical-align: top;line-height: 20px;">{{order_detail.fileName}}<a ng-href="{{adminUrl+'/iprp_operator/api/dhgate/downFile?access_token='+token+'&url='+order_detail.fileUrl}}" ng-if="order_detail.fileUrl" style='padding:4px 10px; border:1px solid #68a4fe; border-radius: 2px;margin-left: 10px' target="_blank">下载</a></span>
+                    
+                  </li>
+                </ul>
+              </td>
+            </tr>
+        </tbody>
+        
+    </table>
+</div>

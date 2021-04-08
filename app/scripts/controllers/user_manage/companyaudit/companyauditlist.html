@@ -1,0 +1,92 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>企业主体认证审核</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPMemberManageModel"><a href="JavaScript:void(0);" class="current"><span>审核列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+               
+                     <tr>
+                        <th><label>企业名称：</label></th>
+                        <td><input type="text" value="" class="txt" placeholder="企业名称" ng-model="obj.applyName" maxlength="30"></td>
+                        <th><label>联系电话：</label></th>
+                        <td><input type="text" value="" class="txt" placeholder="用户手机号" ng-model="obj.applyPhone" maxlength="30"></td>
+                        <!-- <th><label>用户姓名：</label></th>
+                        <td><input type="text" value="" class="txt" placeholder="用户姓名" ng-model="apply_subject_name" maxlength="30"></td> -->
+                        
+                        
+                        <th><label>认证状态：</label></th>
+                        <td>
+                            <select ng-model="checkstatus.isChecked" style="width:120px">
+                                <option value="">请选择...</option>
+                                <option value="2">认证中</option>
+                                <option value="1">认证成功</option>
+                                <option value="4">认证失败</option>
+                            </select>
+                        </td>
+                    
+                    <!-- <th><label>完成时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" placeholder=""
+                               name="complete_start_time" id="complete_start_time" datepicker-popup ng-model="complete_start_time" max="complete_end_time" style="cursor:pointer" readonly/>
+                        <label for="complete_end_time">~</label>
+                        <input type="text" class="txt date hasDatepicker" placeholder=""
+                               name="complete_end_time" id="complete_end_time" datepicker-popup ng-model="complete_end_time" min="complete_start_time" style="cursor:pointer" readonly/>
+                    </td> -->
+
+
+                    <td>
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                        <a href="javascript:void(0);" class="btn-search" ng-click="reset()">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" style="width: 40px;">序号</th>
+                    <th class="align-center">企业名称</th>
+                    <th class="align-center">统一社会信用代码</th>
+                    <th class="align-center">联系电话</th>
+                    <th style="width: 120px" class="align-center">认证状态</th>
+                    <th class="align-center">创建时间</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr ng-show="member_list.length > 0" class="hover" ng-repeat="list in member_list">
+                    <td class="align-center">
+                        <span ng-bind="list.number"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.applyName"></td>
+                    <td class="align-center" ng-bind="list.applyNumber"></td>
+                    <td class="align-center" ng-bind="list.applyPhone"></td>
+                    <td class="align-center" ng-bind="list.isChecked |checkedStautsFormat"></td>
+                    <td class="align-center" ng-bind="list.createTime| date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center w120">
+                      <a href style="cursor: pointer" ng-click="detail_orders(list.applySubjectId)">查看</a>
+                    </td>
+
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="7" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr class="tfoot">
+                    <td colspan="7"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

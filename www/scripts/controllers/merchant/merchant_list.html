@@ -1,0 +1,141 @@
+<div class="page feedback">
+   <div class="fixed-bar">
+		<div class="item-title">
+			<h3>商家管理</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPServicerListModel"><a href="JavaScript:void(0);" class="current"><span>商家管理列表</span></a></li>
+				<!-- <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);"><span>导出</span></a></li> -->
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>商家编号：</label></th>
+					<td>
+						<input type="text" ng-model="obj.spCode" class="ng-pristine ng-untouched ng-valid ng-empty">
+					</td>
+					<th><label>商家名称：</label></th>
+					<td>
+						<input type="text" ng-model="obj.name" class="ng-pristine ng-untouched ng-valid ng-empty">
+					</td>
+					<th><label>店铺名称：</label></th>
+					<td>
+						<input type="text" ng-model="obj.shopName" class="ng-pristine ng-untouched ng-valid ng-empty">
+					</td>
+					<th><label>商家类型：</label></th>
+					<td>
+						<select ng-model="obj.manageType" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="{{item.id}}" ng-repeat="item in merchantState">{{ item.name }}</option>
+						</select>
+					</td>
+					<th><label>主体类型：</label></th>
+					<td>
+						<select ng-model="obj.spType" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="{{item.id}}" ng-repeat="item in applyStates">{{ item.name }}</option>
+						</select>
+					</td>
+
+				</tr>
+				<tr>
+						<th><label>联系人姓名：</label></th>
+					<td>
+						<input type="text" ng-model="obj.contacts" class="ng-pristine ng-untouched ng-valid ng-empty">
+					</td>
+					<th><label>联系电话：</label></th>
+					<td>
+						<input type="text" ng-model="obj.spPhone" class="ng-pristine ng-untouched ng-valid ng-empty">
+					</td>
+					<th><label>拾贝会员账号：</label></th>
+					<td>
+						<input type="text" ng-model="obj.memberPhone" class="ng-pristine ng-untouched ng-valid ng-empty">
+					</td>
+					<th><label>营业状态：</label></th>
+					<td>
+						<select ng-model="obj.spState" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="{{item.id}}" ng-repeat="item in businessType">{{ item.name }}</option>
+						</select>
+					</td>
+					<th><label>开通状态：</label></th>
+					<td>
+						<select ng-model="obj.visible" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="{{item.id}}" ng-repeat="item in infoType">{{ item.name }}</option>
+						</select>
+					</td>
+				 </tr>
+				 <tr>
+					<th><label>关联创新保：</label></th>
+					<td>
+						<select ng-model="obj.isCxb" style="width: 141px;">
+							<option value="">请选择</option>
+							<option value="{{item.id}}" ng-repeat="item in cxbRelevance">{{ item.name }}</option>
+						</select>
+					</td>
+					<td colspan="2">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center" width="40">序号</th>
+					<th class="align-center" width="100">商家编号</th>
+					<th class="align-center" width="100">商家名称</th>
+					<th class="align-center" width="100">店铺名称</th>
+					<th class="align-center" width="80">商家类型</th>
+					<th class="align-center" width="80">主体类型</th>
+					<th class="align-center" width="80">联系人姓名</th>
+					<th class="align-center" width="80">联系电话</th>
+					<th class="align-center" width="80">拾贝会员账号</th>
+					<th class="align-center" width="100">创建时间</th>
+					<th class="align-center" width="100">营业状态</th>
+					<th class="align-center" width="100">开通状态</th>
+					<th class="align-center" width="80" class="align-center">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" class="hover" ng-show="resultList.length" ng-repeat="list in resultList">
+					<td class="align-center">
+						<span>{{list.number}}</span>
+					</td>
+					<td class="align-center">{{list.sp_code}}</td>
+					<td class="align-center">{{list.name}}</td>
+					<td class="align-center">{{list.shopName}}</td>
+					<td class="align-center">{{list.manageType == 1 ? '优选商家' : '普通商家'}}</td>
+					<td class="align-center">{{list.spType == 1 ? '机构(公司)' : list.spType == 2 ? '个人' : list.spType == 3 ? '机构(个体工商户)' : '--'}}</td>
+					<td class="align-center">{{list.sp_contacts}}</td>
+					<td class="align-center">{{list.phone}}</td>
+					<td class="align-center">{{list.account}}</td>
+					<td class="align-center">{{list.create_time | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td class="align-center">{{list.spState == 1? '启用' : '禁用'}}</td>
+					<td class="align-center">{{list.visibleText}}</td>
+					<td class="align-center w120">
+						<a href="JavaScript:void(0);" style="cursor: pointer" ng-click="goDetailFn(list)">查看</a>
+						<a mt-show-model model-name="IPRPUpdateServicerModel" href="JavaScript:void(0);" style="cursor: pointer" ng-click="goDetailFn(list, 'edit')">编辑</a>
+						<a mt-show-model model-name="IPRPServicerEnableModel" href="JavaScript:void(0);" style="cursor: pointer" ng-click="setSpState(list, list.spState == 1? 2 : 1)">{{list.spState == 1? '禁用' : '启用'}}</a>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="20" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

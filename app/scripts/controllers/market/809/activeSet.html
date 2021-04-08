@@ -1,0 +1,107 @@
+<div class="page clearfix">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>809上线活动监控后台</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="#main/market_home/rechargeList"><span>话费充值</span></a></li>
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="#main/market_home/prizeList"><span>中奖记录</span></a></li>
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>活动设置</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="active_wrap">
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">中奖记录</th>
+                    <th class="align-center">奖品名称</th>
+                    <th class="align-center">付款前概率</th>
+                    <th class="align-center">付款后概率</th>
+                    <th class="align-center"> 剩余数量</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+                    <td class="align-center"><span ng-bind="list.number"></span></td>
+                    <td class="align-center" ng-bind="list.prize_name"></td>
+                    <td class="align-center" ng-bind="list.rate"></td>
+                    <td class="align-center" ng-bind="list.pay_rate"></td>
+                    <td class="align-center">{{list.prize_num}}({{list.prize_last_num}})</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="active_wrap setup clearfix">
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center fs18">实时榜单</th>
+                    <th class="align-center">手机号</th>
+                    <th class="align-center">奖品名称</th>
+                    <th class="align-center">奖品数量</th>
+                    <th class="align-center">几分钟前</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="hover" ng-repeat="real in reallist">
+                    <td class="align-center"><span>{{$index+1}}</span></td>
+                    <td class="align-center"><input placeholder="请输入手机号" ng-model="real.registerPhone" type="text" ></td>
+                    <td class="align-center win_name"><input placeholder="请输入奖品名称" ng-model="real.prizeName" type="text" ></td>
+                    <td class="align-center"><input placeholder="请输入奖品数量" ng-model="real.prizeNum" ng-value="real.prizeNum || 1" type="text" ></td>
+                    <td class="align-center"><input placeholder="请输入几分钟前" ng-model="real.lastTime" type="text" ></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="fr" ng-click="realclick()">实时榜单提交</button>
+    </div>
+    <div class="active_wrap setup clearfix">
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center fs18">幸运榜单</th>
+                    <th class="align-center">手机号</th>
+                    <th class="align-center">奖品名称</th>
+                    <th class="align-center">奖品数量</th>
+                    <th class="align-center">几分钟前</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="hover" ng-repeat="luck in lucklist">
+                    <td class="align-center"><span>{{$index+1}}</span></td>
+                    <td class="align-center"><input placeholder="请输入手机号" ng-model="luck.registerPhone" type="text" ></td>
+                    <td class="align-center win_name"><input placeholder="请输入奖品名称" ng-model="luck.prizeName" type="text" ></td>
+                    <td class="align-center"><input placeholder="请输入奖品数量" ng-model="luck.prizeNum" ng-value="luck.prizeNum || 1" type="text" ></td>
+                    <td class="align-center"><input placeholder="请输入中奖时间" ng-model="luck.createTime" type="text" ></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="fr" ng-click="luckclick()">幸运榜单提交</button>
+    </div>
+</div>
+<div class="set_con">
+        <h5>送话费名额剩余数量:</h5>
+        <ul>
+            <li ng-repeat="item in phonebill">
+                <label>{{item.name}}<input type="text" ng-model="item.num" name="" onkeypress="return event.keyCode>=48&&event.keyCode<=57"><button ng-click="phonenumber(item.num,item.id,$index)">保存</button></label>
+            </li>
+        </ul>
+    </div>
+<style>
+.thead th.fs18{font-size: 18px;}
+.win_name input{width: 100%}
+.setup{box-sizing: border-box;}
+.setup div h5{margin-bottom: 20px;}
+.setup div{padding-right: 98px;box-sizing: border-box;}
+.setup div li {text-align: right;}
+.active_wrap tbody{border-bottom: 1px solid #DFE4EA;}
+table{margin-bottom: 20px;}
+.set_con{padding-top: 10px;margin-bottom: 10px;border-top: 1px solid #e5e5e5;padding-left: 20px}
+.set_con h5{margin-bottom: 15px;}
+.set_con ul{width: 100%;overflow: hidden;}
+.set_con ul li{width: 50%;float: left;}
+.set_con ul li label{width: 350px;text-align: right;}
+.set_con ul li label input{margin-left: 15px;}
+.item-title .tab-base li .current{background-color: #68a4fe;}
+.item-title .tab-base li .current span{color: #fff;}
+</style>

@@ -1,0 +1,145 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>商品管理</h3>
+            <ul class="tab-base">
+                <li><a href="JavaScript:void(0);" class="current"><span>商品列表</span></a></li>
+                <li><a href="#main/business_home/add_product"><span>添加商品</span></a></li>
+                <li><a href="#main/business_home/edit_product"><span>修改商品</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>商品状态：</label></th>
+                    <td colspan="8">
+                        <span class="radiobtn" ng-click="(obj.status='') || search_order()" ng-class="{'cur':obj.status==''}">所有商品</span>
+                        <span class="radiobtn" ng-click="(obj.status='1') && search_order()" ng-class="{'cur':obj.status=='1'}">已上架</span>
+                        <span class="radiobtn" ng-click="(obj.status='2') && search_order()" ng-class="{'cur':obj.status=='2'}">未上架</span>
+                        <span class="radiobtn" ng-click="(obj.status='3') && search_order()" ng-class="{'cur':obj.status=='3'}">已下架</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>商品名称：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.productName" style="width: 215px"></td>
+                    <th><label>商品ID：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.productId"></td>
+                    <th><label>所属业务：</label></th>
+                    <td>
+                        <select ng-model="obj.businessTypeId">
+                            <option value="">请选择所属业务</option>
+                            <option ng-repeat="type in businessTypes" ng-value="type.id">{{type.name}}</option>
+                        </select>
+                    </td>
+                    <th><label>上架时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="onShelvesTimeStart" id="onShelvesTimeStart" ng-model="onShelvesTimeStart"
+                                max-date="onShelvesTimeEnd" style="cursor:pointer" readonly/>
+                        <label for="onShelvesTimeEnd">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="onShelvesTimeEnd" id="onShelvesTimeEnd"  ng-model="onShelvesTimeEnd" min-date="onShelvesTimeStart" style="cursor:pointer" readonly/>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>下架时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="offShelfTimeStart" id="offShelfTimeStart" ng-model="offShelfTimeStart"
+                                max-date="offShelfTimeEnd" style="cursor:pointer" readonly/>
+                        <label for="offShelfTimeEnd">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="offShelfTimeEnd" id="offShelfTimeEnd"  ng-model="offShelfTimeEnd" min-date="offShelfTimeStart" style="cursor:pointer" readonly/>
+                    </td>
+                    <td colspan="2">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <!-- <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="12"><div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table> -->
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <!-- <th class="align-center">序号</th> -->
+                    <th class="align-center">商品名称</th>
+                    <th class="align-center">图片</th>
+                    <th class="align-center">商品类型</th>
+                    <th class="align-right">服务类型</th>
+                    <th class="align-center">所属业务</th>
+                    <th class="align-center">所属分类</th>
+                    <th class="align-center">商品ID</th>
+                    <th class="align-center">单品ID</th>
+                    <th class="align-center">标准价</th>
+                    <th class="align-center">订金</th>
+                    <th class="align-center">优惠</th>
+                    <th class="align-center">优惠价</th>
+                    <th class="align-center">状态</th>
+                    <th style="width: 120px;" class="align-center">上架时间</th>
+                    <th style="width: 120px;" class="align-center">下架时间</th>
+                    <th class="align-center">操作人</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+                    <!-- <td class="align-center">
+                        <span ng-bind="list.number"></span>
+                    </td> -->
+                    <td class="align-center" ng-bind="list.name"></td>
+                    <td class="align-center"><img ng-src="{{list.picture}}" height="60" width="60" /></td>
+                    <td class="align-center" ng-bind="list.productType"></td>
+                    <td class="align-center" ng-bind="list.serviceType"></td>
+                    <td class="align-center" ng-bind="list.businessName"></td>
+                    <td class="align-center" ng-bind="list.className"></td>
+                    <td class="align-center" ng-bind="list.productId"></td>
+                    <td class="align-center" ng-bind="list.productPriceId"></td>
+                    <td class="align-center" ng-bind="list.standardPrice | number:2"></td>
+                    <td class="align-center" ng-bind="list.depositPrice | number:2"></td>
+                    <td class="align-right" ng-bind="list.preferentialPrice | number:2"></td>
+                    <td class="align-center"><span ng-show="list.preferentialPrice">{{(list.depositPrice - list.preferentialPrice) | number:2}}</span></td>
+                    <td class="align-center" ng-bind="list.status | productStatusFilter"></td>
+                    <td class="align-center" ng-bind="list.onShelvesTime"></td>
+                    <td class="align-center" ng-bind="list.offShelfTime"></td>
+                    <td class="align-center" ng-bind="list.operatorUserName"></td>
+                    <td class="align-center w120">
+                        <!-- 状态 1：已上架，2：未上架，3：已下架 4:逻辑删除-->
+                        <a ng-show="list.status != 1" ng-click="onShelves(list)">上架</a>
+                        <a ng-show="list.status == 1" ng-click="offShelf(list)">下架</a>
+                        <a ng-click="viewGood(list.productPriceId)">查看</a>
+                        <a ng-show="list.status != 1" ng-click="editDetail(list.productPriceId)">修改</a>
+                        <a ng-show="list.status != 1" class="delete_personalUser" ng-click="deleteGood(list)">删除</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

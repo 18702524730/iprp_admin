@@ -1,0 +1,66 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>合伙人入驻申请详情</h3>
+            <ul class="tab-base">
+                <li><a href="#/main/fast_home/partner_application"><span>合伙人入驻申请</span></a></li>
+                <li><a href="JavaScript:void(0);" class="current"><span>基本资料</span></a></li>
+                <!-- <li mt-show-model model-name="IPRPServicerDetailModel"><a ng-href="#/main/partner_home/partner_application_remarks/{{partner_id}}"><span>备注</span></a></li> -->
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="15">申请资料</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>申请类型:</strong>{{audit_data.applyType}}
+                        </li>
+                        <li><strong>机构名称:</strong>{{audit_data.companyName}}</li>
+                        <li><strong>联系人姓名:</strong>{{audit_data.name}}</li>
+                        <li><strong>联系电话:</strong>{{audit_data.phone}}</li>
+                        <li><strong>申请时间:</strong>{{audit_data.createTime | date:'yyyy-MM-dd hh:mm:ss'}}</li>
+                        <li><strong>机构介绍:</strong>{{audit_data.remark}}</li>
+                    </ul>
+                    <!-- <ul>
+                        <li>
+                            <strong>申请类型:</strong>个人渠道
+                        </li>
+                        <li><strong>联系人姓名:</strong>欧阳</li>
+                        <li><strong>联系电话:</strong>13666880000</li>
+                        <li><strong>申请时间:</strong>2018-07-03 11:34:00</li>
+                        <li><strong>个人介绍:</strong>这里是个人介绍</li>
+                    </ul> -->
+
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">申请审核</th>
+            </tr>
+            <tr>
+                <td>
+                  <!-- 通过时显示 -->
+                    <ul>
+                        <!-- <li><strong>审核结果：</strong>{{sellerApplicationDetail.state}}</li> -->
+                        <li style="height: 23px;"><strong>审核结果：</strong>通过</li>
+                        <!-- 链接至完善商户信息 -->
+                        <li><strong>账号状态：</strong>待完善<a class="btn" style="margin-left: 20px;" href="">完善商户信息</a></li>
+                        <li style="height: 23px;"><strong>审核时间：</strong>2018-07-03 11:34:00</li>
+                        <!-- 新窗口链接至门店地址 -->
+                        <li><strong>合伙人门店：</strong><a href="" class="btn" target="_blank">查看商户门店</a></li>
+                    </ul>
+                    <!-- 不通过时显示 -->
+                    <ul>
+                        <li style="height: 23px;"><strong>审核结果：</strong>不通过</li>
+                        <li><strong>不通过原因：</strong>资料有误</li>
+                        <li style="height: 23px;"><strong>审核时间：</strong>2018-07-03 11:34:00</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

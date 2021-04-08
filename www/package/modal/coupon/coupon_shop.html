@@ -1,0 +1,50 @@
+<div>
+  <h3 class="dialog_head" style="cursor: move;">
+    <span class="dialog_title">
+      <span class="dialog_title_icon">设置适用商品</span>
+    </span>
+    <span class="dialog_close_button" ng-click="cancel()">X</span>
+  </h3>
+  <form role="form" class="lists" style="padding:5px 15px 20px;">
+    <ul class="lists_l">
+      <li ng-class="{'check_list':$index==indexFirst}" ng-repeat="item in couponCategory track by $index" ng-click="checkFirst(item.childs,$index)"><label>{{item.bsClassName}}</label></li>
+    </ul>
+
+    <div class="next_list">
+      <div class="lists_r" ng-repeat="info in couponCategoryFirst track by $index">
+        <ul ng-class="{'bor_top':$index >= 1}">
+          <li class="mb10 title">
+            <label>{{info.bsClassName}}</label>
+            <input type="checkbox" ng-click="allChilds(info)" ng-checked="nextChilds.indexOf(info.bsClassName) !== -1"/>
+          </li>
+          <li class="mb10" ng-repeat="infoEnd in info.childs">
+            <label ng-class="{'color_text':allProductNum.indexOf(infoEnd.productNum) !== -1}">{{infoEnd.name}}</label>
+            <input type="checkbox" name="auditStatus" ng-checked="allProductNum.indexOf(infoEnd.productNum) !== -1" ng-click="sChoose(infoEnd,info.bsClassName)"/>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+    
+    
+  </form>
+  <div class="btn_a fr mb20 mr30">
+      <a href="JavaScript:void(0);" class="btn" ng-click="addCoupon()"><span>确认添加</span></a>
+    </div>
+</div>
+<style>
+.modal-dialog{width: 500px;}
+.modal-content{width: 500px;}
+.lists{display: flex;}
+.lists_l{border-right: 1px solid #eee;padding: 0 20px;height: 365px;}
+.lists_l li{line-height: 40px;}
+.check_list label{font-weight: bold;}
+
+.next_list{height: 365px;overflow: auto;}
+.lists_r{padding: 0 20px;}
+.lists_r .title{color:#999;padding-top: 10px;}
+.lists_r .bor_top{border-top: 1px solid #eee;}
+.lists_r li label{min-width: 300px;vertical-align: middle;margin: 0;cursor: auto;}
+.lists_r li label.color_text{color: #FF9933;}
+.lists_r li input{vertical-align: middle;cursor:pointer;}
+</style>

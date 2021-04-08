@@ -1,0 +1,77 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>809上线活动监控后台</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>话费充值</span></a></li>
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="#main/market_home/prizeList"><span>中奖记录</span></a></li>
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="#main/market_home/activeSet"><span>活动设置</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">序号</th>
+                    <th class="align-center">日期</th>
+                    <th class="align-right">话费充值总额</th>
+                    <th class="align-right">国内商标话费总额</th>
+                    <th class="align-right">国际商标话费总额</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+                    <td class="align-center"><span ng-bind="list.number"></span></td>
+                    <td class="align-center" ng-bind="list.date | date:'yyyy-MM-dd'"></td>
+                    <td class="align-right">
+                        <span ng-bind="list.totalMoney | number:2"></span>
+                    </td>
+                    <td class="align-right">
+                        <span ng-bind="list.tmMoney | number:2"></span>
+                    </td>
+                    <td class="align-right">
+                        <span ng-bind="list.interTmMoney | number:2"></span>
+                    </td>
+                    <td class="align-center w120">
+                        <a class="excelbtn" href="JavaScript:void(0);" model-name="IPRPOrderDetailModel" style="cursor: pointer" ng-click="phone_excel(list.date,1)">国内导出EXCEL</a>
+                        <a class="excelbtn" href="JavaScript:void(0);" model-name="IPRPOrderDetailModel" style="cursor: pointer" ng-click="phone_excel(list.date,2)">国际导出EXCEL</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+.excelbtn{
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    width: 110px;
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #666;
+    margin:10px auto 0;
+}
+.excelbtn:hover{
+    color: #fff;
+    background-color: #68a4fe;
+    border-color: #68a4fe;
+}
+.item-title .tab-base li .current{background-color: #68a4fe;}
+.item-title .tab-base li .current span{color: #fff;}
+</style> 
+ 

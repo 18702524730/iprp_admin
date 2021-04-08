@@ -1,0 +1,45 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">提现审核：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <div style="color: red;padding-left: 20px;padding-top: 15px;" ng-if="error_tip">{{error_tip}}</div>
+    <form role="form" style="padding:5px 15px 20px;">
+        <table class="table tb-type2 nobdb" >
+            <tbody class="tr-color">
+                <tr class="noborder">
+                    <td colspan="4">
+                      <label><span style="color: red">*</span>审核结果：</label>
+                    </td>
+                    
+                </tr>
+                <tr class="noborder">
+                  <td>
+                    <label><input type="radio" name="confirm_type" value="1" ng-model="withdrawState" ng-checked="withdrawState == 1" ng-click="selectFn(1)">提现成功</label>
+                    <label><input type="radio" name="confirm_type" value="-1" ng-model="withdrawState" ng-checked="withdrawState == -1" ng-click="selectFn(-1)">提现失败</label>
+                  </td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label></span>请填写备注：</label>
+                        <textarea ng-model="obj.remark" style="width: 410px;height: 90px;display: block;" maxlength="180"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="4" class="setup_tit">
+                        <a class="fr" ng-click="confirm()" >确认</a>
+                        <a class="fr setup_move" ng-click="cancel()">取消</a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style>
+.modal-dialog{width: 470px;}
+.instructions{color: #999;}
+</style>

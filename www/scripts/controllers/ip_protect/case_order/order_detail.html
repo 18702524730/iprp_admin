@@ -1,0 +1,63 @@
+<div class="page lt_order_detail">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>案件详情</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:history.go(-1)"><span>订单列表</span></a></li>
+                <li mt-show-model model-name="IPRPOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">联系人信息</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li><strong>联系人：</strong>{{order_detail.contactName}}</li>
+                  <li><strong>联系电话：</strong>{{order_detail.contactPhone}}</li>
+                  <li><strong>委托方：</strong>{{order_detail.entruster}}</li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">案件详情信息</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                      <li><strong>服务类型：</strong>{{order_detail.serviceType | serviceTypeF}}</li>
+                      <li><strong>涉案平台：</strong>{{order_detail.involvePlatform | involvePlatformF}}</li>
+                      <li><strong>案件类型：</strong>{{order_detail.caseType | caseTypeF}}</li>
+                    </ul>
+                    <ul ng-if="order_detail.patentName">
+                      <li><strong>专利类型：</strong>{{order_detail.patentType | patentType}}</li>
+                      <li><strong>专利申请号：</strong>{{order_detail.patentSn}}</li>
+                      <li><strong>专利名称：</strong>{{order_detail.patentName}}</li>
+                    </ul>
+                    <ul ng-if="order_detail.manageIndustry">
+                      <li><strong>治理行业：</strong>{{order_detail.manageIndustry}}</li>
+                    </ul>
+                    <ul ng-if="!order_detail.manageIndustry">
+                      <li style="width: 900px"><strong>商品链接：</strong><span style="display: inline-block;max-width: 800px;vertical-align: top;word-break: break-all;">{{order_detail.productUrl}}</span></li>
+                    </ul>
+                    <ul>
+                      <li style="width: 900px"><strong>案件描述：</strong><span style="display: inline-block;max-width: 800px;vertical-align: top;word-break: break-all;">{{order_detail.caseDesc}}</span></li>
+                    </ul>
+                    <ul>
+                      <li style="width: 500px"><strong>案件材料：</strong><span style="display: inline-block;max-width: 400px;vertical-align: top;">{{order_detail.caseMaterialName}}</span><a class="btn" target="_blank" href="{{order_detail.caseMaterialUrl}}" style="display: inline-block;max-width: 400px;vertical-align: top;margin-top: -4px;margin-left: 10px">下载案件材料</a></li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<style type="text/css">
+    .lt_order_detail .table .status{color: red;margin-right: 20px;margin-left:1%;}
+    .lt_order_detail .table .btn{height: 18px;line-height: 18px; padding: 5px 10px;background-color: #68a4fe;border-radius: 3px;color: #fff;cursor: pointer;display: inline-block;}
+    .lt_order_detail .table .imgs{padding: 20px 0;}
+    .lt_order_detail .table .imgs a{display: inline-block;margin-right: 20px;}
+    .lt_order_detail .table .imgs a img{width: 150px;max-height: 150px;}
+</style>

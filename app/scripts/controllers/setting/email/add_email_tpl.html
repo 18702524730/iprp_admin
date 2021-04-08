@@ -1,0 +1,109 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>消息通知</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPEmailTplListModel"><a href="#/main/setting_home/email_tpl"><span>邮件模板列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddEmailTplModel"><a class="current"><span>添加邮件模板</span></a></li>
+                <li mt-show-model model-name="IPRPEmailSetModel"><a href="#/main/setting_home/email"><span>邮件设置</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form id="form_templates" name="AddEmailTplForm" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 nobdb">
+            <tbody>
+                <tr class="noborder">
+                    <td colspan="2" class="required">
+                        <label class="validation">编码:</label>
+                        <span class="error" ng-show="AddEmailTplForm.code.$invalid && AddEmailTplForm.submitted">
+                            <small ng-show="AddEmailTplForm.code.$error.required" class="error">
+                                <span class="red"><i class="icon-exclamation-sign"></i>编码不可以为空</span>
+                            </small>
+                            <small class="error" ng-show="AddEmailTplForm.code.$error.pattern">
+                                <span class="red"><i class="icon-exclamation-sign"></i>编码只能使用字母、数字</span>
+                            </small>
+                            <small class="error" ng-show="AddEmailTplForm.code.$error.maxlength">
+                                <span class="red"><i class="icon-exclamation-sign"></i>编码最大长度为50位</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" name="code"class="txt"
+                               ng-maxlength="50" ng-pattern="/^[a-zA-Z\d]+$/" ng-model="add_template_obj.code" required/>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="2" class="required">
+                        <label class="validation">模板描述:</label>
+                        <span class="error" ng-show="AddEmailTplForm.name.$invalid && AddEmailTplForm.submitted">
+                            <small ng-show="AddEmailTplForm.name.$error.required" class="error">
+                                <span class="red"><i class="icon-exclamation-sign"></i>模板描述不可以为空</span>
+                            </small>
+                            <small class="error" ng-show="AddEmailTplForm.name.$error.pattern">
+                                <span class="red"><i class="icon-exclamation-sign"></i>模板描述只能使用中文、数字、字母和特殊符号{}_$:</span>
+                            </small>
+                            <small class="error" ng-show="AddEmailTplForm.name.$error.maxlength">
+                                <span class="red"><i class="icon-exclamation-sign"></i>模板描述最大长度为50位</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" name="name"class="txt"
+                               ng-maxlength="50" ng-pattern="/^[\u4e00-\u9fa5\sa-zA-Z0-9{}_$:]+$/" ng-model="add_template_obj.name" required/>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        <label class="validation"> 邮件标题:</label>
+                        <span class="error" ng-show="AddEmailTplForm.title.$invalid && AddEmailTplForm.submitted">
+                            <small ng-show="AddEmailTplForm.title.$error.required" class="error">
+                                <span class="red"><i class="icon-exclamation-sign"></i>邮件标题不可以为空</span>
+                            </small>
+                            <small class="error" ng-show="AddEmailTplForm.title.$error.pattern">
+                                <span class="red"><i class="icon-exclamation-sign"></i>邮件标题只能使用中文、数字、字母和特殊符号{}_$:</span>
+                            </small>
+                            <small class="error" ng-show="AddEmailTplForm.title.$error.maxlength">
+                                <span class="red"><i class="icon-exclamation-sign"></i>邮件标题最大长度为50位</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" name="title"class="txt"
+                               ng-maxlength="50" ng-pattern="/^[\u4e00-\u9fa5\sa-zA-Z0-9{}_$:]+$/" ng-model="add_template_obj.title" required/>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        <label class="validation">邮件正文:</label>
+                        <span class="error" ng-show="AddEmailTplForm.content.$invalid && AddEmailTplForm.submitted">
+                            <small ng-show="AddEmailTplForm.content.$error.required" class="error">
+                                <span class="red"><i class="icon-exclamation-sign"></i>邮件正文不可以为空</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="2">
+                        <textarea style="width: 590px;height: 400px;" name="content" id="content" ng-model="add_template_obj.content" required></textarea>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="15">
+                        <a href="JavaScript:void(0);" class="btn" ng-click="add_template()"><span>提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,293 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>广告位运营  > 推荐好标</h3>
+        </div>
+    </div>
+    <!-- 列表 -->
+    <form ng-show="typeTab==1" >
+        <a href="javascript:void(0);" class="btn-search fr" style="margin:10px 0;" ng-click="changeTabFn(2)">新增</a>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" width="100">序号</th>
+                    <th class="align-center" width="120" >运营位位置</th>
+                    <th class="align-center" width="120" >运营位名称</th>
+                    <th class="align-center" width="100">权重</th>
+                    <th class="align-center" width="100">备注</th>
+                    <th class="align-center" width="100">排序方式</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="positionList.length > 0" class="hover" ng-repeat="list in positionList">
+                    <td class="align-center"><span ng-bind="list.number"></span></td>
+                    <td class="align-center" ng-bind="list.business_name"></td>
+                    <td class="align-center">
+                        <span ng-bind="list.show_name"></span>
+                    </td>
+                    <td class="align-center">
+                        <span ng-bind="list.show_weight"></span>
+                    </td>
+                    <td class="align-center">
+                        <span ng-bind="list.remark"></span>
+                    </td>
+                    <td class="align-center"><span >{{ orderTypeList[list.sort_id-1].name }}</span></td>
+                    <td class="align-center w120">
+                        <a ng-click="changeTabFn(3, list)" style="cursor:pointer;">管理商品</a>
+                        <a ng-click="changeTabFn(4, list)" style="cursor:pointer;">设置运营位</a>
+                        <a ng-click="deleteFn(list)" style="cursor:pointer;">删除</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+
+    <!-- 新增 -->
+    <form name="addForm" ng-show="typeTab==2 || typeTab==4" role="form" class="form-horizontal" novalidate >
+      <table class="table tb-type2">
+        <tbody class="tr-color">
+          <tr class="noborder">
+            <td colspan="2" class="required">
+              <label>新增运营位</label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="required">
+              <label class="validation">运营位位置:</label>
+              <span class="error" ng-show="addForm.p_type.$invalid && showError">
+                <small  class="error">
+                  <label><i class="icon-exclamation-sign"></i>请选择运营位模块</label>
+                </small>
+              </span>
+            </td>
+          </tr>
+          <tr class="noborder">
+            <td class="vatop rowform">
+              <select name="p_type" ng-model="addPositionObj.businessType" required>
+                <option value="" disabled>请选择运营位模块</option>
+                <option value="1">热门好标</option>
+                <option value="2">热门类别</option>
+              </select>
+            </td>
+            <td class="vatop tips"></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="required">
+              <label class="validation">运营位名称:</label>
+              <span class="error" ng-show="addForm.p_name.$invalid && showError">
+                  <small ng-show="addForm.p_name.$error.required" class="error">
+                      <label><i class="icon-exclamation-sign"></i>运营位名称不可以为空</label>
+                  </small>
+              </span>
+            </td>
+          </tr>
+          <tr class="noborder">
+            <td class="vatop rowform">
+              <input type="text" placeholder="请输入运营位名称" name="p_name" class="txt" maxlength="10" ng-model="addPositionObj.showName" required/>
+            </td>
+            <td class="vatop tips">限10个字符以内</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="required">
+              <label class="validation">权重</label>
+              <span class="error" ng-show="addForm.order_weight.$invalid && showError">
+                  <small ng-show="addForm.order_weight.$error.required" class="error">
+                      <label><i class="icon-exclamation-sign"></i>权重不可以为空</label>
+                  </small>
+              </span>
+              <span class="error" ng-show="weightError">
+                  <small class="error">
+                      <label><i class="icon-exclamation-sign"></i>权重只可以设置1-10之间的数字</label>
+                  </small>
+              </span>
+            </td>
+          </tr>
+          <tr class="noborder">
+            <td class="vatop rowform">
+              <input type="text" value="" name="order_weight" class="txt" maxlength="2" ng-model="addPositionObj.showWeight" ng-change="checkWeightFn(addPositionObj.showWeight)" required>
+            </td>
+            <td class="vatop tips">请输入1-10之间的数字。数字越大，排序越靠前</td>
+          </tr>
+          <tr>
+            <td colspan="2" >
+              <label class="validation no_must" >超链接</label>
+            </td>
+          </tr>
+          <tr class="noborder">
+            <td class="vatop rowform">
+              <input type="text" placeholder="请输入超链接地址" name="phone" maxlength="255" class="txt" ng-model="addPositionObj.show_url" required>
+            </td>
+            <td class="vatop tips">请输入要跳转的链接，限制255个字符以内</td>
+          </tr>
+          <tr>
+            <td colspan="2" >
+              <label class="validation no_must" >运营位配图</label>
+            </td>
+          </tr>
+          <tr class="noborder">
+            <td class="vatop rowform">
+              <a class="upload-btn" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file)" ngf-accept="'image/*'" ngf-pattern="'.png,.jpg,.jpeg,.gif'" ngf-multiple="true" style="display: inline-block;margin-right: 0px;">上传</a>
+              <img ng-show="addPositionObj.show_picture_url" src="{{ addPositionObj.show_picture_url }}" alt="" width="60" style="margin-left: 20px;">
+              <!-- <ul ng-if="!addPositionObj.show_picture_url">
+                    <li ng-repeat="item in imageList track by $index" style="display: inline-block;">
+                        <a ng-show="item" href="{{item}}" target="_blank"><img src="{{item}}" width="60" style="margin-left: 20px;"></a>
+                    </li>
+                </ul> -->
+            </td>
+            <td class="vatop tips">支持jpg、png、bmp格式，大小限制1M以内请根据具体的运营栏要求，确定运营位配图的尺寸</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="required">
+              <label class="validation no_must" >备注</label>
+            </td>
+          </tr>
+          <tr class="noborder">
+            <td class="vatop rowform" style="position:relative;">
+              <textarea name="" id="" cols="30" rows="5" maxlength="20" ng-change="getRemarkLenFn()" ng-model="addPositionObj.remark"></textarea>
+              <span style="position:absolute; right:70px; bottom:20px; color:#999;">({{ remarkLen }}/20)</span>
+            </td>
+            <td class="vatop tips"></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="required">
+              <label class="validation no_must" >排序方式</label>
+            </td>
+          </tr>
+          <tr class="noborder">
+            <td class="vatop rowform">
+              手动排序
+            </td>
+            <td class="vatop tips"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="tfoot">
+            <td colspan="15">
+              <!-- 新增 -->
+              <a href="JavaScript:void(0);" class="btn" id="submitBtn" ng-click="submitUpdateFn(1)" ng-show="typeTab==2">
+                <span>提交</span>
+              </a>
+              <!-- 修改 -->
+              <a href="JavaScript:void(0);" class="btn" id="submitBtn" ng-click="submitUpdateFn(2)" ng-show="typeTab==4">
+                <span>提交</span>
+              </a>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </form>
+
+    <!-- 管理商品 -->
+    <form ng-show="typeTab==3" class="tm_manage">
+        <p class="line">
+          销售状态：  
+          <select name="bill_tpl" ng-model="status" ng-change="selectStatusFn(status)"  required>
+            <option value="">请选择销售状态</option>
+            <option value="1">待售</option>
+            <option value="2">预订</option>
+            <option value="3">已售</option>
+            <option value="4">不可出售</option>
+            <option value="5">销售中</option>
+          </select>
+        </p>
+        <div class="line">
+          <p class="fl">操作提示：在运营位中，仅展示销售状态为待售，且优先展示排序靠前的商品。</p>
+          <a href="javascript:void(0);" class="btn-search fr" style="margin-left:10px;"  ng-click="gpTmPageFn()">管理商标</a>
+          <a href="javascript:void(0);" class="btn-search fr"  ng-click="addTmFn({})">新增商标</a>
+        </div>
+        
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">排序</th>
+                    <th class="align-center">商标编号</th>
+                    <th class="align-center">注册号</th>
+                    <th class="align-center">商标名称</th>
+                    <th class="align-center">商标类别</th>
+                    <th class="align-center">销售状态</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="tardemarkList.length" class="hover" ng-repeat="list in tardemarkList">
+                    <td class="align-center"><span >{{ list.number }}</span></td>
+                    <td class="align-center" >{{ list.goods_sn }}</td>
+                    <td class="align-center">
+                        <span >{{ list.acceptmaterials }}</span>
+                    </td>
+                    <td class="align-center">
+                        <span >{{ list.trademark_name }}</span>
+                    </td>
+                    <td class="align-center">
+                        <span >{{ list.category<10 ? '0'+list.category : list.category }}-{{ cateIdData[list.category-1].goodsname }}</span>
+                    </td>
+                    <td class="align-center"><span>{{ saleStatusList[list.sale_status-1].name }}</span></td>
+                    <td class="align-center w120">
+                        <a ng-click="goTmDetailFn(list)" style="cursor:pointer;">详情</a>
+                        <a ng-click="deleteTmFn(list)" style="cursor:pointer;">删除</a>
+                        <a ng-click="moveItemInListFn(list, 1, $index)" ng-show="$index!=0" style="cursor:pointer;">上移</a>
+                        <a ng-click="moveItemInListFn(list, 2, $index)" ng-show="$index!=tardemarkList.length-1" style="cursor:pointer;">下移</a>
+                    </td>
+                </tr>
+                <tr ng-show="!tardemarkList.length">
+                  <td colspan="7" class="align-center"><div class="warning-option"><i class="icon-warning-sign"></i><span class="ng-binding">没有符合条件的记录</span></div></td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <!-- <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot> -->
+        </table>
+    </form>
+</div>
+<style>
+.excelbtn{
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    width: 110px;
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #666;
+    margin:10px auto 0;
+}
+.excelbtn:hover{
+    color: #fff;
+    background-color: #68a4fe;
+    border-color: #68a4fe;
+}
+.item-title .tab-base li .current{background-color: #68a4fe;}
+.item-title .tab-base li .current span{color: #fff;}
+label.no_must {background: none; padding: 0;}
+.upload-btn {
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background: #eee;
+}
+.tm_manage .line {
+  width: 100%; height: 30px; line-height: 30px; margin-bottom: 10px;
+}
+.thead th.maxwidth { max-width: 120px; }
+</style> 
+ 

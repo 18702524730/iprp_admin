@@ -1,0 +1,187 @@
+<div class="page lt_order_detail">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>保护投诉（官网）</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:history.go(-1)"><span>订单列表</span></a></li>
+                <li mt-show-model model-name="IPRPOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">服务进度</th>
+            </tr>
+            <tr>
+              <td colspan="2" ng-if="order_detail.ipProtectOperateDTOList[0].stateAfterOperate === 1 && order_detail.ipProtectOperateDTOList.length == 1">
+                <span class="status">待受理</span> <span class="btn" ng-click="checkFn(businessSn)">受理</span>
+              </td>
+              <td colspan="2" ng-if="order_detail.ipProtectOperateDTOList[1].stateAfterOperate === 2 && order_detail.ipProtectOperateDTOList.length == 2">
+                <span class="status">服务中</span> <span class="btn" ng-click="feedbackFn(businessSn)">结案备注</span>
+              </td>
+              <td colspan="2" ng-if="order_detail.ipProtectOperateDTOList[2].stateAfterOperate === 3 && order_detail.ipProtectOperateDTOList.length == 3">
+                <span class="status">已完成</span>
+              </td>
+              <td colspan="2" ng-if="order_detail.ipProtectOperateDTOList[1].stateAfterOperate === 4 && order_detail.ipProtectOperateDTOList.length == 2">
+                <span class="status">不予受理</span>
+              </td>
+            </tr>
+            <tr ng-if="order_detail.ipProtectOperateDTOList[1].stateAfterOperate === 4 && order_detail.ipProtectOperateDTOList.length == 2">
+                <td colspan="2">
+                    <ul>
+                      <li style="width: 500px"><strong>备注：</strong><span style="display: inline-block;max-width: 400px;vertical-align: top;">{{order_detail.ipProtectOperateDTOList[1].memo}}</span></li>
+                    </ul>
+                    <ul>
+                      <li><strong>不予受理时间：</strong>{{order_detail.ipProtectOperateDTOList[1].createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space" ng-if="order_detail.ipProtectOperateDTOList[1].stateAfterOperate === 2 && order_detail.ipProtectOperateDTOList.length == 2">
+                <th colspan="2">结案备注</th>
+            </tr>
+            <tr ng-if="order_detail.ipProtectOperateDTOList[1].stateAfterOperate === 2 && order_detail.ipProtectOperateDTOList.length == 2">
+              <td>
+                <ul>
+                  <li><strong>受理时间：</strong>{{order_detail.ipProtectOperateDTOList[1].createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                </ul>
+                <ul>
+                  <li style="width: 500px"><strong>备注：</strong><span style="display: inline-block;max-width: 400px;vertical-align: top;">{{order_detail.ipProtectOperateDTOList[1].memo}}</span></li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="space" ng-if="order_detail.ipProtectOperateDTOList[2].stateAfterOperate === 3 && order_detail.ipProtectOperateDTOList.length == 3">
+                <th colspan="2">受理情况</th>
+            </tr>
+            <tr ng-if="order_detail.ipProtectOperateDTOList[2].stateAfterOperate === 3 && order_detail.ipProtectOperateDTOList.length == 3">
+              <td>
+                <ul>
+                  <li><strong>操作时间：</strong>{{order_detail.ipProtectOperateDTOList[1].createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                </ul>
+                <ul>
+                  <li style="width: 500px"><strong>备注：</strong><span style="display: inline-block;max-width: 400px;vertical-align: top;">{{order_detail.ipProtectOperateDTOList[1].memo}}</span></li>
+                </ul>
+              </td>
+            </tr>
+            <tr ng-if="order_detail.ipProtectOperateDTOList[2].stateAfterOperate === 3 && order_detail.ipProtectOperateDTOList.length == 3">
+              <td>
+                <ul>
+                  <li><strong>完成时间：</strong>{{order_detail.ipProtectOperateDTOList[2].createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                </ul>
+                <ul>
+                  <li style="width: 500px"><strong>备注：</strong><span style="display: inline-block;max-width: 400px;vertical-align: top;">{{order_detail.ipProtectOperateDTOList[2].memo}}</span></li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">联系人信息</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li><strong>联系人：</strong>{{order_detail.lxrName}}</li>
+                  <li><strong>联系电话：</strong>{{order_detail.lxrPhone}}</li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">详情信息</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                      <li ng-if="order_detail.protectType && order_detail.businessType==1"><strong>投诉/申诉：</strong>{{order_detail.protectType}}</li>
+                      <li ng-if="order_detail.complaintPlatform && order_detail.businessType==1"><strong>{{order_detail.protectType=='投诉'?'投诉平台：':'申诉平台：'}}</strong>{{order_detail.complaintPlatform}}</li>
+                      <li ng-if="order_detail.ipType && order_detail.businessType==1"><strong>被投诉侵犯知识产权类型：</strong>{{order_detail.ipType}}</li>
+                      <li style="width: 100%;word-break: break-all;" ng-if="order_detail.complaintWebsite && order_detail.businessType==1"><strong>投诉网址:</strong><a target="_blank" ng-href="{{order_detail.complaintWebsite}}" style="margin-left: 10px">{{order_detail.complaintWebsite}}</a></li>
+                      <li ng-if="order_detail.complaintContent && order_detail.businessType==1"><strong>投诉内容：</strong>{{order_detail.complaintContent}}</li>
+                      
+                      <li ng-if="order_detail.monitorModel && order_detail.businessType==2"><strong>监测模式：</strong>{{order_detail.monitorModel}}</li>
+                      <li ng-if="order_detail.monitorBrand && order_detail.businessType==2"><strong>监测关键词：</strong>{{order_detail.monitorBrand}}</li>
+                      <li ng-if="order_detail.monitorType && order_detail.businessType==2"><strong>监测类型：</strong>{{order_detail.monitorType}}</li>
+                      <li ng-if="order_detail.monitorPlatform && order_detail.businessType==2"><strong>监测平台：</strong><span><span ng-repeat="item in order_detail.monitorPlatform.split(';')">{{item==1?'中文电商： 淘宝 天猫 拼多多 京东 阿里巴巴 慧聪网 苏宁；':item==2?'地图： 高德地图；':item==3?'搜索引擎： 百度搜索 搜狗搜索 360搜索 必应；':item==4?'社媒账号： 微博账号检索 微信公众号检索 抖音账号检索；':item==5?'新闻门户： 人民网 新浪网 新华网 国搜新闻；':item==6?'社媒账号： 微博账号检索 微信公众号检索 抖音账号检索；':item==7?'工商信息： 工商信息；':''}}</span></span></li>
+                      
+                      <li ng-if="order_detail.determineType && order_detail.businessType==3"><strong>判定类型：</strong>{{order_detail.determineType}}</li>
+                      <li ng-if="order_detail.patentType && order_detail.businessType==3"><strong>专利类型：</strong>{{order_detail.patentType==1?'外观设计专利':order_detail.patentType==2?'实用新型专利':order_detail.patentType==3?'发明专利':''}}</li>
+                      <li ng-if="order_detail.serviceType && order_detail.businessType==3"><strong>版权类型：</strong>{{order_detail.serviceType==1?'软件著作权':order_detail.serviceType==2?'作品著作权':''}}</li>
+                      <li ng-if="order_detail.patentName && order_detail.businessType==3"><strong>{{order_detail.determineType=='专利'?'专利名称：':'作品名称：'}}</strong>{{order_detail.patentName}}</li>
+                      <li ng-if="order_detail.lawType && order_detail.businessType==3"><strong>作品类型：</strong>{{order_detail.lawType}}</li>
+                      <li ng-if="order_detail.caseNo && order_detail.businessType==3"><strong>专利申请号：</strong>{{order_detail.caseNo}}</li>
+                      <li style="width: 100%;word-break: break-all;" ng-if="order_detail.complaintWebsite && order_detail.businessType==3"><strong>侵权商品链接：</strong><a target="_blank" ng-href="{{order_detail.complaintWebsite}}" style="margin-left: 10px">{{order_detail.complaintWebsite}}</a></li>
+                      <li ng-if="order_detail.tortDesc && order_detail.businessType==3"><strong>侵权说明：</strong>{{order_detail.tortDesc}}</li>
+                      
+                      <li ng-if="order_detail.qualityProject && order_detail.businessType==4"><strong>质量监测项目：</strong>{{order_detail.qualityProject}}</li>
+                      <li ng-if="order_detail.salePlatform && order_detail.businessType==4"><strong>产品销售平台：</strong>{{order_detail.salePlatform}}</li>
+                      <li ng-if="order_detail.complaintWebsite && order_detail.businessType==4"><strong>产品网址：</strong>{{order_detail.complaintWebsite}}</li>
+                      <li ng-if="order_detail.productionAddress && order_detail.businessType==4"><strong>产品生产商所在地：</strong>{{order_detail.productionAddress}}</li>
+                      <li ng-if="order_detail.tortDesc && order_detail.businessType==4"><strong>产品问题描述：</strong>{{order_detail.tortDesc}}</li>
+                      <li ng-if="order_detail.productionUnqualified && order_detail.businessType==4"><strong>产品质量不合格/缺陷项：</strong>{{order_detail.productionUnqualified}}</li>
+                      
+                      <li ng-if="order_detail.tortType && order_detail.businessType==5"><strong>侵权类型：</strong>{{order_detail.tortType}}</li>
+                      <li ng-if="order_detail.tortDesc && order_detail.businessType==5"><strong>线索描述：</strong>{{order_detail.tortDesc}}</li>
+                      <li ng-if="order_detail.identityType && order_detail.businessType==5"><strong>身份类型：</strong>{{order_detail.identityType}}</li>
+                      
+                      <li ng-if="order_detail.ipType && order_detail.businessType==6"><strong>知识产权类型：</strong>{{order_detail.ipType}}</li>
+                      <li ng-if="order_detail.serviceType && order_detail.businessType==6"><strong>服务类型：</strong>{{order_detail.serviceType}}</li>
+                      <li ng-if="order_detail.tortDesc && order_detail.businessType==6"><strong>线索：</strong>{{order_detail.tortDesc}}</li>
+                      
+                      <li ng-if="order_detail.lawType && order_detail.businessType==7"><strong>法律服务类型：</strong>{{order_detail.lawType}}</li>
+                      <li ng-if="order_detail.caseNo && order_detail.businessType==7"><strong>案号：</strong>{{order_detail.caseNo}}</li>
+                      <li ng-if="order_detail.tortDesc && order_detail.businessType==7"><strong>案情描述：</strong>{{order_detail.tortDesc}}</li>
+                      <li ng-if="order_detail.appeal && order_detail.businessType==7"><strong>诉求：</strong>{{order_detail.appeal}}</li>
+                      
+                      <li ng-if="order_detail.ipType && order_detail.businessType==8"><strong>知识产权类型：</strong>{{order_detail.ipType}}</li>
+                      <li ng-if="order_detail.caseNo && order_detail.businessType==8"><strong>{{order_detail.ipType=='商标'?'商标注册号：':order_detail.ipType=='版权'?'版权登记号：':order_detail.ipType=='专利'?'专利申请号：':''}}</strong>{{order_detail.caseNo}}</li>
+                    </ul>
+                    <ul>
+                        <li style="width: 100%;">
+                            <strong>案件材料：</strong>
+                            <div class="imgs" ng-if="order_voucher">
+                              <a download ng-href="{{item.url}}" target="_blank" ng-repeat="item in order_voucher" title="{{item.fileName}}">
+                                <div><img ng-src="{{item.url.toLowerCase().indexOf('jpg')>-1?item.url:item.url.toLowerCase().indexOf('jpeg')>-1?item.url:item.url.toLowerCase().indexOf('png')>-1?item.url:item.url.toLowerCase().indexOf('bmp')>-1?item.url:'../../../../styles/images/more.png'}}"></div>
+                                <span>{{item.fileName}}</span>
+                              </a>
+                            </div>
+                            <span ng-if="!order_voucher">无</span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<style type="text/css">
+    .lt_order_detail .table .status{color: red;margin-right: 20px;margin-left:1%;}
+    .lt_order_detail .table .btn{height: 18px;line-height: 18px; padding: 5px 10px;background-color: #68a4fe;border-radius: 3px;color: #fff;cursor: pointer;display: inline-block;}
+    .lt_order_detail .table .imgs{padding: 20px 0;display: flex;align-items: flex-start;}
+    .lt_order_detail .table .imgs a{
+      display: inline-block;
+      margin-right: 20px;
+      width: 150px;
+    }
+    .lt_order_detail .table .imgs a div{
+      height: 150px;
+      position: relative;
+    }
+    .lt_order_detail .table .imgs a img{width: 150px;max-height: 150px;position: absolute;top: 50%;transform: translateY(-50%);}
+    .lt_order_detail .table .imgs a span{
+      margin-top: 10px;
+      text-align: center;
+      display: inline-block;
+      width: 100%;
+      height: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space:nowrap;
+    }
+    .order ul li {
+        float: left;
+        width: 100%;
+        padding: 4px 0;
+        color: #333;
+        display: flex;
+    }
+    .order ul li span span{
+      display: block;
+    }
+</style>

@@ -1,0 +1,87 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>服务分类</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPBusinessClassListModel"><a href="#/main/business_home/mall_service_class"><span>商城服务类目列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddBusinessClassModel"><a class="current"><span>添加商城服务类目</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="add_business_service_class" role="form" class="form-horizontal" novalidate>
+        <input type="hidden" name="form_submit" value="ok">
+        <table class="table tb-type2">
+            <tbody class="tr-color">
+                <tr class="noborder">
+                    <td colspan="2" class="required">
+                        <label class="validation">分类名称:</label>
+                        <label class="error" ng-show="add_business_service_class.name.$invalid && add_business_service_class.submitted">
+                            <small ng-show="add_business_service_class.name.$error.required" class="error">
+                                <span class="red">分类名称不可以为空</span>
+                            </small>
+                            <small class="error" ng-show="add_business_service_class.name.$error.pattern">
+                                <span class="red">分类名称只能使用中文、数字、字母</span>
+                            </small>
+                            <small class="error" ng-show="add_business_service_class.name.$error.maxlength">
+                                <span class="red">分类名称最大长度为20位</span>
+                            </small>
+                        </label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" value="" name="name" class="txt" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9]+$/"  maxlength="20" ng-model="add_business_class_obj.name" required>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr ng-show="bs_class_id != null">
+                    <td colspan="2" class="required">
+                        <label>上级分类:</label>
+                        <span class="error" ng-show="add_business_service_class.bs_class_name.$invalid && add_business_service_class.submitted">
+                            <small ng-show="add_business_service_class.bs_class_name.$error.required" class="error">
+                            <label><i class="icon-exclamation-sign"></i>请选择上级分类</label>
+                        </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder" ng-show="bs_class_id != null">
+                    <td class="vatop rowform">
+                        <select  name="bs_class_name" ng-model="add_business_class_obj.bs_class_id" ng-options="a.bs_class_id as (a.deep === 1?'&nbsp;&nbsp;'+a.name:a.name) for a in business_class_tree_list" required>
+                            <option value="">请选择...</option>
+                        </select>
+                    </td>
+                    <td class="vatop tips">显示上级分类，那么新增的分类则为被选择上级分类的子分类</td>
+                </tr>
+                <!--<tr>-->
+                    <!--<td colspan="2" class="required">-->
+                        <!--<label class="validation">排序:</label>-->
+                        <!--<label class="error" ng-show="add_business_service_class.sort.$invalid && add_business_service_class.submitted">-->
+                            <!--<small ng-show="add_business_service_class.sort.$error.required" class="error">-->
+                                <!--<span class="red">请输入排序数值</span>-->
+                            <!--</small>-->
+                            <!--<small ng-show="add_business_service_class.sort.$error.pattern" class="error">-->
+                                <!--<span class="red">排序格式有误</span>-->
+                            <!--</small>-->
+                        <!--</label>-->
+                        <!--<label class="error" ng-show="sortWrong">-->
+                            <!--<span class="red">数字范围为0~255,数字越小越靠前</span>-->
+                        <!--</label>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr class="noborder">-->
+                    <!--<td class="vatop rowform">-->
+                        <!--<input type="text" value="" name="sort" id="sort" class="txt" ng-model="add_business_class_obj.sort" ng-pattern="/^[0-9]+$/">-->
+                    <!--</td>-->
+                    <!--<td>数字范围为0~255，数字越小越靠前</td>-->
+                <!--</tr>-->
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2">
+                    <a class="btn" id="submitBtn"><span ng-click="submit()">提交</span></a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

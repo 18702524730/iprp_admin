@@ -1,0 +1,160 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>红冲发票管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPRedInvoiceCheckListModel"><a href="#/main/finance_home/red_check_list"><span>审核列表</span></a></li>
+                <li mt-show-model model-name="IPRPRedInvoiceCheckModel"><a href="JavaScript:void(0);" class="current"><span>审核</span></a></li>
+                <li mt-show-model model-name="IPRPRedUnOpenInvoiceListModel"><a href="#/main/finance_home/red_unopen_list"><span>未开列表</span></a></li>
+                <li mt-show-model model-name="IPRPRedOpenInvoiceListModel"><a href="#/main/finance_home/red_open_list"><span>已开列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="invoice_form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 order">
+            <tbody>
+                <tr class="space">
+                    <th colspan="15">发票信息</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <ul>
+                            <li><strong>发票类型:</strong>{{invoice_detail.type | InvoiceTypeFilter}}</li>
+                            <li><strong>发票种类:</strong>{{invoice_detail.open_type | InvoiceOpenTypeFilter}}</li>
+                            <li><strong>发票状态:</strong>{{invoice_detail.state | InvoiceStateFilter}}</li>
+                            <li><strong>合计金额:</strong>{{invoice_detail.invoice_amount | number:2}}</li>
+                            <li><strong>税率:</strong><span>6%</span></li>
+                            <li><strong>合计税额:</strong>{{tax_amount | number:2}}</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="space">
+                    <th colspan="2">发票种类附属信息</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <ul ng-show="invoice_detail.type === 2">
+                            <li><strong>单位名称:</strong>{{invoice_detail.company}}</li>
+                            <li><strong>纳税人识别号:</strong>{{invoice_detail.code}}</li>
+                            <li><strong>注册地址:</strong>{{invoice_detail.reg_addr}}</li>
+                            <li><strong>注册电话:</strong>{{invoice_detail.reg_phone}}</li>
+                            <li><strong>开户银行:</strong>{{invoice_detail.reg_bname}}</li>
+                            <li><strong>银行账户:</strong>{{invoice_detail.reg_baccount}}</li>
+                        </ul>
+                        <ul>
+                            <li ng-show="invoice_detail.type === 1"><strong>发票抬头:</strong>{{invoice_detail.title}}</li>
+                            <li><strong>联系人:</strong>{{invoice_detail.rec_name}}</li>
+                            <li><strong>联系人电话:</strong>{{invoice_detail.rec_phone}}</li>
+                            <li><strong>收票人详细地址:</strong>{{invoice_detail.rec_address}}</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="space">
+                    <th colspan="2">订单详情</th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li><strong>订单编号：</strong>{{order_detail.order_sn}}</li>
+                            <li><strong>订单金额：</strong>{{order_detail.order_amount | number:2}}</li>
+                            <li><strong>服务名称：</strong>{{order_detail.bs_name}}</li>
+                            <li><strong>服务商：</strong>{{order_detail.sp_name}}</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="space">
+                    <th colspan="2">用户信息</th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li><strong>联 系 人：</strong>{{invoice_detail.rec_name}}</li>
+                            <li><strong>联系电话：</strong>{{invoice_detail.rec_phone}}</li>
+                            <li><strong>收票地址：</strong>{{invoice_detail.rec_address}}</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="space" ng-show="invoice_detail.apply_phone != null">
+                    <th colspan="2">作废信息</th>
+                </tr>
+                <tr ng-show="invoice_detail.apply_phone != null">
+                    <td>
+                        <ul>
+                            <li><strong>联 系 人：</strong>{{invoice_detail.apply_name}}</li>
+                            <li><strong>联系电话：</strong>{{invoice_detail.apply_phone}}</li>
+                            <li><strong>作废原因：</strong>{{invoice_detail.apply_message}}</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="space" ng-show="invoice_detail.pid != 0 && invoice_detail.audit_state === 0">
+                    <th colspan="2">审核信息</th>
+                </tr>
+                <tr ng-show="invoice_detail.pid !=0 && invoice_detail.audit_state === 0">
+                    <td>
+                        <ul>
+                            <li style="width: 810px;">
+                                <label class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-right:none;border-top-left-radius:4px;
+                                                            border-top-right-radius:0;
+                                                            border-bottom-right-radius:0;
+                                                            border-bottom-left-radius:4px;">
+                                 <span ng-click="turnOn()" ng-class="{'selected':choiceA}">是</span>
+                                </label>
+                                <label class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-left:none;border-top-left-radius:0;
+                                                            border-top-right-radius:4px;
+                                                            border-bottom-right-radius:4px;
+                                                            border-bottom-left-radius:0;">
+                                 <span ng-click="turnOff()" ng-class="{'selected':!choiceA}">否</span>
+                                </label>
+                                <span ng-show="invoice_form.audit_message.$invalid && invoice_form.submitted">
+                                    <small ng-show="invoice_form.audit_message.$error.required" class="error">
+                                        <label><i class="icon-exclamation-sign"></i>审核信息不可以为空</label>
+                                    </small>
+                                    <small class="error"
+                                           ng-show="invoice_form.audit_message.$error.maxlength || invoice_form.audit_message.$error.minlength">
+                                        <label><i class="icon-exclamation-sign"></i>审核信息长度为5~100位</label>
+                                    </small>
+                                </span>
+                            </li>
+                            <li>
+                                <textarea name="audit_message" ng-minlength="5" ng-maxlength="100" style="width: 360px;height: 130px;"
+                                          placeholder="请填写审核信息" ng-model="red_obj.audit_message" required>
+                                </textarea>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr ng-show="invoice_detail.pid !=0 && invoice_detail.audit_state != 0">
+                    <th colspan="2">审核信息</th>
+                </tr>
+                <tr  ng-show = "invoice_detail.pid !=0 && invoice_detail.audit_state != 0">
+                    <td>
+                        <ul>
+                            <li><strong>审核状态：</strong>{{invoice_detail.audit_state | InvoiceAuditStateFilter}}</li>
+                            <li><strong>审核原因：</strong>{{invoice_detail.audit_message}}</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="space" ng-show="invoice_detail.express_number != null">
+                    <th colspan="2">物流信息</th>
+                </tr>
+                <tr ng-show="invoice_detail.express_number != null">
+                    <td>
+                        <ul>
+                            <li><strong>快递公司：</strong>{{invoice_detail.express_name}}</li>
+                            <li><strong>快递单号：</strong>{{invoice_detail.express_number}}</li>
+                            <!--<li><strong>备注信息：</strong>{{invoice_detail.express_message}}</li>-->
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td>
+                        <a href="JavaScript:void(0);" ng-show="invoice_detail.pid != 0 && invoice_detail.audit_state === 0"
+                           class="btn" ng-click="save(invoice_detail.invoice_id,invoice_detail.invoice_sn)"><span>提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

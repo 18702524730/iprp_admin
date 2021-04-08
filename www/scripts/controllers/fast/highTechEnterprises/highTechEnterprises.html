@@ -1,0 +1,144 @@
+<div class="page feedback">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>高新企业申报</h3>
+			<ul class="tab-base">
+				<li><a href="JavaScript:void(0);" class="current"><span>企业列表</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>企业名称：</label></th>
+					<td>
+						<input type="text" ng-model="obj.companyName">
+					</td>
+
+					<th><label>联系号码：</label></th>
+					<td>
+						<input type="text" type="text" ng-model="obj.phone">
+					</td>
+					<th><label>企业规模：</label></th>
+					<td>
+						<select ng-model="obj.companyScale" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="1">50人以下</option>
+							<option value="2">50-100人</option>
+							<option value="3">100人以上</option>
+						</select>
+					</td>
+					<th><label>年销售收入：</label></th>
+					<td>
+						<select ng-model="obj.yearSale" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="1">5000万以下</option>
+							<option value="2">5000万-2亿</option>
+							<option value="3">2亿以上</option>
+						</select>
+					</td>
+					<th><label>评估结果：</label></th>
+					<td>
+						<select ng-model="obj.evaluating" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="1">重点培育</option>
+							<option value="2">鼓励申报</option>
+							<option value="3">推荐申报</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th><label>联系状态：</label></th>
+					<td>
+						<select ng-model="obj.contactState" style="width: 141px;">
+							<option value="">请选择</option>
+							<option value="0">未联系</option>
+							<option value="1">已联系</option>
+						</select>
+					</td>
+					<td style="text-align:right;">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_apply()">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center" width="30">序号</th>
+					<th class="align-center" width="80">企业名称</th>
+					<th class="align-center" width="90">联系电话</th>
+					<th class="align-center" width="80">企业注册时间</th>
+					<th class="align-center" width="100">企业规模</th>
+					<th class="align-center" width="80">年销售收入</th>
+					<th class="align-center" width="80">近三年研发费用(万元)</th>
+					<th class="align-center" width="80">近三年销售收入(万元)</th>
+					<th class="align-center" width="80">近三年所有者权益(万元)</th>
+					<th class="align-center" width="80">纳税方式</th>
+					<th class="align-center" width="80">知识产权</th>
+					<th class="align-center" width="80">来源渠道</th>
+					<th class="align-center" width="80">评估结果</th>
+					<th class="align-center" width="80">联系状态</th>
+					<th class="align-center" width="140">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+					<th class="align-center" width="80">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" class="hover" ng-repeat="item in ApplyList">
+					<td class="align-center">{{item.number}}</td>
+					<td class="align-center" title="{{item.companyName}}">{{item.companyName|textFilter}}</td>
+					<td class="align-center">{{item.phone}}</td>
+					<td class="align-center">{{item.registerData && item.registerData.slice(0,10)}}</td>
+					<td class="align-center">{{item.companyScale | companyScale}}</td>
+					<td class="align-center">{{item.yearSale | yearSale}}</td>
+					<td class="align-center">{{item.researchCost }}</td>
+					<td class="align-center wordwrap">{{item.saleCostString || '--' }}</td>
+					<td class="align-center wordwrap">{{item.income || '--' }}</td>
+					<td class="align-center">{{item.taxesType == 1 ? '查账征收' : item.taxesType == 2 ? '额定征收' : '--'}}</td>
+					<td class="align-center">{{item.intellectualPropertyRight}}</td>
+					<td class="align-center">{{item.source}}</td>
+					<td class="align-center">{{item.evaluating | evaluating}}</td>
+					<td class="align-center">{{item.contactState | contactState}}</td>
+					<td class="align-center" title="{{item.remarks}}">{{item.remarks|textFilter}}</td>
+					<td class="align-center">
+						<span class="btn-search" style="width: 30px;" ng-click="edit(item)">编辑</span>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="20" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr colspan="15" class="tfoot">
+					<td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>
+<style>
+.btn-search{
+	letter-spacing: 2px;
+	padding: 0 8px;
+	background: #68a4fe;
+	text-align: center;
+	border-radius: 3px;
+	color: #fff;
+	line-height: 23px;
+	display: inline-block;
+	height: 23px;
+	margin-top: 1px;
+	cursor: pointer;
+}
+.wordwrap{-ms-word-break: break-word;
+word-break: break-word;}
+.over_btn{
+	color: #999;
+	}
+</style>

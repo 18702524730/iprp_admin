@@ -1,0 +1,78 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>权限设置</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPAdminListModel"><a href="#/main/setting_home/admin_list"><span>管理员列表</span></a> </li>
+                <li mt-show-model model-name="IPRPAddAdminModel"><a href="#/main/setting_home/add_admin"><span>添加管理员</span></a> </li>
+                <li mt-show-model model-name="IPRPGadminListModel"><a class="current"><span>功能组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddGadminModel"><a href="#/main/setting_home/add_gadmin"><span>添加功能组</span></a></li>
+                <li mt-show-model model-name="IPRPDataListModel"><a href="#/main/setting_home/data_group_list"><span>业务组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddDataModel"><a href="#/main/setting_home/add_data_group"><span>添加业务组</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd">
+                <th colspan="12"><div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form id="form_admin">
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th>
+                        <input type="checkbox" class="checkall" id="" ng-click="allChoose()" name="chkVal" ng-checked="checkall">
+                    </th>
+                    <th>权限组</th>
+                    <th></th>
+                    <th width="120px" class="align-center">创建时间</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr ng-show="gAdminList.length>0" class="hover" ng-repeat="gAdmin in gAdminList">
+                    <td class="w24">
+                        <input type="checkbox" name="" value="" class="checkitem" ng-click="sChoose(gAdmin.fg_id)" ng-checked="allId.indexOf(gAdmin.fg_id) !== -1">
+                    </td>
+                    <td ng-bind="gAdmin.name"></td>
+                    <td></td>
+                    <td class="align-center" ng-bind="gAdmin.create_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="w150 align-center">
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPUpdateGadminModel">
+                            <span style="cursor: pointer" class="btn btn-default"  ng-click="edit_gadmin(gAdmin.fg_id)">编辑</span></a>
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPDeleteGadminModel">
+                            <span style="cursor: pointer" class="btn btn-default" ng-click="delete_gadmin(gAdmin.fg_id,$index)">删除</span></a>
+                    </td>
+                </tr>
+                <tr class="hover" ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td><input type="checkbox" class="checkall" id="checkallBottom" ng-click="allChoose()" ng-checked="checkall" name="chkVal"></td>
+                    <td><label for="checkallBottom">全选</label> &nbsp;&nbsp;
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPDeleteGadminModel" ng-click="deleteAll()" class="btn"><span>删除</span></a>
+                    </td>
+                    <td colspan="5"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

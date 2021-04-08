@@ -1,0 +1,120 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>跨境外贸工单管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPBsOrderListModel"><a href="JavaScript:void(0);" class="current"><span>订单列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>单号：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.workOrderSn"></td>
+                    <th><label>商标名称：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.trademarkName"></td>
+                    <th><label>工单状态：</label></th>
+                    <td>
+                        <select ng-model="obj.cxbStatus" style="width: 120px;">
+                            <option value="">请选择</option>
+                            <option value="1">待材料评审</option>
+                            <option value="2">评审不通过</option>
+                            <option value="3">已评审待确认</option>
+                            <option value="4">已确认待上报</option>
+                            <option value="5">已上报待审核</option>
+                            <option value="6">申报中</option>
+                            <option value="7">审核不通过</option>
+                            <option value="8">申报结束</option>
+                        </select>
+                    </td>
+                    <th><label>联系人：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.contactName"></td>
+                    <th><label>申请时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="applyTimeStart" id="applyTimeStart" ng-model="applyTimeStart"
+                                max-date="applyTimeEnd" style="cursor:pointer" readonly/>
+                        <label for="applyTimeEnd">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="applyTimeEnd" id="applyTimeEnd"  ng-model="applyTimeEnd"
+                                min-date="applyTimeStart" style="cursor:pointer" readonly/>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <th><label>联系人手机：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.contactPhone"></td>
+                    <td style="text-align:left;">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <!-- <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="12"><div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table> -->
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">序号</th>
+                    <th class="align-center">单号</th>
+                    <th class="align-center">商标名称</th>
+                    <th class="align-center">企业类型</th>
+                    <th style="width: 120px;" class="align-center">申请时间</th>
+                    <th class="align-right">服务商名称</th>
+                    <th class="align-center">工单状态</th>
+                    <th class="align-center">联系人</th>
+                    <th class="align-center">联系人手机</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+                    <td class="align-center">
+                        <span ng-bind="list.seqNo"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.workOrderSn"></td>
+                    <td class="align-center" ng-bind="list.trademarkName"></td>
+                    <td class="align-center" ng-bind="list.applyType | wmApplyTypeFilter"></td>
+                    <td class="align-center" ng-bind="list.createTime | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-right" ng-bind="list.spName"></td>
+                    <td class="align-center" ng-bind="list.cxbStatus | cxbStautsFilter"></td>
+                    <td class="align-center" ng-bind="list.contactName"></td>
+                    <td class="align-center" ng-bind="list.contactPhone"></td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="detail_orders(list.workOrderSn)">查看</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

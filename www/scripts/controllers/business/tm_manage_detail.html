@@ -1,0 +1,197 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>商标管理 > 查看详情</h3>
+            <ul class="tab-base">
+                <li><a href="JavaScript:void(0);" ng-class="{'current': tempTab==1}" ng-click="tempTab=1"><span>基本资料</span></a></li>
+                <li><a href="JavaScript:void(0);" ng-class="{'current': tempTab==2}" ng-click="tempTab=2"><span>备注</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 基本资料 -->
+    <div ng-show="tempTab==1">
+      <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 order order_line">
+          <tbody class="tr-color">
+              <tr class="space">
+                  <th colspan="15">商标基本信息</th>
+              </tr>
+              <tr>
+                  <td colspan="2">
+                      <ul>
+                          <li>
+                              <strong>商标编号:</strong>{{tmDetail.goodsSn}}
+                          </li>
+                          <li><strong>注册注册号:</strong>{{tmDetail.acceptmaterials}}</li>
+                          <li><strong>商标类别:</strong>{{ tmDetail.category < 10 ? '0'+tmDetail.category : tmDetail.category }}--{{ cateIdData[tmDetail.category-1].goodsname }}</li>
+                          <li><strong>商标名称:</strong>{{tmDetail.trademarkName}}</li>
+                          <li><strong>法律状态:</strong>{{ tmStatusList[tmDetail.trademarkStatus].name }}</li>
+                          <li><strong>商标组合:</strong>{{ combyList[tmDetail.comby-1].name }}</li>
+                          <li><strong>类似群组:</strong>{{tmDetail.similarGroup }}</li>
+                          <li><strong>申请人:</strong>{{tmDetail.applyName }}</li>
+                          <li><strong>注册时间:</strong>{{tmDetail.registTrialDate | date:'yyyy-MM-dd' }}</li>
+                          <li><strong>到期时间:</strong>{{ tmDetail.deathDate | date:'yyyy-MM-dd' }}</li>
+                          <li><strong>适用项目:</strong>{{tmDetail.application}}</li>
+                          <li class="img_box"><img src="{{ tmDetail.picture }}" alt=""  ></li>
+                          <li class="img_name">注册图样</li>
+                      </ul>
+                  </td>
+              </tr>
+              <tr class="space">
+                  <th colspan="2">交易信息</th>
+              </tr>
+              <tr>
+                  <td colspan="2">
+                      <ul>
+                          <li><strong>商标提交时间：</strong>{{tmDetail.commitTime | date:'yyyy-MM-dd HH:mm:ss' }}</li>
+                          <li><strong>价格类型：</strong>{{ priceTypes[tmDetail.priceType-1].name }}</li>
+                          <li><strong>商标售价：</strong>{{tmDetail.sellerPrice | number:2}}</li>
+                          <li><strong>是否可开票：</strong>{{ needTicketList[tmDetail.needTicket-1].name }}</li>
+                          <li><strong>销售状态：</strong>{{ saleStatusList[tmDetail.saleStatus-1].name }}</li>
+                          <li><strong>上架状态：</strong>{{ groundStatusList[tmDetail.groundStatus-1].name }}</li>
+                          <li><strong>审核状态：</strong>{{ verifyStatusList[tmDetail.verifyStatus-1].name }}</li>
+                          <li class="img_box"><img src="{{ tmDetail.packagePicture }}" alt=""></li>
+                          <li class="img_name">包装图样</li>
+                      </ul>
+                  </td>
+              </tr>
+              <tr class="space">
+                  <th colspan="2">商家信息</th>
+              </tr>
+              <tr>
+                  <td>
+                      <ul>
+                          <li><strong>商家名称：</strong>{{ tmDetail.sellerName || '暂无'}}</li>
+                          <li><strong>手机号：</strong>{{ tmDetail.phone || '暂无'}}</li>
+                      </ul>
+                  </td>
+              </tr>
+              <tr class="space">
+                  <th colspan="2">附属信息</th>
+              </tr>
+              <tr>
+                  <td>
+                      <ul>
+                          <li><strong>商标来源：</strong>{{ trademarkFrom[tmDetail.trademarkFrom-1].name }}</li>
+                          <li><strong>底价：</strong>{{ tmDetail.reservePrice | number:2}}</li>
+                          <li><strong>商标说明：</strong>{{ tmDetail.trademarkRemark || '暂无'}}</li>
+                      </ul>
+                  </td>
+              </tr>
+              <tr class="space" >
+                  <th colspan="2">运营位推荐</th>
+              </tr>
+              <tr>
+                  <td style="display:none;">
+                    暂无运营位
+                    <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">运营推荐</a>
+                  </td>
+                  <td>
+                      <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+                          <thead>
+                              <tr>
+                                <th>运营栏目</th>
+                                <th>栏目名称</th>
+                                <th>推荐时间</th>
+                                <th>操作</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr ng-repeat="item in tmDetail.businessList" ng-if="$index==0">
+                                <td>{{ item.businessName }}</td>
+                                <td>{{ item.showName }}</td>
+                                <td>{{ item.createTime | date:'yyyy-MM-dd'}}</td>
+                                <td>
+                                  <a ng-click="showPositionBoxFn(tmDetail.goodsSn, item.businessType, item.id)">编辑</a>
+                                  <a ng-click="deletePositionFn(item)">删除</a>
+                                </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      <a href="javascript:void(0);" class="btn-search" ng-show="!tmDetail.businessList.length" ng-click="showPositionBoxFn(tmDetail.goodsSn)">推荐运营位</a>
+                  </td>
+              </tr>
+              <tr class="space">
+                  <th colspan="2">操作记录</th>
+              </tr>
+          </tbody>
+        </table>
+      </form>
+      <form>
+          <table class="table tb-type2">
+              <thead>
+                  <tr class="thead">
+                      <th class="align-center" style="width:100px;">操作人</th>
+                      <th class="align-center" style="width:100px;">操作时间</th>
+                      <th class="align-center">操作内容</th>
+                  </tr>
+              </thead>
+              <tbody class="tr-color">
+                  <tr class="" ng-show="optionList.length" class="hover" ng-repeat="list in optionList">
+                      <td class="align-center" ng-bind="list.operaterName"></td>
+                      <td class="align-center">{{list.operateTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                      <td class="align-center" ng-bind="list.operateContent"> </td>
+                  </tr>
+                  <tr ng-show="!optionList.length">
+                    <td colspan="3" class="align-center"><div class="warning-option"><i class="icon-warning-sign"></i><span class="ng-binding">没有符合条件的记录</span></div></td>
+                  </tr>
+                  <tr ng-show="to_loading">
+                      <td colspan="20" class="norecord">
+                          <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </form>
+    </div>
+
+    <!-- 备注 -->
+    <div ng-show="tempTab==2">
+      <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 order order_line">
+          <tbody class="tr-color">
+              <tr class="space">
+                  <th colspan="2">备注信息</th>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <table class="table tb-type2">
+                    <thead>
+                        <tr class="thead">
+                            <th class="align-center" style="width:100px;">备注人</th>
+                            <th class="align-center" style="width:100px;">备注时间</th>
+                            <th class="align-center">备注内容</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tr-color">
+                        <tr class="" ng-show="remarkList.length" class="hover" ng-repeat="list in remarkList">
+                            <td class="align-center" ng-bind="list.operatorName"></td>
+                            <td class="align-center">{{list.remarkTime | date:'yyyy-MM-dd  HH:mm:ss' }}</td>
+                            <td class="align-center" ng-bind="list.remark"> </td>
+                        </tr>
+                        <td colspan="3" class="align-center" ng-show="!remarkList.length"><div class="warning-option"><i class="icon-warning-sign"></i><span class="ng-binding">没有符合条件的记录</span></div></td>
+                        <tr ng-show="to_loading">
+                            <td colspan="20" class="norecord">
+                                <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="addRemarkFn({})">添加备注</a>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+</div>
+
+<style>
+  .order ul li strong {
+    width: 100px; display: inline-block;
+  }
+</style>

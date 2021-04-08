@@ -1,0 +1,188 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>存证业务</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPNtOrderListModel"><a href="Javascript:history.go(-1)"><span>订单列表</span></a></li>
+                <li mt-show-model model-name="IPRPNtOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">存证信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>服务单号：</strong>{{order_detail.object.orderSn}}</li>
+                        <li><strong>类型：</strong>{{order_detail.object.notarizationType|ntTypeFilter}}</li>
+                        <li><strong>子类型：</strong>{{order_detail.object.notarizationPurpose|ntUsesFilter}}</li>
+
+                        <li><strong>存证渠道：</strong>{{order_detail.object.czChannel|ntChannelFilter}}</li>
+                        <li ng-show="order_detail.object.czChannel == 3"><strong>作品名称：</strong>{{order_detail.object.productionName}}</li>
+                        <li ng-show="order_detail.object.czChannel == 3"><strong>作品署名：</strong>{{order_detail.object.productionSign}}</li>
+                        <li ng-show="order_detail.object.czChannel == 3"><strong>作品类型：</strong>个人作品</li>
+                        <li ng-show="order_detail.object.czChannel == 3"><strong>权利取得：</strong>原始取得</li>
+                        <li ng-show="order_detail.object.czChannel == 3"><strong>创作时间：</strong>{{order_detail.object.productionTime | date:'yyyy-MM-dd'}}</li>
+                        <li ng-show="order_detail.object.czChannel == 3"><strong>修改次数：</strong>{{order_detail.object.updateCishu}}次</li>
+                        <li ng-show="order_detail.object.czChannel == 3"><strong>发表状态：</strong>未发表</li>
+
+                        <li><strong>身份信息：</strong>{{order_detail.object.identificationCard}}</li>
+                        <li><strong>存证时间：</strong>{{order_detail.object.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                        <li><strong>到期时间：</strong>{{order_detail.object.validTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                        <li><strong>存证内容：</strong>{{order_detail.object.fileName}}</li>
+                        <li ng-if="order_detail.object.notarizationType == '2'"><strong>内容大小：</strong>{{order_detail.object.fileSize|ntFileSizeFilter}}</li>
+                        <li><strong>存证状态：</strong>{{order_detail.object.state|ntStateFilter}}</li>
+                        <li ng-show="order_detail.object.state == 3">
+                            <a mt-show-model model-name="IPRPMasterNotarizationFileModel" ng-if="order_detail.object.notarizationType == '2'" href="{{czUrl + '/cunnar/managerdownSaveFile.do?fileId='+order_detail.object.fileId}}" style="border:1px solid #ccc;padding: 3px;border-radius: 3px;">下载文件</a>
+                            <a mt-show-model model-name="IPRPMasterNotarizationFileModel" ng-if="order_detail.object.notarizationType == '1'" href="{{czUrl + '/cunnar/managerdownSaveFile.do?fileId='+order_detail.object.fileId}}" style="border:1px solid #ccc;padding: 3px;border-radius: 3px;">下载截图</a>
+                            <a ng-if="order_detail.object.czChannel==1||order_detail.object.czChannel==5" mt-show-model model-name="IPRPMasterNotarizationCerModel" href="{{czUrl + '/cunnar/managerDownCunnarFile.do?fileId='+order_detail.object.fileId +'&preview=0&downType=1'}}" style="border:1px solid #ccc;padding: 3px;border-radius: 3px;margin-left: 10px;">下载司法保管函</a>
+                            <a ng-if="order_detail.object.czChannel==3||order_detail.object.czChannel==4" mt-show-model model-name="IPRPMasterNotarizationCerModel" href="{{czUrl + '/cunnar/managerDownCunnarFile.do?fileId='+order_detail.object.fileId +'&preview=0&downType=3'}}" style="border:1px solid #ccc;padding: 3px;border-radius: 3px;margin-left: 10px;">下载公证保管函</a>
+                            <a ng-if="order_detail.object.czChannel==2||order_detail.object.czChannel==4||order_detail.object.czChannel==5" mt-show-model model-name="IPRPMasterNotarizationCerModel" href="{{czUrl + '/cunnar/managerDownCunnarFile.do?fileId='+order_detail.object.fileId +'&preview=0&downType=2'}}" style="border:1px solid #ccc;padding: 3px;border-radius: 3px;margin-left: 10px;">下载区块链保管函</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space" ng-show="order_detail.object.issueDTO && order_detail.object.czChannel == 3">
+                <th colspan="2">出证信息</th>
+            </tr>
+            <tr ng-show="order_detail.object.issueDTO && order_detail.object.czChannel == 3">
+                <td>
+                    <ul>
+                        <li><strong>申请出证订单号：</strong>{{order_detail.object.issueDTO.orderNum}}</li>
+                        <li><strong>出证状态：</strong>{{order_detail.object.issueDTO.issueStatusName}}</li>
+                        <li><strong>申请出证时间：</strong>{{order_detail.object.issueDTO.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                        <li><strong>出证机构：</strong>{{order_detail.object.issueDTO.orgName}}</li>
+                        <li><strong>申请人联系电话：</strong>{{order_detail.object.issueDTO.phone}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space" ng-show="order_detail.memberApplySubject">
+                <th colspan="2">主体信息</th>
+            </tr>
+            <tr ng-show="order_detail.memberApplySubject">
+                <td ng-show="order_detail.memberApplySubject.apply_type == 1">
+                    <ul>
+                        <li><strong>主体类型：</strong>{{order_detail.memberApplySubject.apply_type|orderApplyTypeFilter}}</li>
+                        <li><strong>申请人姓名：</strong>{{order_detail.memberApplySubject.apply_name}}</li>
+                        <li><strong>申请人身份证号：</strong>{{order_detail.memberApplySubject.apply_number}}</li>
+                        <li><strong>申请人手机号：</strong>{{order_detail.memberApplySubject.apply_phone}}</li>
+                        <li><strong>申请人邮箱：</strong>{{order_detail.memberApplySubject.apply_email}}</li>
+                        <li><strong>申请人邮编：</strong>{{order_detail.memberApplySubject.zip_code}}</li>
+                        <li><strong>申请人地址：</strong>{{order_detail.memberApplySubject.area_info + order_detail.memberApplySubject.order_address}}</li>
+                    </ul>
+                </td>
+                <!-- 大陆企业 -->
+                <td ng-show="order_detail.memberApplySubject.apply_type == 2">
+                    <ul>
+                        <li><strong>主体类型：</strong>{{order_detail.memberApplySubject.apply_type|orderApplyTypeFilter}}</li>
+                        <li><strong>企业邮箱：</strong>{{order_detail.memberApplySubject.apply_email}}</li>
+                        <li><strong>邮政编码：</strong>{{order_detail.memberApplySubject.zip_code}}</li>
+                        <li><strong>企业营业执照编号：</strong>{{order_detail.memberApplySubject.apply_number}}</li>
+                        <li><strong>企业联系电话：</strong>{{order_detail.memberApplySubject.apply_phone}}</li>
+                        <li><strong>申请企业名称：</strong>{{order_detail.memberApplySubject.apply_name}}</li>
+                        <li><strong>企业注册地址：</strong>{{order_detail.memberApplySubject.area_info + order_detail.memberApplySubject.address}}</li>
+                        <li><strong>企业对公开户行：</strong>{{order_detail.memberApplySubject.bankName}}</li>
+                        <li><strong>企业对公账号：</strong>{{order_detail.memberApplySubject.inAcctNo}}</li>
+                        <li><strong>统一社会信用代码：</strong>{{order_detail.memberApplySubject.apply_number}}</li>
+                    </ul>
+                </td>
+                <td ng-show="order_detail.memberApplySubject.apply_type == 3">
+                    <ul>
+                        <li><strong>主体类型：</strong>{{order_detail.memberApplySubject.apply_type|orderApplyTypeFilter}}</li>
+                        <li><strong>申请人姓名（英文）：</strong>{{order_detail.memberApplySubject.name_en}}</li>
+                        <li><strong>申请人姓名（中文）：</strong>{{order_detail.memberApplySubject.apply_name}}</li>
+                        <li><strong>申请人护照号：</strong>{{order_detail.memberApplySubject.apply_number}}</li>
+                        <li><strong>申请人联系电话：</strong>{{order_detail.memberApplySubject.apply_phone}}</li>
+                        <li><strong>申请人邮箱：</strong>{{order_detail.memberApplySubject.apply_email}}</li>
+                        <li><strong>申请人传真：</strong>{{order_detail.memberApplySubject.apply_fax}}</li>
+                        <li><strong>申请人邮编：</strong>{{order_detail.memberApplySubject.zip_code}}</li>
+                        <li><strong>申请人地址：</strong>{{order_detail.memberApplySubject.area_info + order_detail.memberApplySubject.order_address}}</li>
+                    </ul>
+                </td>
+                <td ng-show="order_detail.memberApplySubject.apply_type == 4">
+                    <ul>
+                        <li><strong>主体类型：</strong>{{order_detail.memberApplySubject.apply_type|orderApplyTypeFilter}}</li>
+                        <li><strong>企业名称（英文）：</strong>{{order_detail.memberApplySubject.name_en}}</li>
+                        <li><strong>企业名称（中文）：</strong>{{order_detail.memberApplySubject.apply_name}}</li>
+                        <li><strong>企业联系电话：</strong>{{order_detail.memberApplySubject.apply_phone}}</li>
+                        <li><strong>企业邮箱：</strong>{{order_detail.memberApplySubject.apply_email}}</li>
+                        <li><strong>企业传真：</strong>{{order_detail.memberApplySubject.apply_fax}}</li>
+                        <li><strong>企业注册地址：</strong>{{order_detail.memberApplySubject.area_info + order_detail.memberApplySubject.address}}</li>
+                    </ul>
+                </td>
+                <td ng-show="order_detail.memberApplySubject.apply_type == 5">
+                    <ul>
+                        <li><strong>主体类型：</strong>{{order_detail.memberApplySubject.apply_type|orderApplyTypeFilter}}</li>
+                        <li><strong>申请人姓名：</strong>{{order_detail.memberApplySubject.apply_name}}</li>
+                        <li><strong>申请人身份证号：</strong>{{order_detail.memberApplySubject.apply_number}}</li>
+                        <li><strong>申请人手机号：</strong>{{order_detail.memberApplySubject.apply_phone}}</li>
+                        <li><strong>申请人邮箱：</strong>{{order_detail.memberApplySubject.apply_email}}</li>
+                        <li><strong>申请人邮编：</strong>{{order_detail.memberApplySubject.zip_code}}</li>
+                        <li><strong>申请人地址：</strong>{{order_detail.memberApplySubject.area_info + order_detail.memberApplySubject.address}}</li>
+                        <!-- <li><strong>是否已实名认证：</strong>{{order_detail.memberApplySubject.order_is_checked == 1 ? '是' : '否'}}</li> -->
+                        <li ng-if="order_detail.memberApplySubject.order_is_checked == 1"><strong>银行卡预留手机号：</strong>{{order_detail.memberApplySubject.bank_phone}}</li>
+                        <li ng-if="order_detail.memberApplySubject.order_is_checked == 1"><strong>申请人银行卡号：</strong>{{order_detail.memberApplySubject.bank_card}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">客户信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>姓名：</strong>{{order_detail.member.truename}}</li>
+                        <li><strong>性别：</strong>{{order_detail.member.sex|memberSexFilter}}</li>
+                        <li><strong>注册手机号：</strong>{{order_detail.member.phone}}</li>
+                        <li><strong>历史服务单数：</strong>{{order_detail.his_order_count}}</li>
+                        <li><strong>微信号：</strong>{{order_detail.member.member_wechat}}</li>
+                        <li><strong>QQ：</strong>{{order_detail.member.member_qq}}</li>
+                        <li><strong>邮箱：</strong>{{order_detail.member.email}}</li>
+                        <li><strong>昵称：</strong>{{order_detail.member.nickname}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">支付记录</th>
+            </tr>
+            <tr>
+                <td style="padding:10px 20px!important;">
+                    <table style="width: 100%;" class="table bordered">
+                        <thead>
+                            <tr>
+                                <th width="20%">订单号</th>
+                                <th width="20%">服务单号</th>
+                                <th width="20%">类型</th>
+                                <th>支付方式</th>
+                                <th>支付时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="list in order_detail.object.orderList">
+                                <td>{{list.orderFictitiousSn}}</td>
+                                <td>{{list.orderSn}}</td>
+                                <td>{{list.type | czTypeFilter}}</td>
+                                <td>{{list.payName}}</td>
+                                <td>{{list.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+
+
+        </tbody>
+        <!-- <tfoot>
+            <tr class="tfoot">
+                <td>
+                    <a href="JavaScript:void(0);" ng-show="order_detail.distributeType === 1" ng-click="back_order(order_detail.order_id,order_detail.distributeType)" class="btn" id="submitBtn"><span>收回订单</span></a>
+                    <a href="JavaScript:void(0);" ng-show="order_detail.distributeType === 0" ng-click="allot_order(order_detail.order_id,order_detail.bs_id)" class="btn"><span>分配服务商</span></a>
+                </td>
+            </tr>
+        </tfoot> -->
+    </table>
+</div>

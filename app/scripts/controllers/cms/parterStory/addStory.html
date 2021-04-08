@@ -1,0 +1,108 @@
+<style>
+    .redI{
+        color: red;
+    }
+    .fll{float: left;}
+    .add_banner{
+        padding: 25px 0;
+    }
+    .add_banner .form-control {
+        width: 150px;
+        display: inline-block;
+        margin-right: 5px;
+        padding: 3px 8px;
+        height: 28px;
+    }
+    .form-group input.form-control {
+        height: 20px;
+        width: 250px;
+    }
+    .tps{margin-left: 5px}
+    .tps li{margin-bottom: 10px }
+    .tps li span{text-align: center;width: 20px;height: 28px;line-height: 28px; font-size: 16px;margin-left: -10px;cursor: pointer;margin-right: 10px;}
+    .tps li span .fa{margin-left: 0;}
+    .upload-btn{border: 1px solid #ccc;margin-left: 5px;}
+  
+    .add_product_label {
+        width: 90px;
+        line-height: 28px;
+        text-align: right;
+        margin-right: 5px;
+    }
+    .good-sure-btn {
+        width: 80px;
+        margin:0 20px;
+    }
+    .detailInfo{padding-left: 20px}
+    .detailInfo h3{font-size: 14px;line-height: 28px;margin: 20px 0 0;}
+    .page .upload-btn{border-radius: 3px;height: 40px;line-height: 40px;text-align: center;cursor: pointer;}
+    .picIcon{position: absolute;top: 0;left: 513px;width: 12px; padding: 8px 10px;font-size: 0;}
+  .picIcon:hover{cursor: pointer;}
+  </style>
+  <div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>新增故事</h3>
+            <ul class="tab-base">
+                <li><a href="#/main/cms_home_list/story"><span>故事列表</span></a></li>
+                <li><a href="JavaScript:void(0);" class="current"><span>新增故事</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="add_banner form-group">
+        <form name="addForm" novalidate>
+        <div>
+            <div class="form-group">
+                <label class="add_product_label"><span class="redI">*</span>&nbsp;人物:</label>
+                <input type="text" class="form-control" ng-model="obj.author" placeholder="" maxlength="20"/>
+                <span>{{obj.author.length}}/20</span>
+            </div>
+            <div class="form-group">
+                <label class="add_product_label"><span class="redI">*</span>&nbsp;标题:</label>
+                <input type="text" class="form-control" ng-model="obj.title" placeholder="" maxlength="20"/>
+                <span>{{obj.title.length}}/20</span>
+            </div>
+            <div class="form-group">
+                <label class="add_product_label"><span class="redI">*</span>&nbsp;标签:</label>
+                <input type="text" class="form-control" ng-model="obj.params" placeholder="" maxlength="20"/>
+                <span>{{obj.params.length}}/20</span>
+            </div>
+            <div class="form-group" style="position: relative;">
+                <label class="add_product_label" style="float: left;margin-right: 8px;"><span class="redI">*</span>简介:</label>
+                <textarea ng-model="obj.summary" style="width: 258px;height: 90px;display: block;margin-left: 3px;" maxlength="50"></textarea>
+                <span class="number" style="position: absolute;bottom: 5px;left: 330px;">{{obj.summary.length}}/50</span>
+            </div>
+            <div class="form-group" style="overflow:hidden;">
+                <label class="add_product_label" style="float:left"><span class="redI">*</span>&nbsp;头像:</label>
+                <a class="upload-btn" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file)" ngf-accept="'image/*'" ngf-pattern="'.png,.jpg,.jpeg,.gif'" ngf-multiple="true" style="display: inline-block;margin-right: 0px;">上传</a>
+                <img ng-show="obj.url" ng-src="{{obj.url}}" style="max-width: 50px;">
+            </div>
+
+            <div class="form-group">
+              <label class="add_product_label">&nbsp;视频:</label>
+              <input type="text" class="form-control" ng-model="obj.jumpUrl" placeholder="请输入视频源地址" maxlength="100"/>
+            </div>
+            <div class="form-group" style="position: relative;">
+              <label class="add_product_label" style="float: left;"><span class="redI">*</span>详情内容:</label>
+              <div id="sbbEditor" style="margin-left: 100px;">
+  
+              </div>
+              <a href="JavaScript:void(0);" class="picIcon" type="file" ngf-select="uploadFile($file, 'add')" ngf-accept="'image/*'" ngf-pattern="'.png,.jpg,.jpeg,.gif'" ngf-multiple="true">
+                <img style="width: 12px;"  src="../../../../images/pic.png">
+              </a>
+            </div>
+            <!-- <div class="form-group" style="overflow: hidden;">
+              <label class="add_product_label" style="float: left;">插入富文本图片:</label>
+              <a class="upload-btn" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file, 'add')" ngf-accept="'image/*'" ngf-pattern="'.png,.jpg,.jpeg,.gif'" ngf-multiple="true" style="display: inline-block;margin-right: 0px;">上传</a>
+            </div> -->
+        </div>
+        </form>
+  
+        <div style="margin: 20px 0 0 90px;text-align: left;">
+            <button class="btn good-sure-btn" ng-click="addGoodClick()" id="goodAddBtn">提交</button>
+            <button role="button" class="btn good-sure-btn" ng-click="addGoodBackClick()">取消</button>
+        </div>
+  
+  
+    </div>
+  </div>

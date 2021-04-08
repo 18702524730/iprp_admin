@@ -1,0 +1,103 @@
+<div class="modal-content_un">
+    <div style="width: 675px;">
+        <h3 class="dialog_head" style="cursor: move;">
+            <span class="dialog_title">
+                <span class="dialog_title_icon">结算审核：</span>
+            </span>
+            <span class="dialog_close_button" ng-click="cancel()">X</span>
+        </h3>
+        <form name="formSearch" id="formSearch">
+            <table class="table tb-type2 noborder search">
+                <tbody class="tr-color">
+                    <tr><td>订单：{{bill_order_detail.order_sn}}</td></tr>
+                    <tr><td>服务：{{bill_order_detail.bs_name}}</td></tr>
+                    <tr><td>本期结算单：{{bill_order_detail.bill_sn}}</td></tr>
+                </tbody>
+            </table>
+            <table class="table tb-type2" id="prompt">
+                <tbody class="tr-color">
+                    <tr class="space odd" >
+                        <th colspan="12">
+                            <div class="title">
+                                <h5>相关支付单</h5>
+                            </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table tb-type2">
+                <thead>
+                    <tr class="thead">
+                        <th class="align-center">类型</th>
+                        <th class="align-center">单号</th>
+                        <th class="align-center">日期</th>
+                        <th class="align-center">描述</th>
+                        <th class="align-center">支付金额</th>
+                        <th class="align-center">待结算金额</th>
+                        <th class="align-center">状态</th>
+                        <th class="align-center">所在结算单</th>
+                        <th class="align-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody class="tr-color">
+                    <tr ng-show="order_payment_list.length > 0" class="hover" ng-repeat="list in order_payment_list">
+                        <td class="align-center" ng-bind="list.type | BillOrderPayTypeFilter"></td>
+                        <td class="align-center" ng-bind="list.pay_sn"></td>
+                        <td class="align-center" ng-bind="list.pay_time | date:'yyyy-MM-dd HH:ss:mm'"></td>
+                        <td class="align-center" ng-bind="list.description"></td>
+                        <td class="align-center" ng-bind="list.pay_amount"></td>
+                        <td class="align-center" ng-bind="list.no_bill_amount"></td>
+                        <td class="align-center" ng-bind="list.state | BillOrderPayStateFilter"></td>
+                        <td class="align-center" ng-bind="list.bill_sn"></td>
+                        <td class="align-center">
+                            <a herf ng-if="list.state === 0" mt-show-model model-name="IPRPBillSalesmanAuditModel" style="cursor: pointer" ng-click = "bill_order_pay_check(list.bill_order_pay_id,list.bill_order_id)">审核</a>
+                            <a herf ng-if="list.state === 1"  mt-show-model model-name="IPRPBillFinancialAuditModel" style="cursor: pointer" ng-click = "bill_order_pay_reject(list.bill_order_pay_id,list.bill_order_id)">驳回</a>
+                        </td>
+                    </tr>
+                    <tr ng-show="order_payment_list.length === 0">
+                        <td colspan="20" class="norecord">
+                            <div class="warning-option"><i class="icon-warning-sign"></i><span>没有符合条件的记录</span></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table tb-type2">
+                <tbody class="tr-color">
+                    <tr class="space odd">
+                        <th colspan="12">
+                            <div class="title">
+                                <h5>审核记录</h5>
+                            </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table tb-type2">
+                <thead>
+                <tr class="thead">
+                    <th class="align-center">审核人</th>
+                    <th class="align-center">日期</th>
+                    <th class="align-center">描述</th>
+                </tr>
+                </thead>
+                <tbody class="tr-color">
+                    <tr ng-show="bill_log_list.length > 0" class="hover" ng-repeat="list in bill_log_list">
+                        <td class="align-center" ng-bind="list.admin_name"></td>
+                        <td class="align-center" ng-bind="list.create_time | date:'yyyy-MM-dd HH:ss:mm'"></td>
+                        <td class="align-center" ng-bind="list.description"></td>
+                    </tr>
+                    <tr ng-show="to_loading">
+                        <td colspan="20" class="norecord">
+                            <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot ng-hide="to_loading">
+                    <tr colspan="20" class="tfoot">
+                        <td colspan="15"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+</div>

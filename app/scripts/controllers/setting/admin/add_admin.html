@@ -1,0 +1,152 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>权限设置</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPAdminListModel"><a href="#/main/setting_home/admin_list"><span>管理员列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddAdminModel"><a class="current"><span>添加管理员</span></a></li>
+                <li mt-show-model model-name="IPRPGadminListModel"><a href="#/main/setting_home/gadmin_list"><span>功能组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddGadminModel"><a href="#/main/setting_home/add_gadmin"><span>添加功能组</span></a></li>
+                <li mt-show-model model-name="IPRPDataListModel"><a href="#/main/setting_home/data_group_list"><span>业务组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddDataModel"><a href="#/main/setting_home/add_data_group"><span>添加业务组</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <form name="AddAdminForm" role="form" class="form-horizontal" novalidate>
+            <table class="table tb-type2 nobdb" >
+                <tbody class="tr-color">
+                    <tr class="noborder">
+                        <td colspan="2" >
+                            <label class="validation" >登录名:</label>
+                            <span class="error" ng-show="AddAdminForm.name.$invalid && AddAdminForm.submitted">
+                                <small ng-show="AddAdminForm.name.$error.required" class="error">
+                                    <label><i class="icon-exclamation-sign"></i>登录名不可以为空</label>
+                                </small>
+                                <small class="error" ng-show="AddAdminForm.name.$error.pattern">
+                                    <label><i class="icon-exclamation-sign"></i>登录名只能使用英文字母和数字</label>
+                                </small>
+                                <small class="error" ng-show="AddAdminForm.name.$error.maxlength || AddAdminForm.name.$error.minlength">
+                                    <label><i class="icon-exclamation-sign"></i>登录名长度为3~20位</label>
+                                </small>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <input type="text" ng-minlength="3" ng-maxlength="20" ng-pattern="/^[a-zA-Z\d]+$/"  name="name" class="txt" ng-model="add_admin.name" required />
+                        </td>
+                        <td class="vatop tips">请输入登录名</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label class="validation">密码:</label>
+                            <span class="error" ng-show="AddAdminForm.password.$invalid && AddAdminForm.submitted">
+                                <small ng-show="AddAdminForm.password.$error.required" class="error">
+                                    <label><i class="icon-exclamation-sign"></i>密码不可以为空</label>
+                                </small>
+                                <small class="error" ng-show="AddAdminForm.password.$error.pattern">
+                                    <label><i class="icon-exclamation-sign"></i>密码需含数字、大小写字母、特殊字符中至少两类</label>
+                                </small>
+                                <small class="error" ng-show="AddAdminForm.password.$error.maxlength || AddAdminForm.password.$error.minlength">
+                                    <label><i class="icon-exclamation-sign"></i>密码长度为10-32位</label>
+                                </small>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <input type="password" ng-maxlength="32" ng-minlength="10" ng-pattern="Pattern" name="password" class="txt" ng-model="add_admin.password" required />
+                        </td>
+                        <td class="vatop tips">请输入密码</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label class="validation">确认密码:</label>
+                                <span class="error" ng-show="AddAdminForm.r_password.$invalid && AddAdminForm.submitted">
+                                    <small ng-show="AddAdminForm.r_password.$error.required" class="error">
+                                        <label><i class="icon-exclamation-sign"></i>密码不可以为空</label>
+                                    </small>
+                                    <small class="error" ng-show="AddAdminForm.r_password.$error.pattern">
+                                        <label><i class="icon-exclamation-sign"></i>密码需含数字、大小写字母、特殊字符中至少两类</label>
+                                    </small>
+                                </span>
+                                <span class="error" ng-show="repeatPassword">
+                                    <small class="error">
+                                        <label><i class="icon-exclamation-sign"></i>两次输入的密码不一致，请重新输入</label>
+                                    </small>
+                                </span>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <input type="password" ng-maxlength="32" ng-minlength="10" ng-pattern="Pattern" id="r_password" name="r_password" class="txt" ng-model="r_password" required />
+                        </td>
+                        <td class="vatop tips">请输入密码</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="required">
+                            <label class="validation">功能组:</label>
+                            <small class="error">
+                                <label ng-show="gAdminShow && !add_admin.g_id"><i class="icon-exclamation-sign"></i>功能组不可以为空</label>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <select name="gid" ng-model="add_admin.fg_id"  ng-options="sortName.fg_id as sortName.name for sortName in limit_group.elements">
+                                <option value="">请选择功能组..</option>
+                            </select>
+                        </td>
+                        <td class="vatop tips">请选择一个功能组，如果还未设置，请马上设置</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="required">
+                            <label class="validation">业务组:</label>
+                            <small class="error">
+                                <label ng-show="dAdminShow"><i class="icon-exclamation-sign"></i>业务组不可以为空</label>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <select name="gid" ng-model="add_admin.dg_id"  ng-options="sortName.dg_id as sortName.name for sortName in data_group_list.elements">
+                                <option value="">请选择业务组..</option>
+                            </select>
+                        </td>
+                        <td class="vatop tips">请选择一个业务组，如果还未设置，请马上设置</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="required">
+                            <label class="validation">备注:</label>
+                            <span class="error" ng-show="AddAdminForm.desc.$invalid && AddAdminForm.submitted">
+                                <small ng-show="AddAdminForm.desc.$error.required" class="error">
+                                    <label><i class="icon-exclamation-sign"></i>备注不可以为空</label>
+                                </small>
+                                <small class="error" ng-show="AddAdminForm.desc.$error.pattern">
+                                    <label><i class="icon-exclamation-sign"></i>备注只能中文,数字,字母,特殊符号(._()#@$%&*!)</label>
+                                </small>
+                                <small class="error" ng-show="AddAdminForm.desc.$error.maxlength">
+                                    <label><i class="icon-exclamation-sign"></i>备注长度为50位</label>
+                                </small>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <textarea name="desc" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9._()#@$%&*!]+$/" style="width: 250px;height: 110px"
+                                      ng-model="add_admin.description" ng-maxlength="50" required></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="tfoot">
+                        <td colspan="2">
+                            <a class="btn" id="submitBtn"><span ng-click="addAdmin()">提交</span></a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+</div>

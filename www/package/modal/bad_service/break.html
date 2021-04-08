@@ -1,0 +1,69 @@
+<div>
+    <div class="page">
+        <h3 class="dialog_head" style="cursor: move;">
+            <span class="dialog_title">
+                <span class="dialog_title_icon">办理失信服务：</span>
+            </span>
+            <span class="dialog_close_button"  ng-click="cancel()">X</span>
+        </h3>
+        <div class="dialog_content" style="margin: 0px; padding: 0px;">
+            <div class="page">
+                <form role="form" class="form-horizontal" novalidate>
+                    <div style="text-align: center">
+                        <table class="table tb-type2 order">
+                            <tbody>
+                            <!--class="tr-color"-->
+                                <tr>
+                                    <td>
+                                        <ul>
+                                            <li style="width: 100%;text-align: left">
+                                                <span style=""><strong>服务分类：</strong>{{BsClassName}}</span>
+                                            </li>
+                                            <li style="width: 100%;text-align: left">
+                                                <span><strong>服务：</strong>{{BsName}}</span>
+                                            </li>
+                                            <li style="width: 100%;text-align: left">
+                                                <span><strong>状态：</strong>{{is_bad_state | isBadStatusFilter}}</span>
+                                            </li>
+                                            <!--<li style="width: 100%;text-align: left">-->
+                                                <!--<span><strong>失信周期：</strong>{{create_time | date:'yyyy-MM-dd HH:mm:ss'}}-{{update_time | date:'yyyy-MM-dd HH:mm:ss'}}</span>-->
+                                            <!--</li>-->
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="search-form">
+                            <tbody>
+                            <!--class="tr-color"-->
+                                <tr>
+                                    <td>
+                                        <span style="padding-left: 10px;color: #888;">
+                                           失信周期截止：
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <!-- <input type="text" class="txt hasDatepicker" name="query_start_date" id="query_start_date" datepicker-popup ng-model="create_time"
+                                               is-open="startOpened" ng-click="startOpened = true" ng-disabled="true" max-date="update_time" style="cursor:pointer" readonly/>
+                                        <label class="add-on" for="query_start_date"><i class="icon-calendar"></i></label>&nbsp;–&nbsp; -->
+                                        <span class="endt"><input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="query_end_date" id="query_end_date" ng-model="obj.query_end_date" readonly/><i class="shortt">23:59:59</i></span>
+                                        <!-- <label class="add-on" for="query_end_date"><i class="icon-calendar"></i></label> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div style="text-align: center">
+            <a class="btn" id="submitBtn"><span ng-click="save()">确定</span></a>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+.endt{position: relative;}
+.endt input{cursor:pointer;width: 120px;background-color: transparent;position: relative;z-index: 1}
+.endt input[type="text"]:hover, .endt input[type="text"]:active, .endt input[type="text"]:focus{background-color: transparent;}
+.shortt{position: absolute;height: 20px;line-height:20px;top:0px;right:5px;color: #999;font-style: normal;z-index: 0;}
+</style>

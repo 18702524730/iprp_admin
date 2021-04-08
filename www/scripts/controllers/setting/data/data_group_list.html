@@ -1,0 +1,79 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>权限设置</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPAdminListModel"><a href="#/main/setting_home/admin_list"><span>管理员列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddAdminModel"><a href="#/main/setting_home/add_admin"><span>添加管理员</span></a></li>
+                <li mt-show-model model-name="IPRPGadminListModel"><a href="#/main/setting_home/gadmin_list"><span>功能组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddGadminModel"><a href="#/main/setting_home/add_gadmin"><span>添加功能组</span></a></li>
+                <li mt-show-model model-name="IPRPDataListModel"><a class="current"><span>业务组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddDataModel"><a href="#/main/setting_home/add_data_group"><span>添加业务组</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd">
+                <th colspan="12"><div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div></th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form id="form_admin">
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th></th>
+                    <th>业务组</th>
+                    <th></th>
+                    <th width="120px" class="align-center">创建时间</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr ng-show="data_group_list.length>0" class="hover" ng-repeat="data in data_group_list">
+                    <td class="w24">
+                        <input type="checkbox" name="" value="" class="checkitem" ng-click="sChoose(data.dg_id)" ng-checked="allId.indexOf(data.dg_id) !== -1">
+                    </td>
+                    <td ng-bind="data.name"></td>
+                    <td></td>
+                    <td class="align-center" ng-bind="data.create_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="w150 align-center">
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPUpdateDataModel">
+                            <span style="cursor: pointer" class="btn btn-default"  ng-click="edit_data_group(data.dg_id)">编辑</span></a>
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPDeleteDataModel">
+                            <span style="cursor: pointer" class="btn btn-default" ng-click="delete_data_group(data.dg_id,$index)">删除</span></a>
+                    </td>
+                </tr>
+                <tr class="hover" ng-show="to_loading">
+                    <td colspan="21" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr class="tfoot">
+                    <td><input type="checkbox" class="checkall" id="checkallBottom" ng-click="allChoose()" ng-checked="checkall" name="chkVal"></td>
+                    <td >
+                        <label for="checkallBottom">全选</label>&nbsp;&nbsp;
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPDeleteDateModel" ng-click="deleteAll()" class="btn"><span>删除</span></a>
+                    </td>
+                    <td colspan="5">
+                        <mt-pagination pagination-obj="pagination"></mt-pagination>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

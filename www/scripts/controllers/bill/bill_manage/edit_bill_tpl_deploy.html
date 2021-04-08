@@ -1,0 +1,114 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>结算模板配置</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/bill_home/bill_tpl_list"><span>结算模板列表</span></a></li>
+                <li mt-show-model model-name="IPRPEditBillTplModel"><a href="JavaScript:void(0);" class="current"><span>编辑结算模板</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="table tb-type2 noborder search">
+            <tbody class="tr-color">
+                <tr><td>模板名称：{{bill_detail_template.template_name}}&nbsp;&nbsp;
+                    <a href="JavaScript:void(0);" mt-show-model model-name="IPRPEditBillTplModel"
+                       style="color: #0000ff" ng-click="edit_tpl(bill_detail_template.bill_template_id)">[编辑]</a></td></tr>
+                <tr><td>描述：{{bill_detail_template.template_description}}</td></tr>
+            </tbody>
+        </table>
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>服务分类：</label></th>
+                    <td>
+                        <select name="bs_class_name" ng-model="obj.bs_class_id"  ng-change="get_business(obj.bs_class_id)"
+                                ng-options="a.bs_class_id as (a.deep === 1 ? '&nbsp;&nbsp;'+ a.name : a.deep > 1 ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ a.name : a.name) for a in business_class_tree_list" required>
+                            <option value="">请选择...</option>
+                        </select>
+                    </td>
+                    <th><label>服务</label></th>
+                    <td>
+                        <select style="width: 100px;" ng-model="bs_id"
+                                ng-options="sortName.bs_id as sortName.name for sortName in business.elements"
+                                ng-change="showSpec(bs_id)">
+                            <option value="">请选择...</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search()" title="查询">&nbsp;</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+        <tr class="space odd" >
+            <th colspan="12">
+                <div class="title">
+                    <h5>操作提示</h5>
+                    <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                    <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                </div>
+            </th>
+        </tr>
+        <tr class="odd" ng-show="hint">
+            <td>
+                <ul>
+                    <li>通过服务管理，你可以进行添加或编辑服务操作</li>
+                    <li>你可以根据条件搜索，然后选择相应的操作</li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" style="width: 40px;">序号</th>
+                    <th class="align-center">服务分类</th>
+                    <th class="align-center">服务</th>
+                    <th width="150px" class="align-center">阶段</th>
+                    <th width="120px;" class="align-center">服务费</th>
+                    <th width="120px;" class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr ng-show="bill_template_feed_backs_list.length > 0" class="hover" ng-repeat="list in bill_template_feed_backs_list">
+                    <td class="align-center">{{$index + 1}}</td>
+                    <td class="align-center" ng-bind="list.bs_class_name"></td>
+                    <td class="align-center" ng-bind="list.name"></td>
+                    <td class="align-center" colspan="3">
+                        <table class="table tb-type2">
+                            <tr class="tr-color" ng-repeat="bs_feed in list.bsFeedbackDTOs">
+                                <td style="width: 130px;" ng-bind="bs_feed.name"></td>
+                                <td style="text-align: center" ng-if="bs_feed.sp_commission_rate === null">-</td>
+                                <td style="text-align: center" ng-if="bs_feed.sp_commission_rate != null">{{bs_feed.sp_commission_rate}}
+                                    <span ng-if="bs_feed.sp_commission_type === 2">%</span>
+                                </td>
+                                <td width="100px;" style="text-align: center">
+                                    <span>
+                                        <a href="JavaScript:void(0);"
+                                           style="cursor: pointer" ng-click = "service_charge_allocation_detail(bs_feed.sp_commission_rate,bs_feed.bs_id,bs_feed.name,bs_feed.bs_feedback_id)">编辑</a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr ng-show="bill_template_feed_backs_list.length === 0">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>没有符合条件的记录</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

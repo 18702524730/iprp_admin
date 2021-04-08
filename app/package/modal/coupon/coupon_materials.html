@@ -1,0 +1,32 @@
+<div>
+  <h3 class="dialog_head" style="cursor: move;">
+    <span class="dialog_title">
+      <span class="dialog_title_icon">添加合伙人材料</span>
+    </span>
+    <span class="dialog_close_button" ng-click="cancel()">X</span>
+  </h3>
+  <form class="lists mt20" style="padding:5px 15px 20px;">
+    <ul>
+      <li>
+        <label>类目名称：</label>
+        <a class="btn" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file)" ngf-accept="'file/*'" ngf-pattern="'.doc,.docx'" ngf-multiple="true"><span>上传</span></a>
+        <!-- <a class="btn" href="JavaScript:void(0);" type="file" ngf-select="uploadFile($file)" ngf-accept="'file/*'" ngf-pattern="'.doc,.docx'" ngf-multiple="true" style="display: inline-block;margin-right: 0px;">上传</a> -->
+        <span>{{fileName}}</span>
+      </li>
+      <li class="mt15">
+        <label>选择类目：</label>
+        <select ng-model="obj.withdrawState" style="width: 140px;" ng-options="item.id as item.title for item in materialsData">
+          <option value="">选择材料类目</option>
+        </select>
+      </li>
+    </ul>
+    <div class="mt20">
+      <a class="btn" id="submitBtn"><span ng-click="approve()">确认</span></a>
+      <a class="btn btn-gray" ><span ng-click="cancel()">取消</span></a>
+    </div>
+  </form>
+</div>
+<style>
+.modal-dialog{width: 400px;}
+.modal-dialog .modal-content{width: 400px;}
+</style>

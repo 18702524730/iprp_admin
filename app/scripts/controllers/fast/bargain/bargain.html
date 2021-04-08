@@ -1,0 +1,78 @@
+<div class="page feedback">
+   <div class="fixed-bar">
+        <div class="item-title">
+            <h3>我要砍价</h3>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>联系号码：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.contactPhone" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+                    <th><label>反馈状态：</label></th>
+                    <td>
+                        <select ng-model="obj.feedBackStatus" style="width: 120px;">
+                            <option value="" disabled>请选择反馈状态</option>
+                            <option ng-value="item.id" ng-repeat="item in feedbackList">{{ item.name }}</option>
+                        </select>
+                    </td>
+                    
+                    <td style="text-align:right;">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">搜索</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" width="40">序号</th>
+                    <th class="align-center" width="130">联系号码</th>
+                    <th class="align-center" width="130">商品</th>
+                    <th class="align-center" width="130">平台售价</th>
+                    <th class="align-center" width="130">砍价价格</th>
+                    <th class="align-center" width="80">砍价时间</th>
+                    <th class="align-center" width="80">反馈状态</th>
+                    <th class="align-center" width="80" class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="bargainTmList.length" class="hover" ng-repeat="list in bargainTmList">
+                    <td class="align-center">
+                        <span>{{list.number}}</span>
+                    </td>
+                    <td class="align-center">{{list.contactPhone}}</td>
+                    <td class="align-center">{{list.trademarkName}}</td>
+                    <td class="align-center">{{list.platformPrice | number:2 }}</td>
+                    <td class="align-center" >{{list.bargainPrice | number:2 }}</td>
+                    <td class="align-center">{{list.bargainTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                    <td class="align-center">{{list.feedback}}</td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="goDetailFn(list)">查看</a>
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-if="list.feedback=='未反馈'" ng-click="setPurposeFn(list)">已反馈</a>
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="detail_orders(list)">查看备注</a>
+                    </td>
+                </tr>
+                <tr>
+                  <td colspan="8" class="align-center" ng-show="!bargainTmList.length"><div class="warning-option"><i class="icon-warning-sign"></i><span class="ng-binding">没有符合条件的记录</span></div></td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

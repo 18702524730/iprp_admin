@@ -1,0 +1,84 @@
+<div class="page">
+    <div class="fixed-bar">
+      <div class="item-title">
+        <h3>服务商意见反馈</h3>
+        <ul class="tab-base">
+          <li mt-show-model model-name="IPRPFastSpAdviseModel"><a href="Javascript:history.go(-1)"><span>反馈列表</span></a></li>
+          <li><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <form name="formSearch" id="formSearch" style="border-bottom: 1px solid #dfe4ea">
+      <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+          <tr>
+            <th><label>服务商名称</label></th>
+          </tr>
+          <tr>
+						<td style="color: #333;font-size: 12px;padding-bottom: 7px" colspan="3">
+						{{detail.adviseSpName}}
+						</td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <form name="formSearch" id="formSearch" style="border-bottom: 1px solid #dfe4ea">
+      <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+          <tr>
+            <th><label>姓名</label></th>
+          </tr>
+          <tr>
+            <td style="color: #333;font-size: 12px;padding-bottom: 7px" colspan="3">
+            {{detail.adviseOperatorName}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <form name="formSearch" id="formSearch" style="border-bottom: 1px solid #dfe4ea">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>反馈意见：</label></th>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="width:700px;">{{detail.feedbackContent}}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label class="validation">反馈类型：</label></th>
+                </tr>
+                <tr>
+                    <td>
+                        <select ng-model="adviseType" style="width: 150px;">
+                            <option value="">请选择</option>
+                            <option value="1">无效信息</option>
+                            <option value="2">建议</option>
+                            <option value="3">投诉</option>
+                            <option value="4">求助</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <td style="text-align:right;" colspan="7">
+                        <a href="javascript:void(0);" class="btn-form" ng-click="submit()" title="提交">提交</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

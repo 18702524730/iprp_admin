@@ -1,0 +1,133 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>权限设置</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPAdminListModel"><a href="#/main/setting_home/admin_list"><span>管理员列表</span></a></li>
+                <li mt-show-model model-name="IPRPUpdateAdminModel"><a class="current"><span>编辑管理员</span></a></li>
+                <li mt-show-model model-name="IPRPAddAdminModel"><a href="#/main/setting_home/add_admin"><span>添加管理员</span></a></li>
+                <li mt-show-model model-name="IPRPGadminListModel"><a href="#/main/setting_home/gadmin_list"><span>功能组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddGadminModel"><a href="#/main/setting_home/add_gadmin"><span>添加功能组</span></a></li>
+                <li mt-show-model model-name="IPRPDataListModel"><a href="#/main/setting_home/data_group_list"><span>业务组列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddDataModel"><a href="#/main/setting_home/add_data_group"><span>添加业务组</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div style="padding-top: 0px">
+        <form name="admin_form" role="form" class="form-horizontal" novalidate>
+            <table class="table tb-type2">
+                <tbody class="tr-color">
+                    <tr class="noborder">
+                        <td colspan="2" class="required">
+                            <label>登录名:</label>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">{{admin_detail.name}}</td>
+                        <td class="vatop tips"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="required">
+                            <label for="new_pw">密码:</label>
+                            <span class="error" ng-show="admin_form.password.$invalid && admin_form.submitted">
+                                <small class="error" ng-show="admin_form.password.$error.pattern">
+                                    <label><i class="icon-exclamation-sign"></i>密码需含数字、大小写字母、特殊字符中至少两类</label>
+                                </small>
+                                <small class="error" ng-show="admin_form.password.$error.minlength && admin_form.password.$error.maxlength">
+                                    <label><i class="icon-exclamation-sign"></i>密码长度为10-32位</label>
+                                </small>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <input id="new_pw" name="password" minlength="10" maxlength="32" ng-pattern="Pattern" class="txt" type="password" ng-model="admin_detail.password"/>
+                        </td>
+                        <td class="vatop tips">留空表示不修改密码</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="required">
+                            <labe for="new_pw2">确认密码:</labe>
+                            <span class="error" ng-show="admin_form.r_password.$invalid && admin_form.submitted">
+                                <small class="error" ng-show="admin_form.r_password.$error.pattern">
+                                    <label><i class="icon-exclamation-sign"></i>密码需含数字、大小写字母、特殊字符中至少两类</label>
+                                </small>
+                            </span>
+                            <span class="row" ng-show="repeatPassword">
+                                <small class="error">
+                                    <label><i class="icon-exclamation-sign"></i>两次输入的密码不一致，请重新输入</label>
+                                </small>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <input id="new_pw2" name="r_password" ng-pattern="Pattern" class="txt" type="password" ng-model="r_password" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="required">
+                            <label class="validation">功能组:</label>
+                             <small>
+                                <span ng-show="gAdminShow && !admin_detail.fg_id" class="red">功能组不可以为空</span>
+                             </small>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <select name="gid" ng-model="admin_detail.fg_id"  ng-options="sortName.fg_id as sortName.name for sortName in limit_group.elements">
+                                <option value="">请选择功能组..</option>
+                            </select>
+                        </td>
+                        <td class="vatop tips">请选择一个功能组，如果还未设置，请马上设置</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="required">
+                            <label class="validation">业务组:</label>
+                            <small>
+                                <span ng-show="dAdminShow" class="red">业务组不可以为空</span>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <select name="gid" ng-model="admin_detail.dg_id"  ng-options="sortName.dg_id as sortName.name for sortName in data_group_list.elements">
+                                <option value="">请选择业务组..</option>
+                            </select>
+                        </td>
+                        <td class="vatop tips">请选择一个业务组，如果还未设置，请马上设置</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="required">
+                            <label class="validation">备注:</label>
+                                <span class="error" ng-show="admin_form.desc.$invalid && admin_form.submitted">
+                                    <small ng-show="admin_form.desc.$error.required" class="error">
+                                        <label><i class="icon-exclamation-sign"></i>备注不可以为空</label>
+                                    </small>
+                                    <small class="error" ng-show="admin_form.desc.$error.pattern">
+                                        <label><i class="icon-exclamation-sign"></i>备注只能中文,数字,字母,特殊符号(._()#@$%&*!)</label>
+                                    </small>
+                                    <small class="error" ng-show="admin_form.desc.$error.maxlength">
+                                        <label><i class="icon-exclamation-sign"></i>备注长度为50位</label>
+                                    </small>
+                                </span>
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vatop rowform">
+                            <textarea name="desc" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9._()#@$%&*!]+$/" style="width: 220px;height: 110px"
+                                      ng-model="admin_detail.description" ng-maxlength="50" required></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="tfoot">
+                        <td colspan="2">
+                            <a class="btn" id="submitBtn"><span ng-click="editAdmin()">提交</span></a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+</div>

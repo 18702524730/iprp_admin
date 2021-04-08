@@ -1,0 +1,65 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>专利许可</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPPatentPermitModel"><a href="JavaScript:void(0);" class="current"><span>工单列表</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>单位名称：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.companyName"></td>
+					<td colspan="2">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()" style="margin-left: 4px">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+						<!-- <a mt-show-model model-name="IPRPOrderReportModel" href="javascript:void(0);" class="btn-reset" ng-click="search_export()" title="导出">导出</a> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center">序号</th>
+                    <th class="align-center">单位名称</th>
+                    <th class="align-center">纳税人识别号</th>
+                    <th class="align-center">到账金额</th>
+                    <th class="align-center">到账时间</th>
+                    <th class="align-center">发票号码</th>
+					<th class="align-center">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<td class="align-center"><span ng-bind="list.seqNo"></span></td>
+                    <td class="align-center" ng-bind="list.companyName"></td>
+					<td class="align-center" ng-bind="list.taxpayerNumber"></td>
+					<td class="align-center" ng-bind="list.amountReceived| number:2"></td>
+					<td class="align-center" ng-bind="list.receivedTime|date:'yyyy-MM-dd'"></td>
+                    <td class="align-center" ng-bind="list.invoiceNum"></td>
+                    
+                    
+					<td class="align-center w120">
+						<a href="JavaScript:void(0);" model-name="IPRPBsOrderDetailModel" style="cursor: pointer;color:#379dea;" ng-click="setInvoiceMsg(list)">编辑</a>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="7" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="7"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

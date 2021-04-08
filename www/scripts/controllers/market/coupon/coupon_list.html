@@ -1,0 +1,94 @@
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title">
+      <h3>拾贝券管理</h3>
+      <ul class="tab-base">
+        <li mt-show-model model-name="IPRPBillTplListModel"><a href="JavaScript:void(0);" class="current"><span>拾贝券列表</span></a></li>
+        <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/market_home/coupon_add"><span>添加拾贝券</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+      <tbody class="tr-color">
+        <tr>
+          <th><label>券名称:</label></th>
+          <td><input type="text" value="" placeholder="请填写拾贝券名称" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.couponName"></td>
+          <th><label>券类型:</label></th>
+          <td>
+            <select ng-model="obj.couponType" style="width: 140px;">
+              <option value="">全部</option>
+              <option value="1">升润券</option>
+              <option value="2">提佣券</option>
+            </select>
+          </td>
+          <th><label>发放状态:</label></th>
+          <td>
+            <select ng-model="obj.couponSendState" style="width: 140px;">
+              <option value="">请选择</option>
+              <option value="1">发放中</option>
+              <option value="2">已暂停</option>
+              <option value="0">已发完</option>
+            </select>
+          </td>
+          <td>
+            <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+            <a href="javascript:void(0);" class="btn-search" ng-click="reset()">重置</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+  <form>
+    <table class="table tb-type2">
+      <thead>
+        <tr class="thead">
+          <th class="align-center" style="width: 40px;">券种</th>
+          <th class="align-center">券名称</th>
+          <th class="align-center">券类型</th>
+          <th class="align-center">使用对象</th>
+          <th class="align-center">使用时限</th>
+          <th style="width: 120px;" class="align-center">生成数量</th>
+          <th style="width: 120px;" class="align-center">已发放数量</th>
+          <th class="align-center">已使用数量</th>
+
+          <th class="align-center">创建时间</th>
+          <th class="align-center">发放状态</th>
+          <th class="align-center">操作</th>
+        </tr>
+      </thead>
+      <tbody class="tr-color">
+        <tr class="" ng-show="RefundList.length > 0" class="hover" ng-repeat="list in RefundList">
+          <td class="align-center">{{list.couponId}}</td>
+          <td class="align-center" >{{ list.couponName }}</td>
+          <td class="align-center" >{{ list.couponType | couponType }}</td>
+          <td class="align-center">{{ list.usageObj | usageObjType }}</td>
+          <td class="align-center">{{ list.applicableTimeRange | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td class="align-center">{{ list.couponNum }}</td>
+          <td class="align-center">{{ list.couponSendNum }}</td>
+          <td class="align-center">{{ list.couponUsedNum }}</td>
+          <td class="align-center">{{ list.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td class="align-center">{{ list.couponSendState | couponStates }}</td>
+          <td class="align-center w120">
+            <a href="JavaScript:void(0);" style="cursor: pointer"  ng-click="checkFn(list)">查看</a>
+            <a href="JavaScript:void(0);" style="cursor: pointer" ng-if="list.couponSendState == 1"  ng-click="dialogFn(list)">发放</a>
+          </td>
+        </tr>
+        <tr ng-show="to_loading">
+          <td colspan="20" class="norecord">
+            <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot ng-hide="to_loading">
+        <tr colspan="15" class="tfoot">
+          <td colspan="14"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+        </tr>
+      </tfoot>
+    </table>
+  </form>
+</div>
+<style>
+  .disabled {color: #eee; cursor: none;}
+</style>

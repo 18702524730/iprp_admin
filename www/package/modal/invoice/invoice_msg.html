@@ -1,0 +1,107 @@
+<div>
+    <div class="invoicebox">
+        <h3 class="invoice_head">
+            <span class="invoice_title">发票信息</span>
+            <span class="close_button"  ng-click="cancel()">X</span>
+        </h3>
+            <ul class="invoice_content">
+                <li ng-if="show.serverNo"><span class="tit">服务单号：</span><span class="txt">{{details.orderSn}}</span></li>
+                <li ng-if="show.orderNo"><span class="tit">订单编号：</span><span class="txt">{{details.orderSn}}</span></li>
+                <li style="margin-bottom: 20px;" ng-if="!show.copyright"><span class="tit">申请人：</span><span class="txt">{{details.applyName}}</span></li>
+                <li style="margin-bottom: 20px;" ng-if="show.copyright"><span class="tit">客户名称：</span><span class="txt">{{details.applyName}}</span></li>
+                <li class="hasmb"><span class="tit hasrequired">官费发票号：</span><span class="txt"><input type="text" ng-model="obj.peInvocieNo" placeholder="请输入官费发票号" class="shuru"></span></li>
+                <li class="hasmb" ng-if="!obj.peInvocieNo&&err.nogf" style="height: 20px;line-height: 20px;font-size: 12px;"><span class="tit" style="height: 20px;"></span><span class="txt" style="color:red;line-height: 20px;">{{err.nogf}}</span></li>
+                <li class="hasmb"><span class="tit">服务费发票号：</span><span class="txt"><input type="text" ng-model="obj.spInvocieNo" placeholder="请输入服务费发票号" class="shuru"></span></li>
+                <li><span class="tit hasrequired">开票日期：</span><span class="txt"><div class="time_wrap">
+                    <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开票日期" name="payment_start_time" id="payment_start_time" ng-model="obj.invoiceTime"
+                     style="cursor:pointer" readonly/>
+            </div></span></li>
+                <li class="hasmb" ng-if="!obj.invoiceTime&&err.noday" style="height: 20px;line-height: 20px;font-size: 12px;"><span class="tit" style="height: 20px;"></span><span class="txt" style="color:red;line-height: 20px;">{{err.noday}}</span></li>
+            </ul>
+        <div style="text-align: center">
+            
+            <span ng-click="cancel()" class="cancelbtn">取消</span>
+            <span ng-click="save()" class="yesbtn">确定</span>
+        </div>
+    </div>
+</div>
+<style>
+    .invoicebox{
+        padding: 10px 30px;
+        height: 300px;
+    }
+    .invoicebox .invoice_head{
+        height: 20px;
+        margin: 0;
+        margin-bottom: 20px;
+        padding: 10px 0;
+        line-height: 20px;
+    }
+    .invoicebox .invoice_head .invoice_title{
+        float: left;
+        font-size: 16px;
+    }
+    .invoicebox .invoice_head .close_button{
+        float: right;
+        font-weight: normal;
+        cursor: pointer;
+    }
+    .invoicebox .invoice_content{
+        margin-bottom: 20px;
+    }
+    .invoicebox .invoice_content li{
+        height: 26px;
+        line-height: 26px;
+    }
+    .invoicebox .invoice_content .hasmb{
+        margin-bottom: 5px;
+    }
+    .invoicebox .invoice_content .tit{
+        float: left;
+        vertical-align: middle;
+        line-height: 26px;
+        height: 26px;
+        width: 120px;
+        text-align: right;
+        margin-right: 10px;
+    }
+    .invoicebox .invoice_content .hasrequired:before{
+        content: '*';
+        font-size: 14px;
+        line-height: 26px;
+        color: red;
+    }
+    .invoicebox .invoice_content .txt{
+        float: left;
+        vertical-align: middle;
+        line-height: 26px;
+        min-width: 320px;
+    }
+    .invoicebox .invoice_content .txt .shuru{
+        width: 100%;
+        height: 100%;
+    }
+    .invoicebox .yesbtn{
+        display: inline-block;
+        width: 80px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        background-color: #379dea;
+        color:#fff;
+        border-radius: 2px;
+        margin-left: 20px;
+    }
+    .invoicebox .cancelbtn{
+        display: inline-block;
+        width: 80px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        border:1px solid #ccc;
+        color:#333;
+        border-radius: 2px;
+    }
+</style>

@@ -1,0 +1,53 @@
+<div class="previmgbox">
+    <div style="text-align: right"><span class="dialog_close_button" ng-click='prevclose()'>x</span></div>
+    <div class="imgbox">
+        <img class="previmg" ng-src="{{src}}" alt="">
+    </div>
+    <span class="nextpicprev" ng-click='tonext()' ng-if='urls.length>1'>&gt;</span>
+    <span class="prevpicprev" ng-click='toprev()' ng-if='urls.length>1'>&lt;</span>
+</div>
+<style>
+    .modal-dialog {
+        width: 960px;
+    }
+
+    .previmgbox {
+        position: relative;
+        width: 880px;
+        height: 480px;
+        padding: 40px;
+    }
+    .nextpicprev,
+    .prevpicprev{
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        border:1px solid  #999;
+        line-height: 30px;
+        text-align: center;
+        color:#888;
+        font-size: 16px;
+        cursor: pointer
+    }
+    .nextpicprev {
+        right: 5px;
+        top: 270px;
+    }
+    .prevpicprev {
+        left: 5px;
+        top: 270px;
+    }
+    .previmgbox .imgbox {
+        width: 100%;
+        height: 480px;
+        overflow-y: auto;
+        border: 1px solid #eaeaea;
+    }
+
+    .previmgbox img {
+        display: block;
+        width: 100%;
+        min-height: 480px;
+    }
+</style>

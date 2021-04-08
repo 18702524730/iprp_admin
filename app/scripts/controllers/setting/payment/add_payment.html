@@ -1,0 +1,110 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>支付方式</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPPaymentListModel"><a href="#/main/setting_home/payment_list"><span>支付方式列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddPaymentModel"><a class="current"><span>添加支付方式</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="add_payment_form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="required">
+                        支付方式:
+                        <span class="error" ng-show="add_payment_form.name.$invalid && add_payment_form.submitted">
+                            <small ng-show="add_payment_form.name.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>支付方式不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="add_payment_form.name.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>支付方式只能中文,数字,字母</label>
+                            </small>
+                            <small class="error" ng-show="add_payment_form.name.$error.maxlength || add_payment_form.name.$error.minlength">
+                                <label><i class="icon-exclamation-sign"></i>支付方式长度为2~20位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform" >
+                        <input type="text" value="123" name="name"
+                               ng-minlength="2" ng-maxlength="20" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9]+$/" class="txt" ng-model="add_payment_obj.name" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        支付图片:
+                        <span class="error" ng-show="add_payment_form.file_name.$invalid && add_payment_form.submitted">
+                            <small ng-show="add_payment_form.file_name.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>支付图片不可以为空</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform" >
+                        <span class="type-file-box">
+                            <input  value="" class="type-file-text" name="file_name" ng-model="add_payment_obj.fileName" style="width: 120px;" required>
+                            <span type="button" upload thumb-src="add_payment_obj.image" file-name="add_payment_obj.fileName"></span>&nbsp;&nbsp;
+                            <img ng-if="add_payment_obj.image != ''" style="width: 65px; height: 25px;" ng-src="{{add_payment_obj.image}}">
+                        </span>
+                    </td>
+                    <td class="vatop tips">图片尺寸：149*54</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        编码:
+                        <span class="error" ng-show="add_payment_form.code.$invalid && add_payment_form.submitted">
+                            <small ng-show="add_payment_form.code.$error.required" class="error">
+                                <label><i class="icon-exclamation-sign"></i>编码不可以为空</label>
+                            </small>
+                            <small class="error" ng-show="add_payment_form.code.$error.pattern">
+                                <label><i class="icon-exclamation-sign"></i>编码只能字母和下划线</label>
+                            </small>
+                            <small class="error" ng-show="add_payment_form.code.$error.maxlength">
+                                <label><i class="icon-exclamation-sign"></i>编码长度为20位</label>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform" >
+                        <input type="text" value="123" name="code"
+                               ng-minlength="3" ng-maxlength="20" ng-pattern="/^[a-zA-Z_]+$/" class="txt" ng-model="add_payment_obj.code" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">启用: </td>
+                </tr>
+                <tr>
+                    <td class="vatop rowform onoff">
+                        <label for="attr_show1"   class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-right:none;border-top-left-radius:4px;
+                            border-top-right-radius:0;
+                            border-bottom-right-radius:0;
+                            border-bottom-left-radius:4px;">
+                            <span ng-click="turnOn($event)" ng-class="{'selected':add_payment_obj.state === 1}">是</span>
+                        </label>
+                        <label for="attr_show0" class="cb-enable" style="text-align:center;border:solid 1px #d3d3d3;border-left:none;border-top-left-radius:0;
+                            border-top-right-radius:4px;
+                            border-bottom-right-radius:4px;
+                            border-bottom-left-radius:0;">
+                            <span ng-click="turnOff($event)" ng-class="{'selected':add_payment_obj.state === 0}">否</span>
+                        </label>
+                        <input style="display:none;" id="attr_show1" name="attr_show" checked="checked" value="1" type="radio">
+                        <input style="display:none;" id="attr_show0" name="attr_show" value="0" type="radio">
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="2">
+                        <a href="JavaScript:void(0);" class="btn" ng-click="add_Payment()"><span>提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

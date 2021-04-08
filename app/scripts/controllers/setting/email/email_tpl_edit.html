@@ -1,0 +1,73 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>消息通知</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPEmailTplListModel"><a href="#/main/setting_home/email_tpl"><span>邮件模板列表</span></a></li>
+                <li mt-show-model model-name="IPRPUpdateEmailTplModel"><a class="current"><span>编辑邮件模板</span></a></li>
+                <li mt-show-model model-name="IPRPEmailSetModel"><a href="#/main/setting_home/email"><span>邮件设置</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form id="form_templates" name="EmailTplForm" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 nobdb">
+            <tbody>
+                <tr class="noborder">
+                    <td colspan="2" class="required"><label> 模板描述: </label></td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        {{mail_tpl_detail.name}}
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        <label class="validation"> 邮件标题:</label>
+                        <span class="error" ng-show="EmailTplForm.title.$invalid && EmailTplForm.submitted">
+                            <small ng-show="EmailTplForm.title.$error.required" class="error">
+                                <span class="red"><i class="icon-exclamation-sign"></i>邮件标题不可以为空</span>
+                            </small>
+                            <small class="error" ng-show="EmailTplForm.title.$error.pattern">
+                                <span class="red"><i class="icon-exclamation-sign"></i>邮件标题只能使用中文、数字、字母和特殊符号{}_$:</span>
+                            </small>
+                            <small class="error" ng-show="EmailTplForm.title.$error.maxlength">
+                                <span class="red"><i class="icon-exclamation-sign"></i>邮件标题最大长度为10位</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform">
+                        <input type="text" name="title"class="txt"
+                               ng-maxlength="50" ng-pattern="/^[\u4e00-\u9fa5\sa-zA-Z0-9{}_$:]+$/" ng-model="mail_tpl_detail.title" required/>
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="required">
+                        <label class="validation">邮件正文:</label>
+                        <span class="error" ng-show="EmailTplForm.content.$invalid && EmailTplForm.submitted">
+                            <small ng-show="EmailTplForm.content.$error.required" class="error">
+                                <span class="red"><i class="icon-exclamation-sign"></i>邮件正文不可以为空</span>
+                            </small>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="2">
+                        <textarea style="width: 590px;height: 400px;" name="content"
+                                  id="content" ng-model="mail_tpl_detail.content" required></textarea>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="15">
+                        <a href="JavaScript:void(0);" class="btn" ng-click="save_email_tpl()"><span>提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,81 @@
+<div class="page">
+<div class="fixed-bar">
+    <div class="item-title">
+        <h3>服务商</h3>
+        <ul class="tab-base">
+            <li mt-show-model model-name="IPRPServicerListModel"><a href="#/main/merchant_home/servicer_list"><span>服务商列表</span></a></li>
+            <li><a href="JavaScript:void(0);" class="current"><span>密码重置</span></a></li>
+        </ul>
+    </div>
+</div>
+<form name="ServiceResetPwdForm" novalidate>
+    <table class="table tb-type2">
+        <tbody class="tr-color">
+            <tr class="noborder">
+                <td class="w96">原密码：</td><td>
+                <input class="w300" type="password" name="password" ng-minlength="6" ng-maxlength="16"
+                       ng-pattern="/^[a-zA-Z0-9_.#!]+$/" type="txt" ng-model="reset_obj.password" required/>
+                <label class="error" ng-show="ServiceResetPwdForm.submitted">
+                    <small ng-show="ServiceResetPwdForm.password.$error.required" class="error">
+                        <span class="red">原密码不可以为空</span>
+                    </small>
+                    <small class="error" ng-show="ServiceResetPwdForm.password.$error.pattern">
+                        <span class="red">原密码只能使用英文大小写字母、数字和特殊符号_.#!</span>
+                    </small>
+                    <small class="error" ng-show="ServiceResetPwdForm.password.$error.minlength">
+                        <span class="red">原密码最短长度为6位</span>
+                    </small>
+                    <small class="error" ng-show="ServiceResetPwdForm.password.$error.maxlength">
+                        <span class="red">原密码最大长度为10位</span>
+                    </small>
+                </label>
+            </td>
+            </tr>
+            <tr class="noborder">
+                <td class="w96">新密码：</td><td>
+                <input class="w300" ng-minlength="6" type="password" ng-maxlength="16" name="new_password"
+                       ng-pattern="/^[a-zA-Z0-9_.#!]+$/" type="txt" ng-model="reset_obj.new_password" required/>
+                <label class="error" ng-show="ServiceResetPwdForm.submitted">
+                    <small ng-show="ServiceResetPwdForm.new_password.$error.required" class="error">
+                        <span class="red">确认密码不可以为空</span>
+                    </small>
+                    <small class="error" ng-show="ServiceResetPwdForm.new_password.$error.pattern">
+                        <span class="red">新密码只能使用英文大小写字母、数字和特殊符号_.#!</span>
+                    </small>
+                    <small class="error" ng-show="ServiceResetPwdForm.new_password.$error.minlength">
+                        <span class="red">新密码最短长度为6位</span>
+                    </small>
+                    <small class="error" ng-show="ServiceResetPwdForm.new_password.$error.maxlength">
+                        <span class="red">新密码最大长度为10位</span>
+                    </small>
+                </label>
+            </td>
+            </tr>
+            <tr class="noborder">
+                <td class="w96">确认密码：</td>
+                <td>
+                    <input class="w300"  ng-minlength="6" type="password" ng-maxlength="10" name="r_password"
+                           ng-pattern="/^[a-zA-Z0-9_.#!]+$/" type="txt" ng-model="r_password" required/>
+                    <label class="error" ng-show="ServiceResetPwdForm.r_password.$invalid && ServiceResetPwdForm.submitted">
+                        <small class="error" ng-show="ServiceResetPwdForm.r_password.$error.required">
+                            <span class="red">确认密码不能为空</span>
+                        </small>
+                    </label>
+                    <label class="error" ng-show="repeatPassword">
+                        <small class="error">
+                            <span class="red">新密码和确认密码不一样,请重新输入!</span>
+                        </small>
+                    </label>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr class="tfoot">
+                <td colspan="2">
+                    <a href="JavaScript:void(0);" ng-click="submit()" class="btn"><span>提交</span></a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>
+</div>

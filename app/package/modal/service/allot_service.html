@@ -1,0 +1,48 @@
+<div class="page">
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+            <tr>
+                <th><label>关键词：</label></th>
+                <td><input type="text" value="" class="txt" ng-model="obj.name"></td>
+                <td>
+                    <a href="javascript:void(0);" class="btn-search" ng-click="search()" title="查询">&nbsp;</a>
+                </td>
+                <span class="dialog_close_button"  ng-click="cancel()">X</span>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center">服务商名称</th>
+                    <th class="align-center">能力值</th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="serviceList.length > 0" class="hover" ng-repeat="list in serviceList">
+                    <td class="align-center" ng-bind="list.name"></td>
+                    <td class="align-center" ng-bind="list.ability"></td>
+                    <td>
+                        <a herf style="cursor: pointer" ng-click="allot_service(list.sp_id,list.sp_code,list.name)">选择</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

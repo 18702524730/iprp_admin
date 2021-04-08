@@ -1,0 +1,112 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>天猫尼斯推荐列表</h3>
+			<!-- <ul class="tab-base">
+				<li mt-show-model model-name="IPRPBsOrderListModel"><a href="JavaScript:void(0);" class="current"><span>工单列表</span></a></li>
+			</ul> -->
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>订单编号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.orderSn"></td>
+					<th><label>商标名称</label></th>
+					<td><input type="text" class="txt" ng-model="obj.trademarkName"></td>
+					<th><label>旺旺号：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.wangwangSn"></td>
+                    <th><label>商家编号：</label></th>
+                    <td><input type="text" class="txt" ng-model="obj.spCode"></td>
+                    
+				</tr>
+				<tr>
+					<!-- <th><label>添加时间：</label></th>
+					<td>
+						<div class="time_wrap">
+						<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="createTimeStart" id="nicecreateTimeStart" ng-model="createTimeStart"
+								max-date="createTimeEnd" style="cursor:pointer" readonly/>
+						<label for="createTimeEnd">~</label>
+						<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="createTimeEnd" id="nicecreateTimeEnd"  ng-model="createTimeEnd"
+								min-date="createTimeStart" style="cursor:pointer" readonly/>
+					  </div>
+                    </td> -->
+                    <th><label>商家名称：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.spName"></td>
+					<th><label>处理状态：</label></th>
+					<td>
+                        <select ng-model="obj.processStatus" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="0">待处理</option>
+							<option value="1">已处理</option>
+						</select>
+                    </td>
+					<th><label>确认状态：</label></th>
+					<td>
+						<select ng-model="obj.status" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="0">待确认</option>
+							<option value="1">已确认</option>
+						</select>
+					</td>
+					
+					
+					<td style="text-align:left;" colspan="2">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+						<!-- <a href="javascript:void(0);" class="btn-reset" ng-click="search_export()" title="导出">导出</a> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<!-- <th class="align-center">序号</th> -->
+                    <th style="width: 120px;" class="align-center">订单编号</th>
+                    <th class="align-center">商家编号</th>
+					<th class="align-center">商家名称</th>
+					<th class="align-center">旺旺号</th>
+					<th class="align-center">商标名称</th>
+					<th class="align-center">注册类别</th>
+                    <th class="align-center">下单时间</th>
+                    <th class="align-center">确认状态</th>
+					<th class="align-center">确认时间</th>
+                    <th class="align-center">处理时间</th>
+                    <th class="align-center">处理状态</th>
+					
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<!-- <td class="align-center"><span ng-bind="list.seqNo"></span></td> -->
+					<td class="align-center" ng-bind="list.orderSn"></td>
+					<td class="align-center" ng-bind="list.spCode"></td>
+					<td class="align-center" ng-bind="list.spName"></td>
+					<td class="align-center" ng-bind="list.wangwangSn"></td>
+					<td class="align-center" ng-bind="list.trademarkName"></td>
+					<td class="align-center" ng-bind="list.cls"></td>
+                    <td class="align-center" ng-bind="list.orderTime | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center" ng-bind="list.status | confirmStatusFormat"></td>
+                    <td class="align-center" ng-bind="list.confirmTime | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center" ng-bind="list.processTime | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center" ng-bind="list.processStatus | processStatusFormat"></td>
+					
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="11" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="11"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

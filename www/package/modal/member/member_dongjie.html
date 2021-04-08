@@ -1,0 +1,27 @@
+<div>
+  <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">冻结用户</span>
+        </span>
+    <span class="dialog_close_button" ng-click="cancel()">X</span>
+  </h3>
+  <form role="form" style="padding:5px 15px 20px;">
+    <table class="table tb-type2 nobdb" >
+      <tbody class="tr-color">
+      <tr class="noborder">
+        <td colspan="4">
+          <label>请输入冻结原因：</label>
+          <textarea ng-model="data.memo" style="width: 500px;height: 90px;display: block;"></textarea>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr class="tfoot">
+        <td colspan="4">
+          <a class="btn" id="submitBtn"><span ng-click="save()">保存</span></a>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </form>
+</div>

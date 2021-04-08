@@ -1,0 +1,104 @@
+<div class="page feedback">
+ 	<div class="fixed-bar">
+    <div class="item-title">
+      <h3>服务商入驻申请</h3>
+      <ul class="tab-base">
+        <li><a href="JavaScript:void(0);" class="current"><span>申请列表</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+      <tbody class="tr-color">
+        <tr>
+          <th><label>公司名称：</label></th>
+          <td>
+            <input type="text" ng-model="obj.companyName">
+          </td>
+
+          <th><label>申请人姓名：</label></th>
+          <td>
+            <input type="text" type="text" ng-model="obj.name">
+          </td>
+
+          <th><label>联系号码：</label></th>
+          <td>
+            <input type="text" type="text" ng-model="obj.phone">
+          </td>
+
+          <th width="60"><label>申请时间：</label></th>
+          <td colspan="3" width="245">
+            <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开始时间" name="begin_create_time" id="begin_create_time" ng-model="begin_create_time"
+            max-date="end_create_time" style="cursor:pointer" readonly/>
+            <label for="end_create_time">~</label>
+            <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="结束时间" name="end_create_time" id="end_create_time"  ng-model="end_create_time" min-date="begin_create_time" style="cursor:pointer" readonly/>
+          </td>
+
+          <td style="text-align:right;">
+            <a href="javascript:void(0);" class="btn-search" ng-click="search_apply()">查询</a>
+            <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+	<form>
+    <table class="table tb-type2">
+      <thead>
+        <tr class="thead">
+          <th class="align-center" width="40">序号</th>
+          <th class="align-center" width="80">申请类型</th>
+          <th class="align-center" width="80">公司名称</th>
+          <th class="align-center" width="80">申请人姓名</th>
+          <th class="align-center" width="80">联系电话</th>
+          <th class="align-center" width="80">申请时间</th>
+          <th class="align-center" width="200">备注信息</th>
+          <th class="align-center" width="80">操作</th>
+        </tr>
+      </thead>
+      <tbody class="tr-color">
+        <tr class="" class="hover" ng-repeat="item in ApplyList">
+          <td class="align-center">{{item.number}}</td>
+          <td class="align-center">{{item.applyType == 0 ? '个人服务商' : item.applyType == 1 ? '机构服务商' : ''}}</td>
+          <td class="align-center">{{item.companyName}}</td>
+          <td class="align-center">{{item.name}}</td>
+          <td class="align-center">{{item.phone}}</td>
+          <td class="align-center">{{item.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td class="align-center">{{item.remark}}</td>
+          <td class="align-center">
+						<span class="btn-search" ng-if="item.spConfirm == 1" ng-click="confirmLink(item.sp_apply_id)">确认联系</span>
+            <span class="over_btn" ng-if="item.spConfirm == 2">已联系</span>
+          </td>
+        </tr>
+        <tr ng-show="to_loading">
+            <td colspan="20" class="norecord">
+                <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+            </td>
+        </tr>
+      </tbody>
+      <tfoot ng-hide="to_loading">
+        <tr colspan="15" class="tfoot">
+          <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+        </tr>
+      </tfoot>
+    </table>
+  </form>
+</div>
+<style>
+.btn-search{
+  letter-spacing: 2px;
+  padding: 0 8px;
+  background: #68a4fe;
+  text-align: center;
+  border-radius: 3px;
+  color: #fff;
+  line-height: 23px;
+  display: inline-block;
+  height: 23px;
+  margin-top: 1px;
+  cursor: pointer;
+}
+.over_btn{
+  color: #999;
+  }
+</style>

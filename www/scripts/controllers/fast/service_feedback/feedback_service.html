@@ -1,0 +1,98 @@
+<div class="page feedback">
+   <div class="fixed-bar">
+        <div class="item-title">
+            <h3>服务商意见反馈</h3>
+            <ul class="tab-base">
+                <li><a href="JavaScript:void(0);" class="current"><span>反馈列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>服务商名称：</label></th>
+                    <td>
+                        <select ng-model="obj.adviseSpName" ng-options="item.name as item.name for item in spList" style="width:150px;">
+                            <option value="">请选择</option>
+                        </select>
+                    </td>
+                    <th><label>反馈类型：</label></th>
+                    <td>
+                        <select ng-model="obj.adviseType" style="width: 120px;">
+                            <option value="">请选择</option>
+                            <option value="1">无效信息</option>
+                            <option value="2">建议</option>
+                            <option value="3">投诉</option>
+                            <option value="4">求助</option>
+                        </select>
+                    </td>
+                    <th width="60"><label>反馈时间：</label></th>
+                    <td colspan="3" width="245">
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="请填写开始时间" name="feedbackTimeBegin" id="feedbackTimeBegin" ng-model="feedbackTimeBegin"
+                                max-date="feedbackTimeEnd" style="cursor:pointer" readonly/>
+                        <label for="feedbackTimeEnd">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="请填写结束时间" name="feedbackTimeEnd" id="feedbackTimeEnd"  ng-model="feedbackTimeEnd" min-date="feedbackTimeBegin" style="cursor:pointer" readonly/>
+                    </td>
+
+                    <th width="60"><label>查收时间：</label></th>
+                    <td colspan="3" width="245">
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="请填写开始时间" name="checkTimeBegin" id="checkTimeBegin" ng-model="checkTimeBegin"
+                                max-date="checkTimeEnd" style="cursor:pointer" readonly/>
+                        <label for="checkTimeEnd">~</label>
+                        <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="请填写结束时间" name="checkTimeEnd" id="checkTimeEnd"  ng-model="checkTimeEnd"
+                                min-date="checkTimeBegin" style="cursor:pointer" readonly/>
+                    </td>
+                    <td style="text-align:right;">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">查询</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" width="40">序号</th>
+                    <th class="align-center" width="130">服务商名称</th>
+                    <th class="align-center" width="130">姓名</th>
+                    <th class="align-center" width="130">反馈时间</th>
+                    <th class="align-center">反馈内容</th>
+                    <th class="align-center" width="80">意见类型</th>
+                    <th class="align-center" width="80">意见查收人</th>
+                    <th class="align-center" width="130">查收时间</th>
+                    <th class="align-center" width="80" class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+                    <td class="align-center">
+                        <span>{{list.number}}</span>
+                    </td>
+                    <td class="align-center">{{list.adviseSpName}}</td>
+                    <td class="align-center">{{list.adviseOperatorName}}</td>
+                    <td class="align-center">{{list.feedbackTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="align-center" style="word-break:break-all;">{{list.feedbackContent}}</td>
+                    <td class="align-center">{{list.adviseType|adviseTypeF}}</td>
+                    <td class="align-center">{{list.adminName}}</td>
+                    <td class="align-center">{{list.checkTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="view(list.spAdviseId)">查看</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

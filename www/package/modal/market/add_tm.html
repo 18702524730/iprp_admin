@@ -1,0 +1,51 @@
+<div class="add_customer">
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">新增商标：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form role="form" style="padding:5px 15px 20px;">
+        <table class="table tb-type2 nobdb" >
+            <tbody class="tr-color">
+                <tr class="noborder">
+                  <td colspan="3" >
+                    <label>商标编号：</label>
+                    <input type="text" ng-model="data.goods_sn" placeholder="请输入商标编号" style="width:200px" >
+                  </td>
+                </tr>
+                <tr class="noborder">
+                  <td colspan="3" >
+                    <label></label>
+                    <span>可在商标管理中，查找商标编号</span>
+                  </td>
+                </tr>
+                <tr class="noborder" ng-if="error">
+                    <td colspan="4">
+                        <label></label>
+                        <span style="color:red;">{{error}}</span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="4" style="text-align:center;">
+                        <a class="btn cancel_btn" id="submitBtn"><span ng-click="cancel()">取消</span></a>
+                        <a class="btn submit_btn" id="submitBtn"><span ng-click="saveFn()">提交</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<style type="text/css">
+.add_customer tbody{padding-bottom: 20px;}
+.add_customer .tfoot td{border-top: 0}
+.add_customer .tb-type2 .txt{margin: 0; width: 110px;}
+.add_customer td>label{width: 75px;}
+.add_customer td .btn{margin-left: 75px;height: 30px;line-height: 30px;}
+.add_customer td input{height: 20px;}
+.add_customer td .cancel_btn {background: #eee; color: #555; margin-left: 0;}
+.add_customer td .cancel_btn:hover {color: #555;}
+.add_customer td .submit_btn {margin-left: 10px;}
+</style>

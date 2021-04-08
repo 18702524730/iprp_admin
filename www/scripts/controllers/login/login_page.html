@@ -1,0 +1,37 @@
+<div class="bg-dot"></div>
+<div class="login-layout">
+    <div class="top">
+        <h2>拾贝管理后台</h2>
+    </div>
+    <div class="box">
+        <form>
+          <span>
+          <label>账号</label>
+          <input name="name" ng-model="login_obj.name" id="user_name" type="text" class="input-text" required="">
+          </span> <span>
+          <label>密码</label>
+          <input name="password" ng-model="login_obj.password" id="password" class="input-password" type="password" required>
+          </span> <span>
+          <div class="code">
+              <div class="arrow"></div>
+              <div class="code-img">
+                  <img ng-model="imageCode" ng-src="{{imageCode}}" name="codeimage" id="imgCode" border="0">
+              </div>
+              <!--<div class="code-img" ng-hide="is_show">-->
+                  <!--<span style="left: 16px;top: 6px;font-size: 14;color: blue;font-family:cursive">-->
+                      <!--请等待{{countdown}}s...-->
+                  <!--</span>-->
+              <!--</div>-->
+              <a href="JavaScript:void(0);" id="hide" class="close" title="关闭"><i></i></a>
+              <a href="" ng-click="refreshCaptcha()" class="change" title="看不清,点击更换验证码"><i></i></a>
+          </div>
+          <input name="captcha" ng-model="login_obj.captcha" type="text" required="" class="input-code" id="captcha"
+                 placeholder="输入验证" maxlength="5" autocomplete="off" value="">
+          </span>
+          <span>
+            <input name="" id="asd" class="input-button" type="submit" ng-click="submit()" value="登录">
+          </span>
+        </form>
+    </div>
+</div>
+<div class="loading" style="min-height: 500px;text-align: center;padding-top: 240px; display: none;"><img src="../../../styles/images/bigLoading.gif"></div>

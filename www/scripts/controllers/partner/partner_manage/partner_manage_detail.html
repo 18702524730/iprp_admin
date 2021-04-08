@@ -1,0 +1,167 @@
+<style>
+	.radio_align {
+		vertical-align: middle;
+		margin-top: -2px;
+		margin-bottom: 1px;
+	}
+
+	.order .typeOrder>li:nth-child(3n+2) {
+		width: 34.1%;
+	}
+
+	.order .typeOrder>li:nth-child(3n+3) {
+		width: 32.9%;
+	}
+	.pagination ul li {width: auto;}
+	.pagination ul {width: auto;}
+</style>
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>合伙人详情</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPServicerListModel">
+					<a href="#/main/partner_home/partner_manage">
+						<span>合伙人列表</span>
+					</a>
+				</li>
+				<li mt-show-model model-name="IPRPServicerDetailModel">
+					<a href="JavaScript:void(0);" class="current">
+						<span>{{type == 'bl' ? '经办' : '详情'}}</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<table class="table tb-type2 order">
+		<tbody class="tr-color">
+			<tr class="space">
+				<th colspan="15">合伙人基本信息</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<ul class="typeOrder">
+						<li>
+							<strong>昵称:</strong>{{partnerBaseInfo.nickname}}
+						</li>
+						<li>
+							<strong>手机号:</strong>{{partnerBaseInfo.phone || '--' }}</li>
+						<li>
+							<strong>邮箱:</strong>{{partnerBaseInfo.email || "--"}}</li>
+						<li>
+							<strong>实名认证:</strong>{{partnerBaseInfo.isAuthentication | isAuthenticationFil }}</li>
+						<li>
+							<strong>店铺名称:</strong>{{ partnerBaseInfo.storeName }}</li>
+						<li>
+							<strong>开店时间:</strong>{{partnerBaseInfo.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</li>
+						<li>
+						<strong>店铺状态:</strong>{{partnerBaseInfo.status | partnerStoreStatusFil }}</li>
+						<li>
+						<strong>账号类型:</strong>{{partnerBaseInfo.memberCreateType | memberType }}</li>
+						<li>
+							<strong>合伙人邀请码:</strong>
+							<i style="text-decoration: underline;font-style: normal;cursor: pointer;" ng-click="showInvit(partnerBaseInfo.memberSn)">{{partnerBaseInfo.status | partnerStoreStatusFil }}</i>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">实名信息</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<ul class="typeOrder">
+						<li>
+							<strong>{{partnerBaseInfo.memberCreateType == 2 ? '机构名称' : '姓名'}}:</strong>{{realNameInfo.truename}}
+						</li>
+						<li>
+							<strong>{{partnerBaseInfo.memberCreateType == 2 ? '统一社会信用代码' : '身份证号'}}:</strong>{{realNameInfo.idCardNo || "--"}}</li>
+						<li>
+							<strong>银行卡号:</strong>{{realNameInfo.bankCardNo || "--"}}</li>
+						<li>
+							<strong>手机号:</strong>{{realNameInfo.phone || "--"}}</li>
+						<li>
+							<strong>银行卡开户支行:</strong>{{realNameInfo.bankCardAddress || '--' }}</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">合伙人资产</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<ul class="typeOrder">
+						<li>
+							<strong>未验收服务分润:</strong>{{ partnerAsset.unAcceptIncome || '--' }}
+						</li>
+						<li ">
+							<strong>累计验收服务分润:</strong>{{partnerAsset.culumateAcceptIncome || "--"}}</li>
+						<li>
+							<strong>可用余额:</strong>{{partnerAsset.balance || "--"}}</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="space">
+				<th colspan="2">邀请关系</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<ul class="typeOrder">
+						<li>
+							<strong>上级合伙人手机号:</strong>{{ inviteRelation.phone || '--' }}
+						</li>
+						<li ">
+							<strong>上级合伙人昵称:</strong>{{inviteRelation.nickname || "--"}}</li>
+						<li>
+							<strong>上级合伙人店铺名:</strong>{{inviteRelation.storeName || "--"}}</li>
+						<li>
+							<strong>下级合伙人:</strong></li>
+						<li>
+							<strong>已开店:</strong>{{inviteRelation.openStoreNum || "--"}}</li>
+						<li>
+							<strong>未开店:</strong>{{inviteRelation.unopenStore || "--"}}</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table class="table tb-type2">
+						<tbody class="tr-color">
+							<tr style="background: #f1f3f6;">
+								<td style="width: 120px;">序号</td>
+								<td style="width: 140px;">合伙人手机号</td>
+								<td>合伙人昵称</td>
+								<td>合伙人店铺名</td>
+								<td>下级完成服务</td>
+								<td>下级分润</td>
+								<td>开店状态</td>
+							</tr>
+							<tr ng-show="labelList && labelList.length > 0" ng-repeat="list in labelList ">
+								<td>{{ (pagination.curPage-1) * 20 + $index+1 }}</td>
+								<td>{{list.phone}}</td>
+								<td>{{list.nickname }}</td>
+								<td>{{list.storeName}}</td>
+								<td>{{list.serviceNum}}</td>
+								<td>{{list.income}}</td>
+								<td>{{list.isOpen | isOpentatusFil }}</td>
+							</tr>
+							<tr ng-show="!labelList || labelList.length == 0">
+								<td colspan="20" class="norecord">
+									<div class="warning-option">
+										<i class="icon-warning-sign"></i>
+										<span>{{loading_text}}</span>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+						<tfoot ng-hide="to_loading">
+              <tr class="tfoot">
+                  <td colspan="7"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+              </tr>
+	          </tfoot>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

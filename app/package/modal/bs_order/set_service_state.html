@@ -1,0 +1,37 @@
+<div>
+    <h3 class="dialog_head" style="cursor: move;">
+        <span class="dialog_title">
+            <span class="dialog_title_icon">设置服务状态：</span>
+        </span>
+        <span class="dialog_close_button" ng-click="cancel()">X</span>
+    </h3>
+    <form role="form" style="padding:5px 15px 20px;">
+        <table class="table tb-type2 nobdb" >
+            <tbody class="tr-color">
+                <tr class="noborder">
+                    <td colspan="4" >
+                        <label>请选择服务状态：</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label ng-repeat="item in feedbackList" style="margin-right: 20px;"><input type="radio" name="service_type" ng-value="item.code" ng-model="order_detail.__code" ng-disabled="!(item.stage > order_detail.feedback_stage)">{{item.name}}</label>
+                    </td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="4">
+                        <label>请填写备注：</label>
+                        <textarea ng-model="data.memo" style="width: 500px;height: 90px;display: block;" maxlength="180"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="4">
+                        <a class="btn" id="submitBtn"><span ng-click="save()">设置</span></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

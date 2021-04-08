@@ -1,0 +1,194 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>退款管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPRefundListModel"><a href="#/main/trade_home/refund_list"><span>退款列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddRefundModel"><a href="#/main/trade_home/refund_add"><span>添加退款</span></a></li>
+                <li mt-show-model model-name="IPRPAddRefundModel"><a href="JavaScript:void(0);" class="current"><span>更新退款</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="create_refund_form" role="form" class="form-horizontal" novalidate>
+        <table class="table tb-type2 order">
+            <tbody>
+                <tr class="space">
+                    <th colspan="2">订单信息</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <ul>
+                            <li><strong>订单编号:</strong>{{refund_detail.orderDTO.order_sn}}</li>
+                            <li><strong>创建时间:</strong>{{refund_detail.orderDTO.create_time}}</li>
+                            <li><strong>业务:</strong>{{refund_detail.orderDTO.bs_name}}</li>
+                            <li><strong>服务商:</strong>{{refund_detail.orderDTO.sp_name}}</li>
+                            <li><strong>订单状态:</strong>{{refund_detail.orderDTO.state | orderStatusFilter}}</li>
+                            <li><strong>缴费合计:</strong>{{refund_detail.orderDTO.order_amount | number:2}}</li>
+                            <li><strong>官费:</strong>{{refund_detail.orderDTO.pe_amount | number:2}}</li>
+                            <li><strong>服务费:</strong>{{refund_detail.orderDTO.sp_amount | number:2}}</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="space">
+                    <th colspan="2">客户信息</th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li><strong>客户名称:</strong>&nbsp;{{refund_detail.member_name}}&nbsp;&nbsp;&nbsp;</li>
+                            <li><strong>联系电话:</strong>&nbsp;{{refund_detail.member_phone}}&nbsp;&nbsp;&nbsp;</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="space">
+                    <th colspan="2">
+                        支付单
+                            <span class="error">
+                                <small class="error">
+                                    <label>&nbsp;&nbsp;{{payment_error_manage}}</label>
+                                </small>
+                            </span>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+                            <thead>
+                            <tr>
+                                <th colspan="20"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <table id="table_category" class="type" style="width:975px">
+                                        <thead>
+                                        <tr>
+                                            <th>选择</th>
+                                            <th>支付单</th>
+                                            <th>官费</th>
+                                            <th>服务费</th>
+                                            <th>结算状态</th>
+                                            <th>支付说明</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-show="refund_detail.orderPayDTOs.length > 0" ng-repeat="list in refund_detail.orderPayDTOs">
+                                            <td>
+                                                <input type="checkbox" ng-disabled="list.payment_state === 0" ng-click="check_payment(list,list.id)" ng-checked="check_ids.indexOf(list.id) !== -1"/>
+                                            </td>
+                                            <td ng-bind="list.payment_sn"></td>
+                                            <td ng-bind="list.payment_pe_amount | number:2"></td>
+                                            <td ng-bind="list.payment_sp_amount | number:2"></td>
+                                            <td ng-bind="list.payment_state | PaymentStateFilter"></td>
+                                            <td ng-bind="list.payment_description"></td>
+                                        </tr>
+                                        <tr ng-show="refund_detail.orderPayDTOs.length > 0">
+                                            <td colspan="6">
+                                                <span style="float: right">
+                                                    <input type="checkbox" style="width: 15px;" placeholder="" ng-disabled="is_checked && refund_detail.orderDTO.order_closed === 1"
+                                                           ng-click="is_close_order(refund_detail.orderDTO.order_closed)"  ng-checked="refund_detail.orderDTO.order_closed"/>退款并关闭订单
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="refund_detail.orderPayDTOs.length === 0">
+                                            <td colspan="6">没有符合条件的记录</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="space" ng-show="refund_detail.refundChildDTOs.length > 0">
+                    <th colspan="2">退款申请</th>
+                </tr>
+                <tr ng-show="refund_detail.refundChildDTOs.length > 0">
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+                            <thead>
+                            <tr>
+                                <th colspan="20"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <table  class="type" style="width:975px">
+                                        <thead>
+                                        <tr>
+                                            <th>支付单</th>
+                                            <th>可退官费</th>
+                                            <th>可退服务费</th>
+                                            <th>支付说明</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody ng-show="Refund_Apply_Array.length > 0" ng-repeat="list in Refund_Apply_Array track by $index">
+                                        <tr>
+                                            <td ng-bind="list.payment_sn"></td>
+                                            <td ng-bind="list.payment_pe_amount"></td>
+                                            <td ng-bind="list.payment_sp_amount"></td>
+                                            <td ng-bind="list.payment_description"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                    <span style="width: 450px;">
+                                                        退费金额：
+                                                        <input type="text" name="organ"
+                                                               ng-blur="pe_amount(Refund_Apply_Array,$index)" placeholder="官费" ng-model="list.refund_child_real_pe_amount" required/>元
+                                                        &nbsp; &nbsp;
+                                                        <input type="text" name="serve"
+                                                               ng-blur="sp_amount(Refund_Apply_Array,$index)" placeholder="服务费" ng-model="list.refund_child_real_sp_amount" required/>元
+                                                        <input type="checkbox" style="width: 15px;" placeholder=""
+                                                               ng-click="child_responsibility(Refund_Apply_Array,$index)" ng-checked="list.refund_child_responsibility"/>费用由服务商承担
+                                                    </span>
+                                            </td>
+                                            <td colspan="3">
+                                                    <span class="error">
+                                                        <label>{{list.error_manages}}</label>
+                                                    </span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        <tbody ng-show="Refund_Apply_Array.length === 0">
+                                        <tr>
+                                            <td colspan="4">
+                                                没有符合条件的记录
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="space" ng-show="Refund_Apply_Array.length > 0">
+                    <th colspan="2">退费备注</th>
+                </tr>
+                <tr class="space" ng-show="Refund_Apply_Array.length > 0">
+                    <td>
+                        <textarea name="return_message" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9._()#@$%&*!]+$/"
+                                  ng-maxlength="100" style="width: 360px;height: 130px;" placeholder="请填写退款信息" ng-model="refund_detail.return_message" required>
+                        </textarea>
+                            <span class="error" ng-show="create_refund_form.return_message.$invalid && create_refund_form.submitted">
+                                <small ng-show="create_refund_form.return_message.$error.required" class="error">
+                                    <label><i class="icon-exclamation-sign"></i>退费备注不可以为空</label>
+                                </small>
+                                <small class="error" ng-show="create_refund_form.return_message.$error.pattern">
+                                    <label><i class="icon-exclamation-sign"></i>退费备注只能中文,数字,字母,特殊符号(._()#@$%&*!)</label>
+                                </small>
+                                <small class="error" ng-show="create_refund_form.return_message.$error.maxlength">
+                                    <label><i class="icon-exclamation-sign"></i>退费备注长度为100位</label>
+                                </small>
+                            </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a  href="JavaScript:void(0);" class="btn" ng-click="create_refund()"><span >提交</span></a>
+    </form>
+</div>

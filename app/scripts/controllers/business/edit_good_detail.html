@@ -1,0 +1,101 @@
+<style>
+    .form-group{display: inline-block;width: 400px;}
+    .form-group .form-control {
+        width: 150px;
+        display: inline-block;
+        margin-right: 20px;
+        padding: 3px 8px;
+        height: 28px;
+    }
+    .form-group input.form-control {
+        height: 20px;
+        width: 130px;
+    }
+    .form-group label{
+        width: 70px;
+    }
+    .redI{color: red;}
+    
+    .edit_good_detail .detailInfo h3{font-size: 14px;line-height: 28px;margin: 20px 0 0;}
+</style>
+<div class="page edit_good_detail">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>商品管理</h3>
+            <ul class="tab-base">
+                <li><a href="JavaScript:history.go(-1)"><span>商品列表</span></a></li>
+                <li><a href="JavaScript:void(0);" class="current"><span>修改商品详情</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="add_product">
+        <form name="myForm" novalidate>
+        <div class="modal-body clear" style="text-align: left;padding: 15px;">
+            <div class="form-group">
+                <label>商品名称：</label>
+                <span class="form-con">{{goodInfo_new.productName}}</span>
+            </div>
+            <div class="form-group">
+                <label>商品类型：</label>
+                <span class="form-con">{{goodInfo_new.productType}}</span>
+            </div>
+            <div class="form-group">
+                <label>服务类型：</label>
+                <span class="form-con">{{goodInfo_new.serviceType}}</span>
+            </div>
+            <div class="form-group">
+                <label>所属业务：</label>
+                <span class="form-con">{{goodInfo_new.businessName}}</span>
+            </div>
+            <div class="form-group">
+                <label>商品ID：</label>
+                <span class="form-con">{{goodInfo_new.productId}}</span>
+            </div>
+            <div class="form-group">
+                <label>商品介绍：</label>
+                <input type="text" class="form-control" name="introduce"  ng-class="{true: 'form-control', false: 'form-control redBorder'}[myForm.standardPrice.$valid]" ng-model="goodInfo_new.introduce" placeholder="不填即为空" />
+            </div>
+            <div class="form-group">
+                <label>标准价：<span class="redI">*</span> </label>
+                <input type="text" name="standardPrice" ng-pattern="/^\d*(.\d{1,2})?$/" placeholder="数字，最多2位小数" ng-class="{true: 'form-control', false: 'form-control redBorder'}[myForm.standardPrice.$valid]" ng-model="goodInfo_new.standardPrice" required />
+                <!-- <span>{{myForm.standardPrice.$valid}}</span> -->
+            </div>
+            <div class="form-group">
+                <label>订金：<span class="redI">*</span> </label>
+                <input type="text" class="form-control" name="depositPrice" ng-pattern="/^\d*(.\d{1,2})?$/" placeholder="数字，最多2位小数" ng-class="{true: 'form-control', false: 'form-control redBorder'}[myForm.depositPrice.$valid]" ng-model="goodInfo_new.depositPrice" required />
+            </div>
+            <div class="form-group">
+                <label>订金优惠：</label>
+                <input type="text" class="form-control" name="preferentialPrice" ng-pattern="/^\d*(.\d{1,2})?$/" class="form-control" ng-model="goodInfo_new.preferentialPrice" placeholder="不填即为空" />
+            </div>
+            <div class="form-group">
+                <label>业务编码：<span class="redI">*</span> </label>
+                <select  ng-class="{true: 'form-control', false: 'form-control redBorder'}[myForm.codes.$valid]" ng-model="goodInfo_new.codes" name="codes" class="selectpicker" required >
+                    <option value="">请选择业务编码</option>
+                    <option ng-repeat="item in businessCodes" value="{{item.code}}">{{item.name}}</option>
+                </select>
+            </div>
+            <br>
+            <div class="detailInfo clearfix">
+               <h3>PC业务介绍</h3>
+               <div id="server" ng-model="businessIntroduction" contenteditable="true" style="height: 330px;width: 950px;"></div>
+            </div>
+            <div class="detailInfo">
+               <h3>H5业务介绍</h3>
+               <div id="sebeNic" ng-model="applyProcess" contenteditable="true" style="height: 330px;width: 950px;"></div>
+            </div> 
+            <div class="detailInfo">
+               <h3>常见问题（PC端与移动端共用）</h3>
+               <div id="usquestion" ng-model="commonProblem" contenteditable="true" style="height: 330px;width: 950px;"></div>
+            </div>
+        </div>
+        </form>
+
+        <div style="margin-top: 80px;text-align: center;width: 950px;">
+            <button class="btn good-sure-btn" ng-click="sureEditPrice()">保存</button>
+            <button class="btn good-sure-btn" ng-click="cancelEditPrice()">取消</button>
+        </div>
+
+
+    </div>
+</div>

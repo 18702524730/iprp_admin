@@ -1,0 +1,134 @@
+<div class="page" style="min-width: 1340px">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>敦煌网-订单</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPDhgateOrderListModel"><a href="JavaScript:void(0);" class="current"><span>订单列表</span></a></li>
+				<!-- <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);"><span>导出</span></a></li> -->
+			</ul>
+		</div>
+	</div>
+	<form name="formSearch" id="formSearch">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label>订单号：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.orderFuwuId"></td>
+					<th><label>用户名称：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.userName"></td>
+					<th><label>创建时间：</label></th>
+					<td>
+						<div class="time_wrap">
+							<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="beginTime" id="beginTime" ng-model="beginTime"
+									max-date="endTime" style="cursor:pointer" readonly/>
+							<label for="endTime">~</label>
+							<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="endTime" id="endTime"  ng-model="endTime" min-date="beginTime" style="cursor:pointer" readonly/>
+						</div>
+					</td>
+					<th><label>姓名称呼：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.contactName"></td>
+					
+				</tr>
+				<tr>
+					<th><label>服务名称：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.fuwuName"></td>
+					<th><label>联系电话：</label></th>
+					<td><input type="text" class="txt" ng-model="obj.contactPhone"></td>
+					<th><label>提交时间：</label></th>
+					<td>
+						<div class="time_wrap">
+							<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="createTimeBeginTime" id="createTimeBeginTime" ng-model="createTimeBeginTime"
+									max-date="createTimeEndTime" style="cursor:pointer" readonly/>
+							<label for="createTimeEndTime">~</label>
+							<input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="createTimeEndTime" id="createTimeEndTime"  ng-model="createTimeEndTime" min-date="createTimeBeginTime" style="cursor:pointer" readonly/>
+						</div>
+					</td>
+					<th><label>服务状态：</label></th>
+					<td>
+						<select ng-model="obj.serviceStatus" style="width: 120px;">
+							<option value="">请选择</option>
+							<option value="1">待服务</option>
+							<option value="2">服务中</option>
+							<option value="3">服务完成</option>
+						</select>
+					</td>
+					<td colspan="2">
+						<a href="javascript:void(0);" class="btn-search" ng-click="search_order()" style="margin-left: 4px">查询</a>
+						<a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()" title="重置">重置</a>
+						<!-- <a mt-show-model model-name="IPRPOrderReportModel" href="javascript:void(0);" class="btn-reset" ng-click="search_export()" title="导出">导出</a> -->
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</form>
+	<!-- <table class="table tb-type2" id="prompt">
+		<tbody class="tr-color">
+			<tr class="space odd" >
+				<th colspan="12"><div class="title">
+					<h5>操作提示</h5>
+					<span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+					<span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+				</div></th>
+			</tr>
+			<tr class="odd" ng-show="hint">
+				<td>
+					<ul>
+						<li></li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table> -->
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center">序号</th>
+					<th class="align-center">订单号</th>
+					<th class="align-center">创建时间</th>
+					<th class="align-center">提交时间</th>
+					<th class="align-center">用户名称</th>
+					<th class="align-center">姓名称呼</th>
+					<th class="align-center">联系电话</th>
+					<th class="align-center">服务名称</th>
+					<th class="align-center">服务状态</th>
+					<th class="align-center">订单价格</th>
+					<th class="align-center">服务价格</th>
+					<th class="align-center">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<td class="align-center">
+						<span ng-bind="list.seqNo"></span>
+					</td>
+					<td class="align-center" ng-bind="list.orderFuwuId"></td>
+					<td class="align-center" ng-bind="list.dateCreate | date:'yyyy-MM-dd HH:mm:ss'"></td>
+					<td class="align-center" ng-bind="list.createTime | date:'yyyy-MM-dd HH:mm:ss'"></td>
+					<td class="align-center" ng-bind="list.userName"></td>
+					<td class="align-center" ng-bind="list.contactName"></td>
+					<td class="align-center" ng-bind="list.contactPhone"></td>
+					<td class="align-center" ng-bind="list.fuwuName"></td>
+					<td class="align-center" ng-bind="list.serviceStatus |orderServerStateFormat"></td>
+					<td class="align-center" ng-bind="list.price"></td>
+					<td class="align-center" ng-bind="list.skuPrice | number:2"></td>
+					<td class="align-center w120">
+						<a ng-if='list.serviceStatus==1' href="JavaScript:void(0);" model-name="IPRPDhgateOrderDetailModel" style="cursor: pointer;color:#68a4fe" ng-click="reception_orders(list.orderFuwuId)">接单</a>
+						<a ng-if='list.serviceStatus!=1' href="JavaScript:void(0);" model-name="IPRPDhgateOrderDetailModel" style="cursor: pointer" ng-click="detail_orders(list.orderFuwuId)">查看</a>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="12" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="12"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>

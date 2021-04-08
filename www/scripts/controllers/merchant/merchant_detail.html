@@ -1,0 +1,461 @@
+<div class="page feedback">
+   <div class="fixed-bar">
+		<div class="item-title">
+			<h3>商家管理</h3>
+			<ul class="tab-base">
+				<li><a href="JavaScript:void(0);" class="current"><span>商家详情</span></a></li>
+				<!-- <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);"><span>导出</span></a></li> -->
+			</ul>
+		</div>
+	</div>
+	<div class="merchant_flow mt10">
+		<div class="fl flow_01" ng-class="flowType==1 ? 'cur' : ''" ng-click="next(1)">
+			基本资料
+		</div>
+		<div class="fl flow_02" ng-class="flowType==2 ? 'cur' : ''" ng-click="next(2)">
+			店铺资料
+		</div>
+		<div class="fl flow_03" ng-class="flowType==3 ? 'cur' : ''" ng-click="next(3)">
+			认证资料
+		</div>
+		<div class="fl flow_04" ng-class="flowType==4 ? 'cur' : ''" ng-click="next(4)">
+			业务资料
+		</div>
+		<div class="fl flow_05" ng-class="flowType==5 ? 'cur' : ''" ng-click="next(5)">
+			服务类目
+		</div>
+		<div class="fl flow_06" ng-class="flowType==6 ? 'cur' : ''" ng-click="next(6)">
+			结算资料
+		</div>
+	</div>
+	<!-- 基本信息 -->
+	<form name="formSearch" id="merchant" ng-if="flowType == 1">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color">
+				<tr>
+					<th><label style="font-size: 14px;color:#333;font-weight: bold;">基本信息</label></th>
+				</tr>
+				<tr>
+					<th><label>拾贝网注册手机号：</label></th>
+					<td>
+						<p>{{detail.account}}</p>
+					</td>
+				</tr>
+				<tr>
+					<th><label>主体类型：</label></th>
+					<td>
+						<p>{{detail.spType == 1 ? '机构(公司)' : detail.spType == 2 ? '个人' : detail.spType == 3 ? '机构(个体工商户)' : '--'}}</p>
+					</td>
+				</tr>
+				<tr>
+					<th><label>商家类型：</label></th>
+					<td>
+						<p>{{detail.manageType == 1 ? '优选商家' : '普通商家'}}</p>
+					</td>
+				</tr>
+				<tr>
+					<th><label>机构名称：</label></th>
+					<td><p>{{detail.name}}</p></td>
+				</tr>
+				<tr>
+					<th><label>联系人姓名：</label></th>
+					<td><p>{{detail.sp_contacts}}</p></td>
+				</tr>
+				<tr>
+					<th><label>联系电话：</label></th>
+					<td><p>{{detail.phone}}</p></td>
+				</tr>
+				<tr>
+					<th><label>联系地址</label></th>
+					<td><p>{{detail.areaInfo}}{{detail.address}}</p></td>
+				</tr>
+				<tr>
+					<th><label>邮箱：</label></th>
+					<td><p>{{detail.email}}</p></td>
+				</tr>
+				<tr>
+					<th><label>机构简介：</label></th>
+					<td><p>{{detail.remark}}</p></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+	<!-- 店铺资料 -->
+	<form name="formSearch" id="merchant" ng-if="flowType == 2">
+		<table class="tb-type1 noborder search">
+			<tbody class="tr-color" ng-if="storeData">
+				<tr>
+					<th><label style="font-size: 14px;color:#333;font-weight: bold;">店铺资料</label></th>
+				</tr>
+				<tr>
+					<th><label>店铺名称：</label></th>
+					<td>
+						<p>{{storeData.store_name}} <a class="ml20" target="_blank" style="color:#68a4fe" href="{{shopUrl}}/store/{{storeData.store_code}}.htm"> 查看店铺</a></p>
+					</td>
+				</tr>
+				<tr>
+					<th><label>店铺联系电话：</label></th>
+					<td>
+						<p>{{storeData.store_phone}}</p>
+					</td>
+				</tr>
+				<tr>
+					<th><label>店铺邮箱：</label></th>
+					<td>
+						<p>{{storeData.store_email}}</p>
+					</td>
+				</tr>
+				<tr>
+					<th><label>客服QQ：</label></th>
+					<td><p>{{storeData.store_qq}}</p></td>
+				</tr>
+				<tr>
+					<th><label>店铺工作时间：</label></th>
+					<td><p ng-repeat="item in storeData.store_work_time.split(',')">{{item}}</p></td>
+				</tr>
+			</tbody>
+			<tbody class="tr-color" ng-if="!storeData">
+				<tr>
+					<th><label style="font-size: 14px;color:#333;font-weight: bold;">店铺资料</label></th>
+				</tr>
+				<tr>
+					<th><label>暂未开通</label></th>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+	<!-- 认证资料 -->
+	<div class="aptitude" ng-if="flowType == 3">
+		<form name="formSearch" id="merchant">
+			<table class="tb-type1 noborder search">
+				<tbody class="tr-color">
+					<tr>
+						<th><label style="font-size: 14px;color:#333;font-weight: bold;">认证资料</label></th>
+					</tr>
+					<!-- <tr>
+						<th><label>主体类型：</label></th>
+						<td>
+							<p>{{detail.spType == 1 ? '机构(公司)' : detail.spType == 2 ? '个人' : detail.spType == 3 ? '机构(个体工商户)' : '--'}}</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>机构名称：</label></th>
+						<td>
+							<p>{{detail.name}}</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>统一社会信用代码：</label></th>
+						<td><p>{{detail.businessLicenseNo}}</p></td>
+					</tr>
+					<tr>
+						<th><label>注册地址：</label></th>
+						<td><p>{{detail.regAddress}}</p></td>
+					</tr> -->
+					<!-- <tr>
+						<th><label>营业执照：</label></th>
+						<td>
+							<div class="rt_action">
+								<a ng-if="detail.businessLicenseUrl" href="{{detail.businessLicenseUrl}}" target="_blank"><img src="{{detail.businessLicenseUrl}}" alt="" width="150"></a>
+								<img ng-if="!detail.businessLicenseUrl" src="https://hzsebetest.oss-cn-hangzhou.aliyuncs.com/A5726CC8F5EF4825B102FFABA791A21C.png" alt="" width="150">
+								<p>营业执照复印件（加盖公章）</p>
+							</div>
+						</td>
+					</tr> -->
+					<tr class="pt20">
+						<th><label>知识产权代理资质材料：</label></th>
+						<td>
+							<div class="rt_action">
+								<a ng-if="detail.patentProxyRegistration" href="{{detail.patentProxyRegistration}}" target="_blank"><img src="{{detail.patentProxyRegistration}}" alt="" width="150"></a>
+								<img ng-if="!detail.patentProxyRegistration" src="https://hzsebetest.oss-cn-hangzhou.aliyuncs.com/A5726CC8F5EF4825B102FFABA791A21C.png" alt="" width="150">
+								<p>专利代理机构注册证</p>
+							</div>
+						</td>
+					</tr>
+					<tr class="pt20">
+						<th><label></label></th>
+						<td>
+							<div class="rt_action">
+								<a ng-if="detail.lawyerCert" href="{{detail.lawyerCert}}" target="_blank"><img src="{{detail.lawyerCert}}" alt="" width="150"></a>
+								<img ng-if="!detail.lawyerCert" src="https://hzsebetest.oss-cn-hangzhou.aliyuncs.com/A5726CC8F5EF4825B102FFABA791A21C.png" alt="" width="150">
+								<p>律师执业资格证</p>
+							</div>
+						</td>
+					</tr>
+					<tr class="pt20">
+						<th><label></label></th>
+						<td>
+							<div class="rt_action">
+								<a ng-if="detail.trademarkProxyCert" href="{{detail.trademarkProxyCert}}" target="_blank"><img src="{{detail.trademarkProxyCert}}" alt="" width="150"></a>
+								<img ng-if="!detail.trademarkProxyCert" src="https://hzsebetest.oss-cn-hangzhou.aliyuncs.com/A5726CC8F5EF4825B102FFABA791A21C.png" alt="" width="150">
+								<p>商标代理资质（网站截图）</p>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<!-- 业务资料 -->
+	<div class="aptitude" ng-if="flowType == 4">
+		<form name="formSearch" id="merchant">
+			<table class="tb-type1 noborder search">
+				<tbody class="tr-color">
+					<tr>
+						<th><label style="font-size: 14px;color:#333;font-weight: bold;">拾贝平台业务</label></th>
+					</tr>
+					<tr>
+						<th><label>商家类型：</label></th>
+						<td>
+							<p>{{businessData.manageType == 1 ? '优选商家' : '普通商家'}}</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>店铺名称：</label></th>
+						<td>
+							<p>{{businessData.storeName}}</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>商家标签：</label></th>
+						<td>
+							<p><span ng-repeat="item in businessData.label" title="{{item.name}}"><img class="mr5" src="{{item.status == 1 ? item.icon_url : item.icon_disable_url}}"></span></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>委托申报单位：</label></th>
+						<td><p>{{businessData.entrustedUnit}}</p></td>
+					</tr>
+					<tr>
+						<th><label>店铺搜索权重：</label></th>
+						<td><p>{{businessData.weight || '--'}}</p></td>
+					</tr>
+					<tr>
+						<th><label>拾贝自动分单：</label></th>
+						<td><p>{{businessData.distributeOrder == 1 ? '参与': '不参与'}}</p></td>
+					</tr>
+				</tbody>
+
+				<tbody class="tr-color">
+					<tr>
+						<th><label style="font-size: 14px;color:#333;font-weight: bold;">创新保平台业务</label></th>
+					</tr>
+					<tr>
+						<th><label>是否是创新保商家：</label></th>
+						<td>
+							<p>{{businessData.thirdRelateAccount ? '是':'否'}}</p>
+						</td>
+					</tr>
+					<tr ng-if="businessData.thirdRelateAccount">
+						<th><label>绑定创新保账号：</label></th>
+						<td>
+							<p>{{businessData.thirdRelateAccount}}</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+
+	<!-- 服务类目 -->
+	<div class="merchant" ng-if="flowType==5">
+		<table class="tb-type1 noborder search">
+				<tbody class="tr-color">
+					<tr>
+						<th><label style="font-size: 14px;color:#333;font-weight: bold;">服务类目</label></th>
+					</tr>
+          <tr ng-if="pagination.totalCount">
+              <th>开通服务类目数量：</th>
+              <td colspan="20">
+                  <span>{{allServiceClassData.total_elements}} / {{allServiceClassData.bsAllCount}}</span>
+                  <i class="ml10" style="font-style:normal;color: #999;">提示：开通服务类目后，商家可在商家中心里发布相应的服务；管理员可将同类型订单手动分配至商家。</i>
+              </td>
+          </tr>
+        </tbody>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0" class="store-joinin">
+        <thead>
+        <tr>
+            <th colspan="20">服务开通</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label for="">渠道：</label>
+                    <select ng-model="channel_id" ng-options="sortName.channel_id as sortName.name for sortName in channel_list" ng-change="channelChange(channel_id)">
+                    	<option value="">请选择...</option>
+                    </select>
+                    <label for="" style="margin-left: 50px">服务分类：</label>
+                    <select
+                            ng-model="bs_class_id"
+                            ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessFirst.elements"
+                            ng-change="searchSecond(bs_class_id)">
+                        <option value="">请选择...</option>
+                    </select>
+                    <select ng-model="s_bs_class_id"
+                            ng-show="bs_class_id && BusinessSrcondclass.elements.length > 0"
+                            ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessSrcondclass.elements"
+                            ng-change="searchThird(s_bs_class_id)">
+                        <option value="">请选择...</option>
+                    </select>
+                    <select ng-model="t_bs_class_id"
+                            ng-show="s_bs_class_id && BusinessThreeclass.elements.length > 0"
+                            ng-options="sortName.bs_class_id as sortName.name for sortName in BusinessThreeclass.elements"
+                            ng-change="showBusiness(t_bs_class_id)">
+                        <option value="">请选择...</option>
+                    </select>
+                    &nbsp;&nbsp;
+                    <a href="" ng-click = "all_service()">全部服务</a>
+
+                    <span class="error" ng-show="open_service_show">
+                        <small class="error">
+                            <label><i class="icon-exclamation-sign"></i>请选择开通的服务</label>
+                        </small>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table style="width: 860px" id="table_category" class="type">
+                        <thead>
+                            <tr>
+                                <th>渠道</th>
+                                <th>一级类目</th>
+                                <th>二级类目</th>
+                                <th>三级类目</th>
+                                <th>现有能力值</th>
+                                <th>配置能力值</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="tempServiceBusiness.length > 0" ng-repeat="detail in tempServiceBusiness">
+                                <td ng-bind="detail.channel_name"></td>
+                                <td ng-bind="detail.bs_class_parent_name"></td>
+                                <td ng-bind="detail.bs_class_name"></td>
+                                <td ng-bind="detail.bs_name"></td>
+                                <td>{{!detail.sp_now_ability && detail.sp_now_ability!=0? '--':detail.sp_now_ability}}</td>
+                                <td>{{!detail.sp_ability && detail.sp_ability!=0? '--':detail.sp_ability}}</td>
+                            </tr>
+                            <!-- <tr ng-show="tempServiceBusiness.length > 0">
+                                <td colspan="6">
+                                    <a style="margin-left: 575px;"
+                                       href="JavaScript:void(0);" class="btn" ng-click="save()"><span>确定</span></a>
+                                </td>
+                            </tr> -->
+                            <tr ng-show="to_loading">
+                                <td colspan="20" class="norecord">
+                                    <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot ng-hide="to_loading">
+                            <tr colspan="15" class="tfoot">
+                                <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="mt10" style="font-size: 14px;color:#333;font-weight: bold;">商家可提供的服务能力</p>
+    <p class="mt10">拾贝平台内的服务能力：</p>
+    <table class="type mt10" style="width: 871px">
+    	<thead>
+				<tr style="border-bottom: 1px solid #EEE;">
+					<th width="150">一级类目</th>
+					<th width="150">二级类目</th>
+					<th>三级类目</th>
+				</tr>
+    	</thead>
+    	<tbody>
+    		<tr ng-repeat="item in allServiceClassData.rangeContent" style="border-bottom: 1px solid #EEE;">
+    			<td>{{item.typeOne.name}}</td>
+    			<td>{{item.typeOne.name}}</td>
+    			<td><span ng-repeat="(index, it) in item.typeThree">{{it.name}}{{index == item.typeThree.length - 1 ? '' : '，'}}</span></td>
+    		</tr>
+    		<tr style="border-bottom: 1px solid #EEE;">
+    			<td colspan="3" ng-if="!allServiceClassData.rangeContent || !allServiceClassData.rangeContent.length">
+    				暂无
+    			</td>
+    		</tr>
+    	</tbody>
+    </table>
+    <p class="mt10">其他服务能力：</p>
+    <p class="mt10">{{allServiceClassData.rangeRemark || '无'}}</p>
+	</div>
+
+	<!-- 结算信息 -->
+	<div class="aptitude" ng-if="flowType == 6">
+		<form name="formSearch" id="merchant">
+			<table class="tb-type1 noborder search">
+				<tbody class="tr-color" ng-if="detail.account_number">
+					<tr>
+						<th><label style="font-size: 14px;color:#333;font-weight: bold;">结算资料</label></th>
+					</tr>
+					<tr>
+						<th><label>开户行：</label></th>
+						<td>
+							<p>{{detail.bank}}</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>开户人：</label></th>
+						<td>
+							<p>{{detail.account_holder}}</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>银行账号：</label></th>
+						<td>
+							<p>{{detail.account_number}}</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>开户地址：</label></th>
+						<td>
+							<p>{{detail.account_address}}</p>
+						</td>
+					</tr>
+				</tbody>
+				<tbody class="tr-color" ng-if="!detail.account_number">
+					<tr>
+						<th><label style="font-size: 14px;color:#333;font-weight: bold;">结算资料</label></th>
+					</tr>
+					<tr>
+						<th><label>未填写结算资料</label></th>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+<style>
+.merchant_flow{
+	width: 100%;overflow: hidden;padding-left: 1px;
+}
+.merchant_flow >div{
+	width: 98px;position: relative;line-height: 30px;text-align: center;color:#666;font-size: 14px;border: 1px solid #999;margin-left: -1px;cursor: pointer;
+}
+.merchant_flow div.cur{
+	color: #fff;background-color: #68a4fe;border-color: #68a4fe;
+}
+/*.merchant_flow >div:after{
+	content:'';width: 0px;height: 0px;position: absolute;top:-30px;border-top: 15px solid transparent;border-bottom: 15px solid transparent;top:0px;right: -20px;z-index: 1;
+}
+.merchant_flow .flow_01{background-color: #777;height: 30px;}
+.merchant_flow .flow_01:after{border-left: 20px solid #777;}
+.merchant_flow .flow_02{background-color: #999;height: 30px;}
+.merchant_flow .flow_02:after{border-left: 20px solid #999;}
+.merchant_flow .flow_03{background-color: #bfbdbd;height: 30px;}
+.merchant_flow .flow_03:after{border-left: 20px solid #bfbdbd;}
+.merchant_flow .flow_04{background-color: #d6d2d2;height: 30px;}*/
+#merchant tbody tr.pt20 td,#merchant tbody tr.pt20 th{padding-top: 20px;}
+#merchant tbody tr td p{line-height: 20px;margin-bottom: 5px;color:#78829b;}
+#merchant tbody tr th{vertical-align: -webkit-baseline-middle;}
+.btn_a{text-align: :center;width: 100%;padding-left: 120px;}
+.aptitude .rt_action img{width: 150px;vertical-align: bottom;}
+</style>

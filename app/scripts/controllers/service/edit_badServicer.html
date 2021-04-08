@@ -1,0 +1,70 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>失信商家</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPBadServicerListModel"><a href="#/main/merchant_home/bad_servicer_list"><span>失信商家列表</span></a></li>
+                <li mt-show-model model-name="IPRPUpdateBadServicerModel"><a href="JavaScript:void(0);" class="current"><span>管理</span></a></li>
+                <li mt-show-model model-name="IPRPAddBadServicerModel"><a href="#/main/merchant_home/add_badServicer"><span>添加失信商家</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">管理失信商家</th>
+            </tr>
+            <tr>
+                <th>商家信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li style="width: 100%"><strong>账号：</strong>{{badBs_detail.serviceProvider.account}}</li>
+                        <li style="width: 100%"><strong>邮箱：</strong>{{badBs_detail.serviceProvider.email}}</li>
+                        <li style="width: 100%"><strong>状态：</strong>{{badBs_detail.serviceProvider.state | servicerStatusFilter}}</li>
+                        <li style="width: 100%"><strong>负责人：</strong>{{badBs_detail.serviceProvider.sp_contacts}}</li>
+                        <li style="width: 100%"><strong>手机号：</strong>{{badBs_detail.serviceProvider.phone}}</li>
+                        <!-- <li style="width: 100%"><strong>能力值：</strong>{{badBs_detail.serviceProvider.ability}}</li> -->
+                        <li style="width: 100%"><strong>商家名称：</strong>{{badBs_detail.serviceProvider.name}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>服务信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <table class="table tb-type2 goods ">
+                        <tbody class="tr-color">
+                            <tr>
+                                <th></th>
+                                <th>服务分类</th>
+                                <th class="align-center">服务</th>
+                                <th class="align-center">状态</th>
+                                <th class="align-center">失信周期</th>
+                                <th class="align-center">操作</th>
+                            </tr>
+                            <tr ng-repeat="service in badBs_detail.serviceProvider.badServiceList">
+                                <td class="w60 picture"></td>
+                                <td class="w49pre">
+                                    <span ng-bind="service.bs_class_name"></span>
+                                </td>
+                                <td class="w96 align-center" ng-bind="service.name"></td>
+                                <td class="w96 align-center" ng-if="service.is_bad_state === true">失信</td>
+                                <td class="w96 align-center" ng-if="service.is_bad_state === false">正常</td>
+                                <td class="align-center" ng-if="service.is_bad_state === false">--</td>
+                                <td class="align-center" ng-if="service.is_bad_state === true">{{service.create_time | date:'yyyy-MM-dd'}}-{{service.open_time | date:'yyyy-MM-dd'}}</td>
+                                <td class="w96 align-center">
+                                    <a herf style="cursor: pointer" ng-if="service.is_bad_state === true" ng-click = "regain_bs(service.bs_id)">恢复</a>
+                                    <a herf style="cursor: pointer" ng-if="service.is_bad_state === false"
+                                       ng-click = "break(service.bs_id,service.bs_class_name,service.name,service.is_bad_state,service.create_time,service.update_time)">失信</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

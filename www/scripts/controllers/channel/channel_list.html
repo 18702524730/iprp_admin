@@ -1,0 +1,71 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>渠道商管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPChannelListModel"><a href="JavaScript:void(0);" class="current"><span>渠道商列表</span></a></li>
+                <li mt-show-model model-name="IPRPAddChannelModel"><a href="#/main/channel_home/add_channel"><span>添加渠道商</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="12">
+                    <div class="title">
+                        <h5>操作提示</h5>
+                        <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                        <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                    </div>
+                </th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li>通过渠道商管理，你可以进行添加、编辑渠道商操作</li>
+                        <li>你可以指定服务商（-）、如果渠道商下有服务商点击服务商数量到操作页面取消指定</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" style="width: 40px">序号</th>
+                    <th class="align-center">编码</th>
+                    <th class="align-center">名称</th>
+                    <th class="align-center">描述</th>
+                    <th style="width: 120px" class="align-center">创建时间</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="channelList.length > 0" class="hover" ng-repeat="list in channelList">
+                    <td class="align-center">
+                        <span ng-bind="list.number"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.code"></td>
+                    <td class="align-center" ng-bind="list.name"></td>
+                    <td class="align-center" ng-bind="list.describe"></td>
+                    <td class="align-center" ng-bind="list.create_time | date: 'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPUpdateChannelModel" style="cursor: pointer"  ng-click = "edit_channel(list.channel_id)">编辑</a>
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPChannelAssignServicer" style="cursor: pointer"  ng-click = "assign_channel(list.channel_id)">指定服务商</a>
+                    </td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

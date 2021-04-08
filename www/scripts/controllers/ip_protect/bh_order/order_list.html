@@ -1,0 +1,120 @@
+<div class="page" style="min-width: 1340px">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>保护投诉（官网）</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);" class="current"><span>订单列表</span></a></li>
+				<!-- <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:void(0);"><span>导出</span></a></li> -->
+			</ul>
+		</div>
+	</div>
+	<table class="tb-type1 noborder search">
+		<tbody class="tr-color">
+			<tr>
+				<th><label>服务编号：</label></th>
+				<td><input type="text" class="txt j-fwNumber"></td>
+				<th><label>联系人：</label></th>
+				<td><input type="text" class="txt j-fwlxrName"></td>
+				<th><label>联系电话：</label></th>
+				<td><input type="text" class="txt j-lxrPhone"></td>
+				<th><label>服务类型：</label></th>
+				<td>
+					<select class="j-fwbusinessType">
+						<option value="">请选择</option>
+						<option value="1">跨平台电商保护</option>
+						<option value="2">侵权监测</option>
+						<option value="3">侵权判定</option>
+						<option value="4">质量抽检/鉴定/召回</option>
+						<option value="5">行政/刑事</option>
+						<option value="6">海关保护</option>
+						<option value="7">法律服务</option>
+						<option value="8">授权许可</option>
+					</select>
+				</td>
+				<th><label>服务进度：</label></th>
+				<td>
+					<select class="j-fwstate">
+						<option value="">请选择</option>
+						<option value="1">待受理</option>
+						<option value="2">服务中</option>
+						<option value="3">已完成</option>
+						<option value="4">不予受理</option>
+					</select>
+				</td>
+				<td colspan="2">
+					<a href="javascript:void(0);" class="btn-search j-query" ng-click="search_order()" style="margin-left: 4px">查询</a>
+					<a href="javascript:void(0);" class="btn-reset j-reset" title="重置">重置</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- <table class="table tb-type2">
+		<thead>
+			<tr class="thead">
+				<th class="align-center">序号</th>
+				<th class="align-center">服务编号</th>
+				<th class="align-center">服务类型</th>
+				<th style="width: 120px;" class="align-center">提交时间</th>
+				<th class="align-center">联系人</th>
+				<th class="align-center">联系电话</th>
+				<th class="align-center">服务进度</th>
+				<th class="align-center">操作</th>
+			</tr>
+		</thead>
+		<tbody class="tr-color j-tr-color">
+			
+		</tbody>
+		<tfoot ng-hide="to_loading">
+			<tr class="tfoot">
+				<td colspan="14"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+			</tr>
+		</tfoot>
+	</table> -->
+	<form>
+		<table class="table tb-type2">
+			<thead>
+				<tr class="thead">
+					<th class="align-center">序号</th>
+					<th class="align-center">服务编号</th>
+					<th class="align-center">服务类型</th>
+					<th style="width: 120px;" class="align-center">提交时间</th>
+					<th class="align-center">联系人</th>
+					<th class="align-center">联系电话</th>
+					<th class="align-center">服务进度</th>
+					<th class="align-center">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tr-color">
+				<tr class="" ng-show="OrderList.length > 0" class="hover" ng-repeat="list in OrderList">
+					<td class="align-center"><span ng-bind="list.seqNo"></span></td>
+					<td class="align-center" ng-bind="list.businessSn"></td>
+					<td class="align-center" ng-bind='(list.businessType==1?"跨平台电商保护":list.businessType==2?"侵权监测":list.businessType==3?"侵权判定":list.businessType==4?"质量抽检/鉴定/召回":list.businessType==5?"行政/刑事":list.businessType==6?"海关保护":list.businessType==7?"法律服务":list.businessType==8?"授权许可":"")'></td>
+					<td class="align-center" ng-bind="list.createTime | date:'yyyy-MM-dd HH:mm:ss'"></td>
+					<td class="align-center" ng-bind="list.lxrName"></td>
+					<td class="align-center" ng-bind="list.lxrPhone"></td>
+					<td class="align-center" ng-bind="(list.state==1?'待受理':list.state==2?'服务中':list.state==3?'服务完成':list.state==4?'不予受理':'')"></td>
+					<td class="align-center w120">
+						<a href="JavaScript:void(0);" ng-if="list.state===1" model-name="IPRPOrderDetailModel" style="cursor: pointer" ng-click="checkFn(list.businessSn)">审核</a>
+						<a href="JavaScript:void(0);" ng-if="list.state===2" model-name="IPRPOrderDetailModel" style="cursor: pointer" ng-click="feedbackFn(list.businessSn)">结案备注</a>
+						<a href="JavaScript:void(0);" model-name="IPRPOrderDetailModel" style="cursor: pointer" ng-click="detail_orders(list.businessSn)">详情</a>
+					</td>
+				</tr>
+				<tr ng-show="to_loading">
+					<td colspan="14" class="norecord">
+						<div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-hide="to_loading">
+				<tr class="tfoot">
+					<td colspan="14"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</div>
+<script>
+	$(function(){
+		
+	})
+</script>

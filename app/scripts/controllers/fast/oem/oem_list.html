@@ -1,0 +1,89 @@
+<div class="page feedback">
+    <div class="fixed-bar">
+         <div class="item-title">
+             <h3>OEM鉴别</h3>
+             <ul class="tab-base">
+                <li mt-show-model model-name="IPRPNtOrderListModel"><a href="JavaScript:void(0);" class="current"><span>申请列表</span></a></li>
+            </ul>
+         </div>
+     </div>
+     <form name="formSearch" id="formSearch">
+         <table class="tb-type1 noborder search">
+             <tbody class="tr-color">
+                <tr>
+                    <th><label>用户昵称：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.nickname" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+                    <th><label>用户手机：</label></th>
+                    <td>
+                        <input type="text" ng-model="obj.phone" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    </td>
+                    <th><label>提交时间：</label></th>
+                    <td colspan="3">
+                        <input type="text" placeholder="开始时间" class="txt date hasDatepicker" datepicker-popup placeholder="" name="oemcreateTimeStart" id="oemcreateTimeStart" ng-model="createTimeStart"
+                                max-date="createTimeEnd" style="cursor:pointer" readonly/>
+                        <label for="createTimeEnd">~</label>
+                        <input type="text" placeholder="结束时间" class="txt date hasDatepicker" datepicker-popup placeholder="" name="oemcreateTimeEnd" id="oemcreateTimeEnd"  ng-model="createTimeEnd" min-date="createTimeStart" style="cursor:pointer" readonly/>
+                    </td>
+
+                    <th><label>处理状态：</label></th>
+                    <td>
+                        <select ng-model="obj.state" style="width: 120px;">
+                            <option value="" >请选择处理状态</option>
+                            <option ng-value="item.id" ng-repeat="item in stateList">{{ item.name }}</option>
+                        </select>
+                    </td>
+                    
+                    
+                    <td style="text-align:right;">
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search_order()">搜索</a>
+                        <a href="javascript:void(0);" class="btn-reset" ng-click="search_reset()">重置</a>
+                    </td>
+                </tr>
+             </tbody>
+         </table>
+     </form>
+     <form>
+         <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" width="40">序号</th>
+                    <th class="align-center" width="130">用户昵称</th>
+                    <th class="align-center" width="130">用户手机</th>
+                    <th class="align-center" width="130">提交时间</th>
+                    <th class="align-center" width="130">处理状态</th>
+                    <th class="align-center" width="80" class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr class="" ng-show="buyPurposeList.length" class="hover" ng-repeat="list in buyPurposeList">
+                    <td class="align-center">
+                        <span>{{list.seqNo}}</span>
+                    </td>
+                    <td class="align-center">{{ list.nickname || '--'}}</td>
+                    <td class="align-center">{{ list.phone}}</td>
+                    <td class="align-center">{{ list.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                    <td class="align-center">{{ list.state|oemstateFormat}}</td>
+                    <td class="align-center w120">
+                        <a href="JavaScript:void(0);" style="cursor: pointer" ng-click="detail_orders(list)">详情</a>
+                    </td>
+                </tr>
+                <tr>
+                  <td colspan="8" class="align-center" ng-show="!buyPurposeList.length"><div class="warning-option"><i class="icon-warning-sign"></i><span class="ng-binding">没有符合条件的记录</span></div></td>
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="12"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+                </tr>
+            </tfoot>
+         </table>
+     </form>
+ </div>
+ 

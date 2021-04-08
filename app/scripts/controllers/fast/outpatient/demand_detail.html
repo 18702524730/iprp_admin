@@ -1,0 +1,117 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>门诊室需求详情</h3>
+            <ul class="tab-base">
+                <li><a href="#/main/fast_home/outpatient_demand"><span>门诊室需求列表</span></a></li>
+                <li><a href="JavaScript:void(0);" class="current"><span>门诊室需求详情</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="15">需求基本信息</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul>
+                        <li>
+                            <strong>需求类型:</strong>{{demandDetail.demandType}}
+                        </li>
+                        <li><strong>经营平台:</strong>{{demandDetail.platform}}</li>
+                        <li><strong>店铺名称:</strong>{{demandDetail.storeName}}</li>
+                        <li><strong>联系人:</strong>{{demandDetail.contactsName}}</li>
+                        <li><strong>联系电话:</strong>{{demandDetail.contactsPhone}}</li>
+                        <li><strong>提交时间:</strong>{{demandDetail.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">需求描述</th>
+            </tr>
+            <tr>
+                <td>
+                    {{demandDetail.demandDescribe}}
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">备注</th>
+            </tr>
+            <tr class="noborder">
+                <td colspan="2">
+                  <a href="javascript:void(0);" class="btn-search" ng-click="addRemarks()">
+                    <span>添加记录</span>
+                  </a>
+                </td>
+              </tr>
+            <tr>
+                <td style="border-top: none;">
+                    <table class="table tb-type2">
+                      <tbody class="tr-color">
+                        <tr style="background: #f1f3f6;">
+                          
+                          <td style="width: 140px;">备注时间</td>
+                          <td style="width: 120px;">备注人</td>
+                          <td>备注内容</td>
+                        </tr>
+                        <tr ng-show="demandDetail.memberDemandRemarksList && demandDetail.memberDemandRemarksList.length > 0" ng-repeat="list in demandDetail.memberDemandRemarksList | filter:{nick:searchNick} track by $index">
+                          <td>{{list.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                          <td>{{list.adminName}}</td>
+                          <td>{{list.remarks}}</td>
+                        </tr>
+                        <tr ng-show="!demandDetail.memberDemandRemarksList || demandDetail.memberDemandRemarksList.length == 0">
+                          <td colspan="20" class="norecord">
+                            <div class="warning-option">
+                              <i class="icon-warning-sign"></i>
+                              <span>{{loading_text}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="addDialog" style="display: none;margin-top: 10px;width: 360px;">
+    <form class="layui-form" name="addRemarksForm" role="form" novalidate style="overflow: hidden;">
+      <table class="table" style="margin-left:18px;overflow: hidden; ">
+        <tbody class="tr-color">
+          <tr>
+            <td colspan="2" class="required">
+              <label class="validation">备注信息:</label>
+              <span class="error" ng-show="addRemarksForm.remarks.$invalid && addRemarksForm.submitted">
+                <small ng-show="addRemarksForm.remarks.$error.required" class="error">
+                  <label>
+                    <i class="icon-exclamation-sign"></i>请填写备注信息</label>
+                </small>
+              </span>
+            </td>
+          </tr>
+          <tr class="noborder">
+            <td class="vatop rowform" style="position: relative;">
+              <textarea style="width: 300px;" rows="5" cols="20" maxlength="100" placeholder="请填写备注信息" name="remarks" required ng-model="remarks" class="layui-textarea"></textarea>
+              <span style="position: absolute;bottom: 15px;right: 30px;">{{remarks.length}}/100</span>
+            </td>
+            <td class="vatop tips"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="tfoot">
+            <td colspan="15">
+              <a href="JavaScript:void(0);" style="margin-left: 111px; " class="btn" id="submitBtn" ng-click="comfirmAdd()">
+                <span>确定</span>
+              </a>
+              <a href="JavaScript:void(0);" class="btn" ng-click="canelAdd()">
+                <span>取消</span>
+              </a>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </form>
+  
+  </div>

@@ -1,0 +1,14 @@
+<div class="input-group">
+    <select class="form-control" ng-model="provinceAreaId"  style="width:30%; display:inline-block;"
+            ng-options="province.area_id as province.name for province in provinces.elements">
+        <option value="">--请选择省份--</option>
+    </select>
+    <select  class="form-control" ng-model="cityAreaId" style="width:30%; display:inline-block;"
+             ng-options="city.area_id as city.name for city in cities.elements">
+        <option value="">--请选择城市--</option>
+    </select>
+    <select  class="form-control" ng-model="areaAreaId" style="width:30%; display:inline-block;"
+             ng-options="area.area_id as area.name for area in areas.elements">
+        <option value="">--请选择区域--</option>
+    </select>
+</div>

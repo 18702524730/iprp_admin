@@ -1,0 +1,119 @@
+<div class="page">
+  <div class="fixed-bar">
+      <div class="item-title">
+          <h3>合伙人管理</h3>
+          <ul class="tab-base">
+            <li mt-show-model model-name="IPRPBillTplListModel"><a href="JavaScript:void(0);" class="current"><span>合伙人列表</span></a></li>
+            <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/partner_home/partner_add"><span>手动创建合伙人</span></a></li>
+            <!-- <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/service_home/label_tpl_add"><span>添加</span></a></li> -->
+          </ul>
+      </div>
+  </div>
+  <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+            <tr>
+              <th><label>合伙人昵称:</label></th>
+              <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.nickname"></td>
+              <th><label>合伙人手机:</label></th>
+              <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.phone"></td>
+              <th><label>邮箱:</label></th>
+              <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.email"></td>
+              <th><label>合伙人店铺名:</label></th>
+              <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.storeName"></td>
+              <th><label>实名认证:</label></th>
+              <td>
+                <select ng-model="obj.isAuthentication" style="width: 140px;">
+                    <option value="">是否实名认证</option>
+                    <option value="1">已实名</option>
+                    <option value="0">未实名</option>
+                    <!-- <option value="1">个人合伙人</option> -->
+                </select>
+              </td>
+              <th><label>邀请人手机:</label></th>
+              <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.invitePhone"></td>
+            </tr>
+            <tr>
+              <th><label>创建时间：</label></th>
+              <td>
+                  <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="payTimeBegin" id="payTimeBegin" ng-model="payTimeBegin"
+                          max-date="payTimeEnd" style="cursor:pointer" readonly/>
+                  <label for="payTimeEnd">~</label>
+                  <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="payTimeEnd" id="payTimeEnd"  ng-model="payTimeEnd"
+                          data-start-date="payTimeBegin" style="cursor:pointer" readonly/>
+              </td>
+              <th><label>合伙人店铺状态:</label></th>
+              <td>
+                <select ng-model="obj.status" style="width: 140px;">
+                    <option value="">请选择主体类型</option>
+                    <option value="0">正常</option>
+                    <option value="1">冻结</option>
+                </select>
+              </td>
+              <th><label>账号类型:</label></th>
+              <td>
+                <select ng-model="obj.memberCreateType" style="width: 140px;">
+                    <option value="">请选择类型</option>
+                    <option value="1">自行申请</option>
+                    <option value="2">手动创建</option>
+                </select>
+              </td>
+              <td>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+  <form>
+      <table class="table tb-type2">
+          <thead>
+              <tr class="thead">
+                  <th class="align-center" style="width: 40px;">序号</th>
+                  <th class="align-center">合伙人昵称</th>
+                  <th class="align-center">合伙人手机</th>
+                  <th class="align-center">邮箱</th>
+                  <th style="width: 120px;" class="align-center">合伙人店铺名</th>
+                  <th style="width: 120px;" class="align-center">实名认证</th>
+                  <th style="width: 120px;" class="align-center">邀请人手机</th>
+                  <th class="align-center">创建时间</th>
+                  <th class="align-center">合伙人店铺状态</th>
+                  <th class="align-center">账号类型</th>
+                  <th class="align-center">操作</th>
+              </tr>
+          </thead>
+          <tbody class="tr-color">
+            <tr class="" ng-show="labelList.length > 0" class="hover" ng-repeat="list in labelList">
+                  <td class="align-center">
+                      <span >{{ $index+1 }}</span>
+                  </td>
+                  <td class="align-center">{{list.nickname}}</td>
+                  <td class="align-center" >{{ list.phone }}</td>
+                  <td class="align-center" >{{ list.email }}</td>
+                  <td class="align-center">{{list.storeName}}</td>
+                  <td class="align-center">{{ list.isAuthentication | isAuthenticationFil }}</td>
+                  <td class="align-center">{{ list.invitePhone || '--' }}</td>
+                  <td class="align-center">{{ list.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                  <td class="align-center">{{ list.status | partnerStoreStatusFil }}</td>
+                  <td class="align-center">{{ list.memberCreateType | memberType }}</td>
+                  <td class="align-center w120">
+                      <a href="JavaScript:void(0);" style="cursor: pointer" ng-click = "checkDetailFn(list.memberSn)">查看</a>
+                      <!-- <a href="JavaScript:void(0);" 
+                              style="cursor: pointer" ng-click = "checkDetailFn(list.memberSn)">冻结</a> -->
+                  </td>
+              </tr>
+              <tr ng-show="to_loading">
+                  <td colspan="20" class="norecord">
+                      <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                  </td>
+              </tr>
+          </tbody>
+          <tfoot ng-hide="to_loading">
+              <tr colspan="15" class="tfoot">
+                  <td colspan="19"><mt-pagination pagination-obj="pagination" form-page-one="true" ></mt-pagination></td>
+              </tr>
+          </tfoot>
+      </table>
+  </form>
+</div>

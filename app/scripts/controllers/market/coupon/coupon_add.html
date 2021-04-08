@@ -1,0 +1,137 @@
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title">
+      <h3>添加拾贝券</h3>
+      <ul class="tab-base">
+        <li><a href="#/main/market_home/coupon"><span>拾贝券列表</span></a></li>
+        <li><a href="JavaScript:void(0);" class="current"><span>添加优惠券</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- 基本资料 --> 
+  <form name="formSearch" class="merchant">
+    <table class="tb-type1 noborder search">
+      <tbody class="tr-color">
+        <tr>
+          <th><label style="font-size: 14px;color:#333;font-weight: bold;">拾贝券基本信息</label></th>
+        </tr>
+
+        <tr>
+          <th><label class="validation">券名称：</label></th>
+          <td>
+            <input type="text" placeholder="请填写拾贝券名称" ng-model="couponData.couponName" style="width: 200px;" maxlength="15" class="ng-pristine ng-untouched ng-valid ng-empty">
+            <p class="error ng-binding">{{errCouponName}}</p>
+          </td>
+        </tr>
+        <tr> 
+          <th><label class="validation">券类型：</label></th>
+          <td class="vatop">
+            <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="couponType" ng-model="couponData.couponType"
+             required value="1" ng-click="couponData.couponAmount = ''"/>升润券
+            <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="couponType" ng-model="couponData.couponType"
+             required value="2" ng-click="couponData.couponAmount = ''"/>提佣券
+            <p class="error">{{errCouponType}}</p>
+          </td>
+        </tr>
+        <tr ng-if="couponData.couponType == 1">
+          <th><label class="validation">升润比例：</label></th>
+          <td>
+            <input type="text" placeholder="输入50以内正整数" onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" ng-model="couponData.couponAmount" style="width: 200px;" maxlength="5" class="ng-pristine ng-untouched ng-valid ng-empty"><span>%</span>
+            <p class="error">{{errCouponAmount}}</p>
+          </td>
+        </tr>
+
+        <tr ng-if="couponData.couponType == 2">
+          <th><label class="validation">升润金额：</label></th>
+          <td>
+            <input type="text" placeholder="请填写升润金额" onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" ng-model="couponData.couponAmount" style="width: 200px;" maxlength="4" class="ng-pristine ng-untouched ng-valid ng-empty"><span>元</span>
+            <p class="error">{{errCouponAmount}}</p>
+          </td>
+        </tr>
+        <tr>
+          <th><label class="validation">使用对象：</label></th>
+          <td class="vatop">
+            <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="usageObj" ng-model="couponData.usageObj"
+               required value="1" />B端
+            <!-- <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="usageObj" ng-model="couponData.usageObj" required value="2" />C端 -->
+            <p class="error">{{errUsageObj}}</p>
+          </td>
+        </tr>
+        <tr>
+          <th><label class="validation">使用时限：</label></th>
+          <td class="vatop">
+            <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="applicableTimeType" ng-model="couponData.applicableTimeType"
+             required value="1" />固定时段
+            <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="applicableTimeType" ng-model="couponData.applicableTimeType"
+             required value="2" />领取日计时
+            <p class="error">{{errApplicableTimeType}}</p>
+          </td>
+        </tr>
+        
+
+
+        <tr ng-if="couponData.applicableTimeType == 2">
+          <th><label class="validation">领取后计时：</label></th>
+          <td>
+            <input type="text" placeholder="请填写领取时限" onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" ng-model="couponData.applicableTimeDay" style="width: 200px;" maxlength="2" class="ng-pristine ng-untouched ng-valid ng-empty"><span>日</span>
+            <p class="error">{{errTimes}}</p>
+          </td>
+        </tr>
+        <tr ng-show="couponData.applicableTimeType == 1">
+          <th><label class="validation">时间范围：</label></th>
+          <td>
+            <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="开始时间" name="startCouponTime" id="startCouponTime" ng-model="startCouponTime"
+                max-date="endCouponTime" style="cursor:pointer" readonly/>
+            <label>~</label>
+            <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="结束时间" name="endCouponTime" id="endCouponTime"  ng-model="endCouponTime"
+                    min-date="startCouponTime" style="cursor:pointer" readonly/>
+            <p class="error">{{errTimes}}</p>
+          </td>
+        </tr>
+
+        <tr>
+          <th><label class="validation">生成数量：</label></th>
+          <td>
+            <input type="text" placeholder="请填写生成数量" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" ng-model="couponData.couponNum" style="width: 200px;" maxlength="5" class="ng-pristine ng-untouched ng-valid ng-empty">
+            <p class="error">{{errCouponNum}}</p>
+          </td>
+        </tr>
+
+
+        <tr>
+          <th><label class="validation">重复领取：</label></th>
+          <td class="vatop">
+            <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="isRepeatGet" ng-model="couponData.isRepeatGet"
+               required value="1" />允许
+            <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="isRepeatGet" ng-model="couponData.isRepeatGet"
+               required value="0" />不允许
+            <p class="error">{{errCouponRepeatGet}}</p>
+          </td>
+        </tr>
+        <tr>
+          <th><label class="validation">适用商品：</label></th>
+          <td class="vatop">
+            <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="productType" ng-model="couponData.productType"
+               required value="1" />全部商品
+            <input class="radio_align" type="radio" ng-disabled="type == 'det'" name="productType" ng-model="couponData.productType"
+               required value="2" ng-click="checkFn()"/>特定商品
+            <p class="error">{{errProductType}}</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="name_list" ng-show="couponData.productType == 2 && productBol">
+      <p ng-repeat="item in allProductNumInfo track by $index">{{item.name}}<span class="ml5" ng-click="removeName($index)">X</span></p>
+      <p ng-click="checkFn()"><span style="font-size: 20px;line-height: 17px;">+</span></p>
+    </div>
+    <div class="btn_a mt20">
+      <a href="JavaScript:void(0);" class="btn" ng-click="addCouponInfo()"><span>确认添加</span></a>
+    </div>
+  </form>
+</div>
+<style>
+tbody tr th{vertical-align: -webkit-baseline-middle;}
+.name_list p{padding: 5px;background-color:#f2f2f2;border-radius: 3px;margin-right: 5px;display: inline-block;margin-bottom: 10px;}
+.name_list p span{width: 20px;height: 20px;background-color: #666;display: inline-block;color:#fff;text-align: center;line-height: 20px;border-radius: 20px;cursor: pointer;}
+.name_list{width: 800px;}
+</style>

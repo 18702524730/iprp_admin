@@ -1,0 +1,154 @@
+    <div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>用户黑名单管理</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPMemberListBlackModel"><a href="JavaScript:void(0);" class="current"><span>用户黑名单列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <form name="formSearch" id="formSearch">
+        <table class="tb-type1 noborder search">
+            <tbody class="tr-color">
+                <tr>
+                    <th><label>会员姓名：</label></th>
+                    <td><input type="text" value="" class="txt" placeholder="会员姓名" ng-model="user_account" maxlength="30"></td>
+                    <th><label>手机号码：</label></th>
+                    <td><input type="text" value="" class="txt" placeholder="手机号码" ng-model="phone" maxlength="11"></td>
+                    <th><label>邮箱：</label></th>
+                    <td><input type="text" value="" class="txt" placeholder="邮箱" ng-model="email" maxlength="30"></td>
+                    <th><label>创建时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" placeholder=""
+                               name="query_start_date" id="query_start_date" datepicker-popup ng-model="query_start_date" max="query_end_date" style="cursor:pointer" readonly/>
+                        <label for="query_end_date">~</label>
+                        <input type="text" class="txt date hasDatepicker" placeholder=""
+                               name="query_end_date" id="query_end_date" datepicker-popup ng-model="query_end_date" min="query_start_date" style="cursor:pointer" readonly/>
+                    </td>
+
+                    </tr>
+                     <tr>
+                    <th><label>主体名称：</label></th>
+                    <td><input type="text" value="" class="txt" placeholder="主体名称" ng-model="apply_subject_name" maxlength="30"></td>
+                    <th><label>主体类型：</label></th>
+                    <td>
+                        <select ng-model="apply_subject_type" style="width:120px">
+                            <option value="">请选择...</option>
+                            <option value="1">大陆个体</option>
+                            <option value="2">大陆企业</option>
+                            <option value="3">境外个体</option>
+                            <option value="4">境外企业</option>
+                        </select>
+                    </td>
+                    <th><label>渠道来源：</label></th>
+                    <td>
+                        <select ng-model="channel_code"
+                                ng-options="names.code as names.name for names in channel_list" style="width:120px">
+                            <option value="">请选择...</option>
+                        </select>
+                    </td>
+                    <th><label>最后登录时间：</label></th>
+                    <td>
+                        <input type="text" class="txt date hasDatepicker" placeholder=""
+                               name="query_start_datek" id="query_start_datek" datepicker-popup ng-model="query_start_datek" max="query_end_datek" style="cursor:pointer" readonly/>
+                        <label for="query_end_datek">~</label>
+                        <input type="text" class="txt date hasDatepicker" placeholder=""
+                               name="query_end_datek" id="query_end_datek" datepicker-popup ng-model="query_end_datek" min="query_start_datek" style="cursor:pointer" readonly/>
+                    </td>
+
+
+                    <td>
+                        <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd" >
+                <th colspan="12">
+                    <div class="title">
+                        <h5>操作提示</h5>
+                        <span  ng-show="hint" class="arrow" ng-click="hints()"></span>
+                        <span  ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                    </div>
+                </th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li>通过会员管理，你可以进行解冻或冻结或编辑会员和账号关联操作</li>
+                        <li>当会员详情企业信息待审核或者审核失败状态是可以编辑</li>
+                        <li>你可以根据条件搜索，然后选择相应的操作</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" style="width: 40px;">序号</th>
+                    <th class="align-center">用户编号</th>
+                    <th class="align-center">会员姓名</th>
+                    <th class="align-center">手机号</th>
+                    <th class="align-center">邮箱</th>
+                   <!--  <th class="align-center">公司名称</th> -->
+                    <th class="align-center">来源渠道</th>
+
+
+                    <th class="align-center">主体类型</th>
+                    <th class="align-center">主体名称</th>
+                  <!--    <th class="align-center">用户类型</th> -->
+                  <!--   <th class="align-center">状态</th> -->
+                    <th style="width: 120px" class="align-center">创建时间</th>
+                    <th style="width: 120px" class="align-center">最后登录时间</th>
+                    <th class="align-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+                <tr ng-show="member_list.length > 0" class="hover" ng-repeat="list in member_list">
+                    <td class="align-center">
+                        <span ng-bind="list.number"></span>
+                    </td>
+                    <td class="align-center" ng-bind="list.member_sn"></td>
+                    <td class="align-center" ng-bind="list.truename"></td>
+                    <td class="align-center" ng-bind="list.phone"></td>
+                    <td class="align-center" ng-bind="list.email"></td>
+               <!-- <td class="align-center" ng-bind="list.company_name"></td> -->
+                    <td class="align-center" ng-bind="list.channel_name"></td>
+
+
+                    <td class="align-center" ng-bind="list.default_apply_subject_type | memberApplySubjectFilter"></td>
+                    <td class="align-center" ng-bind="list.default_apply_subject_name"></td>
+             <!--   <td class="align-center" ng-bind="list.type | memberTypeFilter"></td> -->
+              <!--  <td class="align-center" ng-bind="list.status | memberStatusFilter"></td> -->
+                    <td class="align-center" ng-bind="list.create_time | date: 'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center" ng-bind="list.old_login_time | date: 'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td class="align-center w120">
+                       <!--
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPMemberDetailModel" style="cursor: pointer" ng-click = "member_detail(list.member_id)">查看</a>
+                        <a href style="cursor: pointer" ng-click="edit_member(list.member_id)">编辑</a>
+                        <a href="JavaScript:void(0);" mt-show-model model-name="IPRPMemberServiceModel" style="cursor: pointer" ng-click="member_service(list.member_id)">服务记录</a>
+                      -->
+                      <a href style="cursor: pointer" ng-click="merbers_thaw_detail(list.member_id)">解冻</a>
+                      <a href style="cursor: pointer" ng-click="merbers_frozen_detail(list.member_id)">冻结详情</a>
+                    </td>
+
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

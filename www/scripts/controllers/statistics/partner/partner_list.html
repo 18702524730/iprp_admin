@@ -1,0 +1,87 @@
+<div class="page">
+  <div class="fixed-bar">
+      <div class="item-title">
+          <h3>邀约达人统计</h3>
+          <ul class="tab-base">
+              <li mt-show-model model-name="IPRPBillTplListModel"><a href="JavaScript:void(0);" class="current"><span>邀约达人列表</span></a></li>
+              <!-- <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/service_home/label_tpl_add"><span>添加</span></a></li> -->
+          </ul>
+      </div>
+  </div>
+  <form name="formSearch" id="formSearch">
+    <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+            <tr>
+              <th><label>合伙人昵称:</label></th>
+              <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.partnerName"></td>
+              <th><label>合伙人手机号:</label></th>
+              <td><input type="text" value="" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="obj.partnerPhone"></td>
+              <td>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="search()">查询</a>
+                  <a href="javascript:void(0);" class="btn-search" ng-click="reset()">重置</a>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+  <form>
+      <table class="table tb-type2">
+          <thead>
+              <tr class="thead">
+                  <th class="align-center" style="width: 40px;">序号</th>
+                  <th class="align-center">合伙人昵称</th>
+                  <th class="align-center">合伙人手机</th>
+                  <th class="align-center invit" style="position: relative;">活动期邀请人数
+                    <a href="javascript:void(0);" class="iconWrap" ng-click="inviteClick()">
+                        <i class="fa fa-long-arrow-up"></i><i class="fa fa-long-arrow-down"></i>
+                    </a>
+                  </th>
+                  <th class="align-center openStore"  style="position: relative;">活动期开店人数
+                      <a href="javascript:void(0);" class="iconWrap" ng-click="openStoreClick()">
+                          <i class="fa fa-long-arrow-up"></i><i class="fa fa-long-arrow-down"></i>
+                      </a>
+                  </th>
+                  <th class="align-center orderNum"  style="position: relative;">已达成开单人数
+                      <a href="javascript:void(0);" class="iconWrap" ng-click="orderNumClick()">
+                          <i class="fa fa-long-arrow-up"></i><i class="fa fa-long-arrow-down"></i>
+                      </a>
+                  </th>
+                  <th class="align-center">拉新已入账</th>
+                  <th class="align-center">未入账</th>
+                  <th class="align-center">操作</th>
+              </tr>
+          </thead>
+          <tbody class="tr-color">
+            <tr ng-show="labelList.length > 0" class="hover" ng-repeat="list in labelList">
+                  <td class="align-center">{{list.number}}</td>
+                  <td class="align-center">{{list.partnerName}}</td>
+                  <td class="align-center">{{list.partnerPhone}}</td>
+                  <td class="align-center">{{list.inviteNumber}}</td>
+                  <td class="align-center">{{list.isOpenNumber}}</td>
+                  <td class="align-center">{{list.partnerInviteOrderNumber}}</td>
+                  <td class="align-center">{{list.enterAmount}}</td>
+                  <td class="align-center">{{list.noEnterAmount}}</td>
+                  <td class="align-center">
+                    <span style="cursor: pointer;" ng-click="handleClickDetail(list.memberSn)">查看</span>
+                  </td>
+              </tr>
+              <tr ng-show="to_loading">
+                  <td colspan="20" class="norecord">
+                      <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                  </td>
+              </tr>
+          </tbody>
+          <tfoot ng-hide="to_loading">
+              <tr colspan="15" class="tfoot">
+                  <td colspan="9"><mt-pagination pagination-obj="pagination" form-page-one="true"></mt-pagination></td>
+              </tr>
+          </tfoot>
+      </table>
+  </form>
+</div>
+<style>
+  .disabled {color: #eee; cursor: none;}
+  .iconWrap{display: inline-block;width: 20px;height: 20px;top: 8px;right: 5px;color: #bbb;}
+  .current{color: #68a4fe;}
+</style>

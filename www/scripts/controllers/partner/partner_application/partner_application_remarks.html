@@ -1,0 +1,93 @@
+<style>
+.layui-layer-page .layui-layer-content{
+    overflow: hidden;
+}
+</style>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>备注</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPServicerListModel"><a href="#/main/partner_home/partner_application"><span>渠道入驻申请</span></a></li>
+                <li mt-show-model model-name="IPRPServicerDetailModel"><a ng-href="#/main/partner_home/partner_application_detail/{{partner_id}}"><span>基本资料</span></a></li>
+                <li mt-show-model model-name="IPRPServicerDetailModel"><a href="JavaScript:void(0);"  class="current"><span>备注</span></a></li>
+                <!-- <li mt-show-model model-name="IPRPServicerDetailModel"><a href="JavaScript:void(0);" ><span>添加备注</span></a></li> -->
+            </ul>
+        </div>
+    </div>
+    <div style="padding-top: 8px;">
+        <a href="javascript:void(0);" class="btn-search" ng-click="addRemarks()">添加备注</a>
+    </div>
+    <form>
+        <table class="table tb-type2">
+            <thead>
+                <tr class="thead">
+                    <th class="align-center" style="width: 150px;">备注人</th>
+                    <th class="align-center"  style="width: 200px;">备注时间</th>
+                    <th class="align-center">备注内容</th>
+                </tr>
+            </thead>
+            <tbody class="tr-color">
+              <tr class="" ng-show="remarksList.length > 0" class="hover" ng-repeat="list in remarksList">
+
+                    <td class="align-center">欧阳志</td>
+                    <td class="align-center">2018-07-03 12:00:00</td>
+                    <td class="align-center">16666666666</td>
+
+                </tr>
+                <tr ng-show="to_loading">
+                    <td colspan="20" class="norecord">
+                        <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="to_loading">
+                <tr colspan="15" class="tfoot">
+                    <td colspan="19"><mt-pagination pagination-obj="pagination"></mt-pagination></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+  </div>
+
+  <div id="addDialog" style="display: none;margin-top: 10px;width: 360px;">
+      <form class="layui-form" name="addRemarksForm" role="form" novalidate>
+          <table class="table" style="margin-left:15px;overflow: hidden; ">
+                <tbody class="tr-color">
+                  <tr>
+                    <td colspan="2" class="required">
+                      <label class="validation">备注信息:</label>
+                      <span class="error" ng-show="addRemarksForm.remarks.$invalid && addRemarksForm.submitted">
+                          <small ng-show="addRemarksForm.remarks.$error.required" class="error">
+                              <label><i class="icon-exclamation-sign"></i>请选择审核状态</label>
+                          </small>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr class="noborder">
+                      <td class="vatop rowform">
+                            <textarea style="width: 300px;"
+                            rows="3" cols="20" placeholder="请填写备注信息"
+                            name="remarks"
+                            required
+                            ng-model="remarks" class="layui-textarea"></textarea>
+                      </td>
+                      <td class="vatop tips"></td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                        <tr class="tfoot">
+                          <td colspan="15">
+                            <a href="JavaScript:void(0);" style="margin-left: 110px; " class="btn" id="submitBtn" ng-click="comfirmAdd()">
+                              <span>确定</span>
+                            </a>
+                            <a href="JavaScript:void(0);" class="btn" ng-click="canelAdd()">
+                              <span>取消</span>
+                            </a>
+                          </td>
+                        </tr>
+                    </tfoot>
+              </table>
+      </form>
+
+  </div>

@@ -1,0 +1,65 @@
+<style>
+  .statstic_box {width: 500px; float: left;}
+  .statstic_box .item {width: 500px; height: 130px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 30px;}
+  .statstic_box .item .title {font-size: 16px; float: left; padding: 20px; color: #333;}
+  .statstic_box .item .num { text-align: right; font-size: 20px; color: #333; padding: 20px; margin-top: 20px; padding-top: 60px;}
+  .statstic_box_right{margin-left: 30px;}
+  .statstic_box_right .item .title{float: initial;padding: 10px 20px;}
+  .statstic_box_right .item .title > p{float: right;}
+  /* #iptcreateDate{border: none;background: #fff;} */
+  .iptdate{padding-top: 10px;}
+  .iptdate label{line-height: 24px;vertical-align: top;padding-left: 20px;}
+</style>
+
+<div class="page">
+  <div class="fixed-bar">
+      <div class="item-title">
+          <h3>珍珠发放</h3>
+          <ul class="tab-base">
+              <li mt-show-model model-name="IPRPBillTplListModel"><a href="JavaScript:void(0);" class="current"><span>统计</span></a></li>
+              <!-- <li mt-show-model model-name="IPRPBillTplListModel"><a href="#/main/service_home/label_tpl_add"><span>添加</span></a></li> -->
+          </ul>
+      </div>
+  </div>
+  <div class="statstic_box">
+      <h2>·  珍珠奖励</h2>
+    <div class="item">
+      <p class="title">已奖励珍珠总量</p>
+      <p class="num">{{ audit_data.sendScore }}</p>
+    </div>
+    <div class="item">
+      <p class="title">剩余珍珠数量</p>
+      <p class="num">{{ audit_data.surplusScore }}</p>
+    </div>
+    <h2>·  珍珠上链</h2>
+    <div class="item">
+      <p class="title">已上链珍珠数量</p>
+      <p class="num">{{ audit_data.onChainScore }}</p>
+    </div>
+    <div class="item">
+      <p class="title">待上链珍珠数量</p>
+      <p class="num">{{ audit_data.notOnChainScore }}</p>
+    </div>
+  </div>
+
+  <div class="statstic_box statstic_box_right">
+    <h2>·  珍珠生成</h2>
+    <div class="item">
+        <div class="title">生成珍珠总量 <p>{{iptCount.total}}</p></div>
+        <div class="title">有效珍珠总量<p>{{iptCount.effectiveIpt}}</p></div>
+        <div class="title">失效珍珠总量<p>{{iptCount.invalidIpt}}</p></div>
+    </div>
+    <h2>·  创力持有</h2>
+    <div class="item">
+        <!-- <div class="iptdate">
+          <label>日期：</label>
+          <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="createDate" id="iptcreateDate" ng-model="createDate" max-date="createDate" style="cursor:pointer" readonly/>
+          <input type="text" class="txt date hasDatepicker" datepicker-popup placeholder="" name="createDate" id="iptcreateDate" ng-model="createDate" max-date="createDate" style="cursor:pointer" readonly/>
+        </div> -->
+        <div class="title">全平台创力持有人数<p>{{iptPowerCount.memberNumber}}</p></div>
+        <div class="title">全平台创力总数<p>{{iptPowerCount.iPtPower}}</p></div>
+    </div>
+  </div>
+
+
+</div>

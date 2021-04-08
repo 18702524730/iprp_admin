@@ -1,0 +1,75 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>管家报告</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPOrderListModel"><a href="JavaScript:history.go(-1)"><span>订单列表</span></a></li>
+                <li mt-show-model model-name="IPRPOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看详情</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table tb-type2 order">
+        <tbody class="tr-color">
+            <tr class="space">
+                <th colspan="2">报告信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li>
+                            <strong>服务单号：</strong>
+                            {{report_detail.orderSn}}&nbsp;&nbsp;
+                        </li>
+                        <li><strong>类型：</strong>{{report_detail.type | keerperType}}</li>
+                        <li><strong>用户姓名：</strong>{{report_detail.memberDTO.truename}}</li>
+                        <li><strong>注册手机号：</strong>{{report_detail.memberDTO.phone}}</li>
+                        <li><strong>购买时间：</strong>{{report_detail.buyTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                        <li><strong>申请时间：</strong>{{report_detail.applyTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                        <li><strong>联系状态：</strong>{{report_detail.contactState | contactState}}</li>
+                        <li><strong>报告状态：</strong>{{report_detail.state | keerperState}}</li>
+                        <li>
+                            <a ng-href="{{adminUrl+'/iprp_operator/api/downFile?access_token='+token+'&url='+report_detail.url}}" ng-if="report_detail.url" class="button upload-btn" target="_blank">报告下载</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="space">
+                <th colspan="2">申请信息</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>企业名称：</strong>{{report_detail.companyName}}</li>
+                        <li><strong>联系人姓名：</strong>{{report_detail.contactName}}</li>
+                        <li><strong>联系人号码：</strong>{{report_detail.contactPhone}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><strong>备注信息：</strong></li>
+                    </ul>
+                    <ul>
+                        <p>{{report_detail.memo}}</p>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<style>
+.upload-btn {
+    width: 66px;
+    height: 23px;
+    text-align: center;
+    line-height: 23px;
+    background-color: #eee;
+    cursor: pointer; 
+    background-color: #68a4fe;
+    color:#fff;
+    border-radius: 5px;
+}
+.upload-btn:hover{color:#fff;}
+
+</style>

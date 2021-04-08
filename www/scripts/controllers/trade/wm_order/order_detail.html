@@ -1,0 +1,281 @@
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<h3>境外贸易工单管理</h3>
+			<ul class="tab-base">
+				<li mt-show-model model-name="IPRPBsOrderListModel"><a href="JavaScript:history.go(-1)"><span>订单列表</span></a></li>
+				<li mt-show-model model-name="IPRPBsOrderDetailModel"><a href="JavaScript:void(0);" class="current"><span>查看</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<table class="table tb-type2 order">
+		<tbody class="tr-color">
+			<tr class="space">
+				<th colspan="2">基本信息</th>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li><strong>工单号：</strong>{{order_detail.basicInfo.workOrderSn}}</li>
+						<li><strong>任务号：</strong>{{order_detail.basicInfo.taskId}}</li>
+						<li><strong>服务号：</strong>{{order_detail.basicInfo.serviceId}}</li>
+						<li><strong>服务分类：</strong>{{order_detail.basicInfo.bsClassName}}</li>
+						<li><strong>服务名称：</strong>{{order_detail.basicInfo.bsName}}</li>
+						<li><strong>金额：</strong>{{order_detail.basicInfo.orderAmount | number:2}}</li>
+						<li><strong>下单时间：</strong>{{order_detail.basicInfo.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+						<li><strong>支付状态：</strong>{{order_detail.basicInfo.payState | paymentStatusFilter}}</li>
+						<!-- <li><strong>支付方式：</strong>{{order_detail.payment_name}}</li> -->
+						<li><strong>支付时间：</strong>{{order_detail.basicInfo.payTime | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="space">
+          <th colspan="2">客户信息</th>
+      </tr>
+      <tr>
+          <td>
+              <ul>
+              		<li><strong>绑定拾贝网：</strong>{{order_detail.custInfo.isBind ? '已绑定' : '未绑定'}}</li>
+              		<li><strong>用户昵称：</strong>{{order_detail.custInfo.nickname}}</li>
+              		<li><strong>所属行业：</strong>{{order_detail.custInfo.industry}}</li>
+                  <li><strong>姓名：</strong>{{order_detail.custInfo.name}}</li>
+                  <li><strong>QQ：</strong>{{order_detail.custInfo.qq || '--'}}</li>
+                  <li><strong>性别：</strong>{{order_detail.custInfo.sex|memberSexFilter}}</li>
+                  <li><strong>微信号：</strong>{{order_detail.custInfo.weixin || '--'}}</li>
+                  <li><strong>手机号码：</strong>{{order_detail.custInfo.phone}}</li>
+              </ul>
+          </td>
+      </tr>
+			<tr class="space">
+				<th colspan="2">联系人信息</th>
+			</tr>
+			<tr ng-if="order_detail.contactInfo">
+				<td>
+					<ul>
+						<li><strong>联系人姓名：</strong>{{order_detail.contactInfo.contactName}}</li>
+						<li><strong>联系人电话：</strong>{{order_detail.contactInfo.contactPhone}}</li>
+						<li><strong>联系人邮箱：</strong>{{order_detail.contactInfo.contactEmail}}</li>
+						<li><strong>联系人邮编：</strong>{{order_detail.contactInfo.contactZipCode}}</li>
+						<li><strong>联系人地址：</strong>{{order_detail.contactInfo.contactAddress}}</li>
+					</ul>
+				</td>
+			</tr>
+			<tr ng-if="!order_detail.contactInfo">
+				<td>
+					<ul>
+						<li>空</li>
+					</ul>
+				</td>
+			</tr>
+			<tr class="space" ng-show="order_detail.applySubject">
+				<th colspan="2">主体信息</th>
+			</tr>
+			<tr ng-show="order_detail.applySubject">
+				<td ng-show="order_detail.applySubject.applyType == 1">
+					<ul>
+						<li><strong>企业类型：</strong>{{order_detail.applySubject.applyType|wmApplyTypeFilter}}</li>
+						<li><strong>申请人姓名：</strong>{{order_detail.applySubject.applyName}}</li>
+						<!-- <li><strong>申请人身份证号：</strong>{{order_detail.applySubject.order_apply_number}}</li> -->
+						<li><strong>申请人手机号：</strong>{{order_detail.applySubject.applyPhone}}</li>
+						<li><strong>申请人邮箱：</strong>{{order_detail.applySubject.applyEmail}}</li>
+						<li><strong>申请人邮编：</strong>{{order_detail.applySubject.applyZipCode}}</li>
+						<li><strong>申请人地址：</strong>{{order_detail.applySubject.applyAddress}}</li>
+						<li ng-if="order_detail.applySubject.standby1"><strong>身份证：</strong><a href="{{order_detail.applySubject.standby1}}" target="_blank">身份证</a></li>
+						<li ng-if="order_detail.applySubject.standby2"><strong>营业执照：</strong><a href="{{order_detail.applySubject.standby2}}" target="_blank">营业执照</a></li>
+					</ul>
+				</td>
+				<td ng-show="order_detail.applySubject.applyType == 2">
+					<ul>
+						<li><strong>企业类型：</strong>{{order_detail.applySubject.applyType|wmApplyTypeFilter}}</li>
+						<li><strong>企业邮箱：</strong>{{order_detail.applySubject.applyEmail}}</li>
+						<li><strong>邮政编码：</strong>{{order_detail.applySubject.applyZipCode}}</li>
+						<!-- <li><strong>企业营业执照编号：</strong>{{order_detail.applySubject.order_apply_number}}</li> -->
+						<li><strong>企业联系电话：</strong>{{order_detail.applySubject.applyPhone}}</li>
+						<li><strong>申请企业名称：</strong>{{order_detail.applySubject.applyName}}</li>
+						<li><strong>企业注册地址：</strong>{{order_detail.applySubject.applyAddress}}</li>
+						<li ng-if="order_detail.applySubject.standby1"><strong>营业执照：</strong><a href="{{order_detail.applySubject.standby1}}" target="_blank">营业执照</a></li>
+					</ul>
+				</td>
+				<td ng-show="order_detail.applySubject.applyType == 3">
+					<ul>
+						<li><strong>企业类型：</strong>{{order_detail.applySubject.applyType|wmApplyTypeFilter}}</li>
+						<!-- <li><strong>申请人姓名（英文）：</strong>{{order_detail.applySubject.order_name_en}}</li> -->
+						<li><strong>申请人姓名（中文）：</strong>{{order_detail.applySubject.applyName}}</li>
+						<!-- <li><strong>申请人护照号：</strong>{{order_detail.applySubject.order_apply_number}}</li> -->
+						<li><strong>申请人联系电话：</strong>{{order_detail.applySubject.applyPhone}}</li>
+						<li><strong>申请人邮箱：</strong>{{order_detail.applySubject.applyEmail}}</li>
+						<li><strong>申请人传真：</strong>{{order_detail.applySubject.applyFax}}</li>
+						<li><strong>申请人邮编：</strong>{{order_detail.applySubject.applyZipCode}}</li>
+						<li><strong>申请人地址：</strong>{{order_detail.applySubject.applyAddress}}</li>
+						<li ng-if="order_detail.applySubject.standby1"><strong>护照复印件：</strong><a href="{{order_detail.applySubject.standby1}}" target="_blank">护照复印件</a></li>
+						<li ng-if="order_detail.applySubject.standby2"><strong>护照中译本：</strong><a href="{{order_detail.applySubject.standby2}}" target="_blank">护照中译本</a></li>
+					</ul>
+				</td>
+				<td ng-show="order_detail.applySubject.applyType == 4">
+					<ul>
+						<li><strong>企业类型：</strong>{{order_detail.applySubject.applyType|wmApplyTypeFilter}}</li>
+						<!-- <li><strong>企业名称（英文）：</strong>{{order_detail.applySubject.order_name_en}}</li> -->
+						<li><strong>企业名称（中文）：</strong>{{order_detail.applySubject.applyName}}</li>
+						<li><strong>企业联系电话：</strong>{{order_detail.applySubject.applyPhone}}</li>
+						<li><strong>企业邮箱：</strong>{{order_detail.applySubject.applyEmail}}</li>
+						<li><strong>企业传真：</strong>{{order_detail.applySubject.applyFax}}</li>
+						<li><strong>企业注册地址：</strong>{{order_detail.applySubject.applyAddress}}</li>
+						<li ng-if="order_detail.applySubject.standby1"><strong>企业登记证件：</strong><a href="{{order_detail.applySubject.standby1}}" target="_blank">企业登记证件</a></li>
+						<li ng-if="order_detail.applySubject.standby2"><strong>登记证件中译本：</strong><a href="{{order_detail.applySubject.standby2}}" target="_blank">登记证件中译本</a></li>
+					</ul>
+				</td>
+			</tr>
+
+			<tr class="space">
+				<th colspan="2">服务信息</th>
+			</tr>
+			<tr ng-show="order_detail.serviceProvider">
+				<td colspan="2">
+					<div style="padding:5px 10px 10px;color: #333;">服务商信息：</div>
+					<ul style="width: 100%;padding: 0 10px;">
+						<li>
+							<strong>服务商名称：</strong>{{order_detail.serviceProvider.sp_name || '空'}}
+							<!-- <a mt-show-model model-name="IPRPSetServicerModel" href="JavaScript:void(0);" class="setup" ng-click="refund_setup(order_detail,setupList)">
+								<span>设置服务商</span>
+							</a> -->
+						</li>
+
+						<li><strong>服务商识别码：</strong>{{order_detail.serviceProvider.idCode}} </li>
+						<li><strong>服务商账号：</strong>{{order_detail.serviceProvider.sp_account}} </li>
+						<li><strong>绑定创新保账号：</strong>{{order_detail.serviceProvider.thirdAccount}} </li>
+					</ul>
+				</td>
+			</tr>
+			<tr ng-show="!order_detail.serviceProvider">
+				<td colspan="2">
+					<ul style="width: 100%;padding: 0 10px;">
+						<li>空</li>
+					</ul>
+				</td>
+			</tr>
+
+			<tr ng-show="order_detail.spFeedbacks">
+				<td style="padding: 5px 0 20px!important">
+					<div style="padding:5px 15px 10px;color: #333;">服务商设置记录：</div>
+					<table id="table_category" class="type" style="width:100%">
+						<thead>
+							<tr>
+								<th class="alignleft" width="160">操作时间</th>
+								<th class="alignleft" width="160">设置前服务商</th>
+								<th class="alignleft" width="160">设置后服务商</th>
+								<th class="alignleft" width="160">操作人</th>
+								<th class="alignleft">备注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-show="order_detail.spFeedbacks.length > 0" ng-repeat="detail in order_detail.spFeedbacks">
+								<td class="alignleft" ng-bind="detail.operating_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+								<td class="alignleft" ng-bind="detail.operating_start_sp"></td>
+								<td class="alignleft" ng-bind="detail.operating_end_sp"></td>
+								<td class="alignleft" ng-bind="detail.operator"></td>
+								<td class="alignleft" ng-bind="detail.memo"></td>
+							</tr>
+							<tr ng-show="order_detail.spFeedbacks.length == 0">
+								<td colspan="5">暂无记录</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+
+			<!-- <tr ng-show="order_detail.order_state>0">
+				<td colspan="2">
+					<div style="padding:5px 10px 10px;color: #333;">服务跟踪：</div>
+					<ul style="width: 100%;padding: 0 10px;">
+						<li><strong>当前服务状态：</strong>{{order_detail.order_feedback_state || '--'}} <span class="setup" ng-show="order_detail.feedback_stage<90 && order_detail.bs_code != 'sbfw_gnsb_zs'" ng-click="setServiceState(order_detail)">设置服务状态</span></li>国内商标在中台设置服务状态
+						<li><strong>代理人：</strong>{{order_detail.sp_account}} </li>
+						<li><strong>备注：</strong>{{order_detail.sp_account}} </li>
+					</ul>
+				</td>
+			</tr>
+			<tr ng-show="order_detail.order_state>0">
+				<td style="padding: 5px 0 20px!important">
+					<div style="padding:5px 15px 10px;color: #333;">服务设置记录：</div>
+					<table id="table_category" class="type" style="width:100%">
+						<thead>
+							<tr>
+								<th class="alignleft" width="160">操作时间</th>
+								<th class="alignleft" width="160">操作前状态</th>
+								<th class="alignleft" width="160">操作后状态</th>
+								<th class="alignleft" width="160">操作人</th>
+								<th class="alignleft">备注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-show="order_detail.feedbacks.length > 0" ng-repeat="detail in order_detail.feedbacks">
+								<td class="alignleft" ng-bind="detail.operating_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+								<td class="alignleft" ng-bind="detail.operating_satrt_state"></td>
+								<td class="alignleft" ng-bind="detail.operating_end_state"></td>
+								<td class="alignleft" ng-bind="detail.operator"></td>
+								<td class="alignleft" ng-bind="detail.memo"></td>
+							</tr>
+							<tr ng-show="order_detail.feedbacks.length == 0">
+								<td colspan="5">暂无记录</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr class="space" ng-show="order_detail.refunds.length > 0  && order_detail.order_state>0">
+				<th colspan="2">售后信息</th>
+			</tr>
+			<tr ng-show="order_detail.refunds.length > 0  && order_detail.order_state>0">
+				<td>
+					<ul>
+						<li><strong>当前售后状态：</strong>{{order_detail.refund_state_description}} </li>
+					</ul>
+				</td>
+			</tr>
+			<tr ng-show="order_detail.order_state>0">
+				<td style="padding: 5px 0 20px!important">
+					<div style="padding:5px 20px 10px;color: #888;">售后记录：</div>
+					<table id="table_category" class="type" style="width:100%">
+						<thead>
+							<tr>
+								<th class="alignleft" width="160">操作时间</th>
+								<th class="alignleft" width="160">操作</th>
+								<th class="alignleft" width="160">操作后状态</th>
+								<th class="alignleft" width="160">金额</th>
+								<th class="alignleft" width="160">操作人</th>
+								<th class="alignleft" width="160">退款原因</th>
+								<th class="alignleft">备注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-show="order_detail.refunds.length > 0" ng-repeat="detail in order_detail.refunds">
+								<td class="alignleft" ng-bind="detail.operating_time | date:'yyyy-MM-dd HH:mm:ss'"></td>
+								<td class="alignleft" ng-bind="detail.operating_state_description"></td>
+								<td class="alignleft" ng-bind="detail.operating_end_state_description"></td>
+								<td class="alignleft" ng-bind="detail.refund_amount===0 ? '--' : (detail.refund_amount|number:2)"></td>
+								<td class="alignleft" ng-bind="detail.operator"></td>
+								<td class="alignleft"><a href="" ng-click="refund_reason(detail)">查看</a></td>
+								<td class="alignleft" ng-bind="detail.refund_return_message"></td>
+							</tr>
+							<tr ng-show="order_detail.refunds.length == 0">
+								<td colspan="7">暂无记录</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr> -->
+		</tbody>
+		<!-- <tfoot>
+			<tr class="tfoot">
+				<td>
+					<a href="JavaScript:void(0);" ng-show="order_detail.distributeType === 1" ng-click="back_order(order_detail.order_id,order_detail.distributeType)" class="btn" id="submitBtn"><span>收回订单</span></a>
+					<a href="JavaScript:void(0);" ng-show="order_detail.distributeType === 0" ng-click="allot_order(order_detail.order_id,order_detail.bs_id)" class="btn"><span>分配服务商</span></a>
+				</td>
+			</tr>
+		</tfoot> -->
+	</table>
+</div>
+<style>
+	.setup{padding: 5px 10px;background-color: #e6e8ee;border-radius: 3px;color: #78829b;cursor: pointer;}
+	.setup:hover{color: #fff;background-color: #68a4fe}
+	.order li a{color: #68a4fe;}
+</style>

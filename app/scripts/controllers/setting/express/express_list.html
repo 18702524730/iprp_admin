@@ -1,0 +1,98 @@
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <h3>物流公司</h3>
+            <ul class="tab-base">
+                <li mt-show-model model-name="IPRPExpressListModel"><a class="current"><span>物流公司列表</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="tb-type1 noborder search">
+        <tbody class="tr-color">
+            <tr>
+                <th>首字母</th>
+                <td>
+                    <div ng-repeat="let in letters" style="float: left">
+                        <a ng-click="expressLetter(let.ter)" style="cursor: pointer;color:#0D93BF">{{let.ter}}</a>&nbsp;&nbsp;
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table tb-type2" id="prompt">
+        <tbody class="tr-color">
+            <tr class="space odd">
+                <th colspan="12">
+                    <div class="title"><h5>操作提示</h5>
+                        <span ng-show="hint" class="arrow" ng-click="hints()"></span>
+                        <span ng-hide="hint" class="arrow up" ng-click="hints()"></span>
+                    </div>
+                </th>
+            </tr>
+            <tr class="odd" ng-show="hint">
+                <td>
+                    <ul>
+                        <li>系统内置的物流公司不得删除，只可编辑状态，平台可禁用不需要的物流公司</li>
+                        <li>默认按常用进行排序，常用的物流公司将会排在靠前位置</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table tb-type2">
+        <thead>
+            <tr class="thead">
+                <th class="w24"></th>
+                <th class="w270">物流公司</th>
+                <th class="w270">首字母</th>
+                <th class="w270">网址 (仅供参考)</th>
+                <th class="align-center">常用</th>
+                <th class="align-center">状态</th>
+            </tr>
+        </thead>
+        <tbody class="tr-color">
+            <tr ng-show="expressList.length>0" ng-repeat="express in expressList">
+                <td></td>
+                <td>{{express.name}}</td>
+                <td>{{express.e_letter}}</td>
+                <td>{{express.url}}</td>
+                <td ng-show="express.is_order === true" class="align-center yes-onoff">
+                    <a href="" ng-click="expressOrder(express.is_order,express.express_id)" class="enabled" ajax_branch="order" ng-model="express.is_order" nc_type="inline_edit" fieldname="is_order" fieldid="express.express_id" fieldvalue="1" title="可编辑"><img src="images/transparent.gif"></a>
+                </td>
+                <td ng-show="express.is_order === false" class="align-center yes-onoff">
+                    <a href="" ng-click="expressOrder(express.is_order,express.express_id)" class="disabled" ajax_branch="order" ng-model="express.is_order" nc_type="inline_edit" fieldname="is_order" fieldid="express.express_id" fieldvalue="0" title="可编辑"><img src="images/transparent.gif"></a>
+                </td>
+                <td ng-show="express.state === 1" class="align-center yes-onoff">
+                    <a href="" ng-click="expressState(express.state,express.express_id)" class="enabled" ajax_branch="state" ng-model="express.state" nc_type="inline_edit" fieldname="state" fieldid="express.express_id" fieldvalue="1" title="可编辑"><img src="images/transparent.gif"></a>
+                </td>
+                <td ng-show="express.state === 0" class="align-center yes-onoff">
+                    <a href="" ng-click="expressState(express.state,express.express_id)" class="disabled" ajax_branch="state" ng-model="express.state" nc_type="inline_edit" fieldname="state" fieldid="express.express_id" fieldvalue="0" title="可编辑"><img src="images/transparent.gif"></a>
+                </td>
+                <!--<td mt-show-model model-name="IPRPUpdateExpressModel" ng-show="express.is_order === true" class="align-center yes-onoff">-->
+                    <!--<a href="" ng-click="expressOrder(express.is_order,express.express_id)" class="enabled" ajax_branch="order" ng-model="express.is_order" nc_type="inline_edit" fieldname="is_order" fieldid="express.express_id" fieldvalue="1" title="可编辑"><img src="images/transparent.gif"></a>-->
+                <!--</td>-->
+                <!--<td mt-show-model model-name="IPRPUpdateExpressModel" ng-show="express.is_order === false" class="align-center yes-onoff">-->
+                    <!--<a href="" ng-click="expressOrder(express.is_order,express.express_id)" class="disabled" ajax_branch="order" ng-model="express.is_order" nc_type="inline_edit" fieldname="is_order" fieldid="express.express_id" fieldvalue="0" title="可编辑"><img src="images/transparent.gif"></a>-->
+                <!--</td>-->
+                <!--<td mt-show-model model-name="IPRPUpdateExpressModel" ng-show="express.state === 1" class="align-center yes-onoff">-->
+                    <!--<a href="" ng-click="expressState(express.state,express.express_id)" class="enabled" ajax_branch="state" ng-model="express.state" nc_type="inline_edit" fieldname="state" fieldid="express.express_id" fieldvalue="1" title="可编辑"><img src="images/transparent.gif"></a>-->
+                <!--</td>-->
+                <!--<td mt-show-model model-name="IPRPUpdateExpressModel" ng-show="express.state === 0" class="align-center yes-onoff">-->
+                    <!--<a href="" ng-click="expressState(express.state,express.express_id)" class="disabled" ajax_branch="state" ng-model="express.state" nc_type="inline_edit" fieldname="state" fieldid="express.express_id" fieldvalue="0" title="可编辑"><img src="images/transparent.gif"></a>-->
+                <!--</td>-->
+            </tr>
+            <tr ng-show="to_loading">
+                <td colspan="20" class="norecord">
+                    <div class="warning-option"><i class="icon-warning-sign"></i><span>{{loading_text}}</span></div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-hide="to_loading">
+            <tr colspan="15" class="tfoot">
+                <td colspan="6">
+                    <mt-pagination pagination-obj="pagination"></mt-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
